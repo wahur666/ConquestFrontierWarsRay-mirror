@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>ConquestFrontierWarsRay.Runtime.Collision</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ConquestSharp\DACOM\DACOM.csproj" />
+    <ProjectReference Include="..\..\..\ConquestSharp\DOSFile\DOSFile.csproj" />
+    <ProjectReference Include="..\..\..\ConquestSharp\Engine\Engine.csproj" />
+    <ProjectReference Include="..\..\..\ConquestSharp\Math3D\Math3D.csproj" />
+    <ProjectReference Include="..\..\..\ConquestSharp\System\System.csproj" />
+  </ItemGroup>
+</Project>
