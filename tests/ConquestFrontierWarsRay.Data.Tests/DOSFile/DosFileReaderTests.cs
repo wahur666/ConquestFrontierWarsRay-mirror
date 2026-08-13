@@ -75,7 +75,8 @@ public sealed class DosFileReaderTests {
 	private static string GetRepoRoot() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
-			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.csproj")) &&
+			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx")) &&
+			    File.Exists(Path.Combine(current.FullName, "src", "AppHost", "ConquestFrontierWarsRay.csproj")) &&
 			    Directory.Exists(Path.Combine(current.FullName, "DB")) &&
 			    Directory.Exists(Path.Combine(current.FullName, "tests", "ConquestFrontierWarsRay.Data.Tests", "utfArchives"))) {
 				return current.FullName;

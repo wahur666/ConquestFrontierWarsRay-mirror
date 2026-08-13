@@ -110,7 +110,8 @@ public static class UtfDbXmlParityTestSupport
         while (current is not null)
         {
             if (Directory.Exists(Path.Combine(current.FullName, "DB", "xml")) &&
-                File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay", "ConquestFrontierWarsRay.csproj")))
+                File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay", "ConquestFrontierWarsRay.slnx")) &&
+                File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay", "src", "AppHost", "ConquestFrontierWarsRay.csproj")))
             {
                 return Path.Combine(current.FullName, "ConquestFrontierWarsRay");
             }

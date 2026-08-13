@@ -3,6 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
     <RootNamespace>ConquestFrontierWarsRay</RootNamespace>
+    <AssemblyName>ConquestFrontierWarsRay</AssemblyName>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <UseWindowsForms>true</UseWindowsForms>
@@ -13,17 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Fonts\**\*">
+    <None Include="..\..\Fonts\**\*">
+      <Link>Fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="src\**\*.cs" />
-    <Compile Remove="tests\**\*.cs" />
-    <EmbeddedResource Remove="src\**\*" />
-    <EmbeddedResource Remove="tests\**\*" />
-    <None Include="src\**\*" Exclude="src\**\bin\**;src\**\obj\**" />
-    <None Include="tests\**\*" Exclude="tests\**\bin\**;tests\**\obj\**" />
   </ItemGroup>
 </Project>
