@@ -16,36 +16,36 @@ public class Win32Window
 	private const int GWLP_WNDPROC = -4;
 	private const int TIMER_ID = 1;
 
-	private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+	private delegate nint WndProcDelegate(nint hWnd, uint msg, nint wParam, nint lParam);
 
-	private readonly IntPtr hwnd;
-	private readonly IntPtr originalProc;
+	private readonly nint hwnd;
+	private readonly nint originalProc;
 	private readonly WndProcDelegate newProcDelegate;
-	private readonly Action onRedrawNeeded;
+	private readonly Action onTick;
 
-	public Win32Window(Action onRedrawNeeded)
+	public Win32Window(Action onTick)
 	{
-		this.onRedrawNeeded = onRedrawNeeded;
+		this.onTick = onTick;
 
 		hwnd = GetForegroundWindow();
 
 		newProcDelegate = WindowProc;
-		IntPtr newProcPtr = Marshal.GetFunctionPointerForDelegate(newProcDelegate);
+		nint newProcPtr = Marshal.GetFunctionPointerForDelegate(newProcDelegate);
 		originalProc = SetWindowLongPtr(hwnd, GWLP_WNDPROC, newProcPtr);
 	}
 
-	private IntPtr WindowProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+	private nint WindowProc(nint hWnd, uint msg, nint wParam, nint lParam)
 	{
 		switch (msg)
 		{
 			case WM_ENTERSIZEMOVE:
-				SetTimer(hWnd, (IntPtr)TIMER_ID, 1, IntPtr.Zero);
+				SetTimer(hWnd, TIMER_ID, 1, nint.Zero);
 				break;
 			case WM_EXITSIZEMOVE:
-				KillTimer(hWnd, (IntPtr)TIMER_ID);
+				KillTimer(hWnd, TIMER_ID);
 				break;
 			case WM_TIMER:
-				onRedrawNeeded();
+				onTick();
 				break;
 		}
 
@@ -53,17 +53,17 @@ public class Win32Window
 	}
 
 	[DllImport("user32.dll")]
-	private static extern IntPtr GetForegroundWindow();
+	private static extern nint GetForegroundWindow();
 
 	[DllImport("user32.dll")]
-	private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+	private static extern nint SetWindowLongPtr(nint hWnd, int nIndex, nint dwNewLong);
 
 	[DllImport("user32.dll")]
-	private static extern IntPtr CallWindowProc(IntPtr lpPrevWndFunc, IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+	private static extern nint CallWindowProc(nint lpPrevWndFunc, nint hWnd, uint msg, nint wParam, nint lParam);
 
 	[DllImport("user32.dll")]
-	private static extern bool SetTimer(IntPtr hWnd, IntPtr nIDEvent, uint uElapse, IntPtr lpTimerFunc);
+	private static extern bool SetTimer(nint hWnd, nint nIDEvent, uint uElapse, nint lpTimerFunc);
 
 	[DllImport("user32.dll")]
-	private static extern bool KillTimer(IntPtr hWnd, IntPtr uIDEvent);
+	private static extern bool KillTimer(nint hWnd, nint uIDEvent);
 }

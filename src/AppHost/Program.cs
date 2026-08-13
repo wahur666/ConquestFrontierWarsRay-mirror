@@ -1,22 +1,45 @@
 using System;
+using System.IO;
+using System.Linq;
 using Raylib_cs;
 
 namespace ConquestFrontierWarsRay;
 
 internal static class Program
 {
+	private static Music currentTrack;
+
 	static void Main()
 	{
 		Raylib.InitWindow(800, 450, "raylib-cs");
+		Raylib.InitAudioDevice();
 
-		var win32 = new Win32Window(onRedrawNeeded: Draw);
+		string ostDirectory = Path.Combine(AppContext.BaseDirectory, "conquest_frontier_wars_ost");
+		string firstTrackPath = Directory
+			.EnumerateFiles(ostDirectory, "*.mp3", SearchOption.TopDirectoryOnly)
+			.OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
+			.First();
+		currentTrack = Raylib.LoadMusicStream(firstTrackPath);
+		Raylib.SetMusicVolume(currentTrack, 0.5f);
+		Raylib.PlayMusicStream(currentTrack);
+
+		var win32 = new Win32Window(onTick: Tick);
 
 		while (!Raylib.WindowShouldClose())
 		{
-			Draw();
+			Tick();
 		}
 
+		Raylib.StopMusicStream(currentTrack);
+		Raylib.UnloadMusicStream(currentTrack);
+		Raylib.CloseAudioDevice();
 		Raylib.CloseWindow();
+	}
+
+	static void Tick()
+	{
+		Raylib.UpdateMusicStream(currentTrack);
+		Draw();
 	}
 
 	static void Draw()
@@ -33,6 +56,7 @@ internal static class Program
 		Raylib.BeginDrawing();
 		Raylib.ClearBackground(Color.Black);
 		Raylib.DrawText("Rendering while dragging!", 20, 20, 20, Color.DarkGray);
+		Raylib.DrawText("Playing first OST track at 50% volume", 20, 48, 20, Color.DarkGray);
 		Raylib.DrawCircle((int)x, (int)y, 25, Color.Maroon);
 		Raylib.EndDrawing();
 	}
