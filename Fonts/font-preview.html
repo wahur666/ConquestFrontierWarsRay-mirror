@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConquestFrontierWarsRay Font Browser Preview</title>
+  <style>
+    @font-face {
+      font-family: "Arial Narrow Preview";
+      src: url("./arialnarrow.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Arial Narrow Preview";
+      src: url("./arialnarrow_bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "BauhausMdITCTT Preview";
+      src: url("./bauhmib.ttf") format("truetype");
+      font-weight: 400 900;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "OCR A Extended Preview";
+      src: url("./OCRAEXT.TTF") format("truetype");
+      font-weight: 400 900;
+      font-style: normal;
+    }
+
+    :root {
+      color-scheme: light;
+      --page-bg: #f3f3f5;
+      --panel-bg: #ffffff;
+      --text-main: #17181c;
+      --text-muted: #6a707d;
+      --line: #d7d9df;
+      --accent: #244f7c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--page-bg);
+      color: var(--text-main);
+    }
+
+    .page {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 20px 0 40px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(243, 243, 245, 0.95);
+      backdrop-filter: blur(6px);
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .meta {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    label {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+
+    select {
+      min-width: 180px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--panel-bg);
+      color: var(--text-main);
+      font: inherit;
+    }
+
+    .summary {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .preview-list {
+      display: grid;
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .preview-card {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel-bg);
+    }
+
+    .preview-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: baseline;
+    }
+
+    .preview-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .preview-meta {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .preview-sample {
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: #fcfcfd;
+      white-space: nowrap;
+      overflow-x: auto;
+      line-height: 1.25;
+    }
+
+    .preview-card.dimmed {
+      opacity: 0.38;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        width: min(100vw, calc(100vw - 16px));
+      }
+
+      .topbar,
+      .preview-list {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .preview-sample {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="topbar">
+      <div class="title">ConquestFrontierWarsRay Font Browser Preview</div>
+      <div class="meta">
+        Same sample text, same layout list as <code>fonttest.txt</code>. This page now reflects
+        the reduced readable set.
+      </div>
+      <div class="controls">
+        <label>
+          <input id="hide-small" type="checkbox">
+          Hide 8-10 px entries
+        </label>
+        <label>
+          Family
+          <select id="family-filter">
+            <option value="all">All families</option>
+          </select>
+        </label>
+        <div id="summary" class="summary"></div>
+      </div>
+    </section>
+
+    <section id="preview-list" class="preview-list"></section>
+  </main>
+
+  <script>
+    const sampleText = "The quick brown fox jumps over the lazy dog. 0123456789 AaBbCcXx";
+
+    const fontEntries = [
+      { family: "Arial", size: 12, weight: 400, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 12, weight: 500, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 12, weight: 700, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 14, weight: 400, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 14, weight: 700, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 16, weight: 400, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 16, weight: 700, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial", size: 32, weight: 700, stack: 'Arial, "Helvetica Neue", Helvetica, sans-serif' },
+      { family: "Arial Narrow", size: 12, weight: 400, stack: '"Arial Narrow Preview", "Arial Narrow", Arial, sans-serif' },
+      { family: "Arial Narrow", size: 16, weight: 700, stack: '"Arial Narrow Preview", "Arial Narrow", Arial, sans-serif' },
+      { family: "BauhausMdITCTT", size: 12, weight: 400, stack: '"BauhausMdITCTT Preview", "Bauhaus Md BT", fantasy' },
+      { family: "BauhausMdITCTT", size: 16, weight: 400, stack: '"BauhausMdITCTT Preview", "Bauhaus Md BT", fantasy' },
+      { family: "BauhausMdITCTT", size: 18, weight: 400, stack: '"BauhausMdITCTT Preview", "Bauhaus Md BT", fantasy' },
+      { family: "BauhausMdITCTT", size: 18, weight: 800, stack: '"BauhausMdITCTT Preview", "Bauhaus Md BT", fantasy' },
+      { family: "BauhausMdITCTT", size: 80, weight: 400, stack: '"BauhausMdITCTT Preview", "Bauhaus Md BT", fantasy' },
+      { family: "Courier New", size: 12, weight: 400, stack: '"Courier New", Courier, monospace' },
+      { family: "Segoe UI", size: 12, weight: 400, stack: '"Segoe UI", Arial, sans-serif' },
+      { family: "OCR A Extended", size: 16, weight: 700, stack: '"OCR A Extended Preview", "OCR A Extended", monospace' }
+    ];
+
+    const listElement = document.getElementById("preview-list");
+    const familyFilterElement = document.getElementById("family-filter");
+    const hideSmallElement = document.getElementById("hide-small");
+    const summaryElement = document.getElementById("summary");
+
+    const families = ["all", ...new Set(fontEntries.map(entry => entry.family))];
+
+    families.forEach(family => {
+      const option = document.createElement("option");
+      option.value = family;
+      option.textContent = family === "all" ? "All families" : family;
+      familyFilterElement.appendChild(option);
+    });
+
+    function shouldShow(entry) {
+      const familyFilter = familyFilterElement.value;
+      const hideSmall = hideSmallElement.checked;
+
+      if (familyFilter !== "all" && entry.family !== familyFilter) {
+        return false;
+      }
+
+      if (hideSmall && entry.size <= 10) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function render() {
+      const visibleEntries = fontEntries.filter(shouldShow);
+      listElement.innerHTML = "";
+
+      visibleEntries.forEach(entry => {
+        const card = document.createElement("article");
+        card.className = "preview-card";
+
+        if (entry.size <= 10) {
+          card.classList.add("dimmed");
+        }
+
+        const header = document.createElement("div");
+        header.className = "preview-header";
+
+        const title = document.createElement("div");
+        title.className = "preview-title";
+        title.textContent = `${entry.family} | ${entry.size}px | weight ${entry.weight}`;
+
+        const meta = document.createElement("div");
+        meta.className = "preview-meta";
+        meta.textContent = entry.stack;
+
+        const sample = document.createElement("div");
+        sample.className = "preview-sample";
+        sample.textContent = sampleText;
+        sample.style.fontFamily = entry.stack;
+        sample.style.fontSize = `${entry.size}px`;
+        sample.style.fontWeight = String(entry.weight);
+
+        header.appendChild(title);
+        header.appendChild(meta);
+        card.appendChild(header);
+        card.appendChild(sample);
+        listElement.appendChild(card);
+      });
+
+      summaryElement.textContent = `${visibleEntries.length} of ${fontEntries.length} entries visible`;
+    }
+
+    familyFilterElement.addEventListener("change", render);
+    hideSmallElement.addEventListener("change", render);
+    render();
+  </script>
+</body>
+</html>
