@@ -1,21 +1,18 @@
 using System.Xml.Linq;
 using ConquestFrontierWarsRay.Data.Models.MT;
-using DACOM;
-using DOSFile;
+using ConquestFrontierWarsRay.Data.DosFile;
 
 namespace ConquestFrontierWarsRay.Data.StringPack;
 
 public sealed class StringPackRepository {
-	private readonly IDacomRegistry _registry;
 	private readonly string _databasePath;
 	private readonly string _xmlRootPath;
-	private readonly IFileSystem _root;
+	private readonly DosFileReader _root;
 
 	public StringPackRepository(string databasePath, string xmlRootPath) {
 		_databasePath = databasePath;
 		_xmlRootPath = xmlRootPath;
-		_registry = CreateRegistry();
-		_root = OpenRoot(_registry, databasePath);
+		_root = new DosFileReader(databasePath);
 	}
 
 	public string DatabasePath => _databasePath;
@@ -23,7 +20,7 @@ public sealed class StringPackRepository {
 	public string XmlRootPath => _xmlRootPath;
 
 	public IReadOnlyList<string> GetTypes() {
-		return _root.FindFiles("*")
+		return _root.FindFiles()
 			.Where(entry => entry.IsDirectory)
 			.Select(entry => entry.Name)
 			.Where(name => StringPackSchemas.All.ContainsKey(name))
@@ -32,8 +29,7 @@ public sealed class StringPackRepository {
 	}
 
 	public IReadOnlyList<StringPackFileEntry> GetFiles(string typeName) {
-		var directory = _root.CreateInstance(new DAFILEDESC(typeName), _registry);
-		return directory.FindFiles("*")
+		return _root.FindFiles(typeName)
 			.Where(entry => !entry.IsDirectory)
 			.OrderBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
 			.Select(entry => new StringPackFileEntry(entry.Name, checked((int)entry.Length)))
@@ -59,9 +55,7 @@ public sealed class StringPackRepository {
 	}
 
 	private byte[] ReadEntryBytes(string typeName, string fileName) {
-		var directory = _root.CreateInstance(new DAFILEDESC(typeName), _registry);
-		var bytes = directory.ReadAllBytes(fileName);
-		return bytes;
+		return _root.ReadAllBytes(Path.Combine(typeName, fileName));
 	}
 
 	private XDocument? LoadXml(string typeName, string fileName) {
@@ -71,21 +65,5 @@ public sealed class StringPackRepository {
 
 		var xmlPath = Path.Combine(_xmlRootPath, typeName, fileName + ".xml");
 		return File.Exists(xmlPath) ? XDocument.Load(xmlPath) : null;
-	}
-
-	private static IDacomRegistry CreateRegistry() {
-		var registry = new DacomRegistry();
-		registry.RegisterComponent(
-			new DelegateDacomFactory<DacomDesc>("IProfileParser", static (_, _) => new ProfileParser()));
-		registry.RegisterComponent(
-			new DelegateDacomFactory<DacomDesc>("IProfileParser2", static (_, _) => new ProfileParser()));
-		DosFileRuntime.Register(registry);
-		return registry;
-	}
-
-	private static IFileSystem OpenRoot(IDacomRegistry registry, string databasePath) {
-		var searchPath = (ISearchPath)registry.CreateInstance(new SEARCHPATHDESC());
-		searchPath.SetPath(databasePath);
-		return searchPath.CreateInstance(new DAFILEDESC(), registry);
 	}
 }

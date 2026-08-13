@@ -1,0 +1,100 @@
+﻿asteroid4.3db
++-- openFLAME 3D N-mesh/
+|   +-- Edges/
+|   |   +-- Edge angle (252 bytes)
+|   |   +-- Edge count (4 bytes)
+|   |   \-- Vertex list (504 bytes)
+|   +-- Face groups/
+|   |   +-- Group0/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (168 bytes)
+|   |   |   +-- Face normal (168 bytes)
+|   |   |   +-- Face property (168 bytes)
+|   |   |   +-- Face vertex chain (504 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   \-- Count (4 bytes)
+|   +-- Material library/
+|   |   +-- Material #1/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (14 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   \-- Material count (4 bytes)
+|   +-- Normals/
+|   |   +-- Surface normal count (4 bytes)
+|   |   \-- Surface normal list (768 bytes)
+|   +-- Sphere/
+|   |   +-- Center (12 bytes)
+|   |   \-- Radius (4 bytes)
+|   +-- Texture library/
+|   |   \-- polyroid256_4/
+|   |       +-- Palette 8 bit/
+|   |       |   +-- MIP0/
+|   |       |   |   \-- Image indices (65536 bytes)
+|   |       |   +-- MIP1/
+|   |       |   |   \-- Image indices (16384 bytes)
+|   |       |   +-- MIP2/
+|   |       |   |   \-- Image indices (4096 bytes)
+|   |       |   +-- MIP3/
+|   |       |   |   \-- Image indices (1024 bytes)
+|   |       |   +-- MIP4/
+|   |       |   |   \-- Image indices (256 bytes)
+|   |       |   +-- MIP5/
+|   |       |   |   \-- Image indices (64 bytes)
+|   |       |   +-- MIP6/
+|   |       |   |   \-- Image indices (16 bytes)
+|   |       |   +-- MIP7/
+|   |       |   |   \-- Image indices (4 bytes)
+|   |       |   +-- MIP8/
+|   |       |   |   \-- Image indices (1 bytes)
+|   |       |   \-- Palette RGB 888 (768 bytes)
+|   |       +-- Image X size (4 bytes)
+|   |       \-- Image Y size (4 bytes)
+|   \-- Vertices/
+|       +-- Object vertex count (4 bytes)
+|       +-- Object vertex list (276 bytes)
+|       +-- Texture batch list (160 bytes)
+|       +-- Texture vertex count (4 bytes)
+|       +-- Texture vertex list (320 bytes)
+|       +-- Vertex batch count (4 bytes)
+|       +-- Vertex batch list (160 bytes)
+|       +-- Vertex D-coefficient (92 bytes)
+|       \-- Vertex normal (92 bytes)
+\-- Rigid body/
+    +-- Extent tree/
+    |   \-- Sphere 1/
+    |       +-- Children/
+    |       |   \-- Box 1/
+    |       |       +-- Children/
+    |       |       |   \-- Convex mesh 1/
+    |       |       |       +-- Centroid (12 bytes)
+    |       |       |       +-- Edge count (4 bytes)
+    |       |       |       +-- Edge list (1020 bytes)
+    |       |       |       +-- Face count (4 bytes)
+    |       |       |       +-- Face list (952 bytes)
+    |       |       |       +-- Name (23 bytes)
+    |       |       |       +-- Normal count (4 bytes)
+    |       |       |       +-- Normal list (624 bytes)
+    |       |       |       +-- Transform (48 bytes)
+    |       |       |       +-- Triangle D (136 bytes)
+    |       |       |       +-- Vertex count (4 bytes)
+    |       |       |       \-- Vertex list (304 bytes)
+    |       |       +-- half x (4 bytes)
+    |       |       +-- half y (4 bytes)
+    |       |       +-- half z (4 bytes)
+    |       |       +-- Name (15 bytes)
+    |       |       \-- Transform (48 bytes)
+    |       +-- Name (18 bytes)
+    |       +-- Radius (4 bytes)
+    |       \-- Transform (48 bytes)
+    \-- Mass properties/
+        +-- Center of mass (12 bytes)
+        +-- Inertia tensor (36 bytes)
+        \-- Mass (4 bytes)

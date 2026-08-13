@@ -1,0 +1,111 @@
+﻿anugget2.anm
+\-- Animation/
+    +-- Texture library/
+    |   +-- new_nugget2.04.tga0/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.08.tga1/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.12.tga2/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.16.tga3/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.20.tga4/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.24.tga5/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.28.tga6/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.32.tga7/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.36.tga8/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.40.tga9/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.44.tga10/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.48.tga11/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.52.tga12/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   +-- new_nugget2.56.tga13/
+    |   |   \-- MIP0/
+    |   |       +-- True RGB 565/
+    |   |       |   +-- Alpha 8 bit (65536 bytes)
+    |   |       |   \-- Image colors (131072 bytes)
+    |   |       +-- Image X size (4 bytes)
+    |   |       \-- Image Y size (4 bytes)
+    |   \-- new_nugget2.60.tga14/
+    |       \-- MIP0/
+    |           +-- True RGB 565/
+    |           |   +-- Alpha 8 bit (65536 bytes)
+    |           |   \-- Image colors (131072 bytes)
+    |           +-- Image X size (4 bytes)
+    |           \-- Image Y size (4 bytes)
+    +-- Frequency (4 bytes)
+    +-- Texture names (305 bytes)
+    \-- UV Rects (1200 bytes)

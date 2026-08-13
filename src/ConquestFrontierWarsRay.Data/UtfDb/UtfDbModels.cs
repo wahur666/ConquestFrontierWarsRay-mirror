@@ -1,6 +1,5 @@
 using System.Xml.Linq;
-using DACOM;
-using DOSFile;
+using ConquestFrontierWarsRay.Data.DosFile;
 
 namespace ConquestFrontierWarsRay.Data.UtfDb;
 
@@ -379,15 +378,13 @@ internal class FixedLayoutTypeParser : IUtfDbTypeParser {
 }
 
 public sealed class UtfDbRepository {
-	private readonly IDacomRegistry _registry;
 	private readonly IReadOnlyDictionary<string, UtfDbDatabaseSpec> _databases;
-	private readonly Dictionary<string, IFileSystem> _roots;
+	private readonly Dictionary<string, DosFileReader> _roots;
 
 	public UtfDbRepository(IEnumerable<UtfDbDatabaseSpec> databases) {
-		_registry = CreateRegistry();
 		_databases = databases.ToDictionary(database => database.Name, StringComparer.OrdinalIgnoreCase);
 		_roots = _databases.Values.ToDictionary(database => database.Name,
-			database => OpenRoot(_registry, database.DatabasePath), StringComparer.OrdinalIgnoreCase);
+			database => new DosFileReader(database.DatabasePath), StringComparer.OrdinalIgnoreCase);
 	}
 
 	public IReadOnlyList<string> GetDatabases() {
@@ -396,7 +393,7 @@ public sealed class UtfDbRepository {
 
 	public IReadOnlyList<string> GetTypes(string databaseName) {
 		var root = GetRoot(databaseName);
-		return root.FindFiles("*")
+		return root.FindFiles()
 			.Where(entry => entry.IsDirectory)
 			.Select(entry => entry.Name)
 			.Where(name => UtfDbSupportedTypes.Parsers.ContainsKey(name))
@@ -405,8 +402,7 @@ public sealed class UtfDbRepository {
 	}
 
 	public IReadOnlyList<UtfDbFileEntry> GetFiles(string databaseName, string typeName) {
-		var directory = GetRoot(databaseName).CreateInstance(new DAFILEDESC(typeName), _registry);
-		return directory.FindFiles("*")
+		return GetRoot(databaseName).FindFiles(typeName)
 			.Where(entry => !entry.IsDirectory)
 			.OrderBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
 			.Select(entry => new UtfDbFileEntry(entry.Name, checked((int)entry.Length)))
@@ -418,9 +414,7 @@ public sealed class UtfDbRepository {
 			throw new InvalidOperationException($"Unsupported type '{typeName}'.");
 		}
 
-		var root = GetRoot(databaseName);
-		var directory = root.CreateInstance(new DAFILEDESC(typeName), _registry);
-		var bytes = directory.ReadAllBytes(fileName);
+		var bytes = GetRoot(databaseName).ReadAllBytes(Path.Combine(typeName, fileName));
 		var xml = LoadXml(databaseName, typeName, fileName);
 		return parser.Parse(databaseName, fileName, bytes, xml);
 	}
@@ -435,27 +429,11 @@ public sealed class UtfDbRepository {
 		return File.Exists(path) ? XDocument.Load(path) : null;
 	}
 
-	private IFileSystem GetRoot(string databaseName) {
+	private DosFileReader GetRoot(string databaseName) {
 		if (!_roots.TryGetValue(databaseName, out var root)) {
 			throw new InvalidOperationException($"Unknown database '{databaseName}'.");
 		}
 
 		return root;
-	}
-
-	private static IDacomRegistry CreateRegistry() {
-		var registry = new DacomRegistry();
-		registry.RegisterComponent(
-			new DelegateDacomFactory<DacomDesc>("IProfileParser", static (_, _) => new ProfileParser()));
-		registry.RegisterComponent(
-			new DelegateDacomFactory<DacomDesc>("IProfileParser2", static (_, _) => new ProfileParser()));
-		DosFileRuntime.Register(registry);
-		return registry;
-	}
-
-	private static IFileSystem OpenRoot(IDacomRegistry registry, string databasePath) {
-		var searchPath = (ISearchPath)registry.CreateInstance(new SEARCHPATHDESC());
-		searchPath.SetPath(databasePath);
-		return searchPath.CreateInstance(new DAFILEDESC(), registry);
 	}
 }

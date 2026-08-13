@@ -1,0 +1,331 @@
+﻿SSmonolith.3db
++-- Hardpoints/
+|   \-- Fixed/
+|       +-- hp_eglow0/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       +-- hp_eglow1/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       +-- hp_eglow2/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       +-- hp_eglow3/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       +-- hp_lgun/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       +-- hp_rgun/
+|       |   +-- Orientation (36 bytes)
+|       |   \-- Position (12 bytes)
+|       \-- hp_special/
+|           +-- Orientation (36 bytes)
+|           \-- Position (12 bytes)
++-- openFLAME 3D N-mesh/
+|   +-- Edges/
+|   |   +-- Edge angle (2628 bytes)
+|   |   +-- Edge count (4 bytes)
+|   |   \-- Vertex list (5256 bytes)
+|   +-- Face groups/
+|   |   +-- Group0/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (392 bytes)
+|   |   |   +-- Face normal (392 bytes)
+|   |   |   +-- Face property (392 bytes)
+|   |   |   +-- Face vertex chain (1176 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   +-- Group1/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (608 bytes)
+|   |   |   +-- Face normal (608 bytes)
+|   |   |   +-- Face property (608 bytes)
+|   |   |   +-- Face vertex chain (1824 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   +-- Group2/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (448 bytes)
+|   |   |   +-- Face normal (448 bytes)
+|   |   |   +-- Face property (448 bytes)
+|   |   |   +-- Face vertex chain (1344 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   +-- Group3/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (104 bytes)
+|   |   |   +-- Face normal (104 bytes)
+|   |   |   +-- Face property (104 bytes)
+|   |   |   +-- Face vertex chain (312 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   +-- Group4/
+|   |   |   +-- Face count (4 bytes)
+|   |   |   +-- Face D-coefficient (128 bytes)
+|   |   |   +-- Face normal (128 bytes)
+|   |   |   +-- Face property (128 bytes)
+|   |   |   +-- Face vertex chain (384 bytes)
+|   |   |   \-- Material (4 bytes)
+|   |   \-- Count (4 bytes)
+|   +-- Material library/
+|   |   +-- markings_soltm5_tc/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (17 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Emission/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Shininess/
+|   |   |   |   \-- Constant (8 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   +-- Material #59_chrome/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (12 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Emission/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (19 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Shininess/
+|   |   |   |   \-- Constant (8 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   +-- Material sol_opac/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (31 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Emission/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Shininess/
+|   |   |   |   \-- Constant (8 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   +-- Material sol_tm5_chrome/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (12 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Emission/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (19 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Shininess/
+|   |   |   |   \-- Constant (8 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   +-- Material sol_tm6_chrome/
+|   |   |   +-- Ambient/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Diffuse/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (12 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Emission/
+|   |   |   |   +-- Map/
+|   |   |   |   |   +-- Blend (4 bytes)
+|   |   |   |   |   +-- Flags (4 bytes)
+|   |   |   |   |   \-- Name (19 bytes)
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   +-- Shininess/
+|   |   |   |   \-- Constant (8 bytes)
+|   |   |   +-- Specular/
+|   |   |   |   \-- Constant (12 bytes)
+|   |   |   \-- Material identifier (4 bytes)
+|   |   \-- Material count (4 bytes)
+|   +-- Normals/
+|   |   +-- Surface normal count (4 bytes)
+|   |   \-- Surface normal list (6372 bytes)
+|   +-- Sphere/
+|   |   +-- Center (12 bytes)
+|   |   \-- Radius (4 bytes)
+|   +-- Texture library/
+|   |   +-- c_solarian_tm5.tif/
+|   |   |   +-- Palette 8 bit/
+|   |   |   |   +-- MIP0/
+|   |   |   |   |   \-- Image indices (65536 bytes)
+|   |   |   |   +-- MIP1/
+|   |   |   |   |   \-- Image indices (16384 bytes)
+|   |   |   |   +-- MIP2/
+|   |   |   |   |   \-- Image indices (4096 bytes)
+|   |   |   |   +-- MIP3/
+|   |   |   |   |   \-- Image indices (1024 bytes)
+|   |   |   |   +-- MIP4/
+|   |   |   |   |   \-- Image indices (256 bytes)
+|   |   |   |   +-- MIP5/
+|   |   |   |   |   \-- Image indices (64 bytes)
+|   |   |   |   +-- MIP6/
+|   |   |   |   |   \-- Image indices (16 bytes)
+|   |   |   |   +-- MIP7/
+|   |   |   |   |   \-- Image indices (4 bytes)
+|   |   |   |   +-- MIP8/
+|   |   |   |   |   \-- Image indices (1 bytes)
+|   |   |   |   \-- Palette RGB 888 (768 bytes)
+|   |   |   +-- Image X size (4 bytes)
+|   |   |   \-- Image Y size (4 bytes)
+|   |   +-- c_solarian_tm6.tif/
+|   |   |   +-- Palette 8 bit/
+|   |   |   |   +-- MIP0/
+|   |   |   |   |   \-- Image indices (65536 bytes)
+|   |   |   |   +-- MIP1/
+|   |   |   |   |   \-- Image indices (16384 bytes)
+|   |   |   |   +-- MIP2/
+|   |   |   |   |   \-- Image indices (4096 bytes)
+|   |   |   |   +-- MIP3/
+|   |   |   |   |   \-- Image indices (1024 bytes)
+|   |   |   |   +-- MIP4/
+|   |   |   |   |   \-- Image indices (256 bytes)
+|   |   |   |   +-- MIP5/
+|   |   |   |   |   \-- Image indices (64 bytes)
+|   |   |   |   +-- MIP6/
+|   |   |   |   |   \-- Image indices (16 bytes)
+|   |   |   |   +-- MIP7/
+|   |   |   |   |   \-- Image indices (4 bytes)
+|   |   |   |   +-- MIP8/
+|   |   |   |   |   \-- Image indices (1 bytes)
+|   |   |   |   \-- Palette RGB 888 (768 bytes)
+|   |   |   +-- Image X size (4 bytes)
+|   |   |   \-- Image Y size (4 bytes)
+|   |   +-- environ.tga/
+|   |   |   +-- Palette 8 bit/
+|   |   |   |   +-- MIP0/
+|   |   |   |   |   \-- Image indices (65536 bytes)
+|   |   |   |   +-- MIP1/
+|   |   |   |   |   \-- Image indices (16384 bytes)
+|   |   |   |   +-- MIP2/
+|   |   |   |   |   \-- Image indices (4096 bytes)
+|   |   |   |   +-- MIP3/
+|   |   |   |   |   \-- Image indices (1024 bytes)
+|   |   |   |   +-- MIP4/
+|   |   |   |   |   \-- Image indices (256 bytes)
+|   |   |   |   +-- MIP5/
+|   |   |   |   |   \-- Image indices (64 bytes)
+|   |   |   |   +-- MIP6/
+|   |   |   |   |   \-- Image indices (16 bytes)
+|   |   |   |   +-- MIP7/
+|   |   |   |   |   \-- Image indices (4 bytes)
+|   |   |   |   +-- MIP8/
+|   |   |   |   |   \-- Image indices (1 bytes)
+|   |   |   |   \-- Palette RGB 888 (768 bytes)
+|   |   |   +-- Image X size (4 bytes)
+|   |   |   \-- Image Y size (4 bytes)
+|   |   +-- solarian_lm.tifsolarian_op.tif/
+|   |   |   +-- Palette 8 bit/
+|   |   |   |   +-- MIP0/
+|   |   |   |   |   +-- Alpha 8 bit (16384 bytes)
+|   |   |   |   |   \-- Image indices (16384 bytes)
+|   |   |   |   +-- MIP1/
+|   |   |   |   |   +-- Alpha 8 bit (4096 bytes)
+|   |   |   |   |   \-- Image indices (4096 bytes)
+|   |   |   |   +-- MIP2/
+|   |   |   |   |   +-- Alpha 8 bit (1024 bytes)
+|   |   |   |   |   \-- Image indices (1024 bytes)
+|   |   |   |   +-- MIP3/
+|   |   |   |   |   +-- Alpha 8 bit (256 bytes)
+|   |   |   |   |   \-- Image indices (256 bytes)
+|   |   |   |   +-- MIP4/
+|   |   |   |   |   +-- Alpha 8 bit (64 bytes)
+|   |   |   |   |   \-- Image indices (64 bytes)
+|   |   |   |   +-- MIP5/
+|   |   |   |   |   +-- Alpha 8 bit (16 bytes)
+|   |   |   |   |   \-- Image indices (16 bytes)
+|   |   |   |   +-- MIP6/
+|   |   |   |   |   +-- Alpha 8 bit (4 bytes)
+|   |   |   |   |   \-- Image indices (4 bytes)
+|   |   |   |   +-- MIP7/
+|   |   |   |   |   +-- Alpha 8 bit (1 bytes)
+|   |   |   |   |   \-- Image indices (1 bytes)
+|   |   |   |   \-- Palette RGB 888 (768 bytes)
+|   |   |   +-- Image X size (4 bytes)
+|   |   |   \-- Image Y size (4 bytes)
+|   |   \-- solarian_tm6.tif/
+|   |       +-- Palette 8 bit/
+|   |       |   +-- MIP0/
+|   |       |   |   \-- Image indices (65536 bytes)
+|   |       |   +-- MIP1/
+|   |       |   |   \-- Image indices (16384 bytes)
+|   |       |   +-- MIP2/
+|   |       |   |   \-- Image indices (4096 bytes)
+|   |       |   +-- MIP3/
+|   |       |   |   \-- Image indices (1024 bytes)
+|   |       |   +-- MIP4/
+|   |       |   |   \-- Image indices (256 bytes)
+|   |       |   +-- MIP5/
+|   |       |   |   \-- Image indices (64 bytes)
+|   |       |   +-- MIP6/
+|   |       |   |   \-- Image indices (16 bytes)
+|   |       |   +-- MIP7/
+|   |       |   |   \-- Image indices (4 bytes)
+|   |       |   +-- MIP8/
+|   |       |   |   \-- Image indices (1 bytes)
+|   |       |   \-- Palette RGB 888 (768 bytes)
+|   |       +-- Image X size (4 bytes)
+|   |       \-- Image Y size (4 bytes)
+|   \-- Vertices/
+|       +-- Object vertex count (4 bytes)
+|       +-- Object vertex list (2844 bytes)
+|       +-- Texture batch list (1752 bytes)
+|       +-- Texture batch list2 (1752 bytes)
+|       +-- Texture vertex count (4 bytes)
+|       +-- Texture vertex list (5472 bytes)
+|       +-- Vertex batch count (4 bytes)
+|       +-- Vertex batch list (1752 bytes)
+|       +-- Vertex D-coefficient (948 bytes)
+|       \-- Vertex normal (948 bytes)
++-- Rigid body/
+|   +-- Extent tree/
+|   |   \-- Sphere 1/
+|   |       +-- Children/
+|   |       |   \-- Box 1/
+|   |       |       +-- Children/
+|   |       |       |   \-- Convex mesh 1/
+|   |       |       |       +-- Centroid (12 bytes)
+|   |       |       |       +-- Edge count (4 bytes)
+|   |       |       |       +-- Edge list (3240 bytes)
+|   |       |       |       +-- Face count (4 bytes)
+|   |       |       |       +-- Face list (3024 bytes)
+|   |       |       |       +-- Name (23 bytes)
+|   |       |       |       +-- Normal count (4 bytes)
+|   |       |       |       +-- Normal list (1764 bytes)
+|   |       |       |       +-- Transform (48 bytes)
+|   |       |       |       +-- Triangle D (432 bytes)
+|   |       |       |       +-- Vertex count (4 bytes)
+|   |       |       |       \-- Vertex list (896 bytes)
+|   |       |       +-- half x (4 bytes)
+|   |       |       +-- half y (4 bytes)
+|   |       |       +-- half z (4 bytes)
+|   |       |       +-- Name (15 bytes)
+|   |       |       \-- Transform (48 bytes)
+|   |       +-- Name (18 bytes)
+|   |       +-- Radius (4 bytes)
+|   |       \-- Transform (48 bytes)
+|   \-- Mass properties/
+|       +-- Center of mass (12 bytes)
+|       +-- Inertia tensor (36 bytes)
+|       \-- Mass (4 bytes)
+\-- Exporter Version (21 bytes)

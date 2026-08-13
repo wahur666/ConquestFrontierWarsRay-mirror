@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="ConquestFrontierWarsRay.csproj" />
+  <Project Path="src/ConquestFrontierWarsRay.Data/ConquestFrontierWarsRay.Data.csproj" />
+  <Project Path="tests/ConquestFrontierWarsRay.Data.Tests/ConquestFrontierWarsRay.Data.Tests.csproj" />
 </Solution>
