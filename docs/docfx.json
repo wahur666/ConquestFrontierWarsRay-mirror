@@ -1,0 +1,45 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "..",
+          "files": [
+            "src/ConquestFrontierWarsRay.Framework/ConquestFrontierWarsRay.Framework.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net10.0"
+      },
+      "includePrivateMembers": true,
+      "disableGitFeatures": true
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "index.md",
+          "framework.md",
+          "plan.md",
+          "toc.yml",
+          "api/**.yml"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "ConquestFrontierWarsRay",
+      "_appTitle": "ConquestFrontierWarsRay framework docs",
+      "_enableSearch": true,
+      "_disableContribution": true
+    },
+    "disableGitFeatures": true
+  }
+}
