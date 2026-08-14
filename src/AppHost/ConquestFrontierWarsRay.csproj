@@ -14,6 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConquestFrontierWarsRay.Math3D\ConquestFrontierWarsRay.Math3D.csproj" />
+    <ProjectReference Include="..\ConquestFrontierWarsRay.Runtime.Collision\ConquestFrontierWarsRay.Runtime.Collision.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\Fonts\**\*">
       <Link>Fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -25,6 +25,8 @@ public sealed class DosFileReader {
 		}
 	}
 
+	public string SourcePath => _sourcePath;
+
 	public IReadOnlyList<FileSystemEntry> FindFiles(string relativePath = "", string pattern = "*") {
 		if (_utfRoot is not null) {
 			var node = ResolveUtfNode(relativePath);

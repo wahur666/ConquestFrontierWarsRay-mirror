@@ -1,6 +1,5 @@
 using System.Numerics;
-using ConquestSharp.Engine;
-using ConquestSharp.SystemLayer;
+using ConquestFrontierWarsRay.Data.DosFile;
 using Math3D;
 
 namespace ConquestFrontierWarsRay.Runtime.Collision;
@@ -150,7 +149,7 @@ public interface ICollisionModel {
 	float BoundingRadius { get; }
 }
 
-public interface ICollision : IAggregateComponent {
+public interface ICollision {
 	bool IntersectRayWithExtent(
 		out Vector3 pointOfIntersection,
 		out Vector3 normal,
@@ -208,5 +207,22 @@ public interface ICollision : IAggregateComponent {
 	CollisionStats GetCollisionStats();
 }
 
-public interface ICollisionComponent : ICollision, IEngineComponent {
+public interface ICollisionIntegration {
+	bool CreateArchetype(int archetypeIndex, string sourcePath);
+
+	bool CreateArchetype(int archetypeIndex, DosFileReader reader);
+
+	void RegisterArchetype(int archetypeIndex, ICollisionModel model);
+
+	void DuplicateArchetype(int newArchetypeIndex, int oldArchetypeIndex);
+
+	void DestroyArchetype(int archetypeIndex);
+
+	bool TryGetArchetypeModel(int archetypeIndex, out ICollisionModel? model);
+
+	bool CreateInstance(int instanceIndex, int archetypeIndex);
+
+	void DestroyInstance(int instanceIndex);
+
+	bool TryGetInstanceModel(int instanceIndex, out ICollisionModel? model);
 }

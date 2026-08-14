@@ -2,8 +2,10 @@
   <Project Path="src/AppHost/ConquestFrontierWarsRay.csproj" />
   <Project Path="src/ConquestFrontierWarsRay.Data/ConquestFrontierWarsRay.Data.csproj" />
   <Project Path="src/ConquestFrontierWarsRay.Math3D/ConquestFrontierWarsRay.Math3D.csproj" />
+  <Project Path="src/ConquestFrontierWarsRay.Runtime.Collision/ConquestFrontierWarsRay.Runtime.Collision.csproj" />
   <Project Path="src/ConquestFrontierWarsRay.Runtime.Physics/ConquestFrontierWarsRay.Runtime.Physics.csproj" />
   <Project Path="tests/ConquestFrontierWarsRay.Data.Tests/ConquestFrontierWarsRay.Data.Tests.csproj" />
   <Project Path="tests/ConquestFrontierWarsRay.Math3D.Tests/ConquestFrontierWarsRay.Math3D.Tests.csproj" />
+  <Project Path="tests/ConquestFrontierWarsRay.Runtime.Collision.Tests/ConquestFrontierWarsRay.Runtime.Collision.Tests.csproj" />
   <Project Path="tests/ConquestFrontierWarsRay.Runtime.Physics.Tests/ConquestFrontierWarsRay.Runtime.Physics.Tests.csproj" />
 </Solution>

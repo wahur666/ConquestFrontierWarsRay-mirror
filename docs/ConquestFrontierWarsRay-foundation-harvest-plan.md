@@ -271,6 +271,29 @@ Migration rule:
 - keep the collision logic
 - do not import DACOM registration or old engine plumbing
 
+Current migration state:
+
+- imported into `ConquestFrontierWarsRay.Runtime.Collision`
+- DACOM factory/component wiring removed
+- collision loading now uses the local `DosFileReader`
+- runtime now uses direct construction such as `new CollisionService()`
+- local collision tests ported into
+  `ConquestFrontierWarsRay.Runtime.Collision.Tests`
+- AppHost contains a visual sphere-collision demo driven by the runtime API
+
+Noteworthy changes from the original code:
+
+- `CollisionRuntime.Register`, `IDacomFactory`, and aggregate-component
+  creation were removed
+- archetype/model access is explicit through direct service methods
+- the collision assembly now depends on local `Data` and `Math3D` projects
+  instead of the old DACOM/engine plumbing path
+
+Tests / verification:
+
+- local collision tests are passing in `ConquestFrontierWarsRay`
+- AppHost demo provides visual verification of contact point and normal output
+
 ### 8. Physics
 
 Need:

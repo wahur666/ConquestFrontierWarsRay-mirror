@@ -4,65 +4,101 @@ using System.Runtime.InteropServices;
 namespace ConquestFrontierWarsRay;
 
 /// <summary>
-/// Wraps the Win32 window-subclassing trick needed to keep raylib rendering
-/// while the user is dragging or resizing the window (Windows blocks the
-/// main thread with a modal loop during WM_ENTERSIZEMOVE otherwise).
+/// Keeps raylib responsive during the native move/resize modal loop on Windows.
+/// The timer path is intentionally throttled and non-reentrant so dragging the
+/// window does not flood the UI thread with nested draw calls.
 /// </summary>
-public class Win32Window
-{
+public sealed class Win32Window : IDisposable {
 	private const int WM_ENTERSIZEMOVE = 0x0231;
 	private const int WM_EXITSIZEMOVE = 0x0232;
 	private const int WM_TIMER = 0x0113;
 	private const int GWLP_WNDPROC = -4;
-	private const int TIMER_ID = 1;
+	private const int TimerId = 1;
+	private const uint TimerIntervalMs = 16;
 
 	private delegate nint WndProcDelegate(nint hWnd, uint msg, nint wParam, nint lParam);
 
-	private readonly nint hwnd;
-	private readonly nint originalProc;
-	private readonly WndProcDelegate newProcDelegate;
-	private readonly Action onTick;
+	private readonly nint _hwnd;
+	private readonly nint _originalProc;
+	private readonly WndProcDelegate _newProcDelegate;
+	private readonly Action _onTick;
+	private bool _disposed;
+	private bool _inSizeMove;
+	private bool _isTicking;
 
-	public Win32Window(Action onTick)
-	{
-		this.onTick = onTick;
-
-		hwnd = GetForegroundWindow();
-
-		newProcDelegate = WindowProc;
-		nint newProcPtr = Marshal.GetFunctionPointerForDelegate(newProcDelegate);
-		originalProc = SetWindowLongPtr(hwnd, GWLP_WNDPROC, newProcPtr);
-	}
-
-	private nint WindowProc(nint hWnd, uint msg, nint wParam, nint lParam)
-	{
-		switch (msg)
-		{
-			case WM_ENTERSIZEMOVE:
-				SetTimer(hWnd, TIMER_ID, 1, nint.Zero);
-				break;
-			case WM_EXITSIZEMOVE:
-				KillTimer(hWnd, TIMER_ID);
-				break;
-			case WM_TIMER:
-				onTick();
-				break;
+	public Win32Window(Action onTick) {
+		_onTick = onTick ?? throw new ArgumentNullException(nameof(onTick));
+		_hwnd = GetForegroundWindow();
+		if (_hwnd == nint.Zero) {
+			throw new InvalidOperationException("Could not locate the active window handle for raylib.");
 		}
 
-		return CallWindowProc(originalProc, hWnd, msg, wParam, lParam);
+		_newProcDelegate = WindowProc;
+		var newProcPtr = Marshal.GetFunctionPointerForDelegate(_newProcDelegate);
+		_originalProc = SetWindowLongPtr(_hwnd, GWLP_WNDPROC, newProcPtr);
+		if (_originalProc == nint.Zero) {
+			throw new InvalidOperationException("Failed to subclass the raylib window.");
+		}
+	}
+
+	public void Dispose() {
+		if (_disposed) {
+			return;
+		}
+
+		_disposed = true;
+		_inSizeMove = false;
+		KillTimer(_hwnd, TimerId);
+		SetWindowLongPtr(_hwnd, GWLP_WNDPROC, _originalProc);
+		GC.SuppressFinalize(this);
+	}
+
+	~Win32Window() {
+		Dispose();
+	}
+
+	private nint WindowProc(nint hWnd, uint msg, nint wParam, nint lParam) {
+		switch (msg) {
+			case WM_ENTERSIZEMOVE:
+				_inSizeMove = true;
+				SetTimer(hWnd, TimerId, TimerIntervalMs, nint.Zero);
+				break;
+			case WM_EXITSIZEMOVE:
+				_inSizeMove = false;
+				KillTimer(hWnd, TimerId);
+				break;
+			case WM_TIMER when _inSizeMove && wParam == TimerId:
+				TryTickDuringSizeMove();
+				return 0;
+		}
+
+		return CallWindowProc(_originalProc, hWnd, msg, wParam, lParam);
+	}
+
+	private void TryTickDuringSizeMove() {
+		if (_isTicking) {
+			return;
+		}
+
+		_isTicking = true;
+		try {
+			_onTick();
+		} finally {
+			_isTicking = false;
+		}
 	}
 
 	[DllImport("user32.dll")]
 	private static extern nint GetForegroundWindow();
 
-	[DllImport("user32.dll")]
+	[DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")]
 	private static extern nint SetWindowLongPtr(nint hWnd, int nIndex, nint dwNewLong);
 
-	[DllImport("user32.dll")]
+	[DllImport("user32.dll", EntryPoint = "CallWindowProcW")]
 	private static extern nint CallWindowProc(nint lpPrevWndFunc, nint hWnd, uint msg, nint wParam, nint lParam);
 
 	[DllImport("user32.dll")]
-	private static extern bool SetTimer(nint hWnd, nint nIDEvent, uint uElapse, nint lpTimerFunc);
+	private static extern nint SetTimer(nint hWnd, nint nIDEvent, uint uElapse, nint lpTimerFunc);
 
 	[DllImport("user32.dll")]
 	private static extern bool KillTimer(nint hWnd, nint uIDEvent);

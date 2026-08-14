@@ -1,47 +1,40 @@
 using System.Numerics;
 using System.Text;
-using DACOM;
-using DOSFile;
+using ConquestFrontierWarsRay.Data.DosFile;
 using Math3D;
 
 namespace ConquestFrontierWarsRay.Runtime.Collision;
 
 internal static class CollisionLoader {
-	public static ICollisionModel? TryLoad(IFileSystem fileSystem, IDacomRegistry registry) {
-		ArgumentNullException.ThrowIfNull(fileSystem);
-		ArgumentNullException.ThrowIfNull(registry);
+	public static ICollisionModel? TryLoad(string sourcePath) => TryLoad(new DosFileReader(sourcePath));
 
-		fileSystem = ResolveContainerRoot(fileSystem, registry);
+	public static ICollisionModel? TryLoad(DosFileReader reader) {
+		ArgumentNullException.ThrowIfNull(reader);
 
-		if (!TryGetChildDirectory(fileSystem, "Rigid body", registry, out var rigidBody) ||
-		    !TryGetChildDirectory(rigidBody, "Extent tree", registry, out var extentTree)) {
+		const string rigidBodyPath = "Rigid body";
+		const string extentTreePath = @"Rigid body\Extent tree";
+		if (!TryGetFirstChildDirectory(reader, extentTreePath, out var rootDirectoryName)) {
 			return null;
 		}
 
-		var rootEntry = extentTree.FindFiles("*").FirstOrDefault(static entry => entry.IsDirectory);
-		if (rootEntry is null) {
-			return null;
-		}
-
-		var rootDirectory = OpenChild(extentTree, rootEntry.Name, registry);
-		var root = LoadExtent(rootDirectory, registry);
+		var root = LoadExtent(reader, Path.Combine(extentTreePath, rootDirectoryName));
 		if (root is null) {
 			return null;
 		}
 
-		var mass = TryRead(rigidBody, @"Mass properties\Mass") is { Length: >= 4 } massBytes
+		var mass = TryRead(reader, Path.Combine(rigidBodyPath, @"Mass properties\Mass")) is { Length: >= 4 } massBytes
 			? BitConverter.ToSingle(massBytes, 0)
 			: 0f;
-		var centerOfMass = TryRead(rigidBody, @"Mass properties\Center of mass") is { Length: 12 } centerBytes
+		var centerOfMass = TryRead(reader, Path.Combine(rigidBodyPath, @"Mass properties\Center of mass")) is { Length: 12 } centerBytes
 			? ReadVector3(centerBytes)
 			: Vector3.Zero;
-		var inertiaTensor = TryRead(rigidBody, @"Mass properties\Inertia tensor") is { Length: 36 } tensorBytes
+		var inertiaTensor = TryRead(reader, Path.Combine(rigidBodyPath, @"Mass properties\Inertia tensor")) is { Length: 36 } tensorBytes
 			? ReadMatrix3(tensorBytes)
 			: Matrix3.Identity;
 		var (boundingCenter, boundingRadius) = ComputeBounds(root, Transform3.Identity);
 
 		return new CollisionModel(
-			fileSystem.FileName,
+			reader.SourcePath,
 			root,
 			mass,
 			centerOfMass,
@@ -50,63 +43,59 @@ internal static class CollisionLoader {
 			boundingRadius);
 	}
 
-	private static BaseExtent? LoadExtent(IFileSystem extentDirectory, IDacomRegistry registry) {
-		var currentDirectory = extentDirectory.GetCurrentDirectory().TrimEnd('\\', '/');
-		var separator = currentDirectory.LastIndexOfAny(['\\', '/']);
-		var typeName = separator >= 0 ? currentDirectory[(separator + 1)..] : currentDirectory;
-		var name = TryRead(extentDirectory, "Name") is { Length: > 0 } nameBytes ? ReadAsciiZ(nameBytes) : typeName;
-		var transform = TryRead(extentDirectory, "Transform") is { Length: 48 } transformBytes
+	private static BaseExtent? LoadExtent(DosFileReader reader, string extentPath) {
+		var typeName = Path.GetFileName(extentPath.TrimEnd('\\', '/'));
+		var name = TryRead(reader, Path.Combine(extentPath, "Name")) is { Length: > 0 } nameBytes ? ReadAsciiZ(nameBytes) : typeName;
+		var transform = TryRead(reader, Path.Combine(extentPath, "Transform")) is { Length: 48 } transformBytes
 			? ReadTransform(transformBytes)
 			: Transform3.Identity;
 
 		BaseExtent? extent = typeName.StartsWith("Sphere", StringComparison.OrdinalIgnoreCase)
-			? new SphereExtent(name, transform, new CollisionSphere(ReadSingle(extentDirectory, "Radius", 0f)))
+			? new SphereExtent(name, transform, new CollisionSphere(ReadSingle(reader, Path.Combine(extentPath, "Radius"), 0f)))
 			: typeName.StartsWith("Box", StringComparison.OrdinalIgnoreCase)
 				? new BoxExtent(name, transform, new CollisionBox(
-					ReadSingle(extentDirectory, "half x", 0f),
-					ReadSingle(extentDirectory, "half y", 0f),
-					ReadSingle(extentDirectory, "half z", 0f)))
+					ReadSingle(reader, Path.Combine(extentPath, "half x"), 0f),
+					ReadSingle(reader, Path.Combine(extentPath, "half y"), 0f),
+					ReadSingle(reader, Path.Combine(extentPath, "half z"), 0f)))
 				: typeName.StartsWith("Cylinder", StringComparison.OrdinalIgnoreCase)
 					? new CylinderExtent(name, transform, new CollisionCylinder(
-						ReadSingle(extentDirectory, "length", 0f),
-						ReadSingle(extentDirectory, "radius", 0f)))
+						ReadSingle(reader, Path.Combine(extentPath, "length"), 0f),
+						ReadSingle(reader, Path.Combine(extentPath, "radius"), 0f)))
 					: typeName.StartsWith("Tube", StringComparison.OrdinalIgnoreCase)
 						? new TubeExtent(name, transform, new CollisionTube(
-							ReadSingle(extentDirectory, "length", 0f),
-							ReadSingle(extentDirectory, "radius", 0f)))
+							ReadSingle(reader, Path.Combine(extentPath, "length"), 0f),
+							ReadSingle(reader, Path.Combine(extentPath, "radius"), 0f)))
 						: typeName.StartsWith("Convex mesh", StringComparison.OrdinalIgnoreCase)
-							? new ConvexMeshExtent(name, transform, LoadMesh(extentDirectory))
+							? new ConvexMeshExtent(name, transform, LoadMesh(reader, extentPath))
 							: typeName.StartsWith("Mesh", StringComparison.OrdinalIgnoreCase)
-								? new MeshExtent(name, transform, LoadMesh(extentDirectory))
+								? new MeshExtent(name, transform, LoadMesh(reader, extentPath))
 								: null;
 
 		if (extent is null) {
 			return null;
 		}
 
-		if (TryGetChildDirectory(extentDirectory, "Children", registry, out var childrenDirectory)) {
-			foreach (var childEntry in childrenDirectory.FindFiles("*").Where(static entry => entry.IsDirectory)) {
-				var childDirectory = OpenChild(childrenDirectory, childEntry.Name, registry);
-				var child = LoadExtent(childDirectory, registry);
-				if (child is not null) {
-					extent.MutableChildren.Add(child);
-				}
+		var childrenPath = Path.Combine(extentPath, "Children");
+		foreach (var childEntry in TryEnumerateDirectories(reader, childrenPath)) {
+			var child = LoadExtent(reader, Path.Combine(childrenPath, childEntry.Name));
+			if (child is not null) {
+				extent.MutableChildren.Add(child);
 			}
 		}
 
 		return extent;
 	}
 
-	private static CollisionMesh LoadMesh(IFileSystem meshDirectory) {
-		var vertices = ReadVector3Array(meshDirectory.ReadAllBytes("Vertex list"));
-		var normals = ReadVector3Array(meshDirectory.ReadAllBytes("Normal list"));
-		var triangleD = ReadSingleArray(meshDirectory.ReadAllBytes("Triangle D"));
-		var centroid = TryRead(meshDirectory, "Centroid") is { Length: 12 } centroidBytes
+	private static CollisionMesh LoadMesh(DosFileReader reader, string meshPath) {
+		var vertices = ReadVector3Array(reader.ReadAllBytes(Path.Combine(meshPath, "Vertex list")));
+		var normals = ReadVector3Array(reader.ReadAllBytes(Path.Combine(meshPath, "Normal list")));
+		var triangleD = ReadSingleArray(reader.ReadAllBytes(Path.Combine(meshPath, "Triangle D")));
+		var centroid = TryRead(reader, Path.Combine(meshPath, "Centroid")) is { Length: 12 } centroidBytes
 			? ReadVector3(centroidBytes)
 			: ComputeCentroid(vertices);
 
-		var triangles = ParseTriangles(meshDirectory.ReadAllBytes("Face list"));
-		var sphereCenter = vertices.Length == 0 ? centroid : centroid;
+		var triangles = ParseTriangles(reader.ReadAllBytes(Path.Combine(meshPath, "Face list")));
+		var sphereCenter = centroid;
 		var sphereRadius = vertices.Length == 0 ? 0f : vertices.Max(vertex => Vector3.Distance(vertex, sphereCenter));
 
 		return new CollisionMesh {
@@ -148,9 +137,8 @@ internal static class CollisionLoader {
 		return triangles;
 	}
 
-	private static (Vector3 Center, float Radius) ComputeBounds(BaseExtent extent, Transform3 parentTransform) {
-		var world = Combine(parentTransform, extent.Transform);
-		var bounds = EnumerateSpheres(extent, world).ToArray();
+	private static (Vector3 Center, float Radius) ComputeBounds(BaseExtent extent, Transform3 worldTransform) {
+		var bounds = EnumerateSpheres(extent, worldTransform).ToArray();
 		if (bounds.Length == 0) {
 			return (Vector3.Zero, 0f);
 		}
@@ -167,57 +155,39 @@ internal static class CollisionLoader {
 		return (center, radius);
 	}
 
-	private static IEnumerable<(Vector3 Center, float Radius)> EnumerateSpheres(BaseExtent extent, Transform3 worldTransform) {
-		yield return CollisionMath.ComputeBoundingSphere(extent, worldTransform);
+	private static IEnumerable<(Vector3 Center, float Radius)> EnumerateSpheres(BaseExtent extent, Transform3 parentTransform) {
+		var world = CollisionMath.Combine(parentTransform, extent.Transform);
+		yield return CollisionMath.ComputeBoundingSphere(extent, world);
 		foreach (var child in extent.Children) {
-			foreach (var item in EnumerateSpheres(child, CollisionMath.Combine(worldTransform, extent.Transform))) {
+			foreach (var item in EnumerateSpheres(child, world)) {
 				yield return item;
 			}
 		}
 	}
 
-	private static IFileSystem ResolveContainerRoot(IFileSystem fileSystem, IDacomRegistry registry) {
-		if (fileSystem.IsDirectory || fileSystem.ParentSystem is null) {
-			return fileSystem;
-		}
+	private static bool TryGetFirstChildDirectory(DosFileReader reader, string path, out string name) {
+		name = TryEnumerateDirectories(reader, path).Select(static entry => entry.Name).FirstOrDefault() ?? string.Empty;
+		return name.Length > 0;
+	}
 
+	private static IEnumerable<FileSystemEntry> TryEnumerateDirectories(DosFileReader reader, string path) {
 		try {
-			return fileSystem.ParentSystem.CreateInstance(new DAFILEDESC(Path.GetFileName(fileSystem.FileName)) {
-				Implementation = "UTF",
-				DesiredAccess = fileSystem.Access,
-				CreationDisposition = FileMode.Open
-			}, registry);
+			return reader.FindFiles(path).Where(static entry => entry.IsDirectory);
 		} catch {
-			return fileSystem;
+			return [];
 		}
 	}
 
-	private static Transform3 Combine(Transform3 left, Transform3 right) =>
-		Transform3.FromNumericsMatrix4x4(right.ToNumericsMatrix4x4() * left.ToNumericsMatrix4x4());
-
-	private static IFileSystem OpenChild(IFileSystem parent, string name, IDacomRegistry registry) =>
-		parent.CreateInstance(new DAFILEDESC(name), registry);
-
-	private static bool TryGetChildDirectory(IFileSystem parent, string name, IDacomRegistry registry, out IFileSystem directory) {
-		if (parent.TryGetEntry(name, out var entry) && entry.IsDirectory) {
-			directory = OpenChild(parent, name, registry);
-			return true;
-		}
-
-		directory = null!;
-		return false;
-	}
-
-	private static byte[]? TryRead(IFileSystem fileSystem, string path) {
+	private static byte[]? TryRead(DosFileReader reader, string path) {
 		try {
-			return fileSystem.ReadAllBytes(path);
+			return reader.ReadAllBytes(path);
 		} catch {
 			return null;
 		}
 	}
 
-	private static float ReadSingle(IFileSystem fileSystem, string path, float fallback) =>
-		TryRead(fileSystem, path) is { Length: >= 4 } bytes ? BitConverter.ToSingle(bytes, 0) : fallback;
+	private static float ReadSingle(DosFileReader reader, string path, float fallback) =>
+		TryRead(reader, path) is { Length: >= 4 } bytes ? BitConverter.ToSingle(bytes, 0) : fallback;
 
 	private static float[] ReadSingleArray(byte[] bytes) {
 		var values = new float[bytes.Length / sizeof(float)];

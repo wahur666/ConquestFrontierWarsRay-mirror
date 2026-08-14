@@ -1,71 +1,37 @@
 using System.Numerics;
-using DACOM;
-using DOSFile;
-using ConquestSharp.Engine;
-using ConquestSharp.SystemLayer;
+using ConquestFrontierWarsRay.Data.DosFile;
 using Math3D;
 
 namespace ConquestFrontierWarsRay.Runtime.Collision;
 
-internal sealed class CollisionFactory : IDacomFactory {
-	public string InterfaceName => CollisionIdentifiers.ComponentName;
-
-	public object CreateInstance(DacomDesc descriptor, IDacomRegistry registry) {
-		ArgumentNullException.ThrowIfNull(registry);
-
-		return descriptor switch {
-			AggDesc aggregate => new CollisionService(aggregate, registry),
-			_ => new CollisionService(new AggDesc(CollisionIdentifiers.ComponentName), registry)
-		};
-	}
-}
-
-public static class CollisionRuntime {
-	public static void Register(IDacomRegistry registry) {
-		ArgumentNullException.ThrowIfNull(registry);
-		registry.RegisterComponent(new CollisionFactory(), DacomPriority.Normal);
-	}
-}
-
-internal sealed class CollisionService : DacomComponent, ICollisionComponent {
-	private readonly AggDesc _descriptor;
-	private readonly IDacomRegistry _registry;
+public sealed class CollisionService : ICollision, ICollisionIntegration {
 	private readonly Dictionary<int, ICollisionModel> _archetypes = [];
 	private readonly Dictionary<int, CollisionInstanceRecord> _instances = [];
 	private readonly CollisionStats _stats = new();
-	private IEngine? _engine;
 
-	public CollisionService(AggDesc descriptor, IDacomRegistry registry) {
-		_descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
-		_registry = registry ?? throw new ArgumentNullException(nameof(registry));
-
-		RegisterInterface(CollisionIdentifiers.ComponentName, this);
-		RegisterInterface(CollisionIdentifiers.InterfaceName, this);
-		RegisterInterface(EngineIdentifiers.EngineComponentInterfaceName, this);
-		RegisterInterface("IAggregateComponent", this);
+	public bool CreateArchetype(int archetypeIndex, string sourcePath) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(sourcePath);
+		return CreateArchetype(archetypeIndex, new DosFileReader(sourcePath));
 	}
 
-	public bool Initialize() {
-		if (_descriptor.Properties.TryGetValue("Engine", out var engineObject) && engineObject is IEngine engine) {
-			_engine = engine;
-		}
-
-		return true;
-	}
-
-	public bool CreateArchetype(int archetypeIndex, IFileSystem fileSystem) {
-		ArgumentNullException.ThrowIfNull(fileSystem);
+	public bool CreateArchetype(int archetypeIndex, DosFileReader reader) {
+		ArgumentNullException.ThrowIfNull(reader);
 		if (_archetypes.ContainsKey(archetypeIndex)) {
 			return false;
 		}
 
-		var model = CollisionLoader.TryLoad(fileSystem, _registry);
+		var model = CollisionLoader.TryLoad(reader);
 		if (model is null) {
 			return false;
 		}
 
 		_archetypes[archetypeIndex] = model;
 		return true;
+	}
+
+	public void RegisterArchetype(int archetypeIndex, ICollisionModel model) {
+		ArgumentNullException.ThrowIfNull(model);
+		_archetypes[archetypeIndex] = model;
 	}
 
 	public void DuplicateArchetype(int newArchetypeIndex, int oldArchetypeIndex) {
@@ -80,12 +46,8 @@ internal sealed class CollisionService : DacomComponent, ICollisionComponent {
 		_archetypes.Remove(archetypeIndex);
 	}
 
-	public bool TryQueryArchetypeInterface(int archetypeIndex, string interfaceName, out object? implementation) {
-		implementation = null;
-		return string.Equals(interfaceName, CollisionIdentifiers.ModelInterfaceName, StringComparison.Ordinal) &&
-		       _archetypes.TryGetValue(archetypeIndex, out var model) &&
-		       (implementation = model) is not null;
-	}
+	public bool TryGetArchetypeModel(int archetypeIndex, out ICollisionModel? model) =>
+		_archetypes.TryGetValue(archetypeIndex, out model);
 
 	public bool CreateInstance(int instanceIndex, int archetypeIndex) {
 		if (_instances.ContainsKey(instanceIndex) || !_archetypes.TryGetValue(archetypeIndex, out var model)) {
@@ -93,7 +55,6 @@ internal sealed class CollisionService : DacomComponent, ICollisionComponent {
 		}
 
 		_instances[instanceIndex] = new CollisionInstanceRecord(model, archetypeIndex);
-		_engine?.SetInstanceBoundingSphere(instanceIndex, EngineFlags.DontRecurse, model.BoundingRadius, model.BoundingCenter);
 		return true;
 	}
 
@@ -101,20 +62,14 @@ internal sealed class CollisionService : DacomComponent, ICollisionComponent {
 		_instances.Remove(instanceIndex);
 	}
 
-	public void UpdateInstance(int instanceIndex, float dt) {
-	}
+	public bool TryGetInstanceModel(int instanceIndex, out ICollisionModel? model) {
+		if (_instances.TryGetValue(instanceIndex, out var record)) {
+			model = record.Model;
+			return true;
+		}
 
-	public VisState RenderInstance(object camera, int instanceIndex, float lodFraction, RenderFlags flags, Transform3? modifierTransform) =>
-		VisState.Unknown;
-
-	public bool TryQueryInstanceInterface(int instanceIndex, string interfaceName, out object? implementation) {
-		implementation = null;
-		return string.Equals(interfaceName, CollisionIdentifiers.ModelInterfaceName, StringComparison.Ordinal) &&
-		       _instances.TryGetValue(instanceIndex, out var record) &&
-		       (implementation = record.Model) is not null;
-	}
-
-	public void Update(float dt) {
+		model = null;
+		return false;
 	}
 
 	public bool IntersectRayWithExtent(
