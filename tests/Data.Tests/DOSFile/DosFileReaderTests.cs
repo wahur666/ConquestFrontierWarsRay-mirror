@@ -75,8 +75,8 @@ public sealed class DosFileReaderTests {
 	private static string GetRepoRoot() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
-			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx")) &&
-			    File.Exists(Path.Combine(current.FullName, "src", "AppHost", "ConquestFrontierWarsRay.csproj")) &&
+			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWars.slnx")) &&
+			    File.Exists(Path.Combine(current.FullName, "src", "Conquest", "ConquestFrontierWars.csproj")) &&
 			    Directory.Exists(Path.Combine(current.FullName, "DB")) &&
 			    Directory.Exists(Path.Combine(current.FullName, "tests", "Data.Tests", "utfArchives"))) {
 				return current.FullName;
@@ -85,6 +85,6 @@ public sealed class DosFileReaderTests {
 			current = current.Parent;
 		}
 
-		throw new DirectoryNotFoundException("Could not locate ConquestFrontierWarsRay repo root.");
+		throw new DirectoryNotFoundException("Could not locate ConquestFrontierWars repo root.");
 	}
 }

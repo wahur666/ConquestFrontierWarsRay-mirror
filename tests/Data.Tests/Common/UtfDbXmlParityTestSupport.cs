@@ -112,7 +112,7 @@ public static class UtfDbXmlParityTestSupport
         while (current is not null)
         {
             if (Directory.Exists(Path.Combine(current.FullName, "DB", "xml")) &&
-                File.Exists(Path.Combine(current.FullName, "src", "AppHost", "ConquestFrontierWarsRay.csproj")))
+                File.Exists(Path.Combine(current.FullName, "src", "Conquest", "ConquestFrontierWars.csproj")))
             {
                 return current.FullName;
             }
@@ -120,7 +120,7 @@ public static class UtfDbXmlParityTestSupport
             current = current.Parent;
         }
 
-        throw new DirectoryNotFoundException("Could not locate ConquestFrontierWarsRay repo root from test output directory.");
+        throw new DirectoryNotFoundException("Could not locate ConquestFrontierWars repo root from test output directory.");
     }
 
     public sealed record UtfDbXmlCase(string DatabaseName, string TypeName, string FileName, string XmlPath)
