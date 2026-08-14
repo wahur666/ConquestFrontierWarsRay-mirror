@@ -1,7 +1,4 @@
 using System.Numerics;
-using DOSFile;
-using ConquestSharp.Engine;
-using ConquestSharp.SystemLayer;
 using Math3D;
 
 namespace ConquestFrontierWarsRay.Runtime.Physics;
@@ -18,18 +15,15 @@ public enum DynamicState {
 	Fixed = 2
 }
 
-public static class PhysicsIdentifiers {
-	public const string ComponentName = "Physics";
-	public const string InterfaceName = "IPhysics";
-	public const string OdeInterfaceName = "IODESolver";
-	public const string IntegrationInterfaceName = "IPhysicsIntegration";
-	public const string EulerImplementation = "Euler";
-	public const string Rk4Implementation = "RK4";
-	public const string TrapezoidalImplementation = "Trapezoidal";
-	public const int InvalidArchetypeIndex = -1;
+public enum PhysicsSolverKind {
+	Euler,
+	Rk4,
+	Trapezoidal
 }
 
-public delegate bool PhysicsCollisionCallback(int firstInstanceIndex, int secondInstanceIndex, PhysicsCollisionData collision);
+public static class PhysicsIdentifiers {
+	public const int InvalidArchetypeIndex = -1;
+}
 
 public readonly record struct PhysicsCollisionData(Vector3 Point, Vector3 Normal, float PenetrationDepth);
 
@@ -37,13 +31,19 @@ public readonly record struct PhysicsInstanceStats(int DynamicCount, int NonDyna
 
 public readonly record struct PhysicsExtent(float Radius, Vector3 Center);
 
+public sealed record PhysicsOptions {
+	public PhysicsSolverKind Solver { get; init; } = PhysicsSolverKind.Trapezoidal;
+}
+
 public interface IJointDriver {
 	void Drive(int parentInstanceIndex, int childInstanceIndex, float force, float torque);
 }
 
 public interface IPhysicsForceElement {
-	void Apply(IPhysics physics, float dt);
+	void Apply(PhysicsService physics, float dt);
 }
+
+public delegate bool PhysicsCollisionCallback(int firstInstanceIndex, int secondInstanceIndex, PhysicsCollisionData collision);
 
 public interface IOrdinaryDifferentialEquation {
 	int GetStateLength();
@@ -149,9 +149,6 @@ public interface IPhysicsIntegration {
 	void SetTransform(int instanceIndex, Transform3 transform);
 
 	Transform3 GetTransform(int instanceIndex);
-}
-
-public interface IPhysicsComponent : IPhysics, IPhysicsIntegration, IEngineComponent, IAggregateComponent {
 }
 
 public sealed record PhysicsArchetypeDefinition {

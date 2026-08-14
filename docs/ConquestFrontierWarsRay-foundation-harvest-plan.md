@@ -288,6 +288,50 @@ Migration rule:
 - keep the useful simulation behavior
 - drop old factory/loading contracts
 
+Current migration state:
+
+- imported into `ConquestFrontierWarsRay.Runtime.Physics`
+- DACOM/COM-style descriptor and factory wiring removed
+- runtime now uses direct construction such as `new PhysicsService()` and
+  `new PhysicsService(new PhysicsOptions { Solver = PhysicsSolverKind.Rk4 })`
+- `ConquestSharp` project references removed from the physics project
+- solver tests ported into `ConquestFrontierWarsRay.Runtime.Physics.Tests`
+
+Noteworthy changes from the original code:
+
+- `IODESolver` factory indirection replaced by direct solver classes
+- engine/system/file-system bridge code removed from the physics assembly
+- the active forward-only Trap behavior remains preserved in
+  `TrapezoidalSolver`
+
+Tests / verification:
+
+- ported runtime tests are passing in `ConquestFrontierWarsRay`
+- direct-construction behavior is covered by the new local tests
+
+### 8a. `Math3D`
+
+Role in the code:
+
+- minimal math support retained to keep the harvested physics code mostly
+  intact
+- provides `Matrix3`, `Transform3`, persistence structs, and the numerics-based
+  math engine
+
+Current migration state:
+
+- imported into `ConquestFrontierWarsRay.Math3D`
+- DACOM/COM-less version only
+- namespace kept as `Math3D` to minimize churn in harvested code
+- `ConquestSharp` project references removed from the math-dependent physics
+  path
+
+Tests / verification:
+
+- `ConquestSharp/Math3D.Tests` ported into
+  `ConquestFrontierWarsRay.Math3D.Tests`
+- local math tests are passing
+
 ### 9. DOS/UTF import helpers
 
 Need:

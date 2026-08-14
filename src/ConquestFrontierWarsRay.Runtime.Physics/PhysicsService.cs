@@ -1,20 +1,14 @@
 using System.Numerics;
-using DACOM;
-using DOSFile;
-using ConquestSharp.Engine;
-using ConquestSharp.SystemLayer;
 using Math3D;
 
 namespace ConquestFrontierWarsRay.Runtime.Physics;
 
-public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
-	private readonly IDacomRegistry _registry;
-	private readonly string _solverImplementation;
+public sealed class PhysicsService : IPhysics, IPhysicsIntegration {
 	private readonly Dictionary<int, PhysicsArchetypeDefinition> _archetypes = [];
 	private readonly Dictionary<int, PhysicsBodyState> _instances = [];
 	private readonly Dictionary<int, IPhysicsForceElement> _forceElements = [];
 	private readonly Dictionary<int, IJointDriver?> _jointDrivers = [];
-	private IOrdinaryDifferentialEquationSolver? _solver;
+	private readonly IOrdinaryDifferentialEquationSolver _solver;
 	private PhysicsCollisionCallback? _collisionCallback;
 	private float _minDt = 0.1f;
 	private int _nextForceElementHandle = 1;
@@ -22,120 +16,16 @@ public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
 	private bool _collisionFriction;
 	private bool _jointDynamics;
 
-	internal PhysicsService(PhysicsDesc descriptor, IDacomRegistry registry) {
-		_registry = registry ?? throw new ArgumentNullException(nameof(registry));
-		_solverImplementation = string.IsNullOrWhiteSpace(descriptor.SolverImplementation)
-			? PhysicsIdentifiers.TrapezoidalImplementation
-			: descriptor.SolverImplementation;
-
-		RegisterInterface(PhysicsIdentifiers.ComponentName, this);
-		RegisterInterface(PhysicsIdentifiers.InterfaceName, this);
-		RegisterInterface(PhysicsIdentifiers.IntegrationInterfaceName, this);
-		RegisterInterface(EngineIdentifiers.EngineComponentInterfaceName, this);
-		RegisterInterface("IAggregateComponent", this);
+	public PhysicsService()
+		: this(new PhysicsOptions()) {
 	}
 
-	public bool Initialize() {
-		if (_solver is not null) {
-			return true;
-		}
-
-		_solver = (IOrdinaryDifferentialEquationSolver)_registry.CreateInstance(new OdeSolverDesc(_solverImplementation));
-		return true;
+	public PhysicsService(PhysicsOptions options)
+		: this(PhysicsSolvers.Create(options?.Solver ?? PhysicsSolverKind.Trapezoidal)) {
 	}
 
-	public bool CreateArchetype(int archetypeIndex, IFileSystem fileSystem) {
-		_ = fileSystem;
-		if (archetypeIndex == PhysicsIdentifiers.InvalidArchetypeIndex) {
-			return false;
-		}
-
-		RegisterArchetype(archetypeIndex, new PhysicsArchetypeDefinition());
-		return true;
-	}
-
-	public void DuplicateArchetype(int newArchetypeIndex, int oldArchetypeIndex) {
-		if (!_archetypes.TryGetValue(oldArchetypeIndex, out var definition)) {
-			throw new InvalidOperationException($"Unknown physics archetype index {oldArchetypeIndex}.");
-		}
-
-		_archetypes[newArchetypeIndex] = definition with { };
-	}
-
-	public void DestroyArchetype(int archetypeIndex) {
-		_archetypes.Remove(archetypeIndex);
-	}
-
-	public bool TryQueryArchetypeInterface(int archetypeIndex, string interfaceName, out object? implementation) {
-		if (archetypeIndex != PhysicsIdentifiers.InvalidArchetypeIndex &&
-		    _archetypes.ContainsKey(archetypeIndex) &&
-		    string.Equals(interfaceName, PhysicsIdentifiers.InterfaceName, StringComparison.Ordinal)) {
-			implementation = this;
-			return true;
-		}
-
-		implementation = null;
-		return false;
-	}
-
-	public bool CreateInstance(int instanceIndex, int archetypeIndex) {
-		RegisterInstance(instanceIndex, new PhysicsInstanceDefinition {
-			ArchetypeIndex = archetypeIndex
-		});
-		return true;
-	}
-
-	public void DestroyInstance(int instanceIndex) {
-		_instances.Remove(instanceIndex);
-	}
-
-	public void UpdateInstance(int instanceIndex, float dt) {
-		EnsureInitialized();
-		if (!_instances.TryGetValue(instanceIndex, out var state) || dt <= 0f) {
-			return;
-		}
-
-		if (state.DynamicState != DynamicState.Dynamic) {
-			ResetAccumulators(state);
-			return;
-		}
-
-		var stepCount = Math.Max(1, (int)MathF.Ceiling(dt / Math.Max(_minDt, 1e-5f)));
-		var step = dt / stepCount;
-
-		for (var index = 0; index < stepCount; index++) {
-			ApplyForceElements(step);
-			IntegrateLinearState(state, step);
-			IntegrateAngularState(state, step);
-		}
-
-		ResetAccumulators(state);
-	}
-
-	public VisState RenderInstance(object camera, int instanceIndex, float lodFraction, RenderFlags flags, Transform3? modifierTransform) {
-		_ = camera;
-		_ = instanceIndex;
-		_ = lodFraction;
-		_ = flags;
-		_ = modifierTransform;
-		return VisState.Unknown;
-	}
-
-	public bool TryQueryInstanceInterface(int instanceIndex, string interfaceName, out object? implementation) {
-		if (_instances.ContainsKey(instanceIndex) &&
-		    string.Equals(interfaceName, PhysicsIdentifiers.InterfaceName, StringComparison.Ordinal)) {
-			implementation = this;
-			return true;
-		}
-
-		implementation = null;
-		return false;
-	}
-
-	public void Update(float dt) {
-		foreach (var instanceIndex in _instances.Keys.ToArray()) {
-			UpdateInstance(instanceIndex, dt);
-		}
+	public PhysicsService(IOrdinaryDifferentialEquationSolver solver) {
+		_solver = solver ?? throw new ArgumentNullException(nameof(solver));
 	}
 
 	public DynamicState GetDynamic(int instanceIndex) => GetBody(instanceIndex).DynamicState;
@@ -243,7 +133,7 @@ public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
 			return;
 		}
 
-		var restitution = 0.5f;
+		const float restitution = 0.5f;
 		var inverseMass = (1f / first.Mass) + (1f / second.Mass);
 		if (inverseMass <= 0f) {
 			return;
@@ -288,6 +178,34 @@ public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
 	public void SetMinDt(float minDt) => _minDt = Math.Max(minDt, 1e-5f);
 
 	public float GetMinDt() => _minDt;
+
+	public void UpdateInstance(int instanceIndex, float dt) {
+		if (!_instances.TryGetValue(instanceIndex, out var state) || dt <= 0f) {
+			return;
+		}
+
+		if (state.DynamicState != DynamicState.Dynamic) {
+			ResetAccumulators(state);
+			return;
+		}
+
+		var stepCount = Math.Max(1, (int)MathF.Ceiling(dt / Math.Max(_minDt, 1e-5f)));
+		var step = dt / stepCount;
+
+		for (var index = 0; index < stepCount; index++) {
+			ApplyForceElements(step);
+			IntegrateLinearState(state, step);
+			IntegrateAngularState(state, step);
+		}
+
+		ResetAccumulators(state);
+	}
+
+	public void Update(float dt) {
+		foreach (var instanceIndex in _instances.Keys.ToArray()) {
+			UpdateInstance(instanceIndex, dt);
+		}
+	}
 
 	public bool TryGetArchetypeExtent(int archetypeIndex, out PhysicsExtent extent) {
 		if (_archetypes.TryGetValue(archetypeIndex, out var definition) && definition.Extent is { } foundExtent) {
@@ -364,12 +282,6 @@ public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
 
 	public Transform3 GetTransform(int instanceIndex) => GetBody(instanceIndex).Transform;
 
-	private void EnsureInitialized() {
-		if (_solver is null) {
-			Initialize();
-		}
-	}
-
 	private PhysicsBodyState GetBody(int instanceIndex) {
 		if (!_instances.TryGetValue(instanceIndex, out var body)) {
 			throw new InvalidOperationException($"Unknown physics instance index {instanceIndex}.");
@@ -403,7 +315,7 @@ public sealed class PhysicsService : DacomComponent, IPhysicsComponent {
 	private void IntegrateLinearState(PhysicsBodyState state, float step) {
 		var acceleration = _useForces ? state.AccumulatedForce / state.Mass : Vector3.Zero;
 		var equation = new LinearMotionEquation(state, acceleration);
-		_solver!.Solve(equation, step);
+		_solver.Solve(equation, step);
 		state.Transform = new Transform3(state.Transform.Orientation, equation.Position);
 		state.Velocity = equation.Velocity;
 		state.Momentum = state.Velocity * state.Mass;

@@ -1,16 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>ConquestFrontierWarsRay.Runtime.Physics</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ConquestSharp\DACOM\DACOM.csproj" />
-    <ProjectReference Include="..\..\..\ConquestSharp\DOSFile\DOSFile.csproj" />
-    <ProjectReference Include="..\..\..\ConquestSharp\Engine\Engine.csproj" />
-    <ProjectReference Include="..\..\..\ConquestSharp\Math3D\Math3D.csproj" />
-    <ProjectReference Include="..\..\..\ConquestSharp\System\System.csproj" />
+    <ProjectReference Include="..\ConquestFrontierWarsRay.Math3D\ConquestFrontierWarsRay.Math3D.csproj" />
   </ItemGroup>
 </Project>
