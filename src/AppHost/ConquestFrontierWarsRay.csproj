@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConquestFrontierWarsRay.Math3D\ConquestFrontierWarsRay.Math3D.csproj" />
-    <ProjectReference Include="..\ConquestFrontierWarsRay.Runtime.Collision\ConquestFrontierWarsRay.Runtime.Collision.csproj" />
+    <ProjectReference Include="..\Math3D\Math3D.csproj" />
+    <ProjectReference Include="..\Runtime.Collision\Runtime.Collision.csproj" />
   </ItemGroup>
 
   <ItemGroup>
