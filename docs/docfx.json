@@ -5,7 +5,7 @@
         {
           "src": "..",
           "files": [
-            "src/ConquestFrontierWarsRay.Framework/ConquestFrontierWarsRay.Framework.csproj"
+            "src/Framework/Framework.csproj"
           ]
         }
       ],

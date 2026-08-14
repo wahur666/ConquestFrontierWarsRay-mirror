@@ -2,6 +2,8 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Xml.Linq;
+using ConquestFrontierWarsRay.Data.Models;
+using ConquestFrontierWarsRay.Data.Models.BT;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
 
@@ -110,10 +112,9 @@ public static class UtfDbXmlParityTestSupport
         while (current is not null)
         {
             if (Directory.Exists(Path.Combine(current.FullName, "DB", "xml")) &&
-                File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay", "ConquestFrontierWarsRay.slnx")) &&
-                File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay", "src", "AppHost", "ConquestFrontierWarsRay.csproj")))
+                File.Exists(Path.Combine(current.FullName, "src", "AppHost", "ConquestFrontierWarsRay.csproj")))
             {
-                return Path.Combine(current.FullName, "ConquestFrontierWarsRay");
+                return current.FullName;
             }
 
             current = current.Parent;
@@ -316,7 +317,7 @@ internal static class XmlModelProjector
     private static bool TryCreateKnownSpecialCasePropertyValue(XElement element, PropertyInfo property, out object? value)
     {
         if (property.Name.Equals("EngineGlow", StringComparison.OrdinalIgnoreCase) &&
-            property.PropertyType.FullName == "Data.Models.BT.BT_ENGINE_GLOW_DATA")
+            property.PropertyType == typeof(BT_ENGINE_GLOW_DATA))
         {
             var sizeContainer = element.Elements().FirstOrDefault(child =>
                 string.Equals(child.Name.LocalName, "engineGlow", StringComparison.OrdinalIgnoreCase));
@@ -363,7 +364,7 @@ internal static class XmlModelProjector
         }
 
         if (property.Name.Equals("Billboard", StringComparison.OrdinalIgnoreCase) &&
-            property.PropertyType.FullName == "Data.Models.BT.BT_BILLBOARD_DATA")
+            property.PropertyType == typeof(BT_BILLBOARD_DATA))
         {
             var billboardElement = element.Elements().FirstOrDefault(child =>
                 string.Equals(child.Name.LocalName, "billboard", StringComparison.OrdinalIgnoreCase));
@@ -461,7 +462,7 @@ internal static class XmlModelProjector
 
         if (property.Name.Equals("Research", StringComparison.OrdinalIgnoreCase) &&
             property.DeclaringType?.Name == "BT_ADMIRAL_RES" &&
-            property.PropertyType.FullName == "Data.Models.BT.BT_RESEARCH")
+            property.PropertyType == typeof(BT_RESEARCH))
         {
             value = CreateValue(element, property.PropertyType, property.Name);
             return true;
@@ -623,7 +624,7 @@ internal static class XmlModelProjector
 
         if (property.Name.Equals("Attributes", StringComparison.OrdinalIgnoreCase) &&
             property.DeclaringType?.Name == "BT_ASTEROIDFIELD_DATA" &&
-            property.PropertyType.FullName == "Data.Models.BT.BT_FIELD_ATTRIBUTES")
+            property.PropertyType == typeof(BT_FIELD_ATTRIBUTES))
         {
             var child = FindPropertyElement(element, property);
             if (child is not null)
@@ -1161,16 +1162,15 @@ internal static class XmlModelProjector
     private static bool ShouldProjectFromCurrentElement(Type propertyType)
     {
         var targetType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
-        return targetType.FullName is
-            "Data.Models.BASIC_DATA" or
-            "Data.Models.BT.BASE_FIELD_DATA" or
-            "Data.Models.BT.BASE_LAUNCHER" or
-            "Data.Models.BT.BASE_WEAPON_DATA" or
-            "Data.Models.BT.BT_OBJ_CLASS_AND_RACE_AND_DISPLAY_NAME" or
-            "Data.Models.BT.BT_BASE_SPACESHIP_DATA" or
-            "Data.Models.BT.BT_BASE_PLATFORM_DATA" or
-            "Data.Models.BT.BT_BASE_RESEARCH_DATA" or
-            "Data.Models.BT.BT_PROJECTILE_DATA_BASE";
+        return targetType == typeof(BASIC_DATA) ||
+               targetType == typeof(BASE_FIELD_DATA) ||
+               targetType == typeof(BASE_LAUNCHER) ||
+               targetType == typeof(BASE_WEAPON_DATA) ||
+               targetType == typeof(BT_OBJ_CLASS_AND_RACE_AND_DISPLAY_NAME) ||
+               targetType == typeof(BT_BASE_SPACESHIP_DATA) ||
+               targetType == typeof(BT_BASE_PLATFORM_DATA) ||
+               targetType == typeof(BT_BASE_RESEARCH_DATA) ||
+               targetType == typeof(BT_PROJECTILE_DATA_BASE);
     }
 
     private static void PopulateDerivedEnumProperties(
@@ -1601,4 +1601,3 @@ internal static class DeepComparer
 
     private static string Format(object? value) => value?.ToString() ?? "<null>";
 }
-

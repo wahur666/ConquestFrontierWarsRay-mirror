@@ -29,3 +29,5 @@ obj/
 structs
 DB/xml
 artifacts
+docs/api
+docs/_site
