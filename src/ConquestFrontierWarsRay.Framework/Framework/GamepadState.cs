@@ -1,70 +1,58 @@
 using System.Runtime.InteropServices;
 using Raylib_cs;
 
-namespace ConquestFrontierWarsRay.SceneReference.Input;
+namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-///     Polls gamepad 0 once per frame and exposes it with Xbox-controller naming, since that's
-///     the layout the target handheld's built-in controller follows (minus L3/R3 on some units).
-///     Raylib's generic button/axis names are mapped here: RightFace* are ABXY, LeftFace* are the
-///     d-pad, Trigger1 are the bumpers (LB/RB), Trigger2 are the analog triggers (LT/RT).
+/// Polled state for one gamepad using Xbox-style button naming.
 /// </summary>
-public static class GamepadInput {
-	public const int PlayerIndex = 0;
+internal sealed class GamepadState {
+	private const int PlayerIndex = 0;
 	private const float StickDeadzone = 0.15f;
 
-	public static bool IsConnected { get; private set; }
-	public static string Name { get; private set; } = string.Empty;
+	public bool IsConnected { get; private set; }
+	public string Name { get; private set; } = string.Empty;
 
-	public static bool A { get; private set; }
-	public static bool B { get; private set; }
-	public static bool X { get; private set; }
-	public static bool Y { get; private set; }
+	public bool A { get; private set; }
+	public bool B { get; private set; }
+	public bool X { get; private set; }
+	public bool Y { get; private set; }
 
-	public static bool DPadUp { get; private set; }
-	public static bool DPadRight { get; private set; }
-	public static bool DPadDown { get; private set; }
-	public static bool DPadLeft { get; private set; }
+	public bool DPadUp { get; private set; }
+	public bool DPadRight { get; private set; }
+	public bool DPadDown { get; private set; }
+	public bool DPadLeft { get; private set; }
 
-	public static bool LB { get; private set; }
-	public static bool RB { get; private set; }
+	public bool LB { get; private set; }
+	public bool RB { get; private set; }
 
-	public static bool Back { get; private set; }
-	public static bool Guide { get; private set; }
-	public static bool Start { get; private set; }
+	public bool Back { get; private set; }
+	public bool Guide { get; private set; }
+	public bool Start { get; private set; }
+	public bool L3 { get; private set; }
+	public bool R3 { get; private set; }
 
-	/// <summary>Left stick click. Device may be missing this button entirely.</summary>
-	public static bool L3 { get; private set; }
+	public float LeftStickX { get; private set; }
+	public float LeftStickY { get; private set; }
+	public float RightStickX { get; private set; }
+	public float RightStickY { get; private set; }
+	public float LeftTrigger { get; private set; }
+	public float RightTrigger { get; private set; }
 
-	/// <summary>Right stick click. Device may be missing this button entirely.</summary>
-	public static bool R3 { get; private set; }
+	public bool APressed { get; private set; }
+	public bool BPressed { get; private set; }
+	public bool XPressed { get; private set; }
+	public bool YPressed { get; private set; }
+	public bool StartPressed { get; private set; }
+	public bool BackPressed { get; private set; }
+	public bool L3Pressed { get; private set; }
+	public bool R3Pressed { get; private set; }
+	public bool DPadUpPressed { get; private set; }
+	public bool DPadRightPressed { get; private set; }
+	public bool DPadDownPressed { get; private set; }
+	public bool DPadLeftPressed { get; private set; }
 
-	public static float LeftStickX { get; private set; }
-	public static float LeftStickY { get; private set; }
-	public static float RightStickX { get; private set; }
-	public static float RightStickY { get; private set; }
-
-	/// <summary>0 (released) .. 1 (fully pressed).</summary>
-	public static float LeftTrigger { get; private set; }
-
-	/// <summary>0 (released) .. 1 (fully pressed).</summary>
-	public static float RightTrigger { get; private set; }
-
-	// "Just pressed this frame" edge triggers, for menu navigation and one-shot actions.
-	public static bool APressed { get; private set; }
-	public static bool BPressed { get; private set; }
-	public static bool XPressed { get; private set; }
-	public static bool YPressed { get; private set; }
-	public static bool StartPressed { get; private set; }
-	public static bool BackPressed { get; private set; }
-	public static bool L3Pressed { get; private set; }
-	public static bool R3Pressed { get; private set; }
-	public static bool DPadUpPressed { get; private set; }
-	public static bool DPadRightPressed { get; private set; }
-	public static bool DPadDownPressed { get; private set; }
-	public static bool DPadLeftPressed { get; private set; }
-
-	public static void Poll() {
+	public void Poll() {
 		IsConnected = Raylib.IsGamepadAvailable(PlayerIndex);
 		if (!IsConnected) {
 			Reset();
@@ -100,7 +88,6 @@ public static class GamepadInput {
 		RightStickX = ApplyDeadzone(Raylib.GetGamepadAxisMovement(PlayerIndex, GamepadAxis.RightX));
 		RightStickY = ApplyDeadzone(Raylib.GetGamepadAxisMovement(PlayerIndex, GamepadAxis.RightY));
 
-		// Trigger axes report -1 (released) .. 1 (fully pressed); normalize to 0..1.
 		LeftTrigger = Normalize01(Raylib.GetGamepadAxisMovement(PlayerIndex, GamepadAxis.LeftTrigger));
 		RightTrigger = Normalize01(Raylib.GetGamepadAxisMovement(PlayerIndex, GamepadAxis.RightTrigger));
 
@@ -118,7 +105,7 @@ public static class GamepadInput {
 		DPadLeftPressed = Raylib.IsGamepadButtonPressed(PlayerIndex, GamepadButton.LeftFaceLeft);
 	}
 
-	private static void Reset() {
+	private void Reset() {
 		Name = string.Empty;
 		A = B = X = Y = false;
 		DPadUp = DPadRight = DPadDown = DPadLeft = false;

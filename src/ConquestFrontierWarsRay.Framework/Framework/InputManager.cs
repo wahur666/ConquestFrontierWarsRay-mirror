@@ -6,14 +6,21 @@ namespace ConquestFrontierWarsRay.Framework;
 /// Tracks named input actions and a quit gesture.
 /// </summary>
 internal sealed class InputManager {
+	private const float StickTriggerThreshold = 0.6f;
+	private const float StickReleaseThreshold = 0.35f;
 	private const int PrimaryGamepad = 0;
 	private const float ExitHoldDurationSeconds = 1.25f;
 	private readonly Dictionary<string, List<InputBinding>> _bindings = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, bool> _currentStates = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, bool> _previousStates = new(StringComparer.Ordinal);
+	private readonly GamepadState _gamepad = new();
 	private float _exitHoldElapsed;
 	private bool _exitRequestedThisFrame;
 	private bool _exitTriggeredDuringCurrentHold;
+	private bool _stickLatchUp;
+	private bool _stickLatchDown;
+	private bool _stickLatchLeft;
+	private bool _stickLatchRight;
 
 	/// <summary>
 	/// Raised every frame while an action is down.
@@ -34,6 +41,50 @@ internal sealed class InputManager {
 	/// Raised every frame while an action is up.
 	/// </summary>
 	public event Action<string>? ActionReleased;
+
+	/// <summary>
+	/// Polled state for the primary gamepad.
+	/// </summary>
+	public GamepadState Gamepad => _gamepad;
+
+	/// <summary>
+	/// Returns true on the frame UI up navigation is triggered.
+	/// </summary>
+	public bool UiUp => _gamepad.DPadUpPressed || Raylib.IsKeyPressed(KeyboardKey.Up) ||
+	                    StickCrossed(_gamepad.LeftStickY, true, ref _stickLatchUp);
+
+	/// <summary>
+	/// Returns true on the frame UI down navigation is triggered.
+	/// </summary>
+	public bool UiDown => _gamepad.DPadDownPressed || Raylib.IsKeyPressed(KeyboardKey.Down) ||
+	                      StickCrossed(_gamepad.LeftStickY, false, ref _stickLatchDown);
+
+	/// <summary>
+	/// Returns true on the frame UI left navigation is triggered.
+	/// </summary>
+	public bool UiLeft => _gamepad.DPadLeftPressed || Raylib.IsKeyPressed(KeyboardKey.Left) ||
+	                      StickCrossed(_gamepad.LeftStickX, true, ref _stickLatchLeft);
+
+	/// <summary>
+	/// Returns true on the frame UI right navigation is triggered.
+	/// </summary>
+	public bool UiRight => _gamepad.DPadRightPressed || Raylib.IsKeyPressed(KeyboardKey.Right) ||
+	                       StickCrossed(_gamepad.LeftStickX, false, ref _stickLatchRight);
+
+	/// <summary>
+	/// Returns true on the frame the primary cancel key is pressed.
+	/// </summary>
+	public bool UiEsc => Raylib.IsKeyPressed(KeyboardKey.Escape) || _gamepad.BPressed;
+
+	/// <summary>
+	/// Returns true on the frame the primary accept key is pressed.
+	/// </summary>
+	public bool UiAccept => Raylib.IsKeyPressed(KeyboardKey.Enter) || _gamepad.APressed;
+
+	/// <summary>
+	/// Returns true on the frame the secondary back key is pressed.
+	/// </summary>
+	public bool UiBack => Raylib.IsKeyPressed(KeyboardKey.Backspace) || _gamepad.BackPressed;
 
 	private void Register(string actionName, params KeyboardKey[] keys) {
 		ArgumentException.ThrowIfNullOrWhiteSpace(actionName);
@@ -101,6 +152,7 @@ internal sealed class InputManager {
 	/// </summary>
 	public void Update(float deltaTime) {
 		_exitRequestedThisFrame = false;
+		_gamepad.Poll();
 
 		foreach (var (actionName, bindings) in _bindings) {
 			var previousState = _currentStates[actionName];
@@ -157,6 +209,25 @@ internal sealed class InputManager {
 		}
 
 		return states[actionName];
+	}
+
+	private static bool StickCrossed(float axisValue, bool negative, ref bool latch) {
+		var magnitude = negative ? -axisValue : axisValue;
+
+		if (magnitude > StickTriggerThreshold) {
+			if (latch) {
+				return false;
+			}
+
+			latch = true;
+			return true;
+		}
+
+		if (magnitude < StickReleaseThreshold) {
+			latch = false;
+		}
+
+		return false;
 	}
 
 	private sealed class InputBinding {
