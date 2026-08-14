@@ -9,11 +9,11 @@ internal static class Program
 {
 	private static Music currentTrack;
 
-	static void Main()
-	{
+	static void Main() {
+		Raylib.SetConfigFlags(ConfigFlags.VSyncHint);
 		Raylib.InitWindow(800, 450, "raylib-cs");
 		Raylib.InitAudioDevice();
-
+		Raylib.SetTargetFPS(60);
 		string ostDirectory = Path.Combine(AppContext.BaseDirectory, "conquest_frontier_wars_ost");
 		string firstTrackPath = Directory
 			.EnumerateFiles(ostDirectory, "*.mp3", SearchOption.TopDirectoryOnly)
@@ -21,7 +21,7 @@ internal static class Program
 			.First();
 		currentTrack = Raylib.LoadMusicStream(firstTrackPath);
 		Raylib.SetMusicVolume(currentTrack, 0.5f);
-		Raylib.PlayMusicStream(currentTrack);
+		// Raylib.PlayMusicStream(currentTrack);
 
 		var win32 = new Win32Window(onTick: Tick);
 
@@ -30,7 +30,7 @@ internal static class Program
 			Tick();
 		}
 
-		Raylib.StopMusicStream(currentTrack);
+		// Raylib.StopMusicStream(currentTrack);
 		Raylib.UnloadMusicStream(currentTrack);
 		Raylib.CloseAudioDevice();
 		Raylib.CloseWindow();
@@ -38,6 +38,7 @@ internal static class Program
 
 	static void Tick()
 	{
+		Raylib.DrawFPS(10, 10);
 		Raylib.UpdateMusicStream(currentTrack);
 		Draw();
 	}
