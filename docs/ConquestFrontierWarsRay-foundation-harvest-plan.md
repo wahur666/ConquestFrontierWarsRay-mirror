@@ -117,52 +117,37 @@ Tests / verification:
 - code exists and is useful
 - migration validation into `ConquestFrontierWarsRay` is still pending
 
-### 4. `testapp-ray-cs` framework donor
+### 4. Framework base
 
 Role in the code:
 
-- main framework donor for the new host
-- reference for app shell, node lifecycle, input, resource ownership, and
-  debug-tree patterns
+- app shell, node lifecycle, input, resource ownership, and debug-tree patterns
+  now live directly in `ConquestFrontierWarsRay.Framework`
 
 Current migration state:
 
-- still a donor/reference project
-- not migrated as a whole
-- selected framework pieces should be harvested as needed
-
-Noteworthy changes from the original code:
-
-- none required at the project level
-- when harvested, the goal is to keep the framework concepts and not import
-  unrelated project structure
+- harvested into the local framework project
+- donor project separation is no longer required for the foundation layer
 
 Tests / verification:
 
-- donor project has framework tests
-- harvested integration inside `ConquestFrontierWarsRay` still needs its own
-  verification
+- local framework tests now cover the harvested behavior
 
-### 5. `EventHorizon` scene/UI reference
+### 5. Lightweight UI/menu layer
 
 Role in the code:
 
-- secondary reference for scene shape, scene switching, and simple UI/control
-  composition
+- simple UI/control composition on top of the local framework
 
 Current migration state:
 
-- reference only
-- not a foundation base
-
-Noteworthy changes from the original code:
-
-- most of its framework scene-graph layer is considered superseded by
-  `testapp-ray-cs`
+- useful pieces have been folded into `ConquestFrontierWarsRay.Framework`
+- duplicate scene-graph and input layers were removed
 
 Tests / verification:
 
-- not relevant as a migrated module yet
+- framework coverage exists for the inherited base layers
+- direct tests for the harvested menu/UI layer are still a follow-up item
 
 ## Planned migrations
 
@@ -179,8 +164,7 @@ Need:
 
 Likely source:
 
-- primarily `testapp-ray-cs`
-- use `EventHorizon` only as a scene-controller reference
+- local `ConquestFrontierWarsRay.Framework`
 
 ### 2. Scene graph
 
@@ -193,7 +177,7 @@ Need:
 
 Likely source:
 
-- validated patterns from `testapp-ray-cs`
+- validated local framework patterns
 - structure guided by the refactor checklist
 
 ### 3. Resource layer
@@ -207,7 +191,7 @@ Need:
 
 Likely source:
 
-- `testapp-ray-cs`
+- local `ConquestFrontierWarsRay.Framework`
 
 ### 4. Input layer
 
@@ -219,7 +203,7 @@ Need:
 
 Likely source:
 
-- base input model from `testapp-ray-cs`
+- local framework input model
 - later selective behavior from `DAHOTKEY`
 
 ### 5. Mesh runtime split
@@ -383,8 +367,7 @@ Need:
 
 Likely source:
 
-- debug-tree ideas from `testapp-ray-cs`
-- simple UI composition ideas from `EventHorizon`
+- local framework debug-tree and UI controls
 
 ### 11. Future game-facing modules
 
