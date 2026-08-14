@@ -293,16 +293,17 @@ Current migration state:
 - imported into `ConquestFrontierWarsRay.Runtime.Physics`
 - DACOM/COM-style descriptor and factory wiring removed
 - runtime now uses direct construction such as `new PhysicsService()` and
-  `new PhysicsService(new PhysicsOptions { Solver = PhysicsSolverKind.Rk4 })`
+  `new PhysicsService(PhysicsSolverKind.Rk4)`
 - `ConquestSharp` project references removed from the physics project
 - solver tests ported into `ConquestFrontierWarsRay.Runtime.Physics.Tests`
 
 Noteworthy changes from the original code:
 
-- `IODESolver` factory indirection replaced by direct solver classes
+- `IODESolver` factory indirection replaced by static solver dispatch over
+  `PhysicsSolverKind`
 - engine/system/file-system bridge code removed from the physics assembly
-- the active forward-only Trap behavior remains preserved in
-  `TrapezoidalSolver`
+- the redundant Trap/Trapezoidal alias was removed because it compiled down to
+  the same forward-Euler step
 
 Tests / verification:
 

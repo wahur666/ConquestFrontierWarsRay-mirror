@@ -8,7 +8,7 @@ public sealed class PhysicsService : IPhysics, IPhysicsIntegration {
 	private readonly Dictionary<int, PhysicsBodyState> _instances = [];
 	private readonly Dictionary<int, IPhysicsForceElement> _forceElements = [];
 	private readonly Dictionary<int, IJointDriver?> _jointDrivers = [];
-	private readonly IOrdinaryDifferentialEquationSolver _solver;
+	private readonly PhysicsSolverKind _solverKind;
 	private PhysicsCollisionCallback? _collisionCallback;
 	private float _minDt = 0.1f;
 	private int _nextForceElementHandle = 1;
@@ -16,16 +16,8 @@ public sealed class PhysicsService : IPhysics, IPhysicsIntegration {
 	private bool _collisionFriction;
 	private bool _jointDynamics;
 
-	public PhysicsService()
-		: this(new PhysicsOptions()) {
-	}
-
-	public PhysicsService(PhysicsOptions options)
-		: this(PhysicsSolvers.Create(options?.Solver ?? PhysicsSolverKind.Trapezoidal)) {
-	}
-
-	public PhysicsService(IOrdinaryDifferentialEquationSolver solver) {
-		_solver = solver ?? throw new ArgumentNullException(nameof(solver));
+	public PhysicsService(PhysicsSolverKind solverKind = PhysicsSolverKind.Euler) {
+		_solverKind = solverKind;
 	}
 
 	public DynamicState GetDynamic(int instanceIndex) => GetBody(instanceIndex).DynamicState;
@@ -315,7 +307,7 @@ public sealed class PhysicsService : IPhysics, IPhysicsIntegration {
 	private void IntegrateLinearState(PhysicsBodyState state, float step) {
 		var acceleration = _useForces ? state.AccumulatedForce / state.Mass : Vector3.Zero;
 		var equation = new LinearMotionEquation(state, acceleration);
-		_solver.Solve(equation, step);
+		PhysicsSolvers.Solve(_solverKind, equation, step);
 		state.Transform = new Transform3(state.Transform.Orientation, equation.Position);
 		state.Velocity = equation.Velocity;
 		state.Momentum = state.Velocity * state.Mass;

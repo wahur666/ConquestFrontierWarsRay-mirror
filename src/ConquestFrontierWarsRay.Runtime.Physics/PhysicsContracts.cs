@@ -17,8 +17,7 @@ public enum DynamicState {
 
 public enum PhysicsSolverKind {
 	Euler,
-	Rk4,
-	Trapezoidal
+	Rk4
 }
 
 public static class PhysicsIdentifiers {
@@ -30,10 +29,6 @@ public readonly record struct PhysicsCollisionData(Vector3 Point, Vector3 Normal
 public readonly record struct PhysicsInstanceStats(int DynamicCount, int NonDynamicCount, int FixedCount);
 
 public readonly record struct PhysicsExtent(float Radius, Vector3 Center);
-
-public sealed record PhysicsOptions {
-	public PhysicsSolverKind Solver { get; init; } = PhysicsSolverKind.Trapezoidal;
-}
 
 public interface IJointDriver {
 	void Drive(int parentInstanceIndex, int childInstanceIndex, float force, float torque);
@@ -57,10 +52,6 @@ public interface IOrdinaryDifferentialEquation {
 	float GetTime();
 
 	void SetTime(float time);
-}
-
-public interface IOrdinaryDifferentialEquationSolver {
-	void Solve(IOrdinaryDifferentialEquation solvable, float timeStep);
 }
 
 public interface IPhysics {

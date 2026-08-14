@@ -7,7 +7,7 @@ namespace ConquestFrontierWarsRay.Runtime.Physics.Tests;
 
 public sealed class PhysicsRuntimeTests {
 	[Fact]
-	public void Constructor_UsesTrapezoidalSolverByDefault() {
+	public void Constructor_UsesEulerSolverByDefault() {
 		var physics = new PhysicsService();
 		physics.RegisterInstance(1, new PhysicsInstanceDefinition {
 			DynamicStateOverride = DynamicState.Dynamic
@@ -22,26 +22,13 @@ public sealed class PhysicsRuntimeTests {
 	[Theory]
 	[InlineData(PhysicsSolverKind.Euler, 1.5f)]
 	[InlineData(PhysicsSolverKind.Rk4, 1.6484375f)]
-	[InlineData(PhysicsSolverKind.Trapezoidal, 1.5f)]
-	public void SolverFactory_SelectsRequestedImplementation(PhysicsSolverKind kind, float expectedValue) {
-		var solver = PhysicsSolvers.Create(kind);
+	public void SolverDispatcher_SelectsRequestedImplementation(PhysicsSolverKind kind, float expectedValue) {
 		var equation = new ExponentialGrowthEquation(1f);
 
-		solver.Solve(equation, 0.5f);
+		PhysicsSolvers.Solve(kind, equation, 0.5f);
 
 		Assert.Equal(expectedValue, equation.Value, 6);
 		Assert.Equal(0.5f, equation.GetTime(), 6);
-	}
-
-	[Fact]
-	public void TrapSolver_PreservesActiveForwardOnlyBehavior() {
-		var solver = new TrapezoidalSolver();
-		var equation = new ExponentialGrowthEquation(1f);
-
-		solver.Solve(equation, 0.5f);
-
-		Assert.Equal(1.5f, equation.Value, 4);
-		Assert.Equal(0.5f, equation.GetTime(), 4);
 	}
 
 	[Fact]
