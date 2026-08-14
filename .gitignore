@@ -17,6 +17,7 @@ cmake-build-release
 # .NET
 bin/
 obj/
+*.DotSettings.user
 
 # CLion
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
