@@ -95,20 +95,20 @@ Keep the update cumulative and concise.
 
 ### Batch 01 - Bootstrap, Runtime, Container, Windowing
 
-- `Pch.cpp`: translation unit for precompiled headers; no framework port value. Replacement: none. Confidence: `Inferred`.
-- `cqpipeline.cpp`: likely legacy render/system pipeline bootstrap wrapper inserted by `SysContainer`. Replacement: framework-owned runtime bootstrap service, not a user-facing node. Confidence: `Inferred`.
-- `GenData.cpp`: likely archetype/resource-driven control factory and generated data loader. Replacement: structured resource registry or UI definition loader, if still needed. Confidence: `Inferred`.
-- `IniConfig.cpp`: likely legacy INI/config persistence used by shell and defaults. Replacement: explicit configuration service or typed settings store. Confidence: `Inferred`.
-- `LogFile.cpp`: likely diagnostic logging sink. Replacement: plain logging utility, not a framework node. Confidence: `Inferred`.
-- `Objwatch.cpp`: likely debug/inspection watcher utilities. Replacement: debug overlay or diagnostics helpers. Confidence: `Inferred`.
-- `PrintHeap.cpp`: likely heap/debug memory diagnostics. Replacement: none for first port; keep only if debugging value remains. Confidence: `Inferred`.
-- `SysContainer.cpp`: dynamic aggregate container that loads system components, initializes them, updates them, and exposes connection points. Replacement: do not port literally; use explicit startup wiring in app/framework services. Confidence: `Observed`.
-- `System.cpp`: likely shared system registration/startup/shutdown layer around Trim services. Replacement: explicit app bootstrap and service registration. Confidence: `Inferred`.
-- `TManager.cpp`: likely top-level manager for Trim subsystems or UI/theme resources. Replacement: split responsibilities into typed services. Confidence: `Inferred`.
-- `TestScript.cpp`: likely developer test hook or scripting harness. Replacement: test app scenes or debug tooling. Confidence: `Inferred`.
-- `Trim.cpp`: likely DLL entry/registration root for Trim target. Replacement: none as-is; convert only meaningful registrations into explicit framework setup. Confidence: `Inferred`.
-- `UserDefaults.cpp`: likely persistent user preference/default store used by menus and game setup. Replacement: typed settings service plus serialization. Confidence: `Inferred`.
-- `WindowManager.cpp`: Win32 window ownership, message pump, fullscreen/windowed transitions, cursor position tracking, activation handling, and exit dispatch. Replacement: mostly `Windowing` layer; keep framework APIs above it Raylib-first. Confidence: `Observed`.
+- `Pch.cpp`: precompiled-header translation unit only; no runtime behavior and no port value. Main types: none. Key deps: `pch.h`. Replacement: none. Port Priority: Low. Confidence: `Observed`.
+- `cqpipeline.cpp`: thread-safe `IRenderPipeline` adapter inserted by the system container; forwards almost the entire render-pipeline surface through an optional critical section and resets some global texture/vertex-buffer accounting on startup. Main types: `CQPipeline`, `IRenderPipeline`. Key deps: `SysContainer.cpp`, `rendpipeline.h`, `TComponent2.h`, global `TEXMEMORYUSED` / `VBMEMORYUSED`. Replacement: internal renderer-backend facade or synchronization wrapper, not a framework control or app-level node. Port Priority: Medium. Notes: this is an adapter around the real pipeline, not the renderer implementation itself. Confidence: `Observed`.
+- `GenData.cpp`: global archetype database and factory service; loads packed generated archetype/type data, caches loaded archetypes with refcounts, creates component instances through `ICQFactory`, exposes raw archetype data, and can copy/open the backing data file. Main types: `ARCHDATATYPE`, `ARCHDATA`, `GENNODE`, `GenData`, `_genlist`. Key deps: `GenData.h`, `Document`, `MemFile`, `FileSys`, `EventSys2`, `UserDefaults`, `Cursor`. Replacement: typed asset/archetype registry plus explicit factories only where legacy generated data is still required; avoid porting DACOM factory plumbing into framework core. Port Priority: High. Notes: broader than UI definitions; this is one of the old data-driven construction seams. Confidence: `Observed`.
+- `IniConfig.cpp`: legacy render-device INI helper, not general settings persistence; patches `RendN` sections with enumerated device GUIDs, contains mostly disabled/stubbed DirectDraw/Direct3D capability tests, and leaves video-mode enumeration commented out. Main types: `FileData`. Key deps: `UserDefaults`, `DEffectOpts`, Win32 file mapping APIs, old Direct3D headers. Replacement: omit for the Raylib-first port or keep only as a one-off config migration/import helper. Port Priority: Low. Notes: much of the original render-device probing path is already dead code in this snapshot. Confidence: `Observed`.
+- `LogFile.cpp`: `IFileSystem` decorator for asset-usage tracing; forwards file operations to an underlying file system, intercepts `CreateInstance`/`OpenChild` to record accessed file names, merges prior log contents, and writes a deduplicated `%ACTION% ... %DEST%` list on shutdown. Main types: `LFNODE`, `LogFile`. Key deps: `IFileSystem`, `FileSys`, `THashList`, `TComponent2.h`. Replacement: dev-only file-access tracing wrapper around the new asset/file service. Port Priority: Low. Notes: this is instrumentation, not the main logging system. Confidence: `Observed`.
+- `Objwatch.cpp`: intrusive object-pointer watcher maintenance, not a generic debug watcher; registers `OBJPTR<IBaseObject>` links on target objects and clears/invalidate-watcher lists by player, volatility class, or full object teardown. Main types: `OBJPTR<IBaseObject>` helpers via free functions. Key deps: `objwatch.h`, `IBaseObject` ownership/watch lists. Replacement: engine-side weak-handle or observer invalidation helper for gameplay objects, only if the port keeps this lifetime model. Port Priority: Low. Notes: prior summary was wrong; this is object lifetime bookkeeping, not diagnostics UI. Confidence: `Observed`.
+- `PrintHeap.cpp`: debug memory-dump helper with localized string/message-box shims; walks heap allocations, prints block summaries, and can mark allocated blocks for later diagnostics. Main types: free functions `_localprintf`, `_localMessageBox`, `PrintHeap`, `MarkAllocatedBlocks`. Key deps: `HeapObj.h`, `CQTrace`, Win32 string/message APIs. Replacement: optional dev-only memory diagnostics utility. Port Priority: Low. Confidence: `Observed`.
+- `SysContainer.cpp`: dynamic aggregate runtime container; reads the `[System]` profile section, instantiates listed DACOM components, tracks `ISystemComponent` / `IAggregateComponent` members, updates and shuts them down, exposes connection-point enumeration, and prepends the `CQPipeline` wrapper. Main types: `SysConInner`, `SystemContainer`, nested `ELEMENT`. Key deps: `system.h`, `IProfileParser`, `IConnection`, `cqpipeline.cpp`. Replacement: do not port literally; replace with explicit bootstrap wiring and typed service registration. Port Priority: High. Notes: useful as a dependency map for old startup ordering, but not as a target architecture. Confidence: `Observed`.
+- `System.cpp`: large runtime glue layer spanning much more than startup; includes posted-message dispatch for `BaseHotRect`, primitive-builder helpers, global startup/cleanup registries, hotkey-event peeking, render/video option parsing, gamma and window/fullscreen mode control, 3D pipeline startup/shutdown, hardpoint enumeration helpers, profile-parser creation, and some file-system utilities. Main types: `CLEANUP_NODE`, `STARTUP_NODE`, global `PrimitiveBuilder2 PB`, plus several free runtime functions (`CreateGlobalComponents`, `ReadRenderOptions`, `ParseVideoINI`, `Start3DMode`, `Shutdown3DMode`, `Enable3DMode`). Key deps: `WindowManager`, `UserDefaults`, `VideoSurface`, `DrawAgent`, `TManager`, `CQBatch`, `EventSys2`, render-pipeline/texture/vertex-buffer interfaces. Replacement: split across app bootstrap, renderer lifecycle management, utility helpers, and framework/runtime services rather than keeping one catch-all module. Port Priority: High. Notes: this file is a major boundary problem and should be decomposed during port. Confidence: `Observed`.
+- `TManager.cpp`: texture/resource manager, not a general subsystem manager; caches textures by name with refcounts, builds textures from BMP/TGA/VFX readers, generates mipmaps and bumpmap conversions, manages reusable draw-agent textures, and responds to update events to recycle temporary texture slots. Main types: `TMNODE`, `DANODE`, `TManager`, `_tmanager`. Key deps: `IImageReader`, `WindowManager`, `EventSys2`, `FileSys`, `HKEvent`, render pipeline texture APIs, legacy readers created in Batch 02. Replacement: renderer texture cache/resource service with atlas/texture uploads and explicit lifetime management. Port Priority: High. Notes: this is one of the concrete render-resource services the new framework/runtime needs. Confidence: `Observed`.
+- `TestScript.cpp`: developer network-test harness; writes or reuses `cqnet.log`, seeds a `FULLCQGAME` setup, toggles host/client test behavior from the command line, and can bootstrap mission/network test state. Main types: free functions `EnableLogging`, `RunTestScript`. Key deps: `CQGame.h`, `Mission`, `UserDefaults`, `FileSys`, `EventSys2`, `MScroll`, `InProgressAnim`. Replacement: omit from framework port; recreate only as debug/test tooling if automated multiplayer repro still matters. Port Priority: Low. Notes: app-debug support only. Confidence: `Observed`.
+- `Trim.cpp`: DLL entry stub, not a registration root; seeds RNG on attach, acquires the heap, and sets up a placeholder heap-message path. Main types: `DllMain`. Key deps: `HeapObj.h`, `Time.h`. Replacement: none. Port Priority: Low. Notes: the earlier assumption about meaningful registration work here was incorrect. Confidence: `Observed`.
+- `UserDefaults.cpp`: registry-backed settings/profile service with extra tooling hooks; loads/stores `USER_DEFAULTS`, supports per-player defaults, registry strings/binary values, MRU lists, input/output filenames, window placement, install-path lookups, user/script data viewers, and EULA launch. Main types: `UserDefaults`, `USER_DEFAULTS`, global `IUserDefaults::pUserDefaults`. Key deps: `WindowManager`, `Viewer`, `Document`, parser/viewer creation, Win32 registry/dialog APIs. Replacement: split into typed settings/profile persistence, file-picker/path helpers, and any editor/viewer tooling kept out of framework core. Port Priority: High. Notes: many menus depend on this, but a sizable portion is Windows/editor baggage that should not survive intact. Confidence: `Observed`.
+- `WindowManager.cpp`: Win32 window and message-pump service; creates the singleton main window, owns the top-level `WndProc`, tracks app activation and cursor position, switches between fullscreen/windowed styles, serves the message queue, stores window/client rectangles, and dispatches exit handling. Main types: `WMInner`, `WindowManager`. Key deps: `System.h`, `TConnPoint` / `TConnContainer`, Win32 window APIs, global `hMainWindow`. Replacement: mostly `Windowing` backend/service; expose a smaller framework-facing surface above the Raylib-first platform layer. Port Priority: High. Notes: still a useful reference for behavior such as activation, window flags, and message pumping, but not a shape to port directly. Confidence: `Observed`.
 
 ### Batch 02 - Drawing, Resources, Media, Visual Plumbing
 
@@ -222,12 +222,33 @@ Keep the update cumulative and concise.
 
 ### Batch 09 - Misc Legacy Helpers Bound Into Trim
 
-- `DumpView.cpp`: likely debug or dump visualization screen/helper. Replacement: debug-only tooling if still valuable. Confidence: `Inferred`.
-- `LFParser.cpp`: likely parser for legacy layout/form/text definitions. Replacement: only port if data-driven UI parsing remains required. Confidence: `Inferred`.
+- `DumpView.cpp`: global debug/error dump sink and optional live dump window; registers the standard heap/error handler, can open a RichEdit-backed top-level dialog, streams trace/assert/error text into the dialog and/or `CQDump.txt`, persists dialog placement, and logs the build version during startup. Main types: `DumpView`, global `view`. Key deps: `Startup`, `UserDefaults`, `WindowManager`, `FileSys`, `DBHotkeys`, heap error handling, Win32 dialog/RichEdit APIs. Replacement: dev-only diagnostics console/log sink with optional in-app debug window; keep it outside framework-core runtime. Port Priority: Low. Notes: this is instrumentation infrastructure, not a gameplay or UI screen. Confidence: `Observed`.
+- `LFParser.cpp`: asynchronous lip-flap timing parser for speech assets, not a general layout/form parser; reads a file from `MSPEECHDIR`, handles overlapped I/O and CD-ROM retry prompts, parses per-line mouth-frame values into a read-only `U32` frame array, and repeats the last frame when a line contains alphabetic phoneme text instead of a numeric frame. Main types: `LFParser`, `ILFParser`. Key deps: `LFParser.h`, `FileSys`, `MSPEECHDIR`, `Resource` message prompts, `CQTrace`. Replacement: app/media service helper for talking-head or subtitle/voice playback timing, or omit entirely if lip-flap presentation is dropped. Port Priority: Low. Notes: the earlier placeholder was wrong; this is a specialized media parser, not generic UI markup/data parsing. Confidence: `Observed`.
 
 ## Cross-Cutting Conclusions So Far
 
-### 1. Layout Alone Is Not The Main Port Risk
+### 1. Batch 01 Confirms The Runtime Split
+
+Batch 01 showed that the old Trim/bootstrap surface is not one subsystem. It breaks into at least seven separate replacement surfaces:
+
+- platform windowing and message pump: `WindowManager.cpp`
+- render backend synchronization/wrapping: `cqpipeline.cpp`
+- renderer lifecycle and mode switching: large parts of `System.cpp`
+- texture/resource cache and uploads: `TManager.cpp`
+- archetype/resource factory data: `GenData.cpp`
+- settings/profile persistence and tooling hooks: `UserDefaults.cpp`
+- dev/debug instrumentation and test harnesses: `LogFile.cpp`, `PrintHeap.cpp`, `TestScript.cpp`, `Trim.cpp`, `Objwatch.cpp`, `IniConfig.cpp`
+
+The main framework conclusions are:
+
+- the port needs a hard split between framework runtime, renderer backend, app bootstrap, and app services
+- `System.cpp` is too mixed to port as a unit; its responsibilities should be decomposed early
+- `SysContainer.cpp` is useful for discovering startup dependencies, but its aggregate/DACOM container shape should not survive
+- `WindowManager.cpp` and `cqpipeline.cpp` confirm that platform and renderer synchronization belong below framework controls
+- `GenData.cpp` and `UserDefaults.cpp` are major service dependencies for many screens, but both should be split into narrower typed services in the new codebase
+- several Batch 01 files are dev-only or obsolete enough that they should not influence framework architecture at all
+
+### 2. Layout Alone Is Not The Main Port Risk
 
 `MiniLayout` covers only the placement problem. It is the correct first step for:
 
@@ -244,11 +265,12 @@ But Trim also depends heavily on:
 - control composition
 - screen shell composition
 
-Batch 02 adds one more constraint:
+Batch 01 and Batch 02 add two more constraints:
 
+- runtime/bootstrap decomposition matters as much as widget layout
 - render/resource ownership is also a first-class port surface, especially for images, fonts, animation frames, subtitles, and media overlays
 
-### 2. Combobox Confirms The Needed Runtime Shape
+### 3. Combobox Confirms The Needed Runtime Shape
 
 From `Combobox.cpp`, the framework needs:
 
@@ -259,7 +281,7 @@ From `Combobox.cpp`, the framework needs:
 - event dispatch for click, selection, edit changed, and escape
 - draw-order control for active popups
 
-### 3. Menu Screens Confirm The Screen-Shell Problem
+### 4. Menu Screens Confirm The Screen-Shell Problem
 
 From `Menu_mshell.cpp`, Trim screens are not just layout files. They also own:
 
@@ -273,7 +295,7 @@ From `Menu_mshell.cpp`, Trim screens are not just layout files. They also own:
 
 Framework replacement therefore needs reusable screen-shell conventions, not just controls.
 
-### 4. Batch 02 Confirms The Render And Media Split
+### 5. Batch 02 Confirms The Render And Media Split
 
 Batch 02 showed that "drawing/resources/media" is not one subsystem. It breaks into at least six separate replacement surfaces:
 
@@ -292,7 +314,7 @@ The main framework conclusions are:
 - video, speech, subtitles, and talking-head presentation belong in app/media services layered over the framework, not inside generic controls
 - DirectDraw/DirectSound device-loss and surface-lock patterns should disappear behind the new renderer/audio backends
 
-### 5. Batch 03 Confirms Three Separate Port Surfaces
+### 6. Batch 03 Confirms Three Separate Port Surfaces
 
 Batch 03 is not one subsystem. It breaks into:
 
@@ -305,7 +327,7 @@ It also included two non-framework strays:
 - `Macrohelp.cpp`: IDE-only stub file
 - `SuperTrans.cpp`: engine math helper
 
-### 6. Batch 05 Confirms The Framework Control Boundaries
+### 7. Batch 05 Confirms The Framework Control Boundaries
 
 Batch 05 separates three different kinds of work that should not be ported the same way:
 
@@ -327,7 +349,7 @@ Batch 05 also confirmed two misclassified files:
 
 That means remaining analysis should favor real screen files next, because the reusable control surface is now much clearer.
 
-### 7. Batch 07 Confirms The Multiplayer Shell Split
+### 8. Batch 07 Confirms The Multiplayer Shell Split
 
 Batch 07 showed that the legacy multiplayer front end is already split into distinct stages:
 
@@ -343,7 +365,7 @@ That split is useful and should survive the port, but the implementation shape s
 - screen nodes own only UI state and transitions
 - app-specific screens like `Menu_options.cpp`, `Menu_Toolbar.cpp`, and `Menu_SysKitSaveLoad.cpp` stay out of framework-core boundaries
 
-### 8. Batch 08 Confirms The Networking Stack Split
+### 9. Batch 08 Confirms The Networking Stack Split
 
 Batch 08 showed that the multiplayer/network layer under Trim is not one service. It already breaks into at least five distinct replacement surfaces:
 
@@ -368,7 +390,7 @@ Batch 08 also corrected one earlier framing issue:
 - they are Trim dependencies, not Trim widgets
 - `NetConnect.cpp` in this source snapshot contains an effectively disabled `StartNetConnection()` path, so it should not be treated as a trustworthy behavioral baseline
 
-### 9. Batch 04 Clarifies The Primitive-Control Split
+### 10. Batch 04 Clarifies The Primitive-Control Split
 
 Batch 04 showed that Trim's "primitive display controls" are actually four different groups:
 
@@ -390,7 +412,7 @@ The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that
 - the framework should split `Panel`, `Image`, and `Label` concerns instead of keeping a single catch-all static control
 - atlas-based image metadata is the right replacement direction; the legacy shape-file container should be treated as a source format, not a runtime target
 
-### 10. Batch 06 Confirms The Shell-Screen Split
+### 11. Batch 06 Confirms The Shell-Screen Split
 
 Batch 06 showed that "menu screens" still break into several distinct replacement shapes:
 
@@ -415,7 +437,7 @@ Batch 06 also confirmed two naming mismatches from the earlier tracker assumptio
 - `EulaWin.cpp` is not a Trim `Frame` screen at all
 - `Menu_help.cpp` is an about/legal modal, not a document-style help browser
 
-### 11. Atlas Assets Should Replace Shape Files
+### 12. Atlas Assets Should Replace Shape Files
 
 The current framework port should assume the legacy VFX/BMP/TGA shape files are being cut over to `_atlas.json` + `.png` outputs everywhere.
 
@@ -426,16 +448,29 @@ That changes the desired replacement shape in a few important ways:
 - control/resource APIs should ask for named frames, subrects, and animation sequences, not raw shape subimage indices
 - legacy readers like `BmpRead.cpp`, `Tgaread.cpp`, and `VfxRead.cpp` become import/compatibility paths, not preferred framework runtime dependencies
 
+### 13. Batch 09 Confirms The Remaining Strays Are Dev Or Media Helpers
+
+Batch 09 confirmed that the last unclassified files do not reopen a new framework surface:
+
+- `DumpView.cpp` is dev-only diagnostics infrastructure
+- `LFParser.cpp` is a narrow lip-sync/media timing helper
+
+The main framework conclusions are:
+
+- neither file should shape framework-core control or layout architecture
+- `DumpView.cpp` belongs with debug tooling and crash/assert reporting, alongside earlier findings from `CQImage.cpp`, `LogFile.cpp`, and `PrintHeap.cpp`
+- `LFParser.cpp` belongs, if anywhere, with app-level media presentation helpers near `SoundManager.cpp` and talking-head playback rather than with generic parsers or screen loading
+- the planned tracker discovery pass is now complete; remaining work is synthesis, prioritization, or implementation planning rather than more broad source classification
+
 ## Suggested Next Analysis Order
 
-1. `Batch 01`
-2. `Batch 09`
+1. No remaining planned analysis batches
 
 Reason:
 
-- Batch 08 is now observed, so the highest-value remaining pass is Batch 01 to tighten bootstrap/config/runtime assumptions now that the control, screen, media, and networking boundaries are clearer
-- Batch 09 should stay last, because `DumpView.cpp` and `LFParser.cpp` are better evaluated after the framework/app/service split is already more stable
-- this order should reduce tracker churn, because the remaining work is now mostly boundary cleanup rather than discovery of new major surfaces
+- Batches 01 through 09 are now observed
+- the tracker now covers the full planned Trim surface at the batch level
+- the next useful step is implementation planning or framework work ordered by the existing port priorities, not another open-ended classification pass
 
 ## Tracker Maintenance Rules
 
