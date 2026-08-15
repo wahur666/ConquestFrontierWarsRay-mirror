@@ -2,12 +2,14 @@
   <Project Path="src/Conquest/ConquestFrontierWars.csproj" />
   <Project Path="src/Data/Data.csproj" />
   <Project Path="src/Framework/Framework.csproj" />
+  <Project Path="src/Gloabls/Gloabls.csproj" />
   <Project Path="src/Legacy.RaySharp/Legacy.RaySharp.csproj" />
   <Project Path="src/Math3D/Math3D.csproj" />
   <Project Path="src/Runtime.Collision/Runtime.Collision.csproj" />
   <Project Path="src/Runtime.Physics/Runtime.Physics.csproj" />
   <Project Path="tests/Data.Tests/Data.Tests.csproj" />
   <Project Path="tests/Framework.Tests/Framework.Tests.csproj" />
+  <Project Path="tests/Gloabls.Tests/Gloabls.Tests.csproj" />
   <Project Path="tests/Math3D.Tests/Math3D.Tests.csproj" />
   <Project Path="tests/Runtime.Collision.Tests/Runtime.Collision.Tests.csproj" />
   <Project Path="tests/Runtime.Physics.Tests/Runtime.Physics.Tests.csproj" />

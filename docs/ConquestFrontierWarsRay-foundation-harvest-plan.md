@@ -12,6 +12,7 @@ Related context:
 - [ConquestFrontierWarsRay scene graph refactor checklist](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/docs/ConquestFrontierWarsRay-scene-graph-refactor-checklist.md)
 - [Framework status](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/docs/framework.md)
 - [Framework plan](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/docs/plan.md)
+- [ConsoleApp1 and MapGen integration assessment](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/docs/ConquestFrontierWarsRay-consoleapp1-mapgen-integration-assessment.md)
 
 ## Host solution
 
@@ -21,7 +22,7 @@ The current solution is split into these source projects:
 
 - `Conquest`: executable host, currently a collision demo application
 - `Framework`: reusable raylib-oriented app, node, resource, and UI base layer
-- `Data`: UTF/DOS readers plus typed Conquest data models
+- `Data`: typed Conquest data models plus the current transitional UTF/DOS ingestion layer
 - `Math3D`: stripped-down math support retained for harvested runtime code
 - `Runtime.Collision`: cleaned collision runtime
 - `Runtime.Physics`: cleaned physics runtime
@@ -42,7 +43,7 @@ The foundation is no longer just a partial import stub. A real local base now ex
 Already in place:
 
 - the solution has dedicated local projects for framework, data, math, collision, and physics
-- UTF/DOS reading and typed data-model code live under `src/Data`
+- typed data-model code and the current UTF/DOS ingestion path live under `src/Data`
 - the local framework owns the app loop, node tree lifecycle, 2D nodes, resources, and lightweight UI primitives
 - cleaned collision and physics runtimes live in their own projects with local tests
 - the executable host in `src/Conquest` already exercises the collision runtime through a visual demo
@@ -53,6 +54,7 @@ Still not finished:
 - `Legacy.RaySharp` still contains a large amount of Conquest-specific runtime and tool logic that has not yet been split into cleaner reusable modules
 - framework-level follow-up work called out in `docs/plan.md` is still open, especially `SceneTree`, `AnimatedSprite2D`, `ResourceCache`, and more UI test coverage
 - end-to-end validation against real game content remains incomplete
+- the data layer is still carrying proprietary UTF/DOS support that is now considered transitional rather than a desired end state
 
 ## Finished or active foundation modules
 
@@ -63,16 +65,19 @@ Role in the code:
 - canonical local home for UTF/DOS reading
 - typed Conquest data models under `Models`, including `BT`, `GT`, `MT`, and shared structs
 - repository helpers such as `StringPackRepository` and repo-path helpers such as `RepoPaths`
+- migration point toward an XML-first content pipeline
 
 Current state:
 
 - active local project in the solution
 - no donor-project wiring layer is visible in the current structure
 - supports both runtime code and parity-style data tests
+- current UTF/DOS readers should be treated as migration infrastructure rather than permanent architecture
 
 Tests / verification:
 
 - local `Data.Tests` cover DOS file reading and UTF DB/XML parity paths
+- parity coverage is the main proof mechanism for replacing proprietary DB/UTF content loading with XML-backed loading
 
 ### 2. `Framework`
 
@@ -302,6 +307,23 @@ Examples:
 Rule:
 
 - these should build on the cleaned local foundation, not arrive before it
+
+### 9. Donor project intake and random map generation
+
+Need:
+
+- keep acquisition and verification tooling separate from runtime code
+- move toward XML as the canonical content source once type coverage is workable
+- keep proprietary UTF/DOS support only as transitional migration infrastructure
+- define how newly added donor projects should be harvested when they mix tooling and runtime logic
+- establish a local runtime home for random-map generation logic
+
+Primary source:
+
+- local `Data`
+- donor `MapGen`
+- donor `ConsoleApp1`
+- [ConsoleApp1 and MapGen integration assessment](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/docs/ConquestFrontierWarsRay-consoleapp1-mapgen-integration-assessment.md)
 
 ## Deferred items
 
