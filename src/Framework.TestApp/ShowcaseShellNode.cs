@@ -34,6 +34,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("Hierarchy / 2D", "Node, CanvasItem, and Node2D composition with transform chaining and draw ordering.", () => new HierarchyScene()),
 			new SceneDefinition("Controls", "Control, PanelNode, TextNode, and ButtonNode wired into live interactions.", () => new ControlsScene()),
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
+			new SceneDefinition("Video Player", "VideoPlayer extracted from the legacy runtime into the framework as a standalone Control node with Media Foundation decoding.", () => new VideoPlayerScene()),
 			new SceneDefinition("Sprites", "CompressedTexture2D, AtlasDefinitionResource, AtlasTexture, and Sprite in one resource-driven scene.", () => new SpriteScene()),
 			new SceneDefinition("3D Nodes", "Node3D hierarchy with animated transforms, world-space gizmos, and a camera pass.", () => new ThreeDScene())
 		]);

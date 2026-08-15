@@ -40,6 +40,7 @@ This document tracks what is currently implemented in the node framework.
   - `Sprite`
   - `Node3D`
   - `AudioPlayer`
+  - `VideoPlayer`
 - Nodes support lifecycle hooks:
   - `OnInitialize()`
   - `OnEnterTree()`
@@ -106,6 +107,7 @@ This document tracks what is currently implemented in the node framework.
   - `SliderNode`
   - `ListViewNode`
   - `Sprite`
+  - `VideoPlayer`
 
 ### 3D Node Stack
 
@@ -183,6 +185,19 @@ This document tracks what is currently implemented in the node framework.
   - pan
   - assigning and disposing audio resources
 - `RaylibApplication` now initializes and closes the raylib audio device alongside the main app lifetime.
+
+### Video
+
+- `VideoPlayer` is a screen-space `Control` node for video playback.
+- `VideoPlayer` owns:
+  - loading a file-backed source
+  - play
+  - pause
+  - stop/reopen from frame zero
+  - frame decoding
+  - audio playback for embedded audio tracks when available
+  - aspect-fit presentation inside control bounds
+- Media Foundation startup and shutdown are now managed inside the framework so video playback does not depend on `Legacy.RaySharp`.
 
 ### UI Primitives
 
