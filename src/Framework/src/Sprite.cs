@@ -27,6 +27,16 @@ public sealed class Sprite : Node2D {
 	public Color Modulate { get; set; } = Color.White;
 
 	/// <summary>
+	/// Mirrors the sprite horizontally when drawing.
+	/// </summary>
+	public bool FlipH { get; set; }
+
+	/// <summary>
+	/// Mirrors the sprite vertically when drawing.
+	/// </summary>
+	public bool FlipV { get; set; }
+
+	/// <summary>
 	/// Replaces the current texture source.
 	/// </summary>
 	public void SetTexture(Texture2D texture) {
@@ -35,6 +45,17 @@ public sealed class Sprite : Node2D {
 
 	protected override void OnDraw() {
 		var slice = _texture.GetSlice();
+		var source = slice.Source;
+
+		if (FlipH) {
+			source.X += source.Width;
+			source.Width = -source.Width;
+		}
+
+		if (FlipV) {
+			source.Y += source.Height;
+			source.Height = -source.Height;
+		}
 
 		var globalScale = GlobalScale;
 		var destinationSize = new Vector2(slice.Source.Width * globalScale.X, slice.Source.Height * globalScale.Y);
@@ -46,6 +67,6 @@ public sealed class Sprite : Node2D {
 		var origin = new Vector2(destinationSize.X * Pivot.X, destinationSize.Y * Pivot.Y);
 		var rotationDegrees = GlobalRotation * (180f / MathF.PI);
 
-		Raylib.DrawTexturePro(slice.Texture, slice.Source, destination, origin, rotationDegrees, Modulate);
+		Raylib.DrawTexturePro(slice.Texture, source, destination, origin, rotationDegrees, Modulate);
 	}
 }
