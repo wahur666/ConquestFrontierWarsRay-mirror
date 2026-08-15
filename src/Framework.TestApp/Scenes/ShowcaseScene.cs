@@ -8,4 +8,8 @@ internal abstract class ShowcaseScene : Node {
 	}
 
 	public string Title { get; }
+
+	public virtual bool HandleNavigation(MenuNavigation navigation) {
+		return false;
+	}
 }
