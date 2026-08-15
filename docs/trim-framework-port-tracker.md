@@ -214,11 +214,11 @@ Keep the update cumulative and concise.
 
 ### Batch 08 - Network And Chat Support Used By Trim
 
-- `NetBuffer.cpp`: likely network buffering/bandwidth pacing service used by multiplayer shell. Replacement: app/service layer, not framework control. Confidence: `Inferred`.
-- `NetConnect.cpp`: likely network transport/session connection setup. Replacement: dedicated networking service outside UI framework. Confidence: `Inferred`.
-- `NetConnectBuffers.cpp`: likely connection buffer structures/helpers. Replacement: networking service internals. Confidence: `Inferred`.
-- `NetFileTransfer.cpp`: likely multiplayer file/map transfer support. Replacement: async transfer service with UI progress reporting. Confidence: `Inferred`.
-- `NetPacket.cpp`: likely packet send/receive wrapper. Replacement: networking service API. Confidence: `Inferred`.
+- `NetBuffer.cpp`: low-level DirectPlay buffer/throttle layer under the multiplayer shell; timestamps outgoing packets, simulates latency and packet loss for testing, tracks rolling throughput, rate-limits ordinary vs file-transfer traffic, performs player clock-sync/checksum exchange with `PT_PLAYER_SYNC`, and turns DirectPlay system messages into `CQE_NETADDPLAYER` / `CQE_NETDELETEPLAYER`. Main types: `SUPERBASE_PACKET`, `PLAYER_NODE`, `SYNC_PACKET`, `NetBuffer`. Key deps: `NetPacket` (`OnGuaranteedDeliveryFailure`), `UserDefaults`, `EventSys2`, DirectPlay globals, `Menu_mshell.cpp` (`SetMaxBandwidth`), `Menu_netloading.cpp` (`EnableThroughputLimiting`). Replacement: app-level multiplayer transport shim with packet queueing, per-peer timing stats, bandwidth policy, and diagnostics hooks; do not port the DirectPlay-specific buffer shape into framework core. Port Priority: High. Notes: actual file lives in `src\\Conquest\\`, not `src\\Conquest\\Trim\\`; this is a networking substrate, not a Trim control. Confidence: `Observed`.
+- `NetConnect.cpp`: session bootstrap/teardown glue around DirectPlay, DirectPlay Lobby, and Zone score integration; exposes shutdown, optional Zone host-change notification, and host IP extraction from the active connection. Main functions/types: `StopNetConnection`, `SendZoneHostChange`, `StartNetConnection`, `GetHostIPAddress`, `AddressEnumStruct`. Key deps: `NetBuffer`, `NetFileTransfer`, `ZoneLobby`, DirectPlay/DirectPlayLobby globals, `Menu_netsess.cpp`, `Menu_mshell.cpp`. Replacement: app-level connection bootstrap service with explicit provider/lobby/session lifecycle APIs, plus optional host-address inspection for diagnostics or lobby UI. Port Priority: Medium. Notes: the checked-in `StartNetConnection()` currently does `StopNetConnection(); goto Done;`, so its connection-start path is effectively disabled in this source snapshot and should not be treated as a healthy reference implementation. Confidence: `Observed`.
+- `NetConnectBuffers.cpp`: packed temporary result buffers for enumerating connection providers, available sessions, and current players through DirectPlay; validates providers by initializing temporary DP instances, drives async session enumeration start/continue/stop, and adds a small amount of UI coupling through busy-cursor and join-failure message calls. Main types: `CONN_BUFFER`, `SESSION_BUFFER`, `PLAYER_BUFFER`, `SAVED_CONNECTION`, `SAVED_SESSION`, `SAVED_PLAYER`. Key deps: `Cursor`, `Resource`, `NetConnectBuffers.h`, DirectPlay globals, `Menu_netsess.cpp`, `Menu_netsess2.cpp`. Replacement: session-discovery DTO lists returned by a multiplayer discovery service, with async polling/cancellation separated from UI and no packed in-place memory format exposed above the service boundary. Port Priority: Medium. Notes: this is mostly adapter/storage code for provider/session browser screens, not framework widget logic. Confidence: `Observed`.
+- `NetFileTransfer.cpp`: custom unreliable file-transfer protocol layered over `PT_FILE_TRANSFER` packets; opens per-transfer channels, requests files by name, serves them either from callback-supplied content or DOS-backed files, streams 400-byte chunks with retry/timeout logic, and exposes per-channel progress enumeration for the loading screen. Main types: `FTCHANNEL`, `CREQUEST_PACKET`, `CREPLY_PACKET`, `DSEND_PACKET`, `DREPLY_PACKET`, `FileTransfer`. Key deps: `NetBuffer` (`TestFTPSend`, `Send`), `NetPacket` event routing, `FileSys`, `MemFile`, `EventSys2`, `Menu_netloading.cpp`. Replacement: async asset/map transfer service with per-transfer state objects, progress callbacks, retry policy, and pluggable file providers, kept entirely outside framework-core UI types. Port Priority: High. Notes: this is a real dependency of the multiplayer load flow, so the replacement needs a clear service boundary even if the first Ray port avoids peer file transfer. Confidence: `Observed`.
+- `NetPacket.cpp`: the real multiplayer session transport manager above `NetBuffer`; adds reliable ordered delivery with per-peer send/receive queues, ACK/NACK/resend handling, host migration (`PT_HOST`, `PT_HOSTPEND`, `PT_HOSTPENDACK`), pause/turtle/boot detection, keepalive/update processing, player enumeration, and dispatch of received gameplay packets into `CQE_NETPACKET`. Main types: `PAUSE_PACKET`, `TURTLE_PACKET`, `PAUSEWARNING_PACKET`, `NEWHOST_PACKET`, `HOSTPEND_PACKET`, `HOSTPENDACK_PACKET`, `SUPERBASE_PACKET`, `PACKET_NODE`, `NETPLAYER`, `NetPacket`. Key deps: `NetBuffer`, `WindowManager`, `DrawAgent`, `EventSys2`, `GRPackets.h`, `Menu_mshell.cpp` (`Send`, `TestLowPrioritySend`), `Menu_Pause.cpp` (`EnumeratePlayers`, `GetPauseTimeForPlayer`, `GetTimeUntilBooting`), `NetFileTransfer.cpp` via `CQE_NETPACKET`. Replacement: central multiplayer session service that owns reliability, host-authority state, pause/disconnect policy, and packet dispatch behind typed messages or commands; keep UI screens as observers/command senders only. Port Priority: High. Notes: the earlier placeholder was far too small; this file is the main networking state machine for the multiplayer shell. Confidence: `Observed`.
 
 ### Batch 09 - Misc Legacy Helpers Bound Into Trim
 
@@ -343,7 +343,32 @@ That split is useful and should survive the port, but the implementation shape s
 - screen nodes own only UI state and transitions
 - app-specific screens like `Menu_options.cpp`, `Menu_Toolbar.cpp`, and `Menu_SysKitSaveLoad.cpp` stay out of framework-core boundaries
 
-### 8. Batch 04 Clarifies The Primitive-Control Split
+### 8. Batch 08 Confirms The Networking Stack Split
+
+Batch 08 showed that the multiplayer/network layer under Trim is not one service. It already breaks into at least five distinct replacement surfaces:
+
+- connection bootstrap/lobby integration: `NetConnect.cpp`
+- provider/session/player enumeration adapters: `NetConnectBuffers.cpp`
+- low-level transport timing/bandwidth/sync buffering: `NetBuffer.cpp`
+- reliable ordered session transport and host migration: `NetPacket.cpp`
+- ad hoc file/map transfer during load: `NetFileTransfer.cpp`
+
+The main framework conclusions are:
+
+- none of this belongs in framework-core controls or screen classes
+- the port needs a dedicated multiplayer service boundary between UI screens and the transport/session stack
+- reliability, ACK/NACK, host migration, pause/turtle detection, and boot policy should live together in a session service, not leak into screen code
+- session discovery and provider enumeration should become typed async APIs, not packed in-place buffers owned by UI callers
+- file transfer should be isolated behind its own async transfer service, even if the first Ray port stubs or defers peer map download
+- `NetBuffer.cpp` and `NetPacket.cpp` confirm that packet timing, pacing, and reliability are separate concerns and should stay separated in the replacement shape
+
+Batch 08 also corrected one earlier framing issue:
+
+- these files live in `src\\Conquest\\`, not `src\\Conquest\\Trim\\`
+- they are Trim dependencies, not Trim widgets
+- `NetConnect.cpp` in this source snapshot contains an effectively disabled `StartNetConnection()` path, so it should not be treated as a trustworthy behavioral baseline
+
+### 9. Batch 04 Clarifies The Primitive-Control Split
 
 Batch 04 showed that Trim's "primitive display controls" are actually four different groups:
 
@@ -365,7 +390,7 @@ The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that
 - the framework should split `Panel`, `Image`, and `Label` concerns instead of keeping a single catch-all static control
 - atlas-based image metadata is the right replacement direction; the legacy shape-file container should be treated as a source format, not a runtime target
 
-### 9. Batch 06 Confirms The Shell-Screen Split
+### 10. Batch 06 Confirms The Shell-Screen Split
 
 Batch 06 showed that "menu screens" still break into several distinct replacement shapes:
 
@@ -390,7 +415,7 @@ Batch 06 also confirmed two naming mismatches from the earlier tracker assumptio
 - `EulaWin.cpp` is not a Trim `Frame` screen at all
 - `Menu_help.cpp` is an about/legal modal, not a document-style help browser
 
-### 10. Atlas Assets Should Replace Shape Files
+### 11. Atlas Assets Should Replace Shape Files
 
 The current framework port should assume the legacy VFX/BMP/TGA shape files are being cut over to `_atlas.json` + `.png` outputs everywhere.
 
@@ -403,15 +428,14 @@ That changes the desired replacement shape in a few important ways:
 
 ## Suggested Next Analysis Order
 
-1. `Batch 08`
-2. `Batch 01`
-3. `Batch 09`
+1. `Batch 01`
+2. `Batch 09`
 
 Reason:
 
-- Batch 08 should follow next while the multiplayer shell split from Batch 07 is still fresh, so networking internals can be mapped against already-observed UI ownership
-- Batch 01 can then tighten bootstrap/config/runtime assumptions after the main UI, media, and networking boundaries are clearer
-- leave leftovers and parser/debug files until the framework/app split is stable enough to avoid churn in the tracker
+- Batch 08 is now observed, so the highest-value remaining pass is Batch 01 to tighten bootstrap/config/runtime assumptions now that the control, screen, media, and networking boundaries are clearer
+- Batch 09 should stay last, because `DumpView.cpp` and `LFParser.cpp` are better evaluated after the framework/app/service split is already more stable
+- this order should reduce tracker churn, because the remaining work is now mostly boundary cleanup rather than discovery of new major surfaces
 
 ## Tracker Maintenance Rules
 
