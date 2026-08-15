@@ -182,18 +182,18 @@ Keep the update cumulative and concise.
 
 ### Batch 06 - Shell And Menu Screens A
 
-- `EulaWin.cpp`: EULA screen/dialog. Replacement: modal screen node with scrollable text and accept/decline actions. Confidence: `Inferred`.
-- `Menu_Briefing.cpp`: mission briefing screen. Replacement: dedicated screen node with text/media/layout containers. Confidence: `Inferred`.
-- `Menu_campaign.cpp`: campaign selection/progression screen. Replacement: dedicated screen node plus list/detail layout. Confidence: `Inferred`.
-- `Menu_Confirm.cpp`: generic confirmation dialog screen. Replacement: reusable modal dialog node. Confidence: `Inferred`.
-- `Menu_Credits.cpp`: credits screen. Replacement: scrolling text/media screen node. Confidence: `Inferred`.
-- `Menu_final.cpp`: likely final game-setup or launch confirmation screen. Replacement: dedicated screen node and shared shell flow. Confidence: `Inferred`.
-- `Menu_help.cpp`: help screen. Replacement: scrollable document/help panel screen. Confidence: `Inferred`.
-- `Menu_igoptions.cpp`: in-game options menu. Replacement: modal options dialog built from reusable controls. Confidence: `Inferred`.
-- `Menu_LoadSave.cpp`: load/save dialog. Replacement: file-slot management screen or modal with list/detail controls. Confidence: `Inferred`.
-- `Menu_map.cpp`: map settings/details screen. Replacement: screen section or child panel in larger shell. Confidence: `Inferred`.
-- `Menu_MapSelect.cpp`: map selection screen. Replacement: list/grid selector screen with preview panel. Confidence: `Inferred`.
-- `Menu_mission.cpp`: mission selection or mission shell. Replacement: screen node with list/detail composition. Confidence: `Inferred`.
+- `EulaWin.cpp`: Win32 EULA dialog outside the Trim `Frame` system; streams an RTF file into a RichEdit control, draws localized Accept/Decline button labels with custom fonts for some locales, and persists acceptance in registry-backed `UserDefaults`. Main types: global dialog state, `eulaDialogCallback`, `buttonCallback`. Key deps: `UserDefaults`, Win32 dialog APIs, RichEdit `EM_STREAMIN`, localized string helpers. Replacement: none for framework port unless startup/legal compliance explicitly requires it; if ever needed, keep it as app/bootstrap UI, not a framework `Control`. Port Priority: Very Low. Notes: effectively ignorable for framework work; this file sits in `src\\Conquest\\`, not `src\\Conquest\\Trim\\`; do not spend port effort on the custom button-paint path. Confidence: `Observed`.
+- `Menu_Briefing.cpp`: scripted mission-briefing modal implementing `IBriefing`; loads briefing data from `Mission`, plays teletype text, animated comm portraits, streamed audio, and optional replay/start/cancel flow while ticking mission state in the modal. Main types: `MenuBriefing`, `IBriefing`. Key deps: `Mission`, `MScript`, `ITeletype`, `SoundManager`, `MusicManager`, `Streamer`, `IAnimate`, `IButton2`, `IStatic`. Replacement: app-level briefing screen presenter with timeline/script playback services for audio, subtitles/teletype, portrait/video slots, and mission-start actions. Port Priority: High. Notes: substantially richer than a text briefing page; it is a small scripted media runtime. Confidence: `Observed`.
+- `Menu_campaign.cpp`: single-player campaign entry screen; shows player name from defaults, selects race/training branch, optionally skips straight into Terran mission flow, checks `GAMEPROGRESS`, and hands off to `DoMenu_mission` or `DoMenu_Briefing`. Main types: `Menu_campaign`. Key deps: `Mission`, `IGameProgress`, `MusicManager`, `UserDefaults`, `Menu_mission.cpp`, `Menu_Briefing.cpp`. Replacement: single-player campaign chooser screen with explicit campaign/training actions and profile/progression service injection. Port Priority: Medium. Notes: despite the name, this is mostly a front-door router into campaign/training flows, not a full progression UI by itself. Confidence: `Observed`.
+- `Menu_Confirm.cpp`: generic in-game/custom message box wrapper over archetyped Trim controls; centers the modal, supports `MB_OK`, `MB_OKCANCEL`, and `MB_YESNO`, pauses single-player while open, disables edge-scroll, forces cursor ownership, and falls back to Win32 `MessageBoxW` if Trim archetype data is unavailable. Main types: `Menu_CQMessageBox`, overloaded `CQMessageBox` helpers. Key deps: `GENDATA`, `Cursor`, `MScroll`, `Mission`, `EventSys2`, `IButton2`, `IStatic`. Replacement: framework/app modal dialog service with typed button sets and async result handling, plus app-owned pause/input suppression policy. Port Priority: High. Notes: this is the reusable confirmation primitive for many other screens, not just one menu. Confidence: `Observed`.
+- `Menu_Credits.cpp`: scrolling credits modal that reads `credits.txt`, parses lightweight line markers into title/name rows, duplicates font draw agents for foreground/shadow text, scrolls rows upward over a static background, and exits on click or Esc. Main types: `CreditText`, `Menu_Credits`. Key deps: `IStatic`, `IFontDrawAgent`, `DrawAgent`, `MusicManager`. Replacement: lightweight credits/splash screen with streamed text model and text-style resources; keep parsing/data outside framework-core. Port Priority: Low. Notes: functionally a bespoke credits scroller, not a reusable list control. Confidence: `Observed`.
+- `Menu_final.cpp`: final multiplayer/skirmish staging pane layered over child map/slot screens; coordinates accept/start/cancel flow, ready-state countdown, host validation rules, latency resync, exit/drop confirmation, and focus handoff between sibling groups before game start. Main types: `Menu_final`. Key deps: `ICQGame`, `NetBuffer`, `NetPacket`, `Menu_map.cpp`, `Menu_slots.cpp`, `Menu_Confirm.cpp`, `IButton2`, `IStatic`. Replacement: multiplayer final-check screen/presenter with validation rules and countdown state in a session service, plus explicit child-panel composition instead of cross-frame focus wiring. Port Priority: High. Notes: prior summary understated that this file owns readiness validation and launch gating, not just a passive confirmation page. Confidence: `Observed`.
+- `Menu_help.cpp`: about/help modal, not a document browser; shows version and product ID/legal strings, plays main-menu music on focus, and opens `DoMenu_Credits`. Main types: `Menu_help`. Key deps: `MusicManager`, `UserDefaults`, `Menu_Credits.cpp`, `IButton2`, `IStatic`. Replacement: simple about/help modal with version/build/license fields and a credits action. Port Priority: Low. Notes: current summary was too broad; there is no scrollable help system here. Confidence: `Observed`.
+- `Menu_igoptions.cpp`: in-game pause/options modal with save, load, options, restart, resign, abdicate, and return actions; launches nested save/load or options modals, pauses single-player while open, and gates buttons by single-player vs multiplayer state. Main types: `dummy_igoptions`, `Menu_igoptions`. Key deps: `Mission`, `Hotkeys`, `CreateOptionsMenu`, `CreateMenuLoadSaveSpecial`, `EventSys2`, `IButton2`, `IStatic`. Replacement: pause/options overlay composed from reusable buttons with app-level commands for save/load/settings/restart/resign. Port Priority: Medium. Notes: this is a command hub, not the main settings screen itself. Confidence: `Observed`.
+- `Menu_LoadSave.cpp`: save/load modal for mission files; enumerates `*.mission` entries from `SAVEDIR`, filters SP vs MP saves by filename prefix, shows descriptions via `Mission`, edits save descriptions, handles overwrite/delete confirmation, and calls `MISSION->Load` / `SaveByDescription`. Main types: `MenuLoadSave`. Key deps: `Mission`, `IFileSystem`, `Menu_Confirm.cpp`, `IEdit2`, `IListbox`, `IButton2`, `IStatic`. Replacement: save/load dialog backed by a savegame service that exposes slots/metadata and command methods, with file naming conventions kept outside widget code. Port Priority: High. Notes: reusable shell behavior, but the file-system and naming policy should move behind a service boundary. Confidence: `Observed`.
+- `Menu_map.cpp`: multiplayer/skirmish map-and-rules settings panel over `ICQGame`; owns dropdowns/sliders/toggles for map type, template, money, terrain, units, visibility, speed, command points, difficulty, spectator/diplomacy/lock-settings flags, derives descriptions/max players from selected files, and opens `DoMenu_MapSelect` plus `DoMenu_slots`. Main types: `Menu_map`. Key deps: `ICQGame`, `Mission`, `MapGen`, `NetBuffer`, `Menu_MapSelect.cpp`, `Menu_slots.cpp`, `Dropdown.cpp`, `Slider.cpp`. Replacement: lobby rules/map settings panel with typed view models and validation, backed by session/map services rather than direct mission-file probing inside the screen. Port Priority: High. Notes: this is one of the main multiplayer composition panels and a strong consumer of framework dropdown/slider primitives. Confidence: `Observed`.
+- `Menu_MapSelect.cpp`: modal map picker for three sources: random templates, supplied multiplayer maps, and saved multiplayer missions; enumerates files from `MPMAPDIR` and `SAVEDIR`, keeps a side list mapping supplied-map display rows to file names, updates `ICQGame` map type/name on selection, and returns the selected template string ID for random maps. Main types: `Menu_MapSelect`, nested `SuppliedFile`. Key deps: `ICQGame`, `Mission`, `IFileSystem`, `IListbox`, `IButton2`, `IStatic`. Replacement: map-selection modal with grouped sources and preview/metadata model, returning a typed selection object instead of string-ID/file-name side effects. Port Priority: Medium. Notes: more of a specialized chooser than a general-purpose browser; current summary was directionally right but too generic. Confidence: `Observed`.
+- `Menu_mission.cpp`: single-player mission/movie progression screen; draws mission graph lines, unlocks nodes from `GAMEPROGRESS`, shows hover descriptions, lists mission files from disk, opens `DoMenu_Briefing` for the chosen mission, and can also expose unlock/debug shortcuts and movie buttons. Main types: `Menu_mission`, `LineVar`. Key deps: `Mission`, `IGameProgress`, `SFX`, `MusicManager`, `Menu_Briefing.cpp`, `IAnimate`, `IButton2`, `IListbox`, `IStatic`. Replacement: campaign progression screen with explicit node graph/presenter, mission metadata service, and separate movie unlock/playback handling. Port Priority: Medium. Notes: this is a bespoke campaign graph screen, not a generic mission list/detail layout. Confidence: `Observed`.
 
 ### Batch 07 - Shell And Menu Screens B
 
@@ -339,21 +339,44 @@ The main framework conclusions are:
 
 The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that at least one real `GT_STATIC` asset is just a fullscreen image background with no font data, which strengthens the case for a framework `Panel/Image/Label` split instead of a single catch-all static control.
 
+### 8. Batch 06 Confirms The Shell-Screen Split
+
+Batch 06 showed that "menu screens" still break into several distinct replacement shapes:
+
+- app/bootstrap dialogs outside the framework screen tree: `EulaWin.cpp` (defer unless explicitly required)
+- reusable modal shell primitives: `Menu_Confirm.cpp`, parts of `Menu_LoadSave.cpp`
+- simple informational modals: `Menu_help.cpp`, `Menu_Credits.cpp`
+- scripted media/presentation screens: `Menu_Briefing.cpp`
+- progression/launcher screens: `Menu_campaign.cpp`, `Menu_mission.cpp`
+- multiplayer composition panels and launch gating: `Menu_map.cpp`, `Menu_MapSelect.cpp`, `Menu_final.cpp`
+- in-game pause command hub: `Menu_igoptions.cpp`
+
+The main framework conclusions are:
+
+- not every legacy "menu" should become a framework-owned screen type; several are plainly app-level flows
+- the framework still needs a strong modal service, because confirmation, save/load, and picker flows recur across unrelated screens
+- file-system, registry, mission metadata, and progression lookups should move behind services instead of living in widget code
+- media/timeline playback for briefing-like screens is a separate surface from ordinary controls and layout
+- sibling-panel focus handoff in multiplayer setup (`Menu_map.cpp`, `Menu_final.cpp`, `Menu_slots.cpp`) should become explicit screen composition with scoped focus navigation, not ad hoc cross-frame calls
+
+Batch 06 also confirmed two naming mismatches from the earlier tracker assumptions:
+
+- `EulaWin.cpp` is not a Trim `Frame` screen at all
+- `Menu_help.cpp` is an about/legal modal, not a document-style help browser
+
 ## Suggested Next Analysis Order
 
-1. `Batch 06`
-2. `Batch 02`
-3. `Batch 08`
-4. `Batch 01`
-5. `Batch 09`
+1. `Batch 02`
+2. `Batch 08`
+3. `Batch 01`
+4. `Batch 09`
 
 Reason:
 
-- Batch 03, Batch 04, Batch 05, and Batch 07 now cover the main input/control/runtime surfaces that the remaining screens sit on top of
-- Batch 06 should come next because those screen files can now be interpreted with much better control-level context
-- Batch 02 should follow so media/drawing helpers can be judged against actual screen usage instead of in isolation
-- Batch 08 can then narrow the networking internals behind the multiplayer shell already mapped in Batch 07
-- leave bootstrap and leftovers until the screen/control/media boundaries are stable enough to avoid rework in the tracker
+- Batch 06 is now observed, so the highest-value remaining uncertainty is the media/drawing/resource layer used by briefing, credits, splash, and shell presentation
+- Batch 08 should follow while the multiplayer shell split from Batch 07 and Batch 06 is still fresh, so networking internals can be mapped against already-observed UI ownership
+- Batch 01 can then tighten bootstrap/config/runtime assumptions after the main UI, media, and networking boundaries are clearer
+- leave leftovers and parser/debug files until the framework/app split is stable enough to avoid churn in the tracker
 
 ## Tracker Maintenance Rules
 
