@@ -112,32 +112,32 @@ Keep the update cumulative and concise.
 
 ### Batch 02 - Drawing, Resources, Media, Visual Plumbing
 
-- `Animate.cpp`: likely sprite/UI animation playback helper. Replacement: lightweight animation node or utility on top of `Sprite`/`Control`. Confidence: `Inferred`.
-- `BmpRead.cpp`: bitmap loading helper. Replacement: asset/resource loader if still needed; likely avoid direct port. Confidence: `Inferred`.
-- `Camera.cpp`: likely camera helper for shell/render contexts. Replacement: `Camera2D`/future `Camera3DNode` wrapper depending on usage. Confidence: `Inferred`.
-- `CQImage.cpp`: likely image/surface wrapper used by UI and shell rendering. Replacement: texture/image resource wrapper around Raylib concepts. Confidence: `Inferred`.
-- `DrawAgent.cpp`: likely draw abstraction for UI/shell sprites, text, and primitives. Replacement: structured drawing helpers inside framework controls and resources. Confidence: `Inferred`.
-- `DrawAgent16.cpp`: likely variant draw path for 16-bit or legacy surface format. Replacement: probably none; preserve only visible behavior. Confidence: `Inferred`.
-- `GameProgress.cpp`: likely progress/loading presentation widget or screen helper. Replacement: dedicated progress control or modal loading screen node. Confidence: `Inferred`.
-- `GridVector.cpp`: likely geometry/math helper used by UI or shell coordinate handling. Replacement: move to math helper only if still actively useful. Confidence: `Inferred`.
-- `LineManager.cpp`: likely managed line drawing/text underline/border support. Replacement: simple draw helpers or canvas primitives. Confidence: `Inferred`.
-- `lines.cpp`: likely primitive line rendering helpers. Replacement: draw helpers internal to framework. Confidence: `Inferred`.
-- `LoadFont.cpp`: likely font loading and caching. Replacement: framework font resource service and measured text helpers. Confidence: `Inferred`.
-- `MovieScreen.cpp`: likely video playback screen/control wrapper. Replacement: `VideoPlayer` plus screen/modal composition. Confidence: `Inferred`.
-- `MultiLineFont.cpp`: likely wrapped/measured multiline text layout and rendering. Replacement: text measurement, wrapping, and label sizing in framework text stack. Confidence: `Inferred`.
-- `MusicManager.cpp`: likely shell music playback/state manager. Replacement: app-level audio/music service using framework audio resources. Confidence: `Inferred`.
-- `SFX.cpp`: likely sound effect trigger utilities. Replacement: app/service layer over `AudioPlayer`. Confidence: `Inferred`.
-- `ShapeLoader.cpp`: likely shape/primitive asset loader or vector-ish UI asset helper. Replacement: typed resource wrapper if still needed. Confidence: `Inferred`.
-- `SoundManager.cpp`: likely broader sound routing/state than `SFX`. Replacement: explicit sound service; keep out of core node tree unless needed. Confidence: `Inferred`.
-- `SpaceEnv.cpp`: likely space backdrop/environment rendering used by menus or shell scenes. Replacement: specialized visual node or scene helper. Confidence: `Inferred`.
-- `Streamer.cpp`: likely streaming media/file loader used by audio/video. Replacement: resource/media service. Confidence: `Inferred`.
-- `StringData.cpp`: likely localized text/string table access. Replacement: typed string-pack/localization service. Confidence: `Inferred`.
-- `Subtitle.cpp`: likely subtitle rendering/timing helper for cinematics/video. Replacement: subtitle overlay control or video companion node. Confidence: `Inferred`.
-- `Tgaread.cpp`: TGA loader utility. Replacement: asset conversion or resource loader only if still needed. Confidence: `Inferred`.
-- `VertexBuffer.cpp`: likely D3D vertex buffer wrapper used by UI/media rendering. Replacement: do not port literally into Raylib framework. Confidence: `Inferred`.
-- `VfxRead.cpp`: likely VFX asset reader. Replacement: resource loader if those assets survive migration. Confidence: `Inferred`.
-- `VideoSurface.cpp`: likely video frame surface/render target management. Replacement: `VideoPlayer` backend plumbing, not public framework API. Confidence: `Inferred`.
-- `VoxCompress.cpp`: likely voice/audio compression helper. Replacement: probably none for first UI port. Confidence: `Inferred`.
+- `Animate.cpp`: archetype-backed animated UI/hud control that derives from `BaseHotRect`, loads frame shapes through `IShapeLoader`, advances cells on `CQE_UPDATE`, supports indexed sequences, looping, pause, deferred destruction, and optional talking-head fuzz/frame effects. Main types: `ANIMATETYPE`, `Animate`, `AnimateFactory`. Key deps: `BaseHotRect`, `DAnimate`, `GenData`, `DrawAgent`, `IShapeLoader`, `TManager`. Replacement: framework/app `AnimatedImageControl` or `SpriteAnimationPlayer` with frame-list resources and optional overlay effects; keep archetype/factory plumbing out of framework core. Port Priority: Medium. Notes: this is a real reusable control, but the talking-head fuzz path is app-specific. Confidence: `Observed`.
+- `BmpRead.cpp`: in-memory BMP decoder implementing `IImageReader`; handles indexed and truecolor BMP variants, row/mask stride, palette depalettizing, region extraction, and output conversion to indexed/RGB/RGBA buffers. Main types: `BMP_READER`. Key deps: `IImageReader`. Replacement: avoid a literal framework port; prefer offline conversion or a generic image decoder layer that outputs `Image`/`Texture` data. Port Priority: Low. Notes: keep only if legacy BMP assets remain in active use at runtime. Confidence: `Observed`.
+- `Camera.cpp`: full gameplay/world camera service, not a shell helper; wraps `BaseCamera`/viewer state, panes, transforms, FOV/orbit/zoom/rotation/shake/movie mode, screen/world projection, frustum tests, mouse wheel zoom, and hotkey-driven movement. Main types: `Camera`, global `_camera`. Key deps: `Camera.h`, `SuperTrans`, `Sector`, `VideoSurface`, `WindowManager`, `EventSys2`, `BaseCam`/`Viewer`/`Engine`, `Hotkeys`, `UserDefaults`. Replacement: engine/app `WorldCameraService` or `Camera3DNode` plus input adapter, not a framework UI camera primitive. Port Priority: High. Notes: prior summary was too UI-oriented; this is a core gameplay render/input bridge. Confidence: `Observed`.
+- `CQImage.cpp`: crash/assert/error reporting and dump infrastructure, not an image wrapper; records stack traces, symbol tables, memory reports, modal error dialogs, and exception handling around `ICQImage::Assert/Bomb/Error/Exception`. Main types: `CQImage`, `ICQImage`, `TEXT_BUFFER`, `CQERROR_TYPE`. Key deps: `WindowManager`, `dbghelp`, `EventSys2`, `ObjMapIterator`, Win32 dialog APIs. Replacement: framework/app diagnostics service with logging, asserts, crash dumps, and optional dev-only UI. Port Priority: Medium. Notes: this batch entry was misclassified. Confidence: `Observed`.
+- `DrawAgent.cpp`: primary 2D draw-resource implementation; converts image readers or VFX shapes into drawable textured quads, supports block-based texture uploads, debug-font rendering, JSON atlas/frame replacement for some VFX assets, and shared primitive helpers like line/point/rectangle/texture draw. Main types: `DrawAgent`, `FontDrawAgent`, `VFX_SHAPETABLE_EX`, `BLOCKRECT`. Key deps: `IImageReader`, `VideoSurface`, `CQBatch`, `TManager`, `Camera`, `RendPipeline`, `MyVertex`, `VFX_shapes.hpp`. Replacement: framework render-resource layer split into `TextureRegion`, `SpriteFrame`, bitmap-font/debug-font helpers, and low-level canvas draw primitives. Port Priority: High. Notes: this is one of the main rendering seams that many controls depend on. Confidence: `Observed`.
+- `DrawAgent16.cpp`: GDI-backed font rasterizer that also exposes itself as an `IImageReader`; renders wide strings into temporary bitmaps, converts them to RGBA/index data, duplicates agents, and includes a `NumberFont` specialization plus a factory for font archetypes. Main types: `FontDrawAgent16`, `NumberFont`, `FontFactory`. Key deps: `DrawAgent.h`, `IImageReader`, `DFonts`, Win32 `HFONT`/GDI, `GenData`. Replacement: do not port literally; replace with a font raster/cache service or bitmap font path built on the new text system. Port Priority: Medium. Notes: prior summary was too generic; this is about text rasterization, not a second general image draw path. Confidence: `Observed`.
+- `GameProgress.cpp`: persistent single-player progression bitfield service stored per profile under `SavedGame\\<player>\\player.gpf`; tracks missions completed/seen and movies seen, plus a temporary mission bitmask and forced-intro flag. Main types: `PROGRESS_DATA`, `GameProgress`. Key deps: `IGameProgress`, `UserDefaults`, `FileSys`. Replacement: app-level campaign/profile progression service with typed save data, not a framework progress widget. Port Priority: Medium. Notes: this batch entry was misclassified. Confidence: `Observed`.
+- `GridVector.cpp`: tiny quantized world-grid math helper; `GRIDVECTOR`/`NETGRIDVECTOR` encode coarse map positions in quarter-cell units and use a precomputed distance table for cheap approximate distance. Main types: `GRIDVECTOR`, `NETGRIDVECTOR`, `__gridvector_setup`. Key deps: `GridVector.h`, `Vector`. Replacement: shared engine math/helper type only if network/gameplay code still benefits from this packed representation. Port Priority: Low. Notes: not UI-related. Confidence: `Observed`.
+- `LineManager.cpp`: transient world/screen debug-visual line service; tracks timed line objects between screen points and/or game objects, redraws them each frame via `DA::LineDraw`, and removes expired entries. Main types: `LineBaseObj`, `Line2DTo2D`, `Line2DToObj`, `LineObjToObj`, `LineManager`. Key deps: `ILineManager`, `ObjList`, `IObject`, `Camera`, `Frame`, `SFX`, `DrawAgent` line primitives. Replacement: debug overlay/canvas service outside framework core, or a lightweight diagnostics draw list. Port Priority: Low. Notes: more instrumentation than general UI line styling. Confidence: `Observed`.
+- `lines.cpp`: standalone software antialiased line rasterizer that writes directly into a locked 16-bit `VFX_WINDOW` buffer using `PixelToColorRef`/`ColorRefToPixel`. Main types: free functions `AALine`, `IntensifyPixel`. Key deps: `PANE`, legacy VFX pixel conversion helpers. Replacement: none in the Raylib-first framework; use GPU line drawing or a simple software fallback internal to rendering if ever required. Port Priority: Low. Confidence: `Observed`.
+- `LoadFont.cpp`: startup/shutdown helper that reads the `FONTS` profile section and registers/removes Win32 font resources with `AddFontResource` / `RemoveFontResource`. Main types: `_loadfont`. Key deps: `IProfileParser`, Win32 font APIs. Replacement: app bootstrap font registration or asset preload hook, not a framework text-measurement service. Port Priority: Low. Notes: this batch entry was misclassified. Confidence: `Observed`.
+- `MovieScreen.cpp`: fullscreen modal movie player screen; loads a video through `VIDEOSYS`, updates frames on `CQE_UPDATE`, draws a letterboxed textured video quad on `CQE_ENDFRAME`, suppresses frame limiting, hides the cursor, and temporarily mutes music during modal playback. Main types: `MenuMovie`, `MovieScreen()` entrypoint. Key deps: `Frame`, `VideoSystem`, `SoundManager`, `Mission`, `Cursor`, modal runtime. Replacement: app-level `VideoModalScreen` built on a framework screen/modal stack plus a video playback service. Port Priority: Medium. Notes: more screen flow than framework media primitive. Confidence: `Observed`.
+- `MultiLineFont.cpp`: multiline/wrapping font draw agent built with GDI; rasterizes text into a bitmap, measures per-character widths, computes line breaks against pane width, and exposes the same `IFontDrawAgent` + `IImageReader` contract as the single-line font path. Main types: `MLFont`. Key deps: `DrawAgent.h`, `IImageReader`, `GenData`, Win32 `HFONT`/GDI. Replacement: framework text layout engine with wrapping and measurement separated from raster backend. Port Priority: High. Notes: the wrapping/measurement behavior matters more than the GDI implementation. Confidence: `Observed`.
+- `MusicManager.cpp`: high-level background music service; streams WAVs with `STREAMER`, persists state, initializes race-based playlists, handles smooth transitions, updates playback on document events, and reacts to streamer completion notifications. Main types: `MManager`, global `_music`. Key deps: `MusicManager.h`, `Streamer`, `SoundManager`, `Mission`, `DocumentClient`, `EventSys2`, `UserDefaults`. Replacement: app-level music service with playlist/state logic over the new audio backend. Port Priority: Medium. Confidence: `Observed`.
+- `SFX.cpp`: low-level sound-effect bank/player; loads effect metadata and chunks, preloads and reference-counts DirectSound buffers, computes pan/volume from object positions and camera state, updates live instances, and exposes global sound IDs/settings. Main types: `Sfx`, `SFX_ENTRY`, `SoundEffect`, `SoundInstance`. Key deps: `SFX.h`, `UserDefaults`, `Sector`, `FogOfWar`, `Camera`, `GenData`, `EventSys2`, DirectSound/ACM. Replacement: app/engine sound-effect service with positional playback and caching over a modern audio API. Port Priority: Medium. Notes: keep this out of framework-core UI boundaries. Confidence: `Observed`.
+- `ShapeLoader.cpp`: small asset adapter around generated `GT_VFXSHAPE` archetypes; loads raw BMP/TGA/VFX files from `INTERFACEDIR`, infers file type by extension, then creates either `IImageReader` or `IDrawAgent` instances for specific subimages. Main types: `SHPTYPE`, `ShapeLoader`, `ShapeLoaderFactory`. Key deps: `IShapeLoader`, `GenData`, `IImageReader`, `DrawAgent`, `FileSys`. Replacement: framework/app resource loader that resolves a sprite sheet or image asset into `TextureRegion` objects without DACOM factories. Port Priority: High. Confidence: `Observed`.
+- `SoundManager.cpp`: high-level speech/chat/movie audio orchestrator; owns stream lists and pending playback, coordinates `STREAMER`, `SFX`, and `MusicManager`, can attach sounds to world objects or paired `IAnimate` talking-head animations, blits movie textures, exposes volume UI/state, and handles pause/mute rules. Main types: `SOUNDSTATE`, `STREAM_NODE`, `PENDING_NODE`, `SoundMan`. Key deps: `Streamer`, `SFX`, `MusicManager`, `IAnimate`, `LFParser`, `ObjList`, `IBriefing`, `EventSys2`, `FileSys`. Replacement: app-level media playback coordinator split into voice/chat/movie channels plus optional talking-head presenter. Port Priority: High. Notes: broader than sound settings; this is a central audio/video presentation service. Confidence: `Observed`.
+- `SpaceEnv.cpp`: 3D background environment renderer for space scenes; loads per-system nebula meshes/shapes, owns vertex-buffer-backed background geometry, restores lost buffers, sorts/renders meshes, and integrates with the active camera/sector as an `IBackground`. Main types: `SpaceEnvironment`, `ColorRGB`. Key deps: `IBackground`, `Camera`, `Sector`, `TManager`, `IVertexBuffer`, `renderer`/`mesh`, `CQBatch`. Replacement: engine/app scene-background renderer, likely outside the UI framework entirely. Port Priority: Low. Notes: prior summary was directionally right but this is gameplay/world rendering, not shell-only backdrop logic. Confidence: `Observed`.
+- `Streamer.cpp`: DirectSound/streamer bootstrap; reads sound device config, creates/initializes `DSOUND`, sets cooperative level and primary buffer format, and initializes the global `STREAMER` service with buffer timing and window callbacks. Main types: `_streamer`. Key deps: `Streamer.h`, `WindowManager`, `IProfileParser`, DirectSound. Replacement: audio backend initialization during app startup, not a framework media-resource loader. Port Priority: Medium. Confidence: `Observed`.
+- `StringData.cpp`: bulk binary string-pack/archetype-data loader, not simple localization lookup; recursively reads every file under `StringPack.db`, stores each file blob under its filename, and serves raw `M_STRING*`/size pairs by name through `IStringData`. Main types: `ARCHDATATYPE`, `ARCHDATA`, `StringData`. Key deps: `StringData.h`, `FileSys`, `MemFile`, `EventSys2`, `Cursor`, `UserDefaults`. Replacement: typed resource/string-pack service with explicit parsing and lookup APIs instead of raw file blobs by filename. Port Priority: Medium. Notes: this batch entry was only partially right; it is a generic packed-data registry, not just UI text localization. Confidence: `Observed`.
+- `Subtitle.cpp`: global subtitle overlay service for briefings and general playback; stores current wide-text line keyed to a sound handle, redraws it each frame near the bottom of the screen, and reloads fonts when display mode changes. Main types: `Subtitle`, global `_subtitle`. Key deps: `ISubtitle`, `DrawAgent`, `SoundManager`, `Frame`, `BaseHotRect`, `EventSys2`. Replacement: top-layer subtitle/status-caption overlay driven by media playback state. Port Priority: Medium. Confidence: `Observed`.
+- `Tgaread.cpp`: in-memory TGA decoder implementing `IImageReader`; parses headers, supports paletted/truecolor and RLE-compressed data, and converts whole-image or rect subsets into indexed/RGB/RGBA buffers. Main types: `TGAHEADER`, `TGAREADER`. Key deps: `IImageReader`, `CQTrace`. Replacement: prefer generic image decoding or offline conversion; keep only if runtime TGA loading remains necessary. Port Priority: Low. Confidence: `Observed`.
+- `VertexBuffer.cpp`: tiny lost-device restore registry for objects that own vertex buffers; tracks `IVertexBufferOwner` instances, calls `RestoreVertexBuffers()` on each, then restores batch and light resources. Main types: `CQ_VB_Manager`, global `vb_mgr`, `RestoreAllSurfaces()`. Key deps: `IVertexBuffer`, `CQBatch`, `CQLight`, `IDDBackDoor`. Replacement: none as-is in Raylib; fold any needed device-loss recovery into the renderer backend. Port Priority: Low. Notes: this batch entry was overstated. Confidence: `Observed`.
+- `VfxRead.cpp`: decoder for legacy `.shp`/VFX shape tables implementing `IImageReader`; exposes frame dimensions, palette extraction, and indexed/RGB/RGBA conversion for a chosen subimage. Main types: `VFXREADER`. Key deps: `IImageReader`, `VFX_shapes.hpp`. Replacement: legacy-shape import/decoder layer or offline conversion to atlas/image assets. Port Priority: Medium. Confidence: `Observed`.
+- `VideoSurface.cpp`: display-surface access wrapper, not video playback; exposes the current render/back buffer as `VFX_WINDOW`/`PANE`, locks/unlocks the pipeline buffer, can lock the DirectDraw primary/front buffer, and records pixel-format masks/shifts for software drawing paths. Main types: `IVideoSurface`, `VideoSurface`. Key deps: `RendPipeline`, `IDDBackDoor`, `WindowManager`, DirectDraw surface APIs. Replacement: internal renderer framebuffer access abstraction only if software-readback/draw is still needed; otherwise omit from framework API. Port Priority: Medium. Notes: this batch entry was misclassified. Confidence: `Observed`.
+- `VoxCompress.cpp`: ACM-based voice compression/decompression service; negotiates wave formats, opens codec streams, checks working buffer sizes, and compresses or decompresses VOX/voice payloads. Main types: `VoxCompression`, `VOXACM_WAVEFORMATEX`. Key deps: `VoxCompress.h`, `IProfileParser`, WinMM/ACM. Replacement: omit for first framework port unless legacy voice chat is revived; if needed, isolate behind a codec service. Port Priority: Low. Confidence: `Observed`.
 
 ### Batch 03 - Input, Focus, Shell Base, Modal Flow
 
@@ -244,6 +244,10 @@ But Trim also depends heavily on:
 - control composition
 - screen shell composition
 
+Batch 02 adds one more constraint:
+
+- render/resource ownership is also a first-class port surface, especially for images, fonts, animation frames, subtitles, and media overlays
+
 ### 2. Combobox Confirms The Needed Runtime Shape
 
 From `Combobox.cpp`, the framework needs:
@@ -269,7 +273,26 @@ From `Menu_mshell.cpp`, Trim screens are not just layout files. They also own:
 
 Framework replacement therefore needs reusable screen-shell conventions, not just controls.
 
-### 4. Batch 03 Confirms Three Separate Port Surfaces
+### 4. Batch 02 Confirms The Render And Media Split
+
+Batch 02 showed that "drawing/resources/media" is not one subsystem. It breaks into at least six separate replacement surfaces:
+
+- render resources and sprite/frame drawing: `DrawAgent.cpp`, `ShapeLoader.cpp`, `VfxRead.cpp`, `BmpRead.cpp`, `Tgaread.cpp`
+- text raster/layout: `DrawAgent16.cpp`, `MultiLineFont.cpp`, `LoadFont.cpp`
+- framebuffer and lost-device plumbing: `VideoSurface.cpp`, `VertexBuffer.cpp`, parts of `lines.cpp`
+- audio/media playback services: `Streamer.cpp`, `MusicManager.cpp`, `SFX.cpp`, `SoundManager.cpp`, `MovieScreen.cpp`, `Subtitle.cpp`, `VoxCompress.cpp`
+- world/render-engine systems rather than UI framework: `Camera.cpp`, `SpaceEnv.cpp`, `GridVector.cpp`, `LineManager.cpp`
+- app data/services rather than visual plumbing: `GameProgress.cpp`, `StringData.cpp`, `CQImage.cpp`
+
+The main framework conclusions are:
+
+- the framework needs an explicit render-resource layer, not just controls calling ad hoc draw helpers
+- the old shape-file pipeline should not be the target architecture; prefer `_atlas.json` + `.png` sprite-atlas assets and typed frame metadata
+- text measurement/wrapping is a real framework concern, but Win32 GDI raster paths are not
+- video, speech, subtitles, and talking-head presentation belong in app/media services layered over the framework, not inside generic controls
+- DirectDraw/DirectSound device-loss and surface-lock patterns should disappear behind the new renderer/audio backends
+
+### 5. Batch 03 Confirms Three Separate Port Surfaces
 
 Batch 03 is not one subsystem. It breaks into:
 
@@ -282,7 +305,7 @@ It also included two non-framework strays:
 - `Macrohelp.cpp`: IDE-only stub file
 - `SuperTrans.cpp`: engine math helper
 
-### 5. Batch 05 Confirms The Framework Control Boundaries
+### 6. Batch 05 Confirms The Framework Control Boundaries
 
 Batch 05 separates three different kinds of work that should not be ported the same way:
 
@@ -304,7 +327,7 @@ Batch 05 also confirmed two misclassified files:
 
 That means remaining analysis should favor real screen files next, because the reusable control surface is now much clearer.
 
-### 6. Batch 07 Confirms The Multiplayer Shell Split
+### 7. Batch 07 Confirms The Multiplayer Shell Split
 
 Batch 07 showed that the legacy multiplayer front end is already split into distinct stages:
 
@@ -320,7 +343,7 @@ That split is useful and should survive the port, but the implementation shape s
 - screen nodes own only UI state and transitions
 - app-specific screens like `Menu_options.cpp`, `Menu_Toolbar.cpp`, and `Menu_SysKitSaveLoad.cpp` stay out of framework-core boundaries
 
-### 7. Batch 04 Clarifies The Primitive-Control Split
+### 8. Batch 04 Clarifies The Primitive-Control Split
 
 Batch 04 showed that Trim's "primitive display controls" are actually four different groups:
 
@@ -337,9 +360,12 @@ The main framework conclusions are:
 - status/help text, typewriter overlays, and loading overlays should become explicit overlay services or top-layer nodes, not ordinary children
 - command widgets with domain state should live above framework-core and consume view models/services rather than embedding mission logic in the control
 
-The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that at least one real `GT_STATIC` asset is just a fullscreen image background with no font data, which strengthens the case for a framework `Panel/Image/Label` split instead of a single catch-all static control.
+The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that at least one real `GT_STATIC` asset is just a fullscreen image background with no font data, which strengthens two conclusions:
 
-### 8. Batch 06 Confirms The Shell-Screen Split
+- the framework should split `Panel`, `Image`, and `Label` concerns instead of keeping a single catch-all static control
+- atlas-based image metadata is the right replacement direction; the legacy shape-file container should be treated as a source format, not a runtime target
+
+### 9. Batch 06 Confirms The Shell-Screen Split
 
 Batch 06 showed that "menu screens" still break into several distinct replacement shapes:
 
@@ -364,17 +390,26 @@ Batch 06 also confirmed two naming mismatches from the earlier tracker assumptio
 - `EulaWin.cpp` is not a Trim `Frame` screen at all
 - `Menu_help.cpp` is an about/legal modal, not a document-style help browser
 
+### 10. Atlas Assets Should Replace Shape Files
+
+The current framework port should assume the legacy VFX/BMP/TGA shape files are being cut over to `_atlas.json` + `.png` outputs everywhere.
+
+That changes the desired replacement shape in a few important ways:
+
+- `ShapeLoader.cpp` should map to atlas/frame lookup, not a new runtime parser for legacy shape containers
+- `DrawAgent.cpp` should center on `TextureRegion` or sprite-frame metadata backed by atlas exports
+- control/resource APIs should ask for named frames, subrects, and animation sequences, not raw shape subimage indices
+- legacy readers like `BmpRead.cpp`, `Tgaread.cpp`, and `VfxRead.cpp` become import/compatibility paths, not preferred framework runtime dependencies
+
 ## Suggested Next Analysis Order
 
-1. `Batch 02`
-2. `Batch 08`
-3. `Batch 01`
-4. `Batch 09`
+1. `Batch 08`
+2. `Batch 01`
+3. `Batch 09`
 
 Reason:
 
-- Batch 06 is now observed, so the highest-value remaining uncertainty is the media/drawing/resource layer used by briefing, credits, splash, and shell presentation
-- Batch 08 should follow while the multiplayer shell split from Batch 07 and Batch 06 is still fresh, so networking internals can be mapped against already-observed UI ownership
+- Batch 08 should follow next while the multiplayer shell split from Batch 07 is still fresh, so networking internals can be mapped against already-observed UI ownership
 - Batch 01 can then tighten bootstrap/config/runtime assumptions after the main UI, media, and networking boundaries are clearer
 - leave leftovers and parser/debug files until the framework/app split is stable enough to avoid churn in the tracker
 
