@@ -2,6 +2,8 @@
   href: index.md
 - name: Framework Status
   href: framework.md
+- name: Framework Pain Points
+  href: framework-pain-points.md
 - name: Plan
   href: plan.md
 - name: API Reference

@@ -6,6 +6,8 @@
   <Project Path="src/Gloabls/Gloabls.csproj" />
   <Project Path="src/Legacy.RaySharp/Legacy.RaySharp.csproj" />
   <Project Path="src/Math3D/Math3D.csproj" />
+  <Project Path="src/MiniLayout/MiniLayout.csproj" />
+  <Project Path="src/MiniLayout.Demo/MiniLayout.Demo.csproj" />
   <Project Path="src/Runtime.Collision/Runtime.Collision.csproj" />
   <Project Path="src/Runtime.MapGen/Runtime.MapGen.csproj" />
   <Project Path="src/Runtime.MapGen.Tool/Runtime.MapGen.Tool.csproj" />
@@ -15,6 +17,7 @@
   <Project Path="tests/Framework.Tests/Framework.Tests.csproj" />
   <Project Path="tests/Gloabls.Tests/Gloabls.Tests.csproj" />
   <Project Path="tests/Math3D.Tests/Math3D.Tests.csproj" />
+  <Project Path="tests/MiniLayout.Tests/MiniLayout.Tests.csproj" />
   <Project Path="tests/Runtime.Collision.Tests/Runtime.Collision.Tests.csproj" />
   <Project Path="tests/Runtime.MapGen.Tests/Runtime.MapGen.Tests.csproj" />
   <Project Path="tests/Runtime.Physics.Tests/Runtime.Physics.Tests.csproj" />

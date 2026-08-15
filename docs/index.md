@@ -5,6 +5,7 @@ This site combines hand-written framework notes with API reference generated fro
 ## Docs
 
 - [Framework Status](framework.md)
+- [Framework Pain Points](framework-pain-points.md)
 - [Plan](plan.md)
 - [API Reference](api/ConquestFrontierWarsRay.Framework.yml)
 
