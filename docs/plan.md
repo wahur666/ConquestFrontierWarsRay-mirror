@@ -20,11 +20,23 @@ Related: [Framework Status](./framework.md)
 1. [ ] `SceneTree`:
    add a Godot-style owner for the active tree, quit flow, root switching, and global update/draw orchestration instead of keeping all runtime control inside `RaylibApplication`.
 
-2. [ ] `AnimatedSprite2D`:
+2. [ ] `Camera3DNode`:
+   move 3D camera state into the node framework so scenes can compose and switch cameras through the tree instead of keeping `Camera3D` instances in scene-local code.
+
+3. [ ] `VisualInstance3D` and `MeshInstance3D`:
+   add a reusable 3D renderable base plus a first concrete mesh/model node so the 3D framework can compose visible world objects instead of transform-only placeholders.
+
+4. [ ] `Socket3D`:
+   add named attachment nodes for hardpoints, weapon mounts, particle anchors, and compound-part composition so Conquest-style ship assembly fits the scene graph cleanly.
+
+5. [ ] `Light3D`:
+   add a reusable lighting node so 3D scenes can own light setup through the framework instead of relying on scene-local rendering glue.
+
+6. [ ] `AnimatedSprite2D`:
    build the next obvious 2D primitive on top of atlas textures and frame metadata, instead of leaving atlas handling to higher-level scenes.
 
-3. [ ] `ResourceCache`:
+7. [ ] `ResourceCache`:
    add a simple shared loader/cache layer for textures and atlas definitions so scenes stop manually owning duplicate resources and disposal rules become less error-prone.
 
-4. [ ] Framework UI tests:
+8. [ ] Framework UI tests:
    add direct coverage for `MenuNavigation`, `MenuList`, and `PauseDialog`, since these were harvested after the original donor framework test suite.
