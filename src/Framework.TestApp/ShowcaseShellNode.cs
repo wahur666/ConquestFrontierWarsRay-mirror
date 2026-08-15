@@ -44,6 +44,7 @@ internal sealed class ShowcaseShellNode : Node {
 
 		_pauseDialog.AddResumeItem();
 		_pauseDialog.AddItem("Print tree", () => DebugTreeView.Print(this));
+		_pauseDialog.AddItem("Swap root", SwapRoot);
 		_pauseDialog.AddItem("Quit", RequestQuit);
 		SwitchScene(0);
 	}
@@ -53,6 +54,11 @@ internal sealed class ShowcaseShellNode : Node {
 
 		if (_navigation.ExitComboPressed || Input.IsExitRequested()) {
 			RequestQuit();
+			return;
+		}
+
+		if (Raylib.IsKeyPressed(KeyboardKey.Tab)) {
+			SwapRoot();
 			return;
 		}
 
@@ -89,6 +95,10 @@ internal sealed class ShowcaseShellNode : Node {
 		_summaryLines = WrapText(_scenes[sceneIndex].Summary, 260f, 16f).ToArray();
 	}
 
+	private void SwapRoot() {
+		Tree.ChangeRoot(new RootSwapDemoNode());
+	}
+
 	private void DrawSidebarText() {
 		UiText.Draw("Scenes", 42f, 128f, 22f, new Color(204, 214, 230, 255));
 		_sceneMenu.Draw(180f, 168f, 36f, 21f);
@@ -107,7 +117,8 @@ internal sealed class ShowcaseShellNode : Node {
 		UiText.Draw("Arrow keys   navigate menu", 42f, footerY + 34f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Enter        open scene", 42f, footerY + 58f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Escape       pause overlay", 42f, footerY + 82f, 17f, new Color(214, 223, 236, 255));
-		UiText.Draw("Backspace    quit combo alias", 42f, footerY + 106f, 17f, new Color(214, 223, 236, 255));
+		UiText.Draw("Tab          swap SceneTree root", 42f, footerY + 106f, 17f, new Color(214, 223, 236, 255));
+		UiText.Draw("Backspace    quit combo alias", 42f, footerY + 130f, 17f, new Color(214, 223, 236, 255));
 	}
 
 	private static IEnumerable<string> WrapText(string text, float maxWidth, float fontSize) {
@@ -145,7 +156,7 @@ internal sealed class ShowcaseShellNode : Node {
 
 		protected override void Draw() {
 			UiText.Draw("Framework Test App", 42f, 38f, 34f, new Color(244, 247, 252, 255), UiTextStyle.Title);
-			UiText.Draw("MenuList + RaylibApplication showcase", 42f, 80f, 18f, new Color(196, 209, 228, 255));
+			UiText.Draw("MenuList + SceneTree runtime showcase", 42f, 80f, 18f, new Color(196, 209, 228, 255));
 			_owner.DrawSidebarText();
 		}
 	}
