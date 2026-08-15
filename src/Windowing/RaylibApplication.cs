@@ -1,8 +1,9 @@
 using Raylib_cs;
-using ConquestFrontierWarsRay.Framework;
 using System.Diagnostics;
+using ConquestFrontierWarsRay.Framework;
+using ConquestFrontierWarsRay.Framework.App;
 
-namespace ConquestFrontierWarsRay.Framework.App;
+namespace ConquestFrontierWarsRay.Windowing;
 
 /// <summary>
 /// Owns the Raylib window and runs the main loop.
@@ -58,7 +59,7 @@ public sealed class RaylibApplication : IDisposable {
 		_root.EnterTreeRecursive();
 		_frameClock.Restart();
 		_lastFrameTicks = _frameClock.ElapsedTicks;
-		using var modalMoveLoopWorkaround = WindowsModalMoveLoopWorkaround.TryInstall(RunFrame);
+		using var modalMoveLoopWorkaround = Win32Window.TryInstall(() => RunFrame(GetDeltaTime()));
 
 		try {
 			while (true) {

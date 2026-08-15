@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using ConquestFrontierWarsRay.Runtime.Collision;
+using ConquestFrontierWarsRay.Windowing;
 using Math3D;
 using Raylib_cs;
 
@@ -21,7 +22,7 @@ internal static class Program {
 		Raylib.InitWindow(960, 540, "ConquestFrontierWarsRay Collision Demo");
 		Raylib.SetTargetFPS(60);
 
-		using var win32 = new Win32Window(onTick: Tick);
+		using var win32 = Win32Window.TryInstall(Tick);
 		while (!Raylib.WindowShouldClose()) {
 			Tick();
 		}

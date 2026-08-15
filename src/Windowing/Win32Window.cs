@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
+using Raylib_cs;
 
-namespace ConquestFrontierWarsRay;
+namespace ConquestFrontierWarsRay.Windowing;
 
 /// <summary>
 /// Keeps raylib responsive during the native move/resize modal loop on Windows.
@@ -25,18 +26,34 @@ public sealed class Win32Window : IDisposable {
 	private bool _inSizeMove;
 	private bool _isTicking;
 
-	public Win32Window(Action onTick) {
+	private Win32Window(nint hwnd, Action onTick) {
 		_onTick = onTick ?? throw new ArgumentNullException(nameof(onTick));
-		_hwnd = GetForegroundWindow();
-		if (_hwnd == nint.Zero) {
-			throw new InvalidOperationException("Could not locate the active window handle for raylib.");
-		}
-
+		_hwnd = hwnd;
 		_newProcDelegate = WindowProc;
 		var newProcPtr = Marshal.GetFunctionPointerForDelegate(_newProcDelegate);
 		_originalProc = SetWindowLongPtr(_hwnd, GWLP_WNDPROC, newProcPtr);
 		if (_originalProc == nint.Zero) {
 			throw new InvalidOperationException("Failed to subclass the raylib window.");
+		}
+	}
+
+	/// <summary>
+	/// Installs the modal move/resize workaround for the current raylib window when supported.
+	/// </summary>
+	public static Win32Window? TryInstall(Action onTick) {
+		ArgumentNullException.ThrowIfNull(onTick);
+
+		if (!OperatingSystem.IsWindows()) {
+			return null;
+		}
+
+		unsafe {
+			var hwnd = (nint)Raylib.GetWindowHandle();
+			if (hwnd == nint.Zero) {
+				return null;
+			}
+
+			return new Win32Window(hwnd, onTick);
 		}
 	}
 
@@ -86,9 +103,6 @@ public sealed class Win32Window : IDisposable {
 			_isTicking = false;
 		}
 	}
-
-	[DllImport("user32.dll")]
-	private static extern nint GetForegroundWindow();
 
 	[DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")]
 	private static extern nint SetWindowLongPtr(nint hWnd, int nIndex, nint dwNewLong);
