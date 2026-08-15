@@ -17,6 +17,7 @@
     <ProjectReference Include="..\Gloabls\Gloabls.csproj" />
     <ProjectReference Include="..\Math3D\Math3D.csproj" />
     <ProjectReference Include="..\Runtime.Collision\Runtime.Collision.csproj" />
+    <ProjectReference Include="..\Windowing\Windowing.csproj" />
   </ItemGroup>
 
   <ItemGroup>
