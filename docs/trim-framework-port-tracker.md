@@ -153,19 +153,19 @@ Keep the update cumulative and concise.
 
 ### Batch 04 - Primitive Display Controls
 
-- `BuildButton.cpp`: specialized build-button control. Replacement: `ButtonNode` subclass or style/skin variant, depending on unique behavior. Confidence: `Inferred`.
-- `Button2.cpp`: primary button control implementation. Replacement: `ButtonNode` plus event hooks and focus states. Confidence: `Inferred`.
-- `DiplomacyButton.cpp`: specialized button or toggle for diplomacy states. Replacement: button subclass or composite control with explicit state model. Confidence: `Inferred`.
-- `HotButton.cpp`: hover/click-sensitive button variant, likely tied to hot-rect model. Replacement: framework event-driven button behavior. Confidence: `Inferred`.
-- `HotStatic.cpp`: static display element with hover/interaction behavior. Replacement: label/image control with optional hit target. Confidence: `Inferred`.
-- `Icon.cpp`: icon/image display control. Replacement: image/icon control using texture resources. Confidence: `Inferred`.
-- `InProgressAnim.cpp`: likely spinner/animated "busy" control. Replacement: activity indicator control. Confidence: `Inferred`.
-- `ProgressStatic.cpp`: progress display control. Replacement: progress bar or status meter control. Confidence: `Inferred`.
-- `ResearchButton.cpp`: specialized button with research state/skin. Replacement: styled button subclass or data-driven skinning. Confidence: `Inferred`.
-- `ShipSilButton.cpp`: likely button rendering a ship silhouette preview. Replacement: composite image button control. Confidence: `Inferred`.
-- `Static.cpp`: plain text/image static display control. Replacement: `TextNode`, `PanelNode`, and image-label primitives. Confidence: `Inferred`.
-- `StatusBar.cpp`: status bar control. Replacement: dedicated status bar or simple horizontal container with labels/icons. Confidence: `Inferred`.
-- `Teletype.cpp`: likely animated typewriter text control. Replacement: text reveal animation node or subtitle/text effect control. Confidence: `Inferred`.
+- `BuildButton.cpp`: specialized production/build command button implementing both `IHotButton` and `IActiveButton`; tracks tech gating, queue count, build cost, build-mode highlight, no-money overlay, and percent/stall progress, then posts `CQE_LHOTBUTTON` / `CQE_RHOTBUTTON` to its parent and writes detailed cost/status text into `STATUS`. Main types: `BuildButton`, `BBUTTONSTATE::STATE`. Key deps: `BaseHotRect`, `IShapeLoader`, `DrawAgent`, `IActiveButton`, `DSpaceship` / `DPlatform` mission data, `ObjList`, `HOTKEY`, `STATUS`, `SFXMANAGER`. Replacement: app-level `BuildCommandButton` on top of a reusable framework button/image primitive plus explicit command/state view model for availability, queue, costs, and progress. Port Priority: High. Notes: not just a skinned button; it already mixes command semantics, tooltip composition, and progress rendering. Confidence: `Observed`.
+- `Button2.cpp`: core general-purpose button control with keyboard focus (`IKeyboardFocus`), mouse/keyboard press handling, repeater-button mode, optional dropdown-arrow rendering, text or string overrides, and two render paths: shape-file skinned or primitive-drawn. It posts `CQE_BUTTON`, including a high-bit variant for toggle/release cases, and repeats while held for repeater buttons. Main types: `BUTTONTYPE`, `Button2`, `ButtonFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `HOTKEY`, archetype data in `DButton`. Replacement: framework `ButtonControl` with focus/pressed/disabled/toggle/repeater policies and skin/style separation; dropdown-arrow behavior should be a style flag, not a separate control family. Port Priority: High. Notes: this is the primary reusable button baseline for many menu screens. Confidence: `Observed`.
+- `DiplomacyButton.cpp`: two-state diplomacy relation button with keyboard focus, specialized shape-state rendering, and a dedicated `CQE_DIPLOMACYBUTTON` click message. Its visual state depends on enabled/pressed/hover/focus plus two stored diplomacy flags. Main types: `DIPBUTTONTYPE`, `DiplomacyButton`, `DiplomacyButtonFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `HOTKEY`, archetype data in `DDiplomacyButton`. Replacement: app-level `DiplomacyRelationButton` or segmented/toggle control with explicit two-party relation state, built atop framework button/focus primitives. Port Priority: Medium. Notes: more domain-specific than `Button2.cpp`; probably not framework-core. Confidence: `Observed`.
+- `HotButton.cpp`: lightweight hot-rect button used heavily by gameplay UI; loads image states via `IShapeLoader`, supports left/right/double-click dispatch, optional hotkey posting, push/highlight/context-menu behavior, and hover-owned cursor/status/hint resources. Main types: `HotButton`, `HotButtonFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `IShapeLoader`, `HOTKEY`, `EVENTSYS`, `STATUS`, `SFXMANAGER`, `IInterfaceManager`. Replacement: framework `ImageButtonControl` plus shared hover-resource/status-help plumbing; left/right/double-click command routing should come from generic pointer events. Port Priority: High. Notes: this is a second major reusable button base alongside `Button2.cpp`, biased toward image buttons and gameplay HUD interactions. Confidence: `Observed`.
+- `HotStatic.cpp`: specialized read-only tech meter display that draws repeated full/empty bar icons plus optional caption text; exposes `SetImageLevel` and `SetTextString` rather than click behavior. Main types: `HotStaticArchetype`, `HotStatic`. Key deps: `BaseHotRect`, `GenData`, `IShapeLoader`, `DrawAgent`, `IFontDrawAgent`, archetype data in `DHotStatic`. Replacement: framework/app `TechLevelIndicator` or `IconMeter + Label` composite control, not a generic static text primitive. Port Priority: Low. Notes: prior summary overstated interactivity; this file is mostly a specialized display widget. Confidence: `Observed`.
+- `Icon.cpp`: simple image/icon display with optional tooltip ownership; draws one `IDrawAgent`, updates status text on hover, and otherwise has no command behavior. Main types: `ICONTYPE`, `Icon`. Key deps: `BaseHotRect`, `GenData`, `IShapeLoader`, `DrawAgent`, `STATUS`. Replacement: framework `IconControl` / `ImageControl` with optional tooltip text and hit-target support. Port Priority: Medium. Confidence: `Observed`.
+- `InProgressAnim.cpp`: threaded loading/progress presenter, not just a spinner; builds a background static plus foreground animation via `GENDATA`, owns a worker thread, draws a progress bar shape and status string, and manually drives `CQE_UPDATE` / `CQE_ENDFRAME` on child components while coordinating with `VideoSurface`/pipeline critical sections. Main types: `IPAnim`. Key deps: `IAnimate`, `IStatic`, `GenData`, `VideoSurface`, `DrawAgent`, `IDDBackDoor`, `EventSys2`, global pipeline/window critical-section helpers. Replacement: app/framework loading-overlay service or modal loading screen with main-thread update/render, explicit progress model, and no ad hoc worker-owned UI rendering. Port Priority: High. Notes: this should not be ported literally into the control tree. Confidence: `Observed`.
+- `ProgressStatic.cpp`: progress-text display that combines optional background fill/hash drawing, text alignment, animated numeric roll-up, and a true progress-meter fill based on `current/max`. It also changes text colors on focus. Main types: `PROGRESS_STATICTYPE`, `ProgressStatic`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `IFontDrawAgent`, `SFXMANAGER`, archetype data in `DProgressStatic`. Replacement: framework `ProgressBarControl` plus optional overlaid label/counter behavior; numeric roll-up should be a reusable text animation policy, not baked into every progress bar. Port Priority: Medium. Notes: more capable than a plain label, but still largely reusable framework UI. Confidence: `Observed`.
+- `ResearchButton.cpp`: specialized research/upgrade command button implementing `IHotButton` and `IActiveButton`; resolves research/admiral/upgrade costs from `DResearch` data, tracks current tech/upgrade eligibility, queue count, and progress/no-money overlays, and writes detailed status/cost text on hover. Main types: `ResearchButton`. Key deps: `BaseHotRect`, `IShapeLoader`, `DrawAgent`, `IActiveButton`, `DResearch`, `HOTKEY`, `STATUS`, `SFXMANAGER`. Replacement: app-level `ResearchCommandButton` over framework button/image primitives and explicit research-state view models. Port Priority: High. Notes: sibling to `BuildButton.cpp`; similar framework needs, different domain state rules. Confidence: `Observed`.
+- `ShipSilButton.cpp`: gameplay selection widget that renders a ship silhouette in green/yellow/red based on the bound ship state and uses click/shift-click to mutate object selection rather than posting a generic UI command. It also drives status text from the bound ship or fallback tooltip text. Main types: `ShipSilButton`. Key deps: `BaseHotRect`, `IShapeLoader`, `DrawAgent`, `MPart`, `ObjList`, `IBaseObject`, `HOTKEY`, `STATUS`. Replacement: app-level HUD selection item built from an image hit-target plus explicit selection presenter/service; not a framework-core button. Port Priority: Medium. Notes: prior summary was directionally right but understated that this is really gameplay-selection UI. Confidence: `Observed`.
+- `Static.cpp`: general static text/image display control with alignment modes, multiline measurement, optional background fill/hash, optional numeric roll-up animation, tooltip/hint ownership, and a "buddy control" mode that forwards hover/press state into an attached `IButton2`. Main types: `STATICTYPE`, `Static`, `StaticFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `IFontDrawAgent`, `IButton2`, `STATUS`, `SFXMANAGER`, archetype data in `DStatic`. Replacement: framework `LabelControl` / `PanelLabel` plus optional tooltip support; buddy-button forwarding should become explicit composition instead of embedded cross-control coupling. Port Priority: High. Notes: this is the main generic display primitive, not just a text label. The attached `GT_STATIC` sample (`Static!!Background.xml`) confirms a real asset can be shape-only (`mainscreen.shp` -> single 800x600 atlas frame, no font, `backgroundDraw=nodraw`, `backdraw=false`), so the replacement should allow pure image-panel usage without forcing text semantics. Confidence: `Observed`.
+- `StatusBar.cpp`: global status-bar resource/service, not a child control; stores current text/name/mode, reloads fonts when switching 2D/3D, draws directly at the bottom of the screen during `CQE_ENDFRAME`, and supports tooltip/build/default/name display modes. Main types: `StatusBarResource`, global `_status`. Key deps: `TResource`, `BaseHotRect`, `DrawAgent`, `UserDefaults`, `VideoSurface`, `EventSys2`, `FULLSCREEN`. Replacement: framework/app status-overlay service or HUD layer with a small model (`text`, `secondary name`, `mode`, `toolbar offset`) rather than a Win32-era global resource singleton. Port Priority: High. Notes: many Batch 03/04 controls depend on this hover-status channel. Confidence: `Observed`.
+- `Teletype.cpp`: global scrolling/typewriter text system that splits strings into multiple `TeletypeLine`/`TeletypeObj` instances, reveals characters over time with caret blink and per-character SFX, supports lifetime and pause-ignoring behavior, and renders/updates from fullscreen event callbacks. Main types: `TeletypeLine`, `TeletypeObj`, `Teletype`, global `_teletype`. Key deps: `ITeletype`, `DrawAgent`, `Frame`, `Hotkeys`, `SFX`, `FULLSCREEN`, `EventPriority`. Replacement: framework/app transient text-overlay service or `TypewriterTextControl` plus manager for queued/lifetime-based overlays. Port Priority: Medium. Notes: broader than a single control; it behaves like a global overlay text channel. Confidence: `Observed`.
 
 ### Batch 05 - Text Entry, List, Selection, Scroll, Tabs
 
@@ -320,21 +320,40 @@ That split is useful and should survive the port, but the implementation shape s
 - screen nodes own only UI state and transitions
 - app-specific screens like `Menu_options.cpp`, `Menu_Toolbar.cpp`, and `Menu_SysKitSaveLoad.cpp` stay out of framework-core boundaries
 
+### 7. Batch 04 Clarifies The Primitive-Control Split
+
+Batch 04 showed that Trim's "primitive display controls" are actually four different groups:
+
+- reusable framework primitives: `Button2.cpp`, `HotButton.cpp`, `Icon.cpp`, parts of `Static.cpp`, parts of `ProgressStatic.cpp`
+- app-level command widgets built on those primitives: `BuildButton.cpp`, `ResearchButton.cpp`, `DiplomacyButton.cpp`
+- app-level gameplay HUD widgets: `ShipSilButton.cpp`, `HotStatic.cpp`
+- global overlay/services rather than child widgets: `StatusBar.cpp`, `Teletype.cpp`, `InProgressAnim.cpp`
+
+The main framework conclusions are:
+
+- the framework needs both a text-capable general button and an image-button path; Trim uses both heavily
+- hover ownership of status/help/cursor is part of the runtime contract, not incidental decoration
+- `Static.cpp` is a generic panel/image/text primitive and should not be collapsed into a text-only label API
+- status/help text, typewriter overlays, and loading overlays should become explicit overlay services or top-layer nodes, not ordinary children
+- command widgets with domain state should live above framework-core and consume view models/services rather than embedding mission logic in the control
+
+The attached `Static!!Background.xml` and `mainscreen_atlas` export confirm that at least one real `GT_STATIC` asset is just a fullscreen image background with no font data, which strengthens the case for a framework `Panel/Image/Label` split instead of a single catch-all static control.
+
 ## Suggested Next Analysis Order
 
-1. `Batch 04`
-2. `Batch 06`
-3. `Batch 02`
-4. `Batch 08`
-5. `Batch 01`
-6. `Batch 09`
+1. `Batch 06`
+2. `Batch 02`
+3. `Batch 08`
+4. `Batch 01`
+5. `Batch 09`
 
 Reason:
 
-- Batch 07 is now covered alongside Batch 03 and Batch 05, so the remaining unknowns are primitive controls and the other screen files that sit on top of them
-- Batch 04 should sharpen the control inventory used heavily by `Menu_options.cpp`, `Menu_Toolbar.cpp`, and the menu shells
-- Batch 06 can then backfill the remaining front-end screen flows with better control-level context
-- leave lower-level media, networking internals, bootstrap, and leftovers until the screen/control surface is fully mapped
+- Batch 03, Batch 04, Batch 05, and Batch 07 now cover the main input/control/runtime surfaces that the remaining screens sit on top of
+- Batch 06 should come next because those screen files can now be interpreted with much better control-level context
+- Batch 02 should follow so media/drawing helpers can be judged against actual screen usage instead of in isolation
+- Batch 08 can then narrow the networking internals behind the multiplayer shell already mapped in Batch 07
+- leave bootstrap and leftovers until the screen/control/media boundaries are stable enough to avoid rework in the tracker
 
 ## Tracker Maintenance Rules
 
