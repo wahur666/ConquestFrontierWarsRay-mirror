@@ -169,16 +169,16 @@ Keep the update cumulative and concise.
 
 ### Batch 05 - Text Entry, List, Selection, Scroll, Tabs
 
-- `Combobox.cpp`: composite control that owns button, list, and edit subcontrols; manages drop state, keyboard focus switching, selection, visibility, and control events. Replacement: framework `ComboBoxControl` built from event-routed child controls with framework focus ownership. Confidence: `Observed`.
-- `Dropdown.cpp`: likely dropdown/list selector sibling of combobox. Replacement: framework dropdown control atop modal popup/list view. Confidence: `Inferred`.
-- `Edit2.cpp`: text entry control with focus and editing behavior. Replacement: text input control with caret, selection, and action handling. Confidence: `Inferred`.
-- `Listbox.cpp`: scrollable selectable list control. Replacement: `ListViewNode` evolved into event-driven, focus-aware list control. Confidence: `Inferred`.
-- `MScroll.cpp`: likely mouse/scroll helper or mini-scroll control. Replacement: scroll container/pointer-wheel support. Confidence: `Inferred`.
-- `QueueControl.cpp`: likely queue/list visualization control, perhaps repeated-icon rows. Replacement: specialized list/grid control or app-level composite widget. Confidence: `Inferred`.
-- `ScrollBar.cpp`: scrollbar control. Replacement: scrollbar plus scroll container pair. Confidence: `Inferred`.
-- `Slider.cpp`: slider control. Replacement: `SliderNode` after event-routing/focus upgrade. Confidence: `Inferred`.
-- `TabButton.cpp`: button used by tab strips. Replacement: styled tab button. Confidence: `Inferred`.
-- `TabControl.cpp`: tab-strip and tab-page container logic. Replacement: `TabContainer` or segmented-control-plus-content pattern. Confidence: `Inferred`.
+- `Combobox.cpp`: composite edit-plus-list selector; creates `IButton2`, `IListbox`, and `IEdit2` children from archetype data, forwards most list/edit APIs, auto-completes typed prefixes, toggles drop state, and swaps keyboard focus between edit field and dropped list. Main types: `Combobox`, `ComboboxFactory`. Key deps: `Edit2.cpp`, `Listbox.cpp`, primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`. Replacement: framework `ComboBoxControl` composed from `TextInput`, popup `ListView`, and trigger button, with explicit popup ownership, focus transfer, and selection/change events. Port Priority: High. Notes: current tracker summary was correct but understated the editable/autocomplete behavior. Confidence: `Observed`.
+- `Dropdown.cpp`: non-editable dropdown selector; creates button and list child controls, mirrors the listbox API, owns open/close state, updates button text from selected list entry, and manually treats either button or list hover as alert state while dropped. Main types: `Dropdown`, `DropdownFactory`. Key deps: `Listbox.cpp`, primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`. Replacement: framework `DropdownControl` with read-only display button plus popup `ListView`, sharing most popup/focus mechanics with combobox but without text entry. Port Priority: High. Notes: sibling of `Combobox.cpp`, not a separate screen shell. Confidence: `Observed`.
+- `Edit2.cpp`: single-line text input control with selection, caret blink, mouse drag selection, double-click word selection, insert/overwrite mode, simple copy/paste scratch buffer via Shift/Ctrl+Insert/Delete, optional toolbar/chat/locked-text behaviors, IME composition placement, and per-frame draw/update handling. Main types: `EDITTYPE`, `Edit2`, `EditFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, font resources via `IFontDrawAgent`, `HKEvent`/`HOTKEY`, toolbar/chat focus handoff from Batch 03 services. Replacement: framework `TextInputControl` with caret/selection model, key-text separation, IME support, optional behavior flags split into clearer policy/config hooks, and style resources separate from control logic. Port Priority: High. Notes: this is richer than a basic text field and carries legacy toolbar/chat-specific behavior that should not live in the core widget API unchanged. Confidence: `Observed`.
+- `Listbox.cpp`: scrollable selectable text list built on a linked-list item store; supports add/remove/update, per-item user data and color, keyboard caret movement, mouse hover selection, optional single-click activation, word-wrap break calculation, and optional owned scrollbar integration through `IScrollBarOwner`. Main types: `LISTBOXTYPE`, `LISTITEM`, `Listbox`, `ListboxFactory`. Key deps: `ScrollBar.cpp`, `BaseHotRect`, `GenData`, `DrawAgent`, font resources via `IFontDrawAgent`. Replacement: framework `ListView`/`SelectionListControl` with item model, selection state, optional activation-on-single-click, scroll viewport, and a separate scrollbar/scroll model instead of embedding linked-list storage in the widget. Port Priority: High. Notes: this is a core dependency for comboboxes, dropdowns, and several menu screens. Confidence: `Observed`.
+- `MScroll.cpp`: global edge-scroll service for the game view, not a UI scroll widget; watches cursor position and hotkeys each update, grabs cursor ownership when active, swaps directional cursor icons, and calls `SYSMAP` scroll commands for edge or keyboard scrolling. Main types: `MScroll`, `_mscroll`. Key deps: `Cursor.cpp`, `StatusBar.cpp`, `SysMap.h`, `Hotkeys`, `DBHotkeys`, `WindowManager`, `EventSys2`. Replacement: app/world input service for camera or map scrolling, outside framework controls; expose it as gameplay viewport behavior, not as `ScrollContainer` infrastructure. Port Priority: Low. Notes: prior summary was incorrect; this batch entry is a gameplay/system input helper, not a list or scrollbar control. Confidence: `Observed`.
+- `QueueControl.cpp`: specialized build-queue strip that draws queued unit/build icons, overlays progress on the first slot, tracks stall state, highlights hovered entries, and posts removal messages for clicked queue slots to the toolbar. Main types: `QUEUECONTROLTYPE`, `QueueControl`, `QueueControlFactory`. Key deps: `BaseHotRect`, `DrawAgent`, `IActiveButton`, toolbar messaging, defaults/editor pause state. Replacement: app-level `BuildQueueControl` composed from icon cells plus progress/stall overlays, likely outside the core framework library except for reusable icon-button/progress primitives. Port Priority: Medium. Notes: prior summary was directionally right but too generic; this is production-queue UI, not a reusable list control. Confidence: `Observed`.
+- `ScrollBar.cpp`: owner-driven scrollbar with two arrow buttons, proportional thumb sizing from `scrollRange`/`viewRange`, thumb dragging with cancel-on-breakoff behavior, repeated page scrolling while held, optional horizontal mode, and draw paths for either art-driven or primitive skins. Main types: `SCROLLBARTYPE`, `ScrollBar`, `ScrollBarFactory`. Key deps: primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`, owner callbacks from `Listbox.cpp` through `IScrollBarOwner`. Replacement: framework `ScrollBarControl` backed by a shared scroll model, with arrow buttons and track/thumb input split cleanly from view ownership. Port Priority: High. Notes: the key contract is the owner callback model and thumb math, not the legacy connection-point plumbing. Confidence: `Observed`.
+- `Slider.cpp`: discrete slider control with keyboard arrow support, drag-to-step behavior, optional deferred event emission until mouse release, vertical or horizontal orientation, and art-driven or primitive rendering for track and thumb. Main types: `SLIDERTYPE`, `Slider`, `SliderFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `HKEvent`. Replacement: framework `SliderControl` with value range, orientation, immediate-vs-commit change policy, and styleable thumb/track visuals. Port Priority: Medium. Notes: current tracker summary was broadly correct; the important detail is that this slider snaps by integer step rather than tracking a continuous float. Confidence: `Observed`.
+- `TabButton.cpp`: tab header control plus per-tab focus router; draws tab states, forwards child control events upward, owns selected/highlight state, optionally cycles tabs on `Tab`, moves focus among registered `IKeyboardFocus` children with arrow keys, and hides child interaction when the tab is inactive. Main types: `TABBUTTONTYPE`, `TabButton`, `TabButtonFactory`. Key deps: `TabControl.cpp`, `BaseHotRect`, `GenData`, `DrawAgent`, `SFX`, `Frame`, child controls implementing `IKeyboardFocus`. Replacement: tab-header item plus tab-page focus scope in framework `TabContainer`, with page-local focus traversal handled by generic focus navigation instead of button-owned child lists. Port Priority: High. Notes: this file does more than paint a tab button; it partly owns tab-page focus behavior. Confidence: `Observed`.
+- `TabControl.cpp`: tab-strip container that instantiates `ITabButton` children from image resources, tracks selected tab, toggles each tab button's selected state, exposes per-tab child menu surfaces through `GetTabMenu`, forwards child control events upward, and supports per-tab default focus targets. Main types: `TABTYPE`, `TabControl`, `TabControlFactory`. Key deps: `TabButton.cpp`, `BaseHotRect`, `GenData`, `IShapeLoader`, `IImageReader`. Replacement: framework `TabContainer` with tab headers, selected page state, page content nodes, and default-focus-per-page support. Port Priority: High. Notes: this is the actual tab-page coordinator; `TabButton.cpp` is only half of the behavior. Confidence: `Observed`.
 
 ### Batch 06 - Shell And Menu Screens A
 
@@ -282,23 +282,44 @@ It also included two non-framework strays:
 - `Macrohelp.cpp`: IDE-only stub file
 - `SuperTrans.cpp`: engine math helper
 
+### 5. Batch 05 Confirms The Framework Control Boundaries
+
+Batch 05 separates three different kinds of work that should not be ported the same way:
+
+- reusable composite controls: `Combobox.cpp`, `Dropdown.cpp`, `Listbox.cpp`, `ScrollBar.cpp`, `Slider.cpp`, `TabButton.cpp`, `TabControl.cpp`
+- reusable but policy-heavy text entry: `Edit2.cpp`
+- non-framework or app-specific behavior: `MScroll.cpp`, `QueueControl.cpp`
+
+The main framework conclusions are:
+
+- popup ownership and focus transfer are first-class control concerns, especially for `Combobox.cpp` and `Dropdown.cpp`
+- selection controls depend on a shared scroll model, not ad hoc owner callbacks scattered through each widget
+- tab containers need page-local focus scope and default-focus behavior, not just painted tab headers
+- text input needs a proper editing model with IME, selection, caret, and behavior policies separated from toolbar/chat special cases
+
+Batch 05 also confirmed two misclassified files:
+
+- `MScroll.cpp`: gameplay viewport edge-scroll service
+- `QueueControl.cpp`: specialized build-queue widget
+
+That means remaining analysis should favor real screen files next, because the reusable control surface is now much clearer.
+
 ## Suggested Next Analysis Order
 
-1. `Batch 05`
-2. `Batch 07`
-3. `Batch 04`
-4. `Batch 06`
-5. `Batch 02`
-6. `Batch 08`
-7. `Batch 01`
-8. `Batch 09`
+1. `Batch 07`
+2. `Batch 04`
+3. `Batch 06`
+4. `Batch 02`
+5. `Batch 08`
+6. `Batch 01`
+7. `Batch 09`
 
 Reason:
 
-- first pin down input/focus/modal mechanics
-- then inspect core composite controls
-- then inspect real screens that depend on those mechanics
-- only then spend time on peripheral helpers
+- Batch 03 and Batch 05 now cover the critical runtime and composite-control mechanics
+- next inspect real multiplayer/menu screens that exercise those controls and modal/shell behavior together
+- then backfill primitive controls and remaining single-player shell screens
+- leave peripheral helpers, networking internals, bootstrap, and leftovers until the screen/control surface is mapped
 
 ## Tracker Maintenance Rules
 
