@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Framework\Framework.csproj" />
+    <ProjectReference Include="..\..\src\Windowing\Windowing.csproj" />
   </ItemGroup>
 
   <ItemGroup>
