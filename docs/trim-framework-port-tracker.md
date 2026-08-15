@@ -197,20 +197,20 @@ Keep the update cumulative and concise.
 
 ### Batch 07 - Shell And Menu Screens B
 
-- `Menu_mshell.cpp`: multiplayer shell screen; composes chat UI, nested child frames, focus-group behavior, network packet handling, ready state logic, and modal transitions into loading. Replacement: screen-shell node with child panels, event-driven controls, async/network presenter service, and modal navigation. Confidence: `Observed`.
-- `Menu_netconn.cpp`: network connection setup screen. Replacement: dedicated network setup screen and service bridge. Confidence: `Inferred`.
-- `Menu_netloading.cpp`: multiplayer loading/progress screen. Replacement: loading modal/screen with async state updates. Confidence: `Inferred`.
-- `Menu_netsess.cpp`: multiplayer session browser/host screen. Replacement: session list screen with join/host actions. Confidence: `Inferred`.
-- `Menu_netsess2.cpp`: likely second-stage session details/options screen. Replacement: session detail/config screen. Confidence: `Inferred`.
-- `Menu_newplayer.cpp`: new player/profile creation screen. Replacement: profile creation dialog/screen. Confidence: `Inferred`.
-- `Menu_options.cpp`: main options/settings screen. Replacement: settings screen built from reusable control panels. Confidence: `Inferred`.
-- `Menu_Pause.cpp`: pause menu screen. Replacement: node-based pause modal/menu. Confidence: `Inferred`.
-- `Menu_SlideShow.cpp`: slideshow/cinematic or static image sequence screen. Replacement: slideshow screen node with transitions. Confidence: `Inferred`.
-- `Menu_slots.cpp`: player slot/team setup screen or subpanel. Replacement: slot editor panel in game-setup flow. Confidence: `Inferred`.
-- `Menu_SPGame.cpp`: single-player game setup screen. Replacement: single-player setup screen built from reusable panels. Confidence: `Inferred`.
-- `Menu_SysKitSaveLoad.cpp`: likely system-kit save/load or special profile/save UI. Replacement: specialized save/load screen only if still needed. Confidence: `Inferred`.
-- `Menu_Toolbar.cpp`: in-game toolbar shell or toolbar screen section. Replacement: toolbar container plus reusable action controls. Confidence: `Inferred`.
-- `Menu_zone.cpp`: Zone/online service integration shell. Replacement: separate service-specific screen if feature still exists. Confidence: `Inferred`.
+- `Menu_mshell.cpp`: multiplayer staging shell implementing `ICQGame`; owns lobby state, chat entry/history, host/client setting replication, ready checks, player add/remove handling, Zone score upload, and transition into `DoMenu_nl` net loading or `DoMenu_final`. Main types: `Menu_mshell`, `CQGAME_PACKET`, `MAP_PACKET`, `CLIENTSETTING_PACKET`, `GRCHAT_PACKET`. Key deps: `Menu_netloading.cpp`, `NetBuffer`, `NetPacket`, `Mission`, `MusicManager`, `ZoneLobby`, `WindowManager`, chat controls via `IEdit2`/`IListbox`, and child slot/options surfaces through shared `ICQGame` state. Replacement: multiplayer lobby screen presenter plus child panels for slots/options/chat, backed by an async networking/session service rather than frame-owned packet code. Port Priority: High. Notes: this is the central multiplayer shell, not just a menu skin. Confidence: `Observed`.
+- `Menu_netconn.cpp`: transport/provider chooser for multiplayer entry; enumerates saved DirectPlay connections, describes each transport, launches `DoMenu_sess` for normal session flow, optionally launches `DoMenu_zone`, and can shell out to a web URL. Main types: `Menu_nc`. Key deps: `ZoneLobby`, `Menu_netsess.cpp`, `Menu_zone.cpp`, saved connection enumeration from networking globals. Replacement: network entry screen with explicit provider cards/actions and a service-backed provider/session bootstrap. Port Priority: Medium. Notes: includes obsolete Zone/web launch branching that should stay outside core framework widgets. Confidence: `Observed`.
+- `Menu_netloading.cpp`: non-rendering multiplayer load/download modal; coordinates checksum/random-seed handshake, map generation or mission load, file transfer progress, mission initialization, and failure/cancel signaling between host and clients. Main types: `Menu_nl`, nested `FTENUMERATOR`. Key deps: `Mission`, `NetPacket`, `NetBuffer`, `NetFileTransfer` channel APIs, `MusicManager`, `IPAnim`, and `ICQGame` data from `Menu_mshell.cpp`. Replacement: async loading screen/service boundary with progress model, host/client load state machine, and transfer callbacks separate from the screen node. Port Priority: High. Notes: broader than a progress screen; this is multiplayer load orchestration. Confidence: `Observed`.
+- `Menu_netsess.cpp`: first-stage multiplayer session setup screen; toggles join vs create, captures player name and optional TCP IP address via combobox, persists defaults, starts session enumeration, and branches to `DoMenu_sess2`. Main types: `Menu_sess`. Key deps: `Combobox.cpp`, `Session_Buffer` enumeration, DirectPlay connection setup, `Menu_netsess2.cpp`, `Menu_mshell.cpp`, `MusicManager`. Replacement: multiplayer setup screen with validated name/address form, join/create mode state, and a session-discovery service. Port Priority: High. Notes: not a session browser yet; this is the pre-browser setup step. Confidence: `Observed`.
+- `Menu_netsess2.cpp`: second-stage session browser/create screen; refreshes enumerated sessions, renders per-session description strings from embedded options, validates version/name conflicts, then joins or creates and enters `DoMenu_mshell`. Main types: `Menu_sess2`. Key deps: session enumeration buffers, DirectPlay open/create-player flow, `Menu_mshell.cpp`, options packed into session descriptors. Replacement: session list screen with polling refresh, session metadata view model, join/create actions, and validation surfaced by the networking service. Port Priority: High. Notes: the split between `Menu_netsess.cpp` and this file is real and should remain explicit in a modern flow. Confidence: `Observed`.
+- `Menu_newplayer.cpp`: modal player-profile name dialog; edits a name, validates reserved/duplicate cases against the `SavedGame\\` folder layout, and returns the accepted name to callers like options. Main types: `dummy_newplayer`, `Menu_newplayer`. Key deps: `Edit2.cpp`, file-system/profile directories, callers in `Menu_options.cpp`. Replacement: reusable modal text-entry dialog with validation callback supplied by the owning screen. Port Priority: Medium. Confidence: `Observed`.
+- `Menu_options.cpp`: large tabbed options screen covering player profile folders, audio volumes, gameplay/input toggles, render device/resolution/gamma, and VFX flags; previews some changes live, writes defaults/registry values, and invokes `DoMenu_newplayer` for profile add/rename. Main types: `NameList`, `ResEnum`, `PackedRes`, `dummy_options`, `Menu_options`. Key deps: `TabControl.cpp`, `Slider.cpp`, `Dropdown.cpp`, `Listbox.cpp`, `IGammaControl`, `IProfileParser`, `UserDefaults`, `Effects`, `Menu_newplayer.cpp`. Replacement: settings screen composed from reusable framework tabs, lists, sliders, toggles, and dropdowns, backed by typed settings services instead of direct registry/file mutations in widget code. Port Priority: High. Notes: mixes framework-worthy controls with legacy render-device plumbing; split those concerns during port. Confidence: `Observed`.
+- `Menu_Pause.cpp`: pause/congestion overlay dialog; displays host/player pause status, boot countdowns, and resignation/quit outcomes, and in multiplayer polls `NetPacket` each frame for pause ownership and timers. Main types: `MenuPause`. Key deps: `NetPacket`, `Mission`, player enumeration callbacks, global pause/hotkey events. Replacement: pause modal overlay with a multiplayer pause-status presenter and result actions routed through app/game services. Port Priority: Medium. Notes: combines local pause menu behavior with network-congestion messaging. Confidence: `Observed`.
+- `Menu_SlideShow.cpp`: shape-driven slideshow/splash modal; steps through frames on `CQE_UPDATE`, draws a single loaded shape each frame, optionally allows early exit, and also backs splash playback that can trigger process close on completion. Main types: `Menu_SlideShow`. Key deps: `IShapeLoader`, `IDrawAgent`, `MScript` `SPLASHINFO`, modal runtime. Replacement: lightweight slideshow/splash screen node or app bootstrap presenter for scripted image sequences. Port Priority: Low. Notes: preserve behavior, not the VFX-shape loading path. Confidence: `Observed`.
+- `Menu_slots.cpp`: multiplayer slot editor subpanel over `ICQGame`; manages per-slot state/open/AI difficulty, race, color/player identity, team assignment, ping/name display, host-only editability, boot-player flow, and AI auto-fill naming. Main types: `Menu_slots`. Key deps: `Dropdown.cpp`, `Menu_mshell.cpp` via `ICQGame`, `NetBuffer`, `Mission` color/name helpers. Replacement: reusable lobby slot-grid panel with per-slot view models, validation rules, and host-authority gating supplied by the multiplayer presenter. Port Priority: High. Notes: likely one of the child panels used inside the multiplayer shell; keep it app-level, not framework-core. Confidence: `Observed`.
+- `Menu_SPGame.cpp`: single-player entry screen for campaign, skirmish, saved-game load, and quick-battle load; manages save directory existence, counts available saves to enable buttons, and enters campaign, briefing, or local `DoMenu_mshell` skirmish flow. Main types: `Menu_SPGame`. Key deps: `Mission`, `MusicManager`, `Menu_campaign.cpp`, `Menu_mshell.cpp`, `Menu_Briefing.cpp`, load/save flows. Replacement: single-player hub screen with buttons/actions backed by savegame and game-start services. Port Priority: Medium. Notes: skirmish reuses the multiplayer shell path with no remote connection. Confidence: `Observed`.
+- `Menu_SysKitSaveLoad.cpp`: modal save/load UI for per-system lighting kit data; lists files in `\\GT_SYSTEM_KIT`, edits a file name, reads or writes `GT_SYSTEM_KIT` records for the current sector, and pauses the game around the modal. Main types: `MenuSystemKitSaveLoad`. Key deps: `Sector`, `Mission`, `Edit2.cpp`, `Listbox.cpp`, file-system/document APIs. Replacement: specialized editor/debug asset dialog outside the general game UI framework. Port Priority: Low. Notes: narrow tool workflow, not a general save/load screen. Confidence: `Observed`.
+- `Menu_Toolbar.cpp`: in-game toolbar runtime and context-menu loader; parses toolbar data records into concrete controls, owns multiple context toolbars/tabs, dispatches left/right/double-click events to a toolbar client, toggles visibility/focus, and integrates hint/status/debug behaviors with gameplay UI. Main types: `CONTROL_NODE`, `Menu_context`, `Menu_tb`, nested `createCallback`, `FullScreen`. Key deps: primitive toolbar controls (`HotButton`, `ProgressStatic`, `Edit2`, `HotStatic`, `TabControl`, `ShipSilButton`, `Icon`, `QueueControl`), `StatusBar`, `Hintbox`, `ObjList`, `SysMap`, `ScrollingText`, parser/view-constructor infrastructure. Replacement: app-level gameplay HUD/toolbar composition layer built from framework controls plus explicit command routing, not a parser-driven one-off inside the framework core. Port Priority: High. Notes: this is a major integration surface and should probably split into HUD shell, context panels, and control factories during port. Confidence: `Observed`.
+- `Menu_zone.cpp`: Microsoft Zone / lobby launcher bridge; launches the external Zone app from registry, waits on lobby connection settings in a worker thread, initializes DirectPlay lobby/session state, then enters `DoMenu_mshell` or returns a special quit code. Main types: `Menu_zone`. Key deps: `ZoneLobby`, `DPLOBBY`, `DPLAY`, `Menu_mshell.cpp`, process launching via `ShellExecuteEx`, worker-thread polling. Replacement: omit or isolate behind an optional legacy online-service adapter; no direct framework equivalent unless an external lobby integration is revived. Port Priority: Low. Notes: clearly service-integration code, not reusable menu infrastructure. Confidence: `Observed`.
 
 ### Batch 08 - Network And Chat Support Used By Trim
 
@@ -304,22 +304,37 @@ Batch 05 also confirmed two misclassified files:
 
 That means remaining analysis should favor real screen files next, because the reusable control surface is now much clearer.
 
+### 6. Batch 07 Confirms The Multiplayer Shell Split
+
+Batch 07 showed that the legacy multiplayer front end is already split into distinct stages:
+
+- provider/transport entry: `Menu_netconn.cpp`
+- player-name and join/create setup: `Menu_netsess.cpp`
+- session discovery and join/create: `Menu_netsess2.cpp`
+- live lobby staging and slot/chat/options state: `Menu_mshell.cpp`, `Menu_slots.cpp`
+- host/client load handshake and transfer orchestration: `Menu_netloading.cpp`
+
+That split is useful and should survive the port, but the implementation shape should change:
+
+- networking/session state moves into presenter/services instead of `Frame` subclasses
+- screen nodes own only UI state and transitions
+- app-specific screens like `Menu_options.cpp`, `Menu_Toolbar.cpp`, and `Menu_SysKitSaveLoad.cpp` stay out of framework-core boundaries
+
 ## Suggested Next Analysis Order
 
-1. `Batch 07`
-2. `Batch 04`
-3. `Batch 06`
-4. `Batch 02`
-5. `Batch 08`
-6. `Batch 01`
-7. `Batch 09`
+1. `Batch 04`
+2. `Batch 06`
+3. `Batch 02`
+4. `Batch 08`
+5. `Batch 01`
+6. `Batch 09`
 
 Reason:
 
-- Batch 03 and Batch 05 now cover the critical runtime and composite-control mechanics
-- next inspect real multiplayer/menu screens that exercise those controls and modal/shell behavior together
-- then backfill primitive controls and remaining single-player shell screens
-- leave peripheral helpers, networking internals, bootstrap, and leftovers until the screen/control surface is mapped
+- Batch 07 is now covered alongside Batch 03 and Batch 05, so the remaining unknowns are primitive controls and the other screen files that sit on top of them
+- Batch 04 should sharpen the control inventory used heavily by `Menu_options.cpp`, `Menu_Toolbar.cpp`, and the menu shells
+- Batch 06 can then backfill the remaining front-end screen flows with better control-level context
+- leave lower-level media, networking internals, bootstrap, and leftovers until the screen/control surface is fully mapped
 
 ## Tracker Maintenance Rules
 
