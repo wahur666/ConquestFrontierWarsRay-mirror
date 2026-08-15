@@ -5,6 +5,9 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
 
 internal sealed class SpriteScene : ShowcaseScene {
+	private const float DefaultAnimationFps = 15f;
+	private const float MinAnimationFps = 1f;
+	private const float MaxAnimationFps = 60f;
 	private readonly PanelNode _panel = new("SpritePanel") {
 		Position = new Vector2(364f, 20f),
 		Size = new Vector2(896f, 680f),
@@ -29,20 +32,21 @@ internal sealed class SpriteScene : ShowcaseScene {
 	private readonly Sprite _frameSprite;
 	private int _frameIndex;
 	private float _frameElapsed;
+	private float _animationFps = DefaultAnimationFps;
 
 	public SpriteScene() : base("SpriteScene", "Sprites") {
-		var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets");
-		_posterTexture = new CompressedTexture2D(Path.Combine(assetRoot, "soundtrack Conquest - Frontier Wars.jpg"));
-		_atlasDefinition = new AtlasDefinitionResource(Path.Combine(assetRoot, "demo-atlas.json"));
+		var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets", "interface");
+		_posterTexture = new CompressedTexture2D(Path.Combine(assetRoot, "animMedia_atlas.png"));
+		_atlasDefinition = new AtlasDefinitionResource(Path.Combine(assetRoot, "animMedia_atlas.json"));
 		var initialFrame = _atlasDefinition.GetFrame(0);
 		_frameTexture = new AtlasTexture(_posterTexture, ToRectangle(initialFrame));
 		_posterSprite = new Sprite(_posterTexture, "PosterSprite") {
-			Position = new Vector2(612f, 390f),
-			Scale = new Vector2(0.42f, 0.42f)
+			Position = new Vector2(782f, 300f),
+			Scale = new Vector2(0.34f, 0.34f)
 		};
 		_frameSprite = new Sprite(_frameTexture, "FrameSprite") {
-			Position = new Vector2(1080f, 238f),
-			Scale = new Vector2(0.95f, 0.95f)
+			Position = new Vector2(1080f, 230f),
+			Scale = new Vector2(1.1f, 1.1f)
 		};
 
 		AddChild(_panel);
@@ -53,21 +57,30 @@ internal sealed class SpriteScene : ShowcaseScene {
 	}
 
 	protected override void OnUpdate(float deltaTime) {
+		if (Input.UiLeft) {
+			_animationFps = MathF.Max(MinAnimationFps, _animationFps - 1f);
+		}
+
+		if (Input.UiRight) {
+			_animationFps = MathF.Min(MaxAnimationFps, _animationFps + 1f);
+		}
+
 		_frameElapsed += deltaTime;
-		if (_frameElapsed >= 1.15f) {
-			_frameElapsed = 0f;
+		var frameDuration = 1f / _animationFps;
+		while (_frameElapsed >= frameDuration) {
+			_frameElapsed -= frameDuration;
 			_frameIndex = (_frameIndex + 1) % _atlasDefinition.Frames.Count;
 			_frameTexture.Region = ToRectangle(_atlasDefinition.GetFrame(_frameIndex));
 		}
 
-		_statusLabel.Text = $"Texture loaded: {_posterTexture.IsLoaded}    Atlas loaded: {_atlasDefinition.IsLoaded}";
-		_frameLabel.Text = $"Atlas frame: {_frameIndex + 1} / {_atlasDefinition.Frames.Count}";
+		_statusLabel.Text = $"Texture loaded: {_posterTexture.IsLoaded}    Atlas loaded: {_atlasDefinition.IsLoaded}    Playback: {_animationFps:0} FPS";
+		_frameLabel.Text = $"Atlas frame: {_frameIndex + 1} / {_atlasDefinition.Frames.Count}    Left/Right adjusts rate";
 	}
 
 	protected override void OnDraw() {
 		UiText.Draw("Sprite resources", 402f, 50f, 26f, Color.RayWhite, UiTextStyle.Title);
-		UiText.Draw("The full poster uses CompressedTexture2D directly. The preview on the right is the same image sampled through AtlasTexture regions loaded from AtlasDefinitionResource JSON.", 402f, 86f, 17f, new Color(188, 200, 218, 255));
-		UiText.Draw("Frames cycle automatically to keep Sprite.SetTexture/Region behavior visible without manual setup.", 402f, 170f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("The full atlas PNG comes from assets/interface. The preview on the right is sampled from the same texture through AtlasTexture regions loaded from the exported atlas JSON.", 402f, 86f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("Frames advance at 15 FPS by default. Use Left/Right to change the rate while the scene is active.", 402f, 170f, 17f, new Color(188, 200, 218, 255));
 		Raylib.DrawRectangleLinesEx(new Rectangle(955f, 170f, 250f, 250f), 2f, Color.Gold);
 		UiText.Draw("Active atlas frame", 986f, 432f, 18f, Color.Gold);
 	}

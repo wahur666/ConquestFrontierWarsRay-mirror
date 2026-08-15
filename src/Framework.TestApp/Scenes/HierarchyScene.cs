@@ -122,7 +122,25 @@ internal sealed class HierarchyScene : ShowcaseScene {
 		protected override void Draw() {
 			DrawCircle(Vector2.Zero, _radius, _tint);
 			Raylib.DrawCircleLinesV(GlobalPosition, _radius, Color.Black);
-			UiText.Draw($"{_label}  ({GlobalPosition.X:0}, {GlobalPosition.Y:0})", GlobalPosition.X + 18f, GlobalPosition.Y - 10f, 15f, Color.RayWhite, UiTextStyle.Mono);
+			var label = $"{_label}  ({GlobalPosition.X:0}, {GlobalPosition.Y:0})";
+			var textPosition = new Vector2(GlobalPosition.X + 18f, GlobalPosition.Y - 12f);
+			var textSize = UiText.MeasureSize(label, 16f, UiTextStyle.Body);
+			Raylib.DrawRectangleRec(
+				new Rectangle(
+					textPosition.X - 8f,
+					textPosition.Y - 4f,
+					textSize.X + 16f,
+					textSize.Y + 8f),
+				new Color(10, 14, 22, 220));
+			Raylib.DrawRectangleLinesEx(
+				new Rectangle(
+					textPosition.X - 8f,
+					textPosition.Y - 4f,
+					textSize.X + 16f,
+					textSize.Y + 8f),
+				1f,
+				new Color(88, 108, 144, 255));
+			UiText.Draw(label, textPosition.X, textPosition.Y, 16f, Color.RayWhite, UiTextStyle.Body);
 		}
 	}
 }

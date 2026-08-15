@@ -43,9 +43,17 @@ internal sealed class ThreeDScene : ShowcaseScene {
 
 		UiText.Draw("Node3D hierarchy", 402f, 44f, 26f, Color.RayWhite, UiTextStyle.Title);
 		UiText.Draw("The cubes are positioned by Node3D global transforms. Axis lines are derived from the decomposed global rotation to keep transform propagation visible.", 402f, 78f, 17f, new Color(176, 190, 212, 255));
-		UiText.Draw($"Root global: {_root.GlobalPosition.X:0.00}, {_root.GlobalPosition.Y:0.00}, {_root.GlobalPosition.Z:0.00}", 402f, 610f, 17f, new Color(188, 200, 218, 255), UiTextStyle.Mono);
-		UiText.Draw($"Child global: {_child.GlobalPosition.X:0.00}, {_child.GlobalPosition.Y:0.00}, {_child.GlobalPosition.Z:0.00}", 402f, 634f, 17f, new Color(188, 200, 218, 255), UiTextStyle.Mono);
-		UiText.Draw($"Grandchild global: {_grandChild.GlobalPosition.X:0.00}, {_grandChild.GlobalPosition.Y:0.00}, {_grandChild.GlobalPosition.Z:0.00}", 402f, 658f, 17f, new Color(188, 200, 218, 255), UiTextStyle.Mono);
+		DrawInfoChip($"Root global: {_root.GlobalPosition.X:0.00}, {_root.GlobalPosition.Y:0.00}, {_root.GlobalPosition.Z:0.00}", 402f, 604f);
+		DrawInfoChip($"Child global: {_child.GlobalPosition.X:0.00}, {_child.GlobalPosition.Y:0.00}, {_child.GlobalPosition.Z:0.00}", 402f, 632f);
+		DrawInfoChip($"Grandchild global: {_grandChild.GlobalPosition.X:0.00}, {_grandChild.GlobalPosition.Y:0.00}, {_grandChild.GlobalPosition.Z:0.00}", 402f, 660f);
+	}
+
+	private static void DrawInfoChip(string text, float x, float y) {
+		var size = UiText.MeasureSize(text, 17f, UiTextStyle.Body);
+		var bounds = new Rectangle(x - 8f, y - 4f, size.X + 16f, size.Y + 8f);
+		Raylib.DrawRectangleRec(bounds, new Color(10, 14, 22, 224));
+		Raylib.DrawRectangleLinesEx(bounds, 1f, new Color(88, 108, 144, 255));
+		UiText.Draw(text, x, y, 17f, new Color(218, 226, 238, 255), UiTextStyle.Body);
 	}
 
 	private static void DrawNodeRecursive(Node node) {
@@ -69,9 +77,9 @@ internal sealed class ThreeDScene : ShowcaseScene {
 
 		public void DrawWorldGizmo() {
 			Matrix4x4.Decompose(GlobalTransform, out var scale, out var rotation, out var translation);
-			var size = new Vector3(_boxSize.X * scale.X, _boxSize.Y * scale.Y, _boxSize.Z * scale.Z);
-			Raylib.DrawCubeV(translation, size, new Color((int)_tint.R, (int)_tint.G, (int)_tint.B, 110));
-			Raylib.DrawCubeWiresV(translation, size, _tint);
+			var corners = BuildCorners(GlobalTransform, _boxSize);
+			DrawSolidCube(corners, new Color((int)_tint.R, (int)_tint.G, (int)_tint.B, 110));
+			DrawWireCube(corners, _tint);
 
 			var basisX = Vector3.Transform(Vector3.UnitX, rotation) * (1.15f * scale.X);
 			var basisY = Vector3.Transform(Vector3.UnitY, rotation) * (1.15f * scale.Y);
@@ -80,6 +88,53 @@ internal sealed class ThreeDScene : ShowcaseScene {
 			Raylib.DrawLine3D(translation, translation + basisX, Color.Red);
 			Raylib.DrawLine3D(translation, translation + basisY, Color.Green);
 			Raylib.DrawLine3D(translation, translation + basisZ, Color.Blue);
+		}
+
+		private static Vector3[] BuildCorners(Matrix4x4 world, Vector3 localSize) {
+			var half = localSize * 0.5f;
+			return [
+				Vector3.Transform(new Vector3(-half.X, -half.Y, -half.Z), world),
+				Vector3.Transform(new Vector3( half.X, -half.Y, -half.Z), world),
+				Vector3.Transform(new Vector3( half.X,  half.Y, -half.Z), world),
+				Vector3.Transform(new Vector3(-half.X,  half.Y, -half.Z), world),
+				Vector3.Transform(new Vector3(-half.X, -half.Y,  half.Z), world),
+				Vector3.Transform(new Vector3( half.X, -half.Y,  half.Z), world),
+				Vector3.Transform(new Vector3( half.X,  half.Y,  half.Z), world),
+				Vector3.Transform(new Vector3(-half.X,  half.Y,  half.Z), world)
+			];
+		}
+
+		private static void DrawSolidCube(IReadOnlyList<Vector3> corners, Color fill) {
+			DrawQuad(corners, 0, 1, 2, 3, fill);
+			DrawQuad(corners, 4, 5, 6, 7, fill);
+			DrawQuad(corners, 0, 1, 5, 4, fill);
+			DrawQuad(corners, 1, 2, 6, 5, fill);
+			DrawQuad(corners, 2, 3, 7, 6, fill);
+			DrawQuad(corners, 3, 0, 4, 7, fill);
+		}
+
+		private static void DrawWireCube(IReadOnlyList<Vector3> corners, Color color) {
+			DrawEdge(corners, 0, 1, color);
+			DrawEdge(corners, 1, 2, color);
+			DrawEdge(corners, 2, 3, color);
+			DrawEdge(corners, 3, 0, color);
+			DrawEdge(corners, 4, 5, color);
+			DrawEdge(corners, 5, 6, color);
+			DrawEdge(corners, 6, 7, color);
+			DrawEdge(corners, 7, 4, color);
+			DrawEdge(corners, 0, 4, color);
+			DrawEdge(corners, 1, 5, color);
+			DrawEdge(corners, 2, 6, color);
+			DrawEdge(corners, 3, 7, color);
+		}
+
+		private static void DrawQuad(IReadOnlyList<Vector3> corners, int a, int b, int c, int d, Color fill) {
+			Raylib.DrawTriangle3D(corners[a], corners[b], corners[c], fill);
+			Raylib.DrawTriangle3D(corners[a], corners[c], corners[d], fill);
+		}
+
+		private static void DrawEdge(IReadOnlyList<Vector3> corners, int startIndex, int endIndex, Color color) {
+			Raylib.DrawLine3D(corners[startIndex], corners[endIndex], color);
 		}
 	}
 }

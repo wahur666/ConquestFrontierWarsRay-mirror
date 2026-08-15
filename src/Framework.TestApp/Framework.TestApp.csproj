@@ -14,11 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\conquest_frontier_wars_ost\soundtrack Conquest - Frontier Wars.jpg">
-      <Link>Assets\soundtrack Conquest - Frontier Wars.jpg</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Assets\demo-atlas.json">
+    <None Include="..\..\assets\interface\**\*">
+      <Link>Assets\interface\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
