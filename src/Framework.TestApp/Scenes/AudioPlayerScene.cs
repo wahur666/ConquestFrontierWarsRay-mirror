@@ -42,11 +42,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		FontSize = 16f,
 		Tint = new Color(188, 200, 218, 255)
 	};
-	private readonly TextNode _backendLabel = new("BackendLabel") {
-		Position = new Vector2(816f, 234f),
-		FontSize = 15f,
-		Tint = new Color(188, 200, 218, 255)
-	};
 	private readonly TextNode _positionLabel = new("PositionLabel") {
 		Position = new Vector2(816f, 278f),
 		FontSize = 15f,
@@ -62,11 +57,11 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		FontSize = 15f,
 		Tint = new Color(188, 200, 218, 255)
 	};
-	private readonly ButtonNode _backendButton = new("BackendButton") {
-		Position = new Vector2(1084f, 144f),
-		Size = new Vector2(122f, 34f),
-		Text = "Backend",
-		FontSize = 15f
+	private readonly DropdownNode _backendDropdown = new("BackendDropdown") {
+		Position = new Vector2(1020f, 144f),
+		Size = new Vector2(186f, 34f),
+		FontSize = 15f,
+		Placeholder = "Backend"
 	};
 	private readonly ButtonNode _playButton = new("PlayButton") {
 		Position = new Vector2(816f, 494f),
@@ -105,9 +100,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		Step = 0.05f
 	};
 	private readonly List<TrackEntry> _tracks;
-	private readonly PlaybackBackend[] _availableBackends = [PlaybackBackend.NAudio, PlaybackBackend.Raylib];
 	private int _selectedTrackIndex;
-	private int _selectedBackendIndex;
 	private bool _wasPositionDragging;
 
 	public AudioPlayerScene() : base("AudioPlayerScene", "Audio Player") {
@@ -128,8 +121,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		AddChild(_trackTitle);
 		AddChild(_trackMeta);
 		AddChild(_stateLabel);
-		AddChild(_backendLabel);
-		AddChild(_backendButton);
+		AddChild(_backendDropdown);
 		AddChild(_positionLabel);
 		AddChild(_volumeLabel);
 		AddChild(_panLabel);
@@ -143,6 +135,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 	}
 
 	protected override void OnInitialize() {
+		_backendDropdown.SetItems(Enum.GetNames<PlaybackBackend>(), (int)PlaybackBackend.NAudio);
 		_player.Volume = _volumeSlider.Value;
 		_player.Pan = _panSlider.Value;
 		LoadSelectedTrack();
@@ -168,11 +161,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 			consumed = true;
 		}
 
-		if (navigation.Right) {
-			CycleBackend();
-			consumed = true;
-		}
-
 		return consumed;
 	}
 
@@ -183,8 +171,8 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 			PlaySelectedTrack();
 		}
 
-		if (_backendButton.HandleInput()) {
-			CycleBackend();
+		if (_backendDropdown.HandleInput()) {
+			LoadSelectedTrack();
 		}
 
 		if (_pauseButton.HandleInput()) {
@@ -222,8 +210,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		_trackTitle.Text = selectedTrack.Label;
 		_trackMeta.Text = $"{Path.GetExtension(selectedTrack.Path).TrimStart('.').ToUpperInvariant()}    {selectedTrack.Path}";
 		_stateLabel.Text = $"State: {GetPlaybackState()}";
-		_backendLabel.Text = $"Backend: {CurrentBackend}";
-		_backendButton.Text = $"Use {GetNextBackend()}";
 		_positionLabel.Text = $"Position: {FormatSeconds(_player.PlaybackPosition)} / {FormatSeconds(_player.PlaybackLength)}    slider={_positionSlider.Value:0.00}";
 		_volumeLabel.Text = $"Volume: {_player.Volume:0.00}";
 		_panLabel.Text = $"Pan: {_player.Pan:0.00}";
@@ -238,7 +224,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		UiText.Draw("Volume", 816f, 346f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Pan", 816f, 416f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Mouse: drag sliders and click transport buttons. Seek commits on slider release.", 816f, 550f, 16f, new Color(188, 200, 218, 255));
-		UiText.Draw("Keyboard: Up/Down select, Enter plays, Right switches backend.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Keyboard: Up/Down select, Enter plays. Backend selection is in the dropdown.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
 		DrawTrackList();
 	}
 
@@ -288,16 +274,9 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		return _player.IsPlaying ? "Playing" : "Paused / Stopped";
 	}
 
-	private PlaybackBackend CurrentBackend => _availableBackends[_selectedBackendIndex];
-
-	private PlaybackBackend GetNextBackend() {
-		return _availableBackends[(_selectedBackendIndex + 1) % _availableBackends.Length];
-	}
-
-	private void CycleBackend() {
-		_selectedBackendIndex = (_selectedBackendIndex + 1) % _availableBackends.Length;
-		LoadSelectedTrack();
-	}
+	private PlaybackBackend CurrentBackend => _backendDropdown.SelectedIndex >= 0
+		? (PlaybackBackend)_backendDropdown.SelectedIndex
+		: PlaybackBackend.NAudio;
 
 	private AudioStreamResource CreateAudioResource(string path) {
 		return CurrentBackend switch {
