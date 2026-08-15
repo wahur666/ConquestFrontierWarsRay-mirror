@@ -142,6 +142,22 @@ This document tracks what is currently implemented in the node framework.
 - `AtlasTexture` represents a sub-rectangle of another framework `Texture2D`.
 - `Sprite` depends on the framework texture abstraction rather than file paths or raw Raylib resources.
 
+### Audio
+
+- `AudioStreamResource` is the shared framework base type for streamed audio playback resources.
+- `MusicAudioResource` represents a file-backed raylib music stream resource.
+- `AudioPlayer` is a non-visual node that owns:
+  - play
+  - pause
+  - stop
+  - seek
+  - volume
+  - looping
+  - pitch
+  - pan
+  - assigning and disposing audio resources
+- `RaylibApplication` now initializes and closes the raylib audio device alongside the main app lifetime.
+
 ### UI Primitives
 
 - `Control` adds size and hit-testing to `Node2D`.

@@ -41,6 +41,10 @@ public sealed class RaylibApplication : IDisposable {
 
 		_sceneTree.Dispose();
 
+		if (Raylib.IsAudioDeviceReady()) {
+			Raylib.CloseAudioDevice();
+		}
+
 		if (Raylib.IsWindowReady()) {
 			Raylib.CloseWindow();
 		}
@@ -56,6 +60,11 @@ public sealed class RaylibApplication : IDisposable {
 
 		Raylib.SetConfigFlags(_windowOptions.StartupFlags);
 		Raylib.InitWindow(_windowOptions.Width, _windowOptions.Height, _windowOptions.Title);
+
+		if (!Raylib.IsAudioDeviceReady()) {
+			Raylib.InitAudioDevice();
+		}
+
 		Raylib.SetTargetFPS(_windowOptions.TargetFps);
 		Raylib.SetExitKey(KeyboardKey.Null);
 		_sceneTree.Input.SetupHotkeys();
