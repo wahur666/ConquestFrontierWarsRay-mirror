@@ -26,6 +26,20 @@ This document tracks what is currently implemented in the node framework.
 ### Node System
 
 - `Node` is the base type for the framework.
+- The currently available concrete or subclassable node types are:
+  - `Node`
+  - `CanvasItem`
+  - `Node2D`
+  - `Control`
+  - `PanelNode`
+  - `TextNode`
+  - `ButtonNode`
+  - `DropdownNode`
+  - `SliderNode`
+  - `ListViewNode`
+  - `Sprite`
+  - `Node3D`
+  - `AudioPlayer`
 - Nodes support lifecycle hooks:
   - `OnInitialize()`
   - `OnEnterTree()`
@@ -82,6 +96,16 @@ This document tracks what is currently implemented in the node framework.
   - `GlobalZIndex`
 - Parent-child 2D transform composition is implemented through `Transform2D`.
 - Parent-child draw ordering is implemented through `GlobalZIndex` and optional Y sorting.
+- The currently available 2D node types are:
+  - `Node2D`
+  - `Control`
+  - `PanelNode`
+  - `TextNode`
+  - `ButtonNode`
+  - `DropdownNode`
+  - `SliderNode`
+  - `ListViewNode`
+  - `Sprite`
 
 ### 3D Node Stack
 
@@ -101,6 +125,8 @@ This document tracks what is currently implemented in the node framework.
 - Parent-child 3D transform composition is implemented through `Transform3D`.
 - The current 3D stack is still transform-only and does not yet provide a
   full scene-graph owner or reusable renderable 3D node types.
+- The currently available 3D node type is:
+  - `Node3D`
 
 ### 3D Direction
 
@@ -161,7 +187,11 @@ This document tracks what is currently implemented in the node framework.
 ### UI Primitives
 
 - `Control` adds size and hit-testing to `Node2D`.
-- `PanelNode`, `TextNode`, and `ButtonNode` provide basic lightweight UI drawing.
+- `PanelNode` draws a filled rectangle with an optional outline.
+- `TextNode` draws a text label in the 2D node tree.
+- `ButtonNode` provides a clickable button with hover feedback.
+- `DropdownNode` provides a mouse-driven single-select dropdown list.
+- `SliderNode` provides a mouse-driven horizontal slider with normalized values.
 - `ListViewNode` provides a mouse-driven single-selection list of clickable rows.
 - `MenuList` provides vertical menu selection logic.
 - `PauseDialog` provides a small modal dialog pattern on top of `MenuList`.
