@@ -1,32 +1,23 @@
+using ConquestFrontierWarsRay.Runtime.MapGen;
+using ConquestFrontierWarsRay.Runtime.MapGen.Legacy;
 using MapGen;
-using Newtonsoft.Json;
 
 var mapGenPath = args.Length > 0
-	? args[0]
-	: Path.Combine(AppContext.BaseDirectory, "data", "bt_map_gen.json");
+	? Path.GetFullPath(args[0])
+	: LegacyMapGenXmlLoader.LocateDefaultXmlPath();
 var seed = args.Length > 1 && int.TryParse(args[1], out var parsedSeed) ? parsedSeed : 12345;
 var template = args.Length > 2 && Enum.TryParse<RANDOM_TEMPLATE>(args[2], ignoreCase: true, out var parsedTemplate)
 	? parsedTemplate
 	: RANDOM_TEMPLATE.TEMPLATE_RING;
 var numSystems = args.Length > 3 && int.TryParse(args[3], out var parsedSystems) ? parsedSystems : 9;
 
-var settings = new JsonSerializerSettings {
-	Converters = new List<JsonConverter> { new BT_MAP_GEN_InfoConverter() }
-};
-
 if (!File.Exists(mapGenPath)) {
 	Console.Error.WriteLine($"MapGen data file not found: {mapGenPath}");
 	return 1;
 }
 
-var text = await File.ReadAllTextAsync(mapGenPath);
-var mapGen = JsonConvert.DeserializeObject<BT_MAP_GEN>(text, settings);
-if (mapGen is null) {
-	Console.Error.WriteLine($"Failed to deserialize mapgen data: {mapGenPath}");
-	return 1;
-}
-
-mapGen.MoonsEnabled = false;
+var xmlMapGen = LegacyMapGenXmlLoader.LoadFromFile(mapGenPath);
+var mapGen = LegacyMapGenXmlAdapter.ToLegacyMapGen(xmlMapGen, moonsEnabled: false);
 var game = CreateDefaultGame(template, numSystems);
 ValidateGame(game);
 

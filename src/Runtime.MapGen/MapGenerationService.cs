@@ -1,6 +1,6 @@
 using BT = ConquestFrontierWarsRay.Data.Models.BT;
 using ConquestFrontierWarsRay.Globals;
-using Legacy = MapGen;
+using LegacyEngine = MapGen;
 
 namespace ConquestFrontierWarsRay.Runtime.MapGen;
 
@@ -18,7 +18,7 @@ public sealed class MapGenerationService {
 
 	public IReadOnlyList<int> GetPossibleSystemNumbers(CqGameSettings settings) {
 		var legacyGame = LegacyMapGenAdapter.ToLegacyGame(settings);
-		return Legacy.MapGen.GetPossibleSystemNumbers(legacyGame);
+		return LegacyEngine.MapGen.GetPossibleSystemNumbers(legacyGame);
 	}
 
 	public GeneratedMap Generate(MapGenerationRequest request) {
@@ -68,7 +68,7 @@ public sealed class MapGenerationService {
 		ArgumentNullException.ThrowIfNull(request);
 		var legacyMapGen = LegacyMapGenAdapter.ToLegacyMapGen(request.MapGenData);
 		var legacyGame = LegacyMapGenAdapter.ToLegacyGame(request.GameSettings);
-		var engine = new Legacy.MapGen(legacyMapGen, LegacyMapGenDefaults.CreateBaseFieldData());
+		var engine = new LegacyEngine.MapGen(legacyMapGen, LegacyMapGenDefaults.CreateBaseFieldData());
 
 		var previousOut = Console.Out;
 		using var writer = new StringWriter();
@@ -83,7 +83,7 @@ public sealed class MapGenerationService {
 		return new LegacyRunResult(engine, legacyMapGen, writer.ToString());
 	}
 
-	private static int FindThemeIndex(Legacy.BT_MAP_GEN source, Legacy._terrainTheme theme) {
+	private static int FindThemeIndex(LegacyEngine.BT_MAP_GEN source, LegacyEngine._terrainTheme theme) {
 		for (var index = 0; index < source.themes.Length; index++) {
 			if (ReferenceEquals(source.themes[index], theme)) {
 				return index;
@@ -93,7 +93,7 @@ public sealed class MapGenerationService {
 		return -1;
 	}
 
-	private static string GetThemeKey(Legacy._terrainTheme theme) {
+	private static string GetThemeKey(LegacyEngine._terrainTheme theme) {
 		static string FirstNonEmpty(IEnumerable<string> values) => values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
 
 		var key = FirstNonEmpty(theme.systemKit);
@@ -114,5 +114,5 @@ public sealed class MapGenerationService {
 		return FirstNonEmpty(theme.metalPlanets);
 	}
 
-	private sealed record LegacyRunResult(Legacy.MapGen Engine, Legacy.BT_MAP_GEN LegacyMapGen, string Output);
+	private sealed record LegacyRunResult(LegacyEngine.MapGen Engine, LegacyEngine.BT_MAP_GEN LegacyMapGen, string Output);
 }

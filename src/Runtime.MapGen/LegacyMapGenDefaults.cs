@@ -1,33 +1,33 @@
-using Legacy = MapGen;
+using LegacyEngine = MapGen;
 
 namespace ConquestFrontierWarsRay.Runtime.MapGen;
 
 public static class LegacyMapGenDefaults {
-	public static List<Legacy.BASE_FIELD_DATA> CreateBaseFieldData() {
+	public static List<LegacyEngine.BASE_FIELD_DATA> CreateBaseFieldData() {
 		return [
-			new("ANTIMATTER!!Antimatter", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("ANTIMATTER!!mantis", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("ANTIMATTER!!solarian", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("ANTIMATTER!!terran", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("Field!!AsteroidsHeavy", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ASTEROIDFIELD),
-			new("Field!!AsteroidsLight", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ASTEROIDFIELD),
-			new("Field!!AsteroidsMed", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ASTEROIDFIELD),
-			new("Field!!Debris", Legacy.ObjClass.OC_FIELD, Legacy.FIELDCLASS.FC_ASTEROIDFIELD),
-			new("Nebula!!Antimatter", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("Nebula!!Antimatter(mantis)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("Nebula!!Antimatter(solarian)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("Nebula!!Antimatter(terran)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_ANTIMATTER),
-			new("Nebula!!Celsius(terran)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("Nebula!!Cygnus(solarian)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("Nebula!!Helious(terran)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("Nebula!!Hyades(mantis)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("Nebula!!Ion(solarian)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("Nebula!!Lithium(mantis)", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("BlackHole", Legacy.ObjClass.OC_NEBULA, Legacy.FIELDCLASS.FC_NEBULA),
-			new("BlueStar", Legacy.ObjClass.OC_BLACKHOLE, Legacy.FIELDCLASS.FC_OTHER),
-			new("GreenStar", Legacy.ObjClass.OC_BLACKHOLE, Legacy.FIELDCLASS.FC_OTHER),
-			new("RedStar", Legacy.ObjClass.OC_BLACKHOLE, Legacy.FIELDCLASS.FC_OTHER),
-			new("YellowStar", Legacy.ObjClass.OC_BLACKHOLE, Legacy.FIELDCLASS.FC_OTHER),
+			new("ANTIMATTER!!Antimatter", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("ANTIMATTER!!mantis", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("ANTIMATTER!!solarian", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("ANTIMATTER!!terran", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("Field!!AsteroidsHeavy", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ASTEROIDFIELD),
+			new("Field!!AsteroidsLight", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ASTEROIDFIELD),
+			new("Field!!AsteroidsMed", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ASTEROIDFIELD),
+			new("Field!!Debris", LegacyEngine.ObjClass.OC_FIELD, LegacyEngine.FIELDCLASS.FC_ASTEROIDFIELD),
+			new("Nebula!!Antimatter", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("Nebula!!Antimatter(mantis)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("Nebula!!Antimatter(solarian)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("Nebula!!Antimatter(terran)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_ANTIMATTER),
+			new("Nebula!!Celsius(terran)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("Nebula!!Cygnus(solarian)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("Nebula!!Helious(terran)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("Nebula!!Hyades(mantis)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("Nebula!!Ion(solarian)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("Nebula!!Lithium(mantis)", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("BlackHole", LegacyEngine.ObjClass.OC_NEBULA, LegacyEngine.FIELDCLASS.FC_NEBULA),
+			new("BlueStar", LegacyEngine.ObjClass.OC_BLACKHOLE, LegacyEngine.FIELDCLASS.FC_OTHER),
+			new("GreenStar", LegacyEngine.ObjClass.OC_BLACKHOLE, LegacyEngine.FIELDCLASS.FC_OTHER),
+			new("RedStar", LegacyEngine.ObjClass.OC_BLACKHOLE, LegacyEngine.FIELDCLASS.FC_OTHER),
+			new("YellowStar", LegacyEngine.ObjClass.OC_BLACKHOLE, LegacyEngine.FIELDCLASS.FC_OTHER),
 		];
 	}
 }
