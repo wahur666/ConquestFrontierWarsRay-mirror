@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Select_Vivac" type="string[]">
+  <element index="0" type="string">SAV4200.wav</element>
+  <element index="1" type="string">SAV4201.wav</element>
+  <element index="2" type="string">SAV4202.wav</element>
+  <element index="3" type="string">SAV4203.wav</element>
+</MT_STRINGPACK>

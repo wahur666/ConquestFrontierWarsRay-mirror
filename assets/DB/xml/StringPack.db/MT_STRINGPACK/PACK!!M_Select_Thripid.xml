@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Select_Thripid" type="string[]">
+  <element index="0" type="string">MAT2400.wav</element>
+  <element index="1" type="string">MAT2401.wav</element>
+  <element index="2" type="string">MAT2402.wav</element>
+  <element index="3" type="string">MAT2403.wav</element>
+</MT_STRINGPACK>

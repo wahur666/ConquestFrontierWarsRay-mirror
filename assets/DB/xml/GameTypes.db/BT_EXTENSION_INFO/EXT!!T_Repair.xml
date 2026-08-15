@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!T_Repair">
+  <addChildName type="string">Repair Base</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATREPAIR!!T_Tender_Stage2</archetypeName>
+</BT_EXTENSION_INFO>

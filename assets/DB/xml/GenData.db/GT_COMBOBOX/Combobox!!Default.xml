@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_COMBOBOX id="Combobox!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_combobox">12</baseType>
+</GT_COMBOBOX>

@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_FORMATION id="FORMATION!!T_PlatOffence">
+  <objClass type="OBJCLASS" value="oc_none">0</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <buttonInfo type="ArtifactButtonInfo">
+    <baseButton type="u32">2682</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="form_platoff">6610</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="form_t_platoff">6831</hintBox>
+  </buttonInfo>
+  <groups type="FLEET_GROUP_DEF">
+    <element type="FLEET_GROUP_DEF" index="0">
+      <filters type="ShipFilters[]">
+        <element type="SHIP_FILTERS" index="0">
+          <positiveFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">true</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </positiveFilter>
+          <negativeFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </negativeFilter>
+          <max type="u32">1</max>
+          <min type="u32">1</min>
+          <overflowOnly type="bool">false</overflowOnly>
+        </element>
+        <element type="SHIP_FILTERS" index="1">
+          <positiveFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">true</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </positiveFilter>
+          <negativeFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </negativeFilter>
+          <max type="u32">2</max>
+          <min type="u32">2</min>
+          <overflowOnly type="bool">false</overflowOnly>
+        </element>
+      </filters>
+      <active type="bool">true</active>
+      <overflowCreation type="bool">false</overflowCreation>
+      <parentGroup type="u32">0</parentGroup>
+      <parentGroupNumber type="u32">1</parentGroupNumber>
+      <priority type="u32">0</priority>
+      <creationNumber type="u32">1</creationNumber>
+      <relativeTo type="RelativeType" value="rt_center">0</relativeTo>
+      <relativeGroup type="u32">0</relativeGroup>
+      <relation type="Relation" value="re_center">1</relation>
+      <rel_dir_x type="s32">0</rel_dir_x>
+      <rel_dir_y type="s32">0</rel_dir_y>
+      <advancedPlacement>
+        <placementType type="PlacementType" value="pt_normal">0</placementType>
+        <placementDirX type="s32">0</placementDirX>
+        <placementDirY type="s32">0</placementDirY>
+      </advancedPlacement>
+      <aiType type="AIType" value="normal">0</aiType>
+    </element>
+    <element type="FLEET_GROUP_DEF" index="1">
+      <filters type="ShipFilters[]">
+        <element type="SHIP_FILTERS" index="0">
+          <positiveFilter type="FORMATION_FILTER">
+            <shortRange type="bool">true</shortRange>
+            <mediumRange type="bool">true</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </positiveFilter>
+          <negativeFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </negativeFilter>
+          <max type="u32">2</max>
+          <min type="u32">2</min>
+          <overflowOnly type="bool">false</overflowOnly>
+        </element>
+      </filters>
+      <active type="bool">true</active>
+      <overflowCreation type="bool">false</overflowCreation>
+      <parentGroup type="u32">0</parentGroup>
+      <parentGroupNumber type="u32">1</parentGroupNumber>
+      <priority type="u32">5</priority>
+      <creationNumber type="u32">7</creationNumber>
+      <relativeTo type="RelativeType" value="rt_group">1</relativeTo>
+      <relativeGroup type="u32">0</relativeGroup>
+      <relation type="Relation" value="re_edge">0</relation>
+      <rel_dir_x type="s32">1</rel_dir_x>
+      <rel_dir_y type="s32">0</rel_dir_y>
+      <advancedPlacement>
+        <placementType type="PlacementType" value="pt_line">1</placementType>
+        <placementDirX type="s32">0</placementDirX>
+        <placementDirY type="s32">1</placementDirY>
+      </advancedPlacement>
+      <aiType type="AIType" value="striker">3</aiType>
+    </element>
+    <element type="FLEET_GROUP_DEF" index="2">
+      <filters type="ShipFilters[]">
+        <element type="SHIP_FILTERS" index="0">
+          <positiveFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">true</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </positiveFilter>
+          <negativeFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </negativeFilter>
+          <max type="u32">2</max>
+          <min type="u32">2</min>
+          <overflowOnly type="bool">false</overflowOnly>
+        </element>
+      </filters>
+      <active type="bool">true</active>
+      <overflowCreation type="bool">false</overflowCreation>
+      <parentGroup type="u32">0</parentGroup>
+      <parentGroupNumber type="u32">1</parentGroupNumber>
+      <priority type="u32">5</priority>
+      <creationNumber type="u32">7</creationNumber>
+      <relativeTo type="RelativeType" value="rt_group">1</relativeTo>
+      <relativeGroup type="u32">0</relativeGroup>
+      <relation type="Relation" value="re_edge">0</relation>
+      <rel_dir_x type="s32">4294967295</rel_dir_x>
+      <rel_dir_y type="s32">0</rel_dir_y>
+      <advancedPlacement>
+        <placementType type="PlacementType" value="pt_line">1</placementType>
+        <placementDirX type="s32">0</placementDirX>
+        <placementDirY type="s32">1</placementDirY>
+      </advancedPlacement>
+      <aiType type="AIType" value="normal">0</aiType>
+    </element>
+    <element type="FLEET_GROUP_DEF" index="3">
+      <filters type="ShipFilters[]">
+        <element type="SHIP_FILTERS" index="0">
+          <positiveFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">true</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </positiveFilter>
+          <negativeFilter type="FORMATION_FILTER">
+            <shortRange type="bool">false</shortRange>
+            <mediumRange type="bool">false</mediumRange>
+            <longRange type="bool">false</longRange>
+            <recon type="bool">false</recon>
+            <loneRecon type="bool">false</loneRecon>
+            <fighters type="bool">false</fighters>
+            <supplyShip type="bool">false</supplyShip>
+            <airDefence type="bool">false</airDefence>
+            <missileCruiser type="bool">false</missileCruiser>
+            <lancer type="bool">false</lancer>
+          </negativeFilter>
+          <max type="u32">100000</max>
+          <min type="u32">1</min>
+          <overflowOnly type="bool">false</overflowOnly>
+        </element>
+      </filters>
+      <active type="bool">true</active>
+      <overflowCreation type="bool">false</overflowCreation>
+      <parentGroup type="u32">0</parentGroup>
+      <parentGroupNumber type="u32">1</parentGroupNumber>
+      <priority type="u32">5</priority>
+      <creationNumber type="u32">1</creationNumber>
+      <relativeTo type="RelativeType" value="rt_group">1</relativeTo>
+      <relativeGroup type="u32">0</relativeGroup>
+      <relation type="Relation" value="re_edge">0</relation>
+      <rel_dir_x type="s32">0</rel_dir_x>
+      <rel_dir_y type="s32">1</rel_dir_y>
+      <advancedPlacement>
+        <placementType type="PlacementType" value="pt_normal">0</placementType>
+        <placementDirX type="s32">0</placementDirX>
+        <placementDirY type="s32">0</placementDirY>
+      </advancedPlacement>
+      <aiType type="AIType" value="normal">0</aiType>
+    </element>
+  </groups>
+  <freeForm type="bool">false</freeForm>
+  <moveTargetRange type="u32">4</moveTargetRange>
+  <spotterRange type="u32">0</spotterRange>
+  <cloakUsage type="CLOAK_USAGE" value="cu_none">0</cloakUsage>
+  <admiralAttackControl type="u32">0</admiralAttackControl>
+  <formationBonuses type="AdmiralBonuses">
+    <baseBonuses type="BonusValues">
+      <damage type="f32">-0.05000000074505806</damage>
+      <supplyUsage type="f32">-0.15000000596046448</supplyUsage>
+      <rangeModifier type="f32">0.0</rangeModifier>
+      <speed type="f32">-0.15000000596046448</speed>
+      <sensors type="f32">0.0</sensors>
+      <defence type="f32">0.0</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </baseBonuses>
+    <favoredShipBonus type="BonusValues">
+      <damage type="f32">0.0</damage>
+      <supplyUsage type="f32">0.0</supplyUsage>
+      <rangeModifier type="f32">0.0</rangeModifier>
+      <speed type="f32">0.0</speed>
+      <sensors type="f32">0.0</sensors>
+      <defence type="f32">0.0</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </favoredShipBonus>
+    <favoredArmor type="BonusValues">
+      <damage type="f32">0.0</damage>
+      <supplyUsage type="f32">0.0</supplyUsage>
+      <rangeModifier type="f32">0.0</rangeModifier>
+      <speed type="f32">0.0</speed>
+      <sensors type="f32">0.0</sensors>
+      <defence type="f32">0.0</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </favoredArmor>
+    <bonusShips type="M_OBJCLASS[]">
+      <element type="M_OBJCLASS" value="m_none" index="0">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="1">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="2">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="3">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="4">0</element>
+    </bonusShips>
+    <noArmorFavored type="bool">false</noArmorFavored>
+    <lightArmorFavored type="bool">false</lightArmorFavored>
+    <mediumArmorFavored type="bool">false</mediumArmorFavored>
+    <heavyArmorFavored type="bool">false</heavyArmorFavored>
+  </formationBonuses>
+  <formationSpecials type="bool">false</formationSpecials>
+</BT_FORMATION>

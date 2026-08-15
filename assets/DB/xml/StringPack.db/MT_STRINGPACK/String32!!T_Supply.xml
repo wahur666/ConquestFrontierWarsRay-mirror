@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Supply" type="string[]">
+  <element index="0" type="string">ATS Aries</element>
+  <element index="1" type="string">ATS Taurus</element>
+  <element index="2" type="string">ATS Gemini</element>
+  <element index="3" type="string">ATS Cancer</element>
+  <element index="4" type="string">ATS Leo</element>
+  <element index="5" type="string">ATS Virgo</element>
+  <element index="6" type="string">ATS Libra</element>
+  <element index="7" type="string">ATS Scorpio</element>
+  <element index="8" type="string">ATS Sagitarius</element>
+  <element index="9" type="string">ATS Capricorn</element>
+  <element index="10" type="string">ATS Aquarius</element>
+  <element index="11" type="string">ATS Pisces</element>
+  <element index="12" type="string" />
+  <element index="13" type="string" />
+  <element index="14" type="string" />
+  <element index="15" type="string" />
+  <element index="16" type="string" />
+  <element index="17" type="string" />
+  <element index="18" type="string" />
+  <element index="19" type="string" />
+  <element index="20" type="string" />
+  <element index="21" type="string" />
+  <element index="22" type="string" />
+  <element index="23" type="string" />
+  <element index="24" type="string" />
+  <element index="25" type="string" />
+  <element index="26" type="string" />
+  <element index="27" type="string" />
+  <element index="28" type="string" />
+  <element index="29" type="string" />
+  <element index="30" type="string" />
+  <element index="31" type="string" />
+</MT_STRINGPACK>

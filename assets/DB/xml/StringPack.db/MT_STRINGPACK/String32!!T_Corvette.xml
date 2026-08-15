@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Corvette" type="string[]">
+  <element index="0" type="string">FFC Garcia</element>
+  <element index="1" type="string">FFC Medhurst</element>
+  <element index="2" type="string">FFC Roberts</element>
+  <element index="3" type="string">FFC Fries</element>
+  <element index="4" type="string">FFC Wattenbarger</element>
+  <element index="5" type="string">FFC Spasato</element>
+  <element index="6" type="string">FFC Neumann</element>
+  <element index="7" type="string">FFC Yenawine</element>
+  <element index="8" type="string">FFC Rodriquez</element>
+  <element index="9" type="string">FFC Zurovec</element>
+  <element index="10" type="string">FFC Orzulak</element>
+  <element index="11" type="string">FFC Bruncke</element>
+  <element index="12" type="string">FFC Di Bianca</element>
+  <element index="13" type="string">FFC Garde</element>
+  <element index="14" type="string">FFC Smith</element>
+  <element index="15" type="string">FFC Baldwin</element>
+  <element index="16" type="string">FFC Hackert</element>
+  <element index="17" type="string">FFC Peterson</element>
+  <element index="18" type="string">FFC Brandt</element>
+  <element index="19" type="string">FFC Gattis</element>
+  <element index="20" type="string">FFC Kimmich</element>
+  <element index="21" type="string">FFC Hoffman</element>
+  <element index="22" type="string">FFC Goldsworthy</element>
+  <element index="23" type="string">FFC Galway</element>
+  <element index="24" type="string">FFC Cahill</element>
+  <element index="25" type="string">FFC Bernstein</element>
+  <element index="26" type="string">FFC MacTavish</element>
+  <element index="27" type="string">FFC Marr</element>
+  <element index="28" type="string">FFC Rosas</element>
+  <element index="29" type="string">FFC Pace</element>
+  <element index="30" type="string">FFC Bratton</element>
+  <element index="31" type="string">FFC Ayres</element>
+</MT_STRINGPACK>

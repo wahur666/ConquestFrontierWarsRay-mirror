@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_GROUP id="Group!!Default">
+  <objClass type="OBJCLASS" value="oc_group">262144</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+</BT_GROUP>

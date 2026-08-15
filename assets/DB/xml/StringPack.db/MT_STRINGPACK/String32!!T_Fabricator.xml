@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Fabricator" type="string[]">
+  <element index="0" type="string">ARC Pythagoras</element>
+  <element index="1" type="string">ARC Ulysses</element>
+  <element index="2" type="string">ARC Orpheus</element>
+  <element index="3" type="string">ARC Hercules</element>
+  <element index="4" type="string">ARC Bacchus</element>
+  <element index="5" type="string">ARC Theseus</element>
+  <element index="6" type="string">ARC Nisus</element>
+  <element index="7" type="string">ARC Perseus</element>
+  <element index="8" type="string">ARC Scylla</element>
+  <element index="9" type="string">ARC Cadmus</element>
+  <element index="10" type="string">ARC Minerva</element>
+  <element index="11" type="string">ARC Clytie</element>
+  <element index="12" type="string">ARC Ceyx</element>
+  <element index="13" type="string">ARC Halcyone</element>
+  <element index="14" type="string">ARC Pomona</element>
+  <element index="15" type="string">ARC Daphe</element>
+  <element index="16" type="string">ARC Pyramus</element>
+  <element index="17" type="string">ARC Thisbe</element>
+  <element index="18" type="string">ARC Cephalus</element>
+  <element index="19" type="string">ARC Procris</element>
+  <element index="20" type="string">ARC Actaeon</element>
+  <element index="21" type="string">ARC Latona</element>
+  <element index="22" type="string">ARC Phaeton</element>
+  <element index="23" type="string">ARC Baucis</element>
+  <element index="24" type="string">ARC Philemon</element>
+  <element index="25" type="string">ARC Glaucus</element>
+  <element index="26" type="string">ARC Pandora</element>
+  <element index="27" type="string">ARC Minerva</element>
+  <element index="28" type="string">ARC Andromeda</element>
+  <element index="29" type="string">ARC Mezentius</element>
+  <element index="30" type="string">ARC Turnus</element>
+  <element index="31" type="string">ARC Eurydice</element>
+</MT_STRINGPACK>

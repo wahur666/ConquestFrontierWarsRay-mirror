@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_SHIPSILBUTTON id="ShipSilButton!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_shipsilbutton">11</baseType>
+  <redYellowBreak type="f32">0.30000001192092896</redYellowBreak>
+  <yellowGreenBreak type="f32">0.75</yellowGreenBreak>
+</GT_SHIPSILBUTTON>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_SOLARIAN_BUILD id="BUILD!!Solarian">
+  <objClass type="OBJCLASS" value="oc_buildobj">8388608</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <boClass type="BUILDOBJCLASS" value="bo_solarian">2</boClass>
+  <cocoonTextureName type="string" />
+</BT_SOLARIAN_BUILD>

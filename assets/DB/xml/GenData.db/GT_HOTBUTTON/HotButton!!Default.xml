@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_HOTBUTTON id="HotButton!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_hotbutton">8</baseType>
+  <buttonType type="HOTBUTTON_TYPE" value="hotbutton">0</buttonType>
+  <fontType type="string" />
+  <textColor type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </textColor>
+</GT_HOTBUTTON>

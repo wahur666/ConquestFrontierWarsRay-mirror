@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_NEWPLAYER id="MenuNewPlayer">
+  <screenRect type="RECT">
+    <left type="s32">95</left>
+    <top type="s32">100</top>
+    <right type="s32">710</right>
+    <bottom type="s32">410</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!LoadSave</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <title type="STATIC_DATA">
+    <staticType type="string">Static!!FutureMessage</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="new_player">1527</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">100</xOrigin>
+    <yOrigin type="s32">26</yOrigin>
+    <width type="s32">400</width>
+    <height type="s32">20</height>
+  </title>
+  <staticHeading type="STATIC_DATA">
+    <staticType type="string">Static!!FutureMessage</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="enter_name">1472</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">100</xOrigin>
+    <yOrigin type="s32">80</yOrigin>
+    <width type="s32">480</width>
+    <height type="s32">20</height>
+  </staticHeading>
+  <edit type="EDIT_DATA">
+    <editType type="string">Edit!!Name</editType>
+    <editText type="EDTXT::EDIT_TEXT" value="none">0</editText>
+    <xOrigin type="u32">100</xOrigin>
+    <yOrigin type="u32">120</yOrigin>
+  </edit>
+  <ok type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">90</xOrigin>
+    <yOrigin type="u32">260</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">30</bottom>
+    </buttonArea>
+  </ok>
+  <cancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">410</xOrigin>
+    <yOrigin type="u32">260</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">30</bottom>
+    </buttonArea>
+  </cancel>
+</GT_NEWPLAYER>

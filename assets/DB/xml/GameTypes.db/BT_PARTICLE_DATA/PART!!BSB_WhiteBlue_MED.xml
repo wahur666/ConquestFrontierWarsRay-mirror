@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PARTICLE_DATA id="PART!!BSB_WhiteBlue_MED">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_particle">2</fxClass>
+  <fileName type="string">BSB_WhiteBlue_MED.pte</fileName>
+</BT_PARTICLE_DATA>

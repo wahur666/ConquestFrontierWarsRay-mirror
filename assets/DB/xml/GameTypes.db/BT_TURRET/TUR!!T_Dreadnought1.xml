@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TURRET id="TUR!!T_Dreadnought1">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_turret">1</type>
+  <weaponType type="string">PROJ!!T_Bolt-!Dreadnought</weaponType>
+  <supplyCost type="s32">4</supplyCost>
+  <refirePeriod type="f32">3.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <info type="f32" key1="angVelocity" key2="maxAngDeflection">1.5</info>
+  <animation type="string">Sc_animation1</animation>
+  <hardpoint type="string">\turret1\barrel1\hp_gun1</hardpoint>
+  <joint type="string">\turret1</joint>
+  <animMuzzleFlash type="string">tmuzzflash.tga</animMuzzleFlash>
+  <muzzleFlashWidth type="u32">175</muzzleFlashWidth>
+  <muzzleFlashTime type="f32">0.4000000059604645</muzzleFlashTime>
+  <colorMod type="COLOR">
+    <red type="u8">113</red>
+    <green type="u8">113</green>
+    <blue type="u8">255</blue>
+  </colorMod>
+  <warmUpBlast type="WarmUpBlast">
+    <blastType type="string" />
+    <triggerTime type="f32">0.0</triggerTime>
+  </warmUpBlast>
+</BT_TURRET>

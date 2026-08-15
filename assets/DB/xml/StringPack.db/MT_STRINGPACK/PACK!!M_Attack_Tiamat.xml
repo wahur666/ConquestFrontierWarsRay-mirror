@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Attack_Tiamat" type="string[]">
+  <element index="0" type="string">MTA1110.wav</element>
+  <element index="1" type="string">MTA1111.wav</element>
+  <element index="2" type="string">MTA1112.wav</element>
+  <element index="3" type="string">MTA1113.wav</element>
+  <element index="4" type="string">MTA1114.wav</element>
+</MT_STRINGPACK>

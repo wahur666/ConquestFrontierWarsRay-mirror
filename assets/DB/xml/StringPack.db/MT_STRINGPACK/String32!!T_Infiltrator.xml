@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Infiltrator" type="string[]">
+  <element index="0" type="string">SPP Apparition</element>
+  <element index="1" type="string">SPP Apparition 2</element>
+  <element index="2" type="string">SPP Ghost</element>
+  <element index="3" type="string">SPP Ghost 2</element>
+  <element index="4" type="string">SPP Banshee</element>
+  <element index="5" type="string">SPP Banshee 2</element>
+  <element index="6" type="string">SPP Shade</element>
+  <element index="7" type="string">SPP Shade 2</element>
+  <element index="8" type="string">SPP Shadow</element>
+  <element index="9" type="string">SPP Shadow 2</element>
+  <element index="10" type="string">SPP Spectre</element>
+  <element index="11" type="string">SPP Spectre 2</element>
+  <element index="12" type="string">SPP Spirit</element>
+  <element index="13" type="string">SPP Spirit 2</element>
+  <element index="14" type="string">SPP Wraith</element>
+  <element index="15" type="string">SPP Wraith 2</element>
+  <element index="16" type="string">SPP Phantom</element>
+  <element index="17" type="string">SPP Phantom 2</element>
+  <element index="18" type="string">SPP Revenant</element>
+  <element index="19" type="string">SPP Revenant 2</element>
+  <element index="20" type="string">SPP Bogey</element>
+  <element index="21" type="string">SPP Bogey 2</element>
+  <element index="22" type="string" />
+  <element index="23" type="string" />
+  <element index="24" type="string" />
+  <element index="25" type="string" />
+  <element index="26" type="string" />
+  <element index="27" type="string" />
+  <element index="28" type="string" />
+  <element index="29" type="string" />
+  <element index="30" type="string" />
+  <element index="31" type="string" />
+</MT_STRINGPACK>

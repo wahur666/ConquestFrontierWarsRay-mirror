@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_ARC_DATA id="ARC!!S_Arc-!ESPCoil">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_arc">4</baseWeaponData>
+  <fileName type="string">lancerbolt.anm</fileName>
+  <launchSfx type="SFX::ID" value="t_arc_cannon">20</launchSfx>
+  <damage type="u32">40</damage>
+  <jumpRange type="f32">1.5</jumpRange>
+  <feedbackRange type="f32">0.0</feedbackRange>
+  <maxTendrilStages type="u32">1</maxTendrilStages>
+  <damageDrop type="f32">0.20000000298023224</damageDrop>
+  <maxTargets type="u32">3</maxTargets>
+  <period type="f32">2.0</period>
+  <drainSupplies type="bool">false</drainSupplies>
+</BT_ARC_DATA>

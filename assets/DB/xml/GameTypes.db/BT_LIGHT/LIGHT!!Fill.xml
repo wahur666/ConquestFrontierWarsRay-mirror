@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_LIGHT id="LIGHT!!Fill">
+  <objClass type="OBJCLASS" value="oc_light">4096</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <color type="COLOR">
+    <red type="u8">70</red>
+    <green type="u8">70</green>
+    <blue type="u8">90</blue>
+  </color>
+  <range type="s32">1</range>
+  <direction type="VECTOR">
+    <x type="f32">1.0</x>
+    <y type="f32">1.0</y>
+    <z type="f32">1.0</z>
+  </direction>
+  <cutoff type="f32">0.0</cutoff>
+  <infinite type="bool">true</infinite>
+  <ambient type="bool">false</ambient>
+</BT_LIGHT>

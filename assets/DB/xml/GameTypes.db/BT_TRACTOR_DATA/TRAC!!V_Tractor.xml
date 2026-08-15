@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TRACTOR_DATA id="TRAC!!V_Tractor">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_tractor">7</baseWeaponData>
+  <fileName type="string">tractor.anm</fileName>
+  <hardpoint type="string" />
+  <contactBlastType type="string" />
+  <launchSfx type="SFX::ID" value="invalid">0</launchSfx>
+  <duration type="f32">0.0</duration>
+  <damagePerSecond type="f32">0.0</damagePerSecond>
+  <neededTech type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_solarian">3</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="s_res_tractor">536870928</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </neededTech>
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+</BT_TRACTOR_DATA>

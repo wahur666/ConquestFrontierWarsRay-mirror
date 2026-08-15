@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_UI_ANIM id="UIANIM!!Sell">
+  <objClass type="OBJCLASS" value="oc_ui_anim">268435456</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <effectType type="string">ANIMOBJ!!Sell</effectType>
+  <totalTime type="f32">1.0</totalTime>
+  <sfx type="SFX::ID" value="invalid">0</sfx>
+</BT_UI_ANIM>

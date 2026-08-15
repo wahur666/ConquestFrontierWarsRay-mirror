@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_ARTIFACT_LAUNCHER id="AL!!T_ListeningDevice">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_artifact_launcher">26</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <artifactName type="string">LA!!T_ListeningDevice</artifactName>
+</BT_ARTIFACT_LAUNCHER>

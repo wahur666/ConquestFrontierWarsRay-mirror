@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!M_DualPlasma">
+  <addChildName type="string">M_Voraak_Mutation</addChildName>
+  <removeChildName type="string">M_spitter_turret</removeChildName>
+  <archetypeName type="string">PLATGUN!!M_Voraak</archetypeName>
+</BT_EXTENSION_INFO>

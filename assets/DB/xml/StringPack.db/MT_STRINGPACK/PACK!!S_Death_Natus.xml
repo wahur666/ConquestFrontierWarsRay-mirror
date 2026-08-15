@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Death_Natus" type="string[]">
+  <element index="0" type="string">SAN4369.wav</element>
+  <element index="1" type="string">SAN4370.wav</element>
+  <element index="2" type="string">SAN4371.wav</element>
+</MT_STRINGPACK>

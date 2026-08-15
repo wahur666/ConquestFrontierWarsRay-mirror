@@ -1,0 +1,563 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_GLOBAL_VALUES id="GlobalValues">
+  <targetingValues type="TargetingValues">
+    <movePenaltySelf type="f32">0.0</movePenaltySelf>
+    <movePenaltyTarget type="f32">0.0</movePenaltyTarget>
+    <minAccuracy type="f32">0.75</minAccuracy>
+  </targetingValues>
+  <individualKillChart type="INDKILLCHART">
+    <rookie type="u32">2</rookie>
+    <novice type="u32">6</novice>
+    <veteran type="u32">10</veteran>
+    <elite type="u32">21</elite>
+    <superElite type="u32">40</superElite>
+    <superdouperElite type="u32">0</superdouperElite>
+  </individualKillChart>
+  <admiralKillChart type="ADMIRALKILLCHART">
+    <rearAdmiral type="u32">5</rearAdmiral>
+    <viceAdmiral type="u32">10</viceAdmiral>
+    <admiral type="u32">21</admiral>
+    <starAdmiral type="u32">35</starAdmiral>
+    <superstarAdmiral type="u32">50</superstarAdmiral>
+    <superdouperAdmiral type="u32">0</superdouperAdmiral>
+  </admiralKillChart>
+  <raceBonuses type="RACE_TARGETING_BONUSES">
+    <noRace type="f32">0.0</noRace>
+    <terran type="f32">1.0</terran>
+    <mantis type="f32">1.0</mantis>
+    <solarian type="f32">1.0</solarian>
+    <vyrium type="f32">1.0</vyrium>
+  </raceBonuses>
+  <techUpgrades type="_upgrades">
+    <noRace type="TechUpgrades">
+      <engine type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.0</element>
+      </engine>
+      <hull type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.0</element>
+      </hull>
+      <supplies type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.0</element>
+      </supplies>
+      <targeting type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.23999999463558197</element>
+        <element type="f32" index="4">0.3199999928474426</element>
+        <element type="f32" index="5">0.0</element>
+      </targeting>
+      <damage type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.15000000596046448</element>
+        <element type="f32" index="3">0.20000000298023224</element>
+        <element type="f32" index="4">0.25</element>
+        <element type="f32" index="5">0.0</element>
+      </damage>
+      <shields type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.03999999910593033</element>
+        <element type="f32" index="2">0.07999999821186066</element>
+        <element type="f32" index="3">0.11999999731779099</element>
+        <element type="f32" index="4">0.1599999964237213</element>
+        <element type="f32" index="5">0.0</element>
+      </shields>
+      <shipTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.0</element>
+      </shipTargetingExp>
+      <admiralTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </admiralTargetingExp>
+      <fleet type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </fleet>
+      <sensors type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </sensors>
+      <tanker type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </tanker>
+      <fighter type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </fighter>
+      <tender type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </tender>
+    </noRace>
+    <terran type="TechUpgrades">
+      <engine type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0625</element>
+        <element type="f32" index="2">0.125</element>
+        <element type="f32" index="3">0.1875</element>
+        <element type="f32" index="4">0.25</element>
+        <element type="f32" index="5">0.25</element>
+      </engine>
+      <hull type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.125</element>
+        <element type="f32" index="2">0.25</element>
+        <element type="f32" index="3">0.375</element>
+        <element type="f32" index="4">0.5</element>
+        <element type="f32" index="5">0.5</element>
+      </hull>
+      <supplies type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0625</element>
+        <element type="f32" index="2">0.125</element>
+        <element type="f32" index="3">0.1875</element>
+        <element type="f32" index="4">0.25</element>
+        <element type="f32" index="5">0.25</element>
+      </supplies>
+      <targeting type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.23999999463558197</element>
+        <element type="f32" index="4">0.3199999928474426</element>
+        <element type="f32" index="5">0.3199999928474426</element>
+      </targeting>
+      <damage type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.25</element>
+        <element type="f32" index="2">0.5</element>
+        <element type="f32" index="3">0.75</element>
+        <element type="f32" index="4">1.0499999523162842</element>
+        <element type="f32" index="5">1.0499999523162842</element>
+      </damage>
+      <shields type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </shields>
+      <shipTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.019999999552965164</element>
+        <element type="f32" index="2">0.03999999910593033</element>
+        <element type="f32" index="3">0.07000000029802322</element>
+        <element type="f32" index="4">0.10000000149011612</element>
+        <element type="f32" index="5">0.10000000149011612</element>
+      </shipTargetingExp>
+      <admiralTargetingExp type="float[]">
+        <element type="f32" index="0">0.019999999552965164</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </admiralTargetingExp>
+      <fleet type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.4000000059604645</element>
+      </fleet>
+      <sensors type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.20000000298023224</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </sensors>
+      <tanker type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.25</element>
+        <element type="f32" index="2">0.5</element>
+        <element type="f32" index="3">0.5</element>
+        <element type="f32" index="4">0.5</element>
+        <element type="f32" index="5">0.5</element>
+      </tanker>
+      <fighter type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.15000000596046448</element>
+        <element type="f32" index="5">0.15000000596046448</element>
+      </fighter>
+      <tender type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.30000001192092896</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </tender>
+    </terran>
+    <mantis type="TechUpgrades">
+      <engine type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.25</element>
+        <element type="f32" index="4">0.25</element>
+        <element type="f32" index="5">0.25</element>
+      </engine>
+      <hull type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.1599999964237213</element>
+        <element type="f32" index="2">0.3199999928474426</element>
+        <element type="f32" index="3">0.550000011920929</element>
+        <element type="f32" index="4">0.550000011920929</element>
+        <element type="f32" index="5">0.550000011920929</element>
+      </hull>
+      <supplies type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.25</element>
+        <element type="f32" index="4">0.25</element>
+        <element type="f32" index="5">0.25</element>
+      </supplies>
+      <targeting type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.23999999463558197</element>
+        <element type="f32" index="4">0.3199999928474426</element>
+        <element type="f32" index="5">0.3199999928474426</element>
+      </targeting>
+      <damage type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.33000001311302185</element>
+        <element type="f32" index="2">0.6600000262260437</element>
+        <element type="f32" index="3">0.9900000095367432</element>
+        <element type="f32" index="4">0.9900000095367432</element>
+        <element type="f32" index="5">0.9900000095367432</element>
+      </damage>
+      <shields type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05999999865889549</element>
+        <element type="f32" index="2">0.12999999523162842</element>
+        <element type="f32" index="3">0.20000000298023224</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </shields>
+      <shipTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.019999999552965164</element>
+        <element type="f32" index="2">0.03999999910593033</element>
+        <element type="f32" index="3">0.07000000029802322</element>
+        <element type="f32" index="4">0.10000000149011612</element>
+        <element type="f32" index="5">0.10000000149011612</element>
+      </shipTargetingExp>
+      <admiralTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </admiralTargetingExp>
+      <fleet type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </fleet>
+      <sensors type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05999999865889549</element>
+        <element type="f32" index="2">0.12999999523162842</element>
+        <element type="f32" index="3">0.20000000298023224</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </sensors>
+      <tanker type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.1599999964237213</element>
+        <element type="f32" index="2">0.3199999928474426</element>
+        <element type="f32" index="3">0.5</element>
+        <element type="f32" index="4">0.5</element>
+        <element type="f32" index="5">0.5</element>
+      </tanker>
+      <fighter type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.029999999329447746</element>
+        <element type="f32" index="2">0.05999999865889549</element>
+        <element type="f32" index="3">0.09000000357627869</element>
+        <element type="f32" index="4">0.11999999731779099</element>
+        <element type="f32" index="5">0.15000000596046448</element>
+      </fighter>
+      <tender type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </tender>
+    </mantis>
+    <solarian type="TechUpgrades">
+      <engine type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.25</element>
+      </engine>
+      <hull type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.5</element>
+      </hull>
+      <supplies type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.25</element>
+      </supplies>
+      <targeting type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </targeting>
+      <damage type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.20000000298023224</element>
+        <element type="f32" index="2">0.4000000059604645</element>
+        <element type="f32" index="3">0.6000000238418579</element>
+        <element type="f32" index="4">0.800000011920929</element>
+        <element type="f32" index="5">1.0</element>
+      </damage>
+      <shields type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.03999999910593033</element>
+        <element type="f32" index="2">0.07999999821186066</element>
+        <element type="f32" index="3">0.11999999731779099</element>
+        <element type="f32" index="4">0.1599999964237213</element>
+        <element type="f32" index="5">0.25</element>
+      </shields>
+      <shipTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.019999999552965164</element>
+        <element type="f32" index="2">0.03999999910593033</element>
+        <element type="f32" index="3">0.07000000029802322</element>
+        <element type="f32" index="4">0.10000000149011612</element>
+        <element type="f32" index="5">0.10000000149011612</element>
+      </shipTargetingExp>
+      <admiralTargetingExp type="float[]">
+        <element type="f32" index="0">0.019999999552965164</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </admiralTargetingExp>
+      <fleet type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.4000000059604645</element>
+        <element type="f32" index="5">0.5</element>
+      </fleet>
+      <sensors type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.03999999910593033</element>
+        <element type="f32" index="2">0.07999999821186066</element>
+        <element type="f32" index="3">0.11999999731779099</element>
+        <element type="f32" index="4">0.1599999964237213</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </sensors>
+      <tanker type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.25</element>
+        <element type="f32" index="2">0.5</element>
+        <element type="f32" index="3">0.5</element>
+        <element type="f32" index="4">0.5</element>
+        <element type="f32" index="5">0.5</element>
+      </tanker>
+      <fighter type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </fighter>
+      <tender type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.30000001192092896</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </tender>
+    </solarian>
+    <vyrium type="TechUpgrades">
+      <engine type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </engine>
+      <hull type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.17000000178813934</element>
+        <element type="f32" index="2">0.3499999940395355</element>
+        <element type="f32" index="3">0.5199999809265137</element>
+        <element type="f32" index="4">0.699999988079071</element>
+        <element type="f32" index="5">0.0</element>
+      </hull>
+      <supplies type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.07999999821186066</element>
+        <element type="f32" index="2">0.1599999964237213</element>
+        <element type="f32" index="3">0.25</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </supplies>
+      <targeting type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </targeting>
+      <damage type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.25</element>
+        <element type="f32" index="2">0.5</element>
+        <element type="f32" index="3">0.75</element>
+        <element type="f32" index="4">1.0499999523162842</element>
+        <element type="f32" index="5">0.0</element>
+      </damage>
+      <shields type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </shields>
+      <shipTargetingExp type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.019999999552965164</element>
+        <element type="f32" index="2">0.03999999910593033</element>
+        <element type="f32" index="3">0.07000000029802322</element>
+        <element type="f32" index="4">0.10000000149011612</element>
+        <element type="f32" index="5">0.10000000149011612</element>
+      </shipTargetingExp>
+      <admiralTargetingExp type="float[]">
+        <element type="f32" index="0">0.019999999552965164</element>
+        <element type="f32" index="1">0.05000000074505806</element>
+        <element type="f32" index="2">0.10000000149011612</element>
+        <element type="f32" index="3">0.15000000596046448</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </admiralTargetingExp>
+      <fleet type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </fleet>
+      <sensors type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.20000000298023224</element>
+        <element type="f32" index="3">0.20000000298023224</element>
+        <element type="f32" index="4">0.20000000298023224</element>
+        <element type="f32" index="5">0.20000000298023224</element>
+      </sensors>
+      <tanker type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.25</element>
+        <element type="f32" index="2">0.5</element>
+        <element type="f32" index="3">0.5</element>
+        <element type="f32" index="4">0.5</element>
+        <element type="f32" index="5">0.5</element>
+      </tanker>
+      <fighter type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.0</element>
+        <element type="f32" index="2">0.0</element>
+        <element type="f32" index="3">0.0</element>
+        <element type="f32" index="4">0.0</element>
+        <element type="f32" index="5">0.0</element>
+      </fighter>
+      <tender type="float[]">
+        <element type="f32" index="0">0.0</element>
+        <element type="f32" index="1">0.10000000149011612</element>
+        <element type="f32" index="2">0.30000001192092896</element>
+        <element type="f32" index="3">0.30000001192092896</element>
+        <element type="f32" index="4">0.30000001192092896</element>
+        <element type="f32" index="5">0.30000001192092896</element>
+      </tender>
+    </vyrium>
+  </techUpgrades>
+</GT_GLOBAL_VALUES>

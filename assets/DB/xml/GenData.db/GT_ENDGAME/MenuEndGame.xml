@@ -1,0 +1,2198 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_ENDGAME id="MenuEndGame">
+  <screenRect type="RECT">
+    <left type="s32">60</left>
+    <top type="s32">20</top>
+    <right type="s32">750</right>
+    <bottom type="s32">500</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!Background</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">-60</xOrigin>
+    <yOrigin type="s32">-20</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <banner type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">260</xOrigin>
+    <yOrigin type="s32">26</yOrigin>
+    <width type="s32">300</width>
+    <height type="s32">20</height>
+  </banner>
+  <cont type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="continue_">1125</buttonText>
+    <xOrigin type="u32">500</xOrigin>
+    <yOrigin type="u32">440</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">160</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </cont>
+  <list type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!FinalGameroom</listboxType>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">410</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">619</right>
+      <bottom type="s32">160</bottom>
+    </textArea>
+    <leadingHeight type="u32">0</leadingHeight>
+    <static type="bool">true</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">false</scrollbar>
+    <solidBackground type="bool">false</solidBackground>
+    <noBorder type="bool">false</noBorder>
+    <disableMouseSelect type="bool">false</disableMouseSelect>
+  </list>
+  <staticMenu type="STATIC_DATA">
+    <staticType type="string">Static!!EndGame</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </staticMenu>
+  <tab type="TABCONTROL_DATA">
+    <tabcontrolType type="string">Tab!!Options</tabcontrolType>
+    <hotButtonType type="string">HotButton!!TabScore</hotButtonType>
+    <baseImage type="s32">0</baseImage>
+    <numTabs type="s32">4</numTabs>
+    <textID type="TABTXT::TAB_TEXT[]">
+      <element type="TABTXT::TAB_TEXT" value="totals" index="0">1904</element>
+      <element type="TABTXT::TAB_TEXT" value="units" index="1">1905</element>
+      <element type="TABTXT::TAB_TEXT" value="buildings" index="2">1906</element>
+      <element type="TABTXT::TAB_TEXT" value="resources" index="3">1908</element>
+      <element type="TABTXT::TAB_TEXT" value="no_tab_text" index="4">0</element>
+      <element type="TABTXT::TAB_TEXT" value="no_tab_text" index="5">0</element>
+    </textID>
+    <upperTabs type="bool">false</upperTabs>
+    <xPos type="s32">165</xPos>
+    <yPos type="s32">373</yPos>
+  </tab>
+  <overviewTab type="TAB1">
+    <staticOverviewTitles type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_units">1528</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">100</width>
+      <height type="s32">20</height>
+    </staticOverviewTitles>
+    <staticOverviewTitles type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_buildings">1529</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">110</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticOverviewTitles>
+    <staticOverviewTitles type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_resources">1531</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">230</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">20</height>
+    </staticOverviewTitles>
+    <staticOverviewTitles type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_total">1532</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">380</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">100</width>
+      <height type="s32">20</height>
+    </staticOverviewTitles>
+    <staticOverviewUnits type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewUnits type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewUnits>
+    <staticOverviewBuildings type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewBuildings type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">126</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewBuildings>
+    <staticOverviewResources type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewResources type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewResources>
+    <staticOverviewTotals type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+    <staticOverviewTotals type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">394</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticOverviewTotals>
+  </overviewTab>
+  <unitsTab type="TAB2">
+    <staticUnitsTitles type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_made">1533</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-120</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">74</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsTitles type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_lost">1534</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-40</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">72</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsTitles type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_kills">1535</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">38</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">72</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsTitles type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_converted">1536</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">114</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">86</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsTitles type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_admirals">1537</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">204</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">80</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsTitles type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_total">1532</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">72</width>
+      <height type="s32">20</height>
+    </staticUnitsTitles>
+    <staticUnitsMade type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsMade type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-118</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsMade>
+    <staticUnitsLost type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsLost type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-38</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsLost>
+    <staticUnitsKills type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsKills type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">40</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsKills>
+    <staticUnitsConverted type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsConverted type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">122</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsConverted>
+    <staticUnitsAdmirals type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsAdmirals type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">210</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsAdmirals>
+    <staticUnitsTotals type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+    <staticUnitsTotals type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">296</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticUnitsTotals>
+  </unitsTab>
+  <buildingsTab type="TAB3">
+    <staticBuildingsTitles type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_made">1533</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-242</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">92</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsTitles type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_lost">1534</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-146</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">80</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsTitles type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_kills">1535</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-60</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">90</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsTitles type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_converted">1536</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">34</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">106</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsTitles type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_research">1539</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">72</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">84</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsTitles type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_total">1532</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">144</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">100</width>
+      <height type="s32">20</height>
+    </staticBuildingsTitles>
+    <staticBuildingsMade type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsMade type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-234</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsMade>
+    <staticBuildingsLost type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsLost type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-142</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsLost>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsDestroyed type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-54</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsDestroyed>
+    <staticBuildingsConverted type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsConverted type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">50</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsConverted>
+    <staticBuildingsResearch type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsResearch type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">76</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsResearch>
+    <staticBuildingsTotals type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+    <staticBuildingsTotals type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">160</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBuildingsTotals>
+  </buildingsTab>
+  <resourceTab type="TAB5">
+    <staticResourcesTitles type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_crew">1540</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-370</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticResourcesTitles>
+    <staticResourcesTitles type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_ore">1541</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-258</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">20</height>
+    </staticResourcesTitles>
+    <staticResourcesTitles type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_gas">1542</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-136</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">20</height>
+    </staticResourcesTitles>
+    <staticResourcesTitles type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!Neuro12</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_total">1532</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-14</xOrigin>
+      <yOrigin type="s32">-304</yOrigin>
+      <width type="s32">132</width>
+      <height type="s32">20</height>
+    </staticResourcesTitles>
+    <staticResourcesCrew type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesCrew type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-352</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesCrew>
+    <staticResourcesOre type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-238</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesOre type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-237</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesOre>
+    <staticResourcesGas type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesGas type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">-116</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesGas>
+    <staticResourcesTotals type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-262</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-232</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-202</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-172</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-142</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-112</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-82</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+    <staticResourcesTotals type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!SlotNumber</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">14</xOrigin>
+      <yOrigin type="s32">-52</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticResourcesTotals>
+  </resourceTab>
+  <staticPlayer type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="player_list">1495</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">26</xOrigin>
+    <yOrigin type="s32">80</yOrigin>
+    <width type="s32">130</width>
+    <height type="s32">20</height>
+  </staticPlayer>
+  <staticPlayerArray type="STATIC_DATA" index="0">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">120</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="1">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">150</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="2">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">180</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="3">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">210</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="4">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">240</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="5">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">270</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="6">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">300</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticPlayerArray type="STATIC_DATA" index="7">
+    <staticType type="string">Static!!SlotName</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="leftsix">5</alignment>
+    <xOrigin type="s32">31</xOrigin>
+    <yOrigin type="s32">330</yOrigin>
+    <width type="s32">118</width>
+    <height type="s32">14</height>
+  </staticPlayerArray>
+  <staticTime type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">24</xOrigin>
+    <yOrigin type="s32">430</yOrigin>
+    <width type="s32">400</width>
+    <height type="s32">20</height>
+  </staticTime>
+  <staticDescription type="STATIC_DATA">
+    <staticType type="string">Static!!GrayedRect</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="topleft">3</alignment>
+    <xOrigin type="s32">30</xOrigin>
+    <yOrigin type="s32">482</yOrigin>
+    <width type="s32">630</width>
+    <height type="s32">96</height>
+  </staticDescription>
+</GT_ENDGAME>

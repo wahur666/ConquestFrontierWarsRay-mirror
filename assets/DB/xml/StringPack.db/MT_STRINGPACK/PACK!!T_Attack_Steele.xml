@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Attack_Steele" type="string[]">
+  <element index="0" type="string">TAT6108.wav</element>
+  <element index="1" type="string">TAT6109.wav</element>
+  <element index="2" type="string">TAT6110.wav</element>
+</MT_STRINGPACK>

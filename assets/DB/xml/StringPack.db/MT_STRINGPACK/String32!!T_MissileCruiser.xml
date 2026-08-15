@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_MissileCruiser" type="string[]">
+  <element index="0" type="string">SBM Gladiator</element>
+  <element index="1" type="string">SBM Starburst</element>
+  <element index="2" type="string">SBM Swingfire</element>
+  <element index="3" type="string">SBM Trident</element>
+  <element index="4" type="string">SBM Rotkappchen</element>
+  <element index="5" type="string">SBM Zeus</element>
+  <element index="6" type="string">SBM Poseidon</element>
+  <element index="7" type="string">SBM Loki</element>
+  <element index="8" type="string">SBM Gorgon</element>
+  <element index="9" type="string">SBM Scud</element>
+  <element index="10" type="string">SBM Stringray</element>
+  <element index="11" type="string">SBM Hellfrie</element>
+  <element index="12" type="string">SBM Sidewinder</element>
+  <element index="13" type="string">SBM Phoenix</element>
+  <element index="14" type="string">SBM Falcon</element>
+  <element index="15" type="string">SBM Hades</element>
+  <element index="16" type="string">SBM Peacekeeper</element>
+  <element index="17" type="string">SBM Javelin</element>
+  <element index="18" type="string">SBM Atlas</element>
+  <element index="19" type="string">SBM Patriot</element>
+  <element index="20" type="string">SBM Hercules</element>
+  <element index="21" type="string">SBM Titan</element>
+  <element index="22" type="string">SBM Polaris</element>
+  <element index="23" type="string">SBM Antaean</element>
+  <element index="24" type="string">SBM Ajax</element>
+  <element index="25" type="string">SBM Adder</element>
+  <element index="26" type="string">SBM Apex</element>
+  <element index="27" type="string">SBM Aphid</element>
+  <element index="28" type="string">SBM Krypton</element>
+  <element index="29" type="string">SBM Snapper</element>
+  <element index="30" type="string">SBM Gremlin</element>
+  <element index="31" type="string">SBM Grizzly</element>
+</MT_STRINGPACK>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MINEFIELD_DATA id="Minefield!!Spine">
+  <objClass type="OBJCLASS" value="oc_minefield">8192</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_minefield">51</mObjClass>
+    <race type="M_RACE" value="m_mantis">2</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_no_display_name">0</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">true</attackOk>
+      <specialAttackOk type="bool">true</specialAttackOk>
+      <specialEOAOk type="bool">true</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">0</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">0</scrapValue>
+    <buildTime type="s32">0</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">0</gas>
+      <metal type="u32">0</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">0.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <maxMineNumber type="u32">12</maxMineNumber>
+  <damagePerHit type="u32">225</damagePerHit>
+  <supplyDamagePerHit type="u32">0</supplyDamagePerHit>
+  <hullLostPerHit type="u32">1</hullLostPerHit>
+  <mineType type="MINETYPE" value="minetype_spine">1</mineType>
+  <regAnimation type="string">mmine.anm</regAnimation>
+  <blastType type="string">BLAST!!SpineMineBlast</blastType>
+  <mineWidth type="u32">220</mineWidth>
+  <maxVerticalVelocity type="s32">135</maxVerticalVelocity>
+  <maxHorizontalVelocity type="s32">25</maxHorizontalVelocity>
+  <mineAcceleration type="u32">17</mineAcceleration>
+  <explosionRange type="f32">0.5</explosionRange>
+  <cost type="ResourceCost">
+    <gas type="u32">20</gas>
+    <metal type="u32">20</metal>
+    <crew type="u32">0</crew>
+    <commandPt type="u32">0</commandPt>
+  </cost>
+</BT_MINEFIELD_DATA>

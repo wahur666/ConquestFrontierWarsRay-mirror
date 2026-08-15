@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PLAT_GUN id="PLATGUN!!S_Starburst">
+  <objClass type="OBJCLASS" value="oc_platform">1024</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <type type="PLATFORMCLASS" value="pc_gunplat">1</type>
+  <fileName type="string">SSstarburst.cmp</fileName>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_starburst">118</mObjClass>
+    <race type="M_RACE" value="m_solarian">3</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_starburst">380</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">true</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">1500</hullPointsMax>
+    <supplyPointsMax type="s32">400</supplyPointsMax>
+    <scrapValue type="s32">5</scrapValue>
+    <buildTime type="s32">60</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">32</gas>
+      <metal type="u32">14</metal>
+      <crew type="u32">8</crew>
+      <commandPt type="u32">5</commandPt>
+    </cost>
+    <sensorRadius type="f32">4.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">1.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">1.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.25</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="heavy_armor">3</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.4000000059604645</noArmor>
+        <lightArmor type="f32">0.20000000298023224</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">-0.20000000298023224</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="s_starburst">1761</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <extension type="EXTENSION_DATA">
+    <element type="EXTENSION_DATA" index="0">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="1">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="2">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="3">
+      <extensionName type="string" />
+    </element>
+  </extension>
+  <extensionBits type="u32">0</extensionBits>
+  <extensionLevel type="s32">0</extensionLevel>
+  <explosionType type="string">ME!!S_Large Explosion</explosionType>
+  <shieldHitType type="string">BLAST!!T_Shield Hit</shieldHitType>
+  <ambientAnimation type="string" />
+  <ambientEffect type="string" />
+  <mass type="f32">5000.0</mass>
+  <techActive type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_solarian">3</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="sdepend_starburst">537395200</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techActive>
+  <shield type="SHIELD_DATA">
+    <meshName type="string">tlsat.shield</meshName>
+    <animName type="string">sh_blue.anm</animName>
+    <fizzAnimName type="string" />
+    <sfx type="SFX::ID" value="t_shieldhit">22</sfx>
+    <fizzOut type="SFX::ID" value="invalid">0</fizzOut>
+    <fizzIn type="SFX::ID" value="invalid">0</fizzIn>
+  </shield>
+  <slotsNeeded type="u32">0</slotsNeeded>
+  <blinkers type="BLINKER_DATA">
+    <lightScript type="string" />
+    <textureName type="string" />
+  </blinkers>
+  <commandPoints type="u32">0</commandPoints>
+  <metalStorage type="u32">0</metalStorage>
+  <gasStorage type="u32">0</gasStorage>
+  <crewStorage type="u32">0</crewStorage>
+  <size type="u32">2</size>
+  <moonPlatform type="bool">false</moonPlatform>
+  <outerWeaponRange type="f32">3.5</outerWeaponRange>
+  <noLineOfSight type="bool">true</noLineOfSight>
+  <launcherType type="string">
+    <element type="string" index="0">TUR!!S_Starburst</element>
+    <element type="string" index="1">TUR!!S_Starburst2</element>
+    <element type="string" index="2">TUR!!S_Starburst3</element>
+    <element type="string" index="3">TUR!!S_Starburst4</element>
+    <element type="string" index="4" />
+  </launcherType>
+  <specialLauncherType type="string" />
+</BT_PLAT_GUN>

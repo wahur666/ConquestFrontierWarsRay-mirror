@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_CREDITS id="Menu_Credits">
+  <rect type="RECT">
+    <left type="s32">0</left>
+    <top type="s32">0</top>
+    <right type="s32">799</right>
+    <bottom type="s32">599</bottom>
+  </rect>
+  <staticBackground type="STATIC_DATA">
+    <staticType type="string">Static!!Credits</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </staticBackground>
+</GT_CREDITS>

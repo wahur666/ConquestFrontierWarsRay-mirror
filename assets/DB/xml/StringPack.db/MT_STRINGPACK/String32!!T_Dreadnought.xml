@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Dreadnought" type="string[]">
+  <element index="0" type="string">DDS Jefferson</element>
+  <element index="1" type="string">DDS Da Vinci</element>
+  <element index="2" type="string">DDS Machiavelli</element>
+  <element index="3" type="string">DDS Eisenhower</element>
+  <element index="4" type="string">DDS Shakespheare</element>
+  <element index="5" type="string">DDS Stalin</element>
+  <element index="6" type="string">DDS Michelangelo</element>
+  <element index="7" type="string">DDS Bonaparte</element>
+  <element index="8" type="string">DDS Caesar</element>
+  <element index="9" type="string">DDS Rockefeller</element>
+  <element index="10" type="string">DDS Picasso</element>
+  <element index="11" type="string">DDS Thorpe</element>
+  <element index="12" type="string">DDS Twain</element>
+  <element index="13" type="string">DDS Beethoven</element>
+  <element index="14" type="string">DDS Mozart</element>
+  <element index="15" type="string">DDS Ramses</element>
+  <element index="16" type="string">DDS Villa</element>
+  <element index="17" type="string">DDS Geronimo</element>
+  <element index="18" type="string">DDS Roosevelt</element>
+  <element index="19" type="string">DDS King</element>
+  <element index="20" type="string">DDS Darwin</element>
+  <element index="21" type="string">DDS Newton</element>
+  <element index="22" type="string">DDS Washington</element>
+  <element index="23" type="string">DDS Lincoln</element>
+  <element index="24" type="string">DDS Gates</element>
+  <element index="25" type="string">DDS Einstein</element>
+  <element index="26" type="string">DDS Marx</element>
+  <element index="27" type="string">DDS Ghandi</element>
+  <element index="28" type="string">DDS Churchill</element>
+  <element index="29" type="string">DDS Khan</element>
+  <element index="30" type="string">DDS Columbus</element>
+  <element index="31" type="string">DDS Edison</element>
+</MT_STRINGPACK>

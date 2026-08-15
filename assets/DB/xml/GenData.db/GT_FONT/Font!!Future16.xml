@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_FONT id="Font!!Future16">
+  <baseType type="GENBASE_TYPE" value="gbt_font">1</baseType>
+  <fontType type="FONT" value="opening_font">919</fontType>
+  <multiline type="bool">false</multiline>
+  <notScaling type="bool">false</notScaling>
+  <toolbarMoney type="bool">false</toolbarMoney>
+</GT_FONT>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BUILDERSHIP_DATA id="BBUILDER!!T_RepairBot">
+  <objClass type="OBJCLASS" value="oc_spaceship">1</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <spaceshipClass type="SPACESHIPCLASS" value="ssc_buildship">2</spaceshipClass>
+  <fileName type="string">tbot.cmp</fileName>
+  <dynamicsData type="DYNAMICS_DATA_JR">
+    <maxLinearVelocity type="f32">1500.0</maxLinearVelocity>
+    <linearAcceleration type="f32">1000.0</linearAcceleration>
+    <maxAngVelocity type="f32">1.0</maxAngVelocity>
+  </dynamicsData>
+  <workAnimation type="string">SC_repair</workAnimation>
+  <sparkAnim type="string" />
+  <sparkHardpoint type="string" />
+  <explosionType type="string" />
+  <sparkWidth type="f32">0.0</sparkWidth>
+  <sparkDelay type="f32">0.0</sparkDelay>
+</BT_BUILDERSHIP_DATA>

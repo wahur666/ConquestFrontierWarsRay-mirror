@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_AEBOLT_DATA id="AEBOLT!!T_TempestCharge">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_aebolt">13</baseWeaponData>
+  <fileName type="string">Missile1.cmp</fileName>
+  <explosionEffect type="string">BLAST!!BSB_WhiteBlue</explosionEffect>
+  <launchSfx type="SFX::ID" value="t_tempestlaunch">56</launchSfx>
+  <maxVelocity type="f32">4000.0</maxVelocity>
+  <damage type="u32">80</damage>
+  <explosionRange type="f32">1.5</explosionRange>
+  <armorData type="ARMOR_DATA">
+    <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+    <armorDamage type="ARMOR_DAMAGE">
+      <noArmor type="f32">1.0</noArmor>
+      <lightArmor type="f32">0.5</lightArmor>
+      <mediumArmor type="f32">0.0</mediumArmor>
+      <heavyArmor type="f32">0.0</heavyArmor>
+    </armorDamage>
+  </armorData>
+</BT_AEBOLT_DATA>

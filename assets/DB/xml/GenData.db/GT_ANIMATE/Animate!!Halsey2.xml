@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_ANIMATE id="Animate!!Halsey2">
+  <baseType type="GENBASE_TYPE" value="gbt_animate">17</baseType>
+  <vfxType type="string">VFXShape!!AnimateHalsey2</vfxType>
+</GT_ANIMATE>

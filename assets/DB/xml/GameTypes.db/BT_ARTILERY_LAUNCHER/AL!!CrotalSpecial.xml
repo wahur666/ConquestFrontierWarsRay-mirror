@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_ARTILERY_LAUNCHER id="AL!!CrotalSpecial">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_artilery_launch">17</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">200</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <areaRadius type="f32">2.0</areaRadius>
+  <damagePerSec type="u32">200</damagePerSec>
+  <special type="bool">true</special>
+  <explosionType type="string">BLAST!!BSB_YellowGreen</explosionType>
+  <flashType type="string" />
+</BT_ARTILERY_LAUNCHER>

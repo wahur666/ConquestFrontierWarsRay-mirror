@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_VERTICAL_LAUNCH id="VL!!S_Proteus">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_verticle_launch">2</type>
+  <weaponType type="string">PROJ!!S_Proteus</weaponType>
+  <supplyCost type="s32">4</supplyCost>
+  <refirePeriod type="f32">2.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <upgrade type="Salvo[]">
+    <element type="Salvo" index="0">
+      <techNeed type="SINGLE_TECHNODE">
+        <raceID type="M_RACE" value="m_solarian">3</raceID>
+        <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+        <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+        <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+        <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+        <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+        <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+      </techNeed>
+      <salvo type="u32">2</salvo>
+    </element>
+    <element type="Salvo" index="1">
+      <techNeed type="SINGLE_TECHNODE">
+        <raceID type="M_RACE" value="m_solarian">3</raceID>
+        <tech type="TECHTREE::TECHUPGRADE" value="s_res_proteuspack1">536871424</tech>
+        <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+        <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+        <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+        <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+        <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+      </techNeed>
+      <salvo type="u32">3</salvo>
+    </element>
+    <element type="Salvo" index="2">
+      <techNeed type="SINGLE_TECHNODE">
+        <raceID type="M_RACE" value="m_solarian">3</raceID>
+        <tech type="TECHTREE::TECHUPGRADE" value="s_res_proteuspack2">536871936</tech>
+        <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+        <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+        <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+        <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+        <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+      </techNeed>
+      <salvo type="u32">4</salvo>
+    </element>
+    <element type="Salvo" index="3">
+      <techNeed type="SINGLE_TECHNODE">
+        <raceID type="M_RACE" value="m_no_race">0</raceID>
+        <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+        <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+        <common type="TECHTREE::COMMON" value="reserved_never">2147483648</common>
+        <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+        <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+        <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+      </techNeed>
+      <salvo type="u32">0</salvo>
+    </element>
+  </upgrade>
+  <miniRefire type="f32">0.10000000149011612</miniRefire>
+  <hardpoint type="string[]">
+    <element type="string" index="0">\turret\hp_gun1</element>
+    <element type="string" index="1">\turret\hp_gun2</element>
+    <element type="string" index="2">\turret\hp_gun3</element>
+    <element type="string" index="3">\turret\hp_gun4</element>
+    <element type="string" index="4">\turret\hp_gun5</element>
+    <element type="string" index="5">\turret\hp_gun6</element>
+    <element type="string" index="6" />
+    <element type="string" index="7" />
+    <element type="string" index="8" />
+    <element type="string" index="9" />
+  </hardpoint>
+</BT_VERTICAL_LAUNCH>

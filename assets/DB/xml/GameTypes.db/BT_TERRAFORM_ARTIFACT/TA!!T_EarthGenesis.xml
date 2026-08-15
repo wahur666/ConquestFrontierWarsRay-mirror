@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TERRAFORM_ARTIFACT id="TA!!T_EarthGenesis">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_art_terraform">31</baseWeaponData>
+  <shipName type="string" />
+  <buttonInfo type="ArtifactButtonInfo">
+    <baseButton type="u32">356</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </buttonInfo>
+  <targetPlanetType type="string">Planet Earth!!Earth 1</targetPlanetType>
+  <changeTime type="f32">10.0</changeTime>
+</BT_TERRAFORM_ARTIFACT>

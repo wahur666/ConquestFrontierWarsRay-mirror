@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_MissileCruiser" type="string[]">
+  <element index="0" type="string">Dorsetshire</element>
+  <element index="1" type="string">Glastonbury Tor</element>
+  <element index="2" type="string">Archer Yi</element>
+  <element index="3" type="string">Coyol</element>
+  <element index="4" type="string">Diana</element>
+  <element index="5" type="string">Amazon</element>
+  <element index="6" type="string">Apollo</element>
+  <element index="7" type="string">Pericles</element>
+  <element index="8" type="string">Green Man</element>
+  <element index="9" type="string">Archer Orion</element>
+  <element index="10" type="string">Odysseus</element>
+  <element index="11" type="string">Telemachus</element>
+  <element index="12" type="string">Achilles</element>
+  <element index="13" type="string">Marduk</element>
+  <element index="14" type="string">Childe Roland</element>
+  <element index="15" type="string">Archerfish</element>
+  <element index="16" type="string">Robin Wode</element>
+  <element index="17" type="string">Robin Goodfellow</element>
+  <element index="18" type="string">Dendrobate</element>
+  <element index="19" type="string">Orestes</element>
+  <element index="20" type="string">Xeno</element>
+</MT_STRINGPACK>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Troopship" type="string[]">
+  <element index="0" type="string">AAT 2145</element>
+  <element index="1" type="string">AAT 2186</element>
+  <element index="2" type="string">AAT 2056</element>
+  <element index="3" type="string">AAT 3215</element>
+  <element index="4" type="string">AAT 1971</element>
+  <element index="5" type="string">AAT 2001</element>
+  <element index="6" type="string">AAT 2099</element>
+  <element index="7" type="string">AAT 2000</element>
+  <element index="8" type="string">AAT 3103</element>
+  <element index="9" type="string">AAT 1941</element>
+  <element index="10" type="string">AAT 1812</element>
+  <element index="11" type="string">AAT 1776</element>
+  <element index="12" type="string">AAT 1846</element>
+  <element index="13" type="string">AAT 1898</element>
+  <element index="14" type="string">AAT 1914</element>
+  <element index="15" type="string">AAT 1964</element>
+  <element index="16" type="string">AAT 1950</element>
+  <element index="17" type="string">AAT 1756</element>
+  <element index="18" type="string">AAT 1990</element>
+  <element index="19" type="string">AAT 1864</element>
+  <element index="20" type="string">AAT 1789</element>
+  <element index="21" type="string">AAT 0793</element>
+  <element index="22" type="string">AAT 1040</element>
+  <element index="23" type="string" />
+  <element index="24" type="string" />
+  <element index="25" type="string" />
+  <element index="26" type="string" />
+  <element index="27" type="string" />
+  <element index="28" type="string" />
+  <element index="29" type="string" />
+  <element index="30" type="string" />
+  <element index="31" type="string" />
+</MT_STRINGPACK>

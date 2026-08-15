@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PROJECTILE_DATA id="PROJ!!M_Missile-!Hvy Cruiser">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_missile">1</baseWeaponData>
+  <fileName type="string">Missile1.cmp</fileName>
+  <launchSfx type="SFX::ID" value="invalid">0</launchSfx>
+  <damage type="u32">12</damage>
+  <maxVelocity type="f32">3000.0</maxVelocity>
+  <blastType type="string">BLAST!!Missile Impact</blastType>
+  <engineTrailType type="string" />
+</BT_PROJECTILE_DATA>

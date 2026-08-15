@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Polaris" type="string[]">
+  <element index="0" type="string">SPO3260.wav</element>
+  <element index="1" type="string">SPO3261.wav</element>
+  <element index="2" type="string">SPO3262.wav</element>
+  <element index="3" type="string">SPO3263.wav</element>
+  <element index="4" type="string">SPO3264.wav</element>
+</MT_STRINGPACK>

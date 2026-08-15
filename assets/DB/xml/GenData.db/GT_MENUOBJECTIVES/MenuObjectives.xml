@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_MENUOBJECTIVES id="MenuObjectives">
+  <screenRect type="RECT">
+    <left type="s32">60</left>
+    <top type="s32">20</top>
+    <right type="s32">578</right>
+    <bottom type="s32">430</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!MenuObjectives</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <staticObjectives type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="mission_objectives">1128</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">90</xOrigin>
+    <yOrigin type="s32">24</yOrigin>
+    <width type="s32">340</width>
+    <height type="s32">18</height>
+  </staticObjectives>
+  <staticName type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">300</xOrigin>
+    <yOrigin type="s32">23</yOrigin>
+    <width type="s32">240</width>
+    <height type="s32">18</height>
+  </staticName>
+  <rcTeletype type="RECT">
+    <left type="s32">120</left>
+    <top type="s32">320</top>
+    <right type="s32">520</right>
+    <bottom type="s32">380</bottom>
+  </rcTeletype>
+  <buttonOk type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">190</xOrigin>
+    <yOrigin type="u32">366</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">140</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonOk>
+  <checkObjectives type="BUTTON_DATA[]">
+    <element type="BUTTON_DATA" index="0">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">80</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="1">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">103</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="2">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">126</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="3">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">149</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="4">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">172</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="5">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">195</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="6">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">218</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="7">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">241</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+    <element type="BUTTON_DATA" index="8">
+      <buttonType type="string">Button!!CheckObjectives</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">38</xOrigin>
+      <yOrigin type="u32">263</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </element>
+  </checkObjectives>
+  <staticObjectiveArray type="STATIC_DATA[]">
+    <element type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">103</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">126</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">149</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">172</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">195</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">218</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">241</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+    <element type="STATIC_DATA" index="8">
+      <staticType type="string">Static!!Objectives</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">263</yOrigin>
+      <width type="s32">440</width>
+      <height type="s32">18</height>
+    </element>
+  </staticObjectiveArray>
+</GT_MENUOBJECTIVES>

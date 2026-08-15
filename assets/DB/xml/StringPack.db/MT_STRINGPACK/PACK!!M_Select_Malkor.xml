@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Select_Malkor" type="string[]">
+  <element index="0" type="string">MAL2500.wav</element>
+  <element index="1" type="string">MAL2501.wav</element>
+  <element index="2" type="string">MAL2502.wav</element>
+  <element index="3" type="string">MAL2503.wav</element>
+</MT_STRINGPACK>

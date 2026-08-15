@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Move_SupplyShip" type="string[]">
+  <element index="0" type="string">5555.wav</element>
+  <element index="1" type="string">5556.wav</element>
+  <element index="2" type="string">5557.wav</element>
+  <element index="3" type="string">5558.wav</element>
+  <element index="4" type="string">5559.wav</element>
+</MT_STRINGPACK>

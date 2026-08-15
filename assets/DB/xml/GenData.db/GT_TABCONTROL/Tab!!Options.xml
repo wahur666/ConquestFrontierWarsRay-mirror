@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_TABCONTROL id="Tab!!Options">
+  <baseType type="GENBASE_TYPE" value="gbt_tabcontrol">14</baseType>
+  <normalColor type="COLOR">
+    <red type="u8">63</red>
+    <green type="u8">125</green>
+    <blue type="u8">180</blue>
+  </normalColor>
+  <hiliteColor type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">192</green>
+    <blue type="u8">255</blue>
+  </hiliteColor>
+  <selectedColor type="COLOR">
+    <red type="u8">181</red>
+    <green type="u8">218</green>
+    <blue type="u8">240</blue>
+  </selectedColor>
+</GT_TABCONTROL>

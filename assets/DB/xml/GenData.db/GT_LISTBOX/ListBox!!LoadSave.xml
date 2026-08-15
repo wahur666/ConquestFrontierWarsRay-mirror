@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_LISTBOX id="ListBox!!LoadSave">
+  <baseType type="GENBASE_TYPE" value="gbt_listbox">5</baseType>
+  <fontName type="string">Font!!ListboxFuture3D</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">54</red>
+    <green type="u8">54</green>
+    <blue type="u8">87</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">63</red>
+    <green type="u8">127</green>
+    <blue type="u8">176</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">178</green>
+    <blue type="u8">231</blue>
+  </highlightText>
+  <selectedText type="COLOR">
+    <red type="u8">61</red>
+    <green type="u8">17</green>
+    <blue type="u8">123</blue>
+  </selectedText>
+  <selectedTextGrayed type="COLOR">
+    <red type="u8">80</red>
+    <green type="u8">80</green>
+    <blue type="u8">80</blue>
+  </selectedTextGrayed>
+  <shapeFile type="string" />
+  <scrollBarType type="string">ScrollBar!!Custom</scrollBarType>
+</GT_LISTBOX>

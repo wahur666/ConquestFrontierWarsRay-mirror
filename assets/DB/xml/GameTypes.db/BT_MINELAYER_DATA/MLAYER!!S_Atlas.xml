@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MINELAYER_DATA id="MLAYER!!S_Atlas">
+  <objClass type="OBJCLASS" value="oc_spaceship">1</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <type type="SPACESHIPCLASS" value="ssc_minelayer">5</type>
+  <fileName type="string">SSAtlas.3db</fileName>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_atlas">123</mObjClass>
+    <race type="M_RACE" value="m_solarian">3</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_atlas">384</displayName>
+    <caps>
+      <moveOk type="bool">true</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">true</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">true</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">200</hullPointsMax>
+    <supplyPointsMax type="s32">200</supplyPointsMax>
+    <scrapValue type="s32">4</scrapValue>
+    <buildTime type="s32">60</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">15</gas>
+      <metal type="u32">7</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">3</commandPt>
+    </cost>
+    <sensorRadius type="f32">2.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">1800.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="light_armor">1</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="s_atlas">1773</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_s_minelayer">13</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <dynamicsData type="DYNAMICS_DATA">
+    <linearAcceleration type="f32">500.0</linearAcceleration>
+    <angAcceleration type="f32">0.3199999928474426</angAcceleration>
+    <maxLinearVelocity type="f32">625.0</maxLinearVelocity>
+    <maxAngVelocity type="f32">2.200000047683716</maxAngVelocity>
+  </dynamicsData>
+  <rockingData type="ROCKING_DATA">
+    <dynamics type="DYNAMICS_DATA">
+      <linearAcceleration type="f32">15.0</linearAcceleration>
+      <angAcceleration type="f32">0.019999999552965164</angAcceleration>
+      <maxLinearVelocity type="f32">0.0</maxLinearVelocity>
+      <maxAngVelocity type="f32">0.0</maxAngVelocity>
+    </dynamics>
+    <rockLinearMax type="f32">45.0</rockLinearMax>
+    <rockAngMax type="f32">0.05000000074505806</rockAngMax>
+  </rockingData>
+  <explosionType type="string">ME!!S_Medium Explosion</explosionType>
+  <trailType type="string" />
+  <ambientAnimation type="string" />
+  <ambientEffect type="string" />
+  <engineGlow type="ENGINE_GLOW_DATA">
+    <size type="int[]">
+      <element type="s32" index="0">100</element>
+      <element type="s32" index="1">0</element>
+      <element type="s32" index="2">0</element>
+      <element type="s32" index="3">0</element>
+      <element type="s32" index="4">0</element>
+      <element type="s32" index="5">0</element>
+    </size>
+  </engineGlow>
+  <color type="COLOR">
+    <red type="u8">255</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </color>
+  <engineTextureName type="string">s_eglow.tga</engineTextureName>
+  <blinkers type="BLINKER_DATA">
+    <lightScript type="string" />
+    <textureName type="string" />
+  </blinkers>
+  <shield type="SHIELD_DATA">
+    <meshName type="string" />
+    <animName type="string" />
+    <fizzAnimName type="string">sh_fizzout.anm</fizzAnimName>
+    <sfx type="SFX::ID" value="s_shieldhit">99</sfx>
+    <fizzOut type="SFX::ID" value="t_shieldfizzout">23</fizzOut>
+    <fizzIn type="SFX::ID" value="t_shieldfizzin">24</fizzIn>
+  </shield>
+  <damage_blast type="string" />
+  <cloak type="CLOAK_DATA">
+    <cloakTex type="string">cloak.tga</cloakTex>
+    <autoCloak type="bool">false</autoCloak>
+    <cloakEffectType type="string" />
+  </cloak>
+  <billboard type="BILLBOARD_DATA">
+    <billboardTexName type="string">Atlas-Aurora.tga</billboardTexName>
+    <billboardThreshhold type="u32">100</billboardThreshhold>
+  </billboard>
+  <tex2 type="bool">false</tex2>
+  <techActive type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_solarian">3</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="s_ship_atlas">537395200</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techActive>
+  <formationFilter type="FORMATION_FILTER">
+    <shortRange type="bool">false</shortRange>
+    <mediumRange type="bool">false</mediumRange>
+    <longRange type="bool">false</longRange>
+    <recon type="bool">false</recon>
+    <loneRecon type="bool">false</loneRecon>
+    <fighters type="bool">false</fighters>
+    <supplyShip type="bool">false</supplyShip>
+    <airDefence type="bool">false</airDefence>
+    <missileCruiser type="bool">false</missileCruiser>
+    <lancer type="bool">false</lancer>
+  </formationFilter>
+  <largeShip type="bool">false</largeShip>
+  <dropAnim type="string">Sc deploy mine</dropAnim>
+  <mineFieldType type="string">Minefield!!Pulse</mineFieldType>
+  <mineReleaseHardpoint type="string">\hp_mdrop</mineReleaseHardpoint>
+  <fieldSupplyCostPerMine type="u32">2</fieldSupplyCostPerMine>
+  <fieldCompletionTime type="u32">25</fieldCompletionTime>
+  <mineReleaseVelocity type="u32">750</mineReleaseVelocity>
+  <dropAnimDelay type="f32">-0.5</dropAnimDelay>
+</BT_MINELAYER_DATA>

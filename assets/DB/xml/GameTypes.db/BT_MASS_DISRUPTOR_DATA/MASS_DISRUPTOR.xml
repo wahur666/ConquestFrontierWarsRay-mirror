@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MASS_DISRUPTOR_DATA id="MASS_DISRUPTOR">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_mass_disruptor">20</baseWeaponData>
+  <launchSfx type="SFX::ID" value="s_launchdisrup">89</launchSfx>
+  <fileName type="string">massProj.anm</fileName>
+  <contactBlastType type="string">BLAST!!MassDisruptor</contactBlastType>
+  <warpAnim type="string">massDT.anm</warpAnim>
+  <animWidth type="u32">1100</animWidth>
+  <boltSpeed type="f32">5000.0</boltSpeed>
+  <damagePercent type="f32">0.25</damagePercent>
+</BT_MASS_DISRUPTOR_DATA>

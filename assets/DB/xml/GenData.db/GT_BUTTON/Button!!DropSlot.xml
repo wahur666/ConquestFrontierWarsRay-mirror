@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_BUTTON id="Button!!DropSlot">
+  <baseType type="GENBASE_TYPE" value="gbt_button">2</baseType>
+  <buttonType type="BUTTON_TYPE" value="default">0</buttonType>
+  <leftMargin type="s32">11</leftMargin>
+  <rightMargin type="s32">0</rightMargin>
+  <fontName type="string">Font!!DropCustom</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">74</red>
+    <green type="u8">74</green>
+    <blue type="u8">107</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">63</red>
+    <green type="u8">127</green>
+    <blue type="u8">176</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">192</green>
+    <blue type="u8">255</blue>
+  </highlightText>
+  <shapeFile type="string">buttonDropSlot.shp</shapeFile>
+</GT_BUTTON>

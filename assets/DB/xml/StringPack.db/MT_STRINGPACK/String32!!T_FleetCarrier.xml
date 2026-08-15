@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_FleetCarrier" type="string[]">
+  <element index="0" type="string">CV Sirius</element>
+  <element index="1" type="string">CV Canopus</element>
+  <element index="2" type="string">CV Rigil Kentaurus</element>
+  <element index="3" type="string">CV Arcturus</element>
+  <element index="4" type="string">CV Vega</element>
+  <element index="5" type="string">CV Capella</element>
+  <element index="6" type="string">CV Rigel</element>
+  <element index="7" type="string">CV Procyon</element>
+  <element index="8" type="string">CV Achernar</element>
+  <element index="9" type="string">CV Betelgeuse</element>
+  <element index="10" type="string">CV Hadar</element>
+  <element index="11" type="string">CV Acrux</element>
+  <element index="12" type="string">CV Altair</element>
+  <element index="13" type="string">CV Aldebaran</element>
+  <element index="14" type="string">CV Antares</element>
+  <element index="15" type="string">CV Spica</element>
+  <element index="16" type="string">CV Pollux</element>
+  <element index="17" type="string">CV Fomalhaut</element>
+  <element index="18" type="string">CV Becrux</element>
+  <element index="19" type="string">CV Deneb</element>
+  <element index="20" type="string">CV Regulus</element>
+  <element index="21" type="string">CV Adara</element>
+  <element index="22" type="string">CV Castor</element>
+  <element index="23" type="string">CV Gacrux</element>
+  <element index="24" type="string">CV Shaula</element>
+  <element index="25" type="string">CV Brachium</element>
+  <element index="26" type="string">CV Cor Caroli</element>
+  <element index="27" type="string">CV Dsiban</element>
+  <element index="28" type="string">CV Electra</element>
+  <element index="29" type="string">CV Gienah Cygni</element>
+  <element index="30" type="string">CV Naos</element>
+  <element index="31" type="string">CV Orion</element>
+</MT_STRINGPACK>

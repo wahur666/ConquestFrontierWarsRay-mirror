@@ -15,6 +15,7 @@ public sealed class ButtonNode : Control {
 	public Color HoverFill { get; set; } = new(54, 67, 82, 255);
 	public Color Outline { get; set; } = new(140, 160, 180, 200);
 	public Color TextColor { get; set; } = Color.RayWhite;
+	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
 
 	public bool HandleInput() {
 		if (!Visible || !Raylib.IsMouseButtonPressed(MouseButton.Left)) {
@@ -39,9 +40,9 @@ public sealed class ButtonNode : Control {
 			return;
 		}
 
-		var textWidth = UiText.MeasureWidth(Text, FontSize);
+		var textWidth = UiText.MeasureWidth(Text, FontSize, TextStyle);
 		var textX = bounds.X + ((bounds.Width - textWidth) * 0.5f);
 		var textY = bounds.Y + ((bounds.Height - FontSize) * 0.5f) - 1f;
-		UiText.Draw(Text, textX, textY, FontSize, TextColor);
+		UiText.Draw(Text, textX, textY, FontSize, TextColor, TextStyle);
 	}
 }

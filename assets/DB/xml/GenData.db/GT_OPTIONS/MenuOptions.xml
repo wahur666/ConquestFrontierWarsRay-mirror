@@ -1,0 +1,735 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_OPTIONS id="MenuOptions">
+  <screenRect type="RECT">
+    <left type="s32">60</left>
+    <top type="s32">5</top>
+    <right type="s32">575</right>
+    <bottom type="s32">412</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!Options</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <title type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="options">1418</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">200</xOrigin>
+    <yOrigin type="s32">21</yOrigin>
+    <width type="s32">240</width>
+    <height type="s32">24</height>
+  </title>
+  <staticName type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="player_name">1401</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">40</xOrigin>
+    <yOrigin type="s32">-276</yOrigin>
+    <width type="s32">280</width>
+    <height type="s32">20</height>
+  </staticName>
+  <listNames type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!Small</listboxType>
+    <xOrigin type="s32">40</xOrigin>
+    <yOrigin type="s32">-255</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">70</bottom>
+    </textArea>
+    <leadingHeight type="u32">0</leadingHeight>
+    <static type="bool">false</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">true</scrollbar>
+    <solidBackground type="bool">true</solidBackground>
+    <noBorder type="bool">false</noBorder>
+    <disableMouseSelect type="bool">false</disableMouseSelect>
+  </listNames>
+  <buttonNew type="BUTTON_DATA">
+    <buttonType type="string">Button!!Small3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="new_player">1138</buttonText>
+    <xOrigin type="u32">284</xOrigin>
+    <yOrigin type="u32">-255</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">154</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonNew>
+  <buttonChange type="BUTTON_DATA">
+    <buttonType type="string">Button!!Small3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="change_name">1156</buttonText>
+    <xOrigin type="u32">284</xOrigin>
+    <yOrigin type="u32">-231</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">154</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonChange>
+  <buttonDelete type="BUTTON_DATA">
+    <buttonType type="string">Button!!Small3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="delete_player">1139</buttonText>
+    <xOrigin type="u32">284</xOrigin>
+    <yOrigin type="u32">-207</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">154</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonDelete>
+  <staticSound type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="effects">1455</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-286</xOrigin>
+    <yOrigin type="s32">-250</yOrigin>
+    <width type="s32">250</width>
+    <height type="s32">20</height>
+  </staticSound>
+  <staticMusic type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="music">1454</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-286</xOrigin>
+    <yOrigin type="s32">-200</yOrigin>
+    <width type="s32">250</width>
+    <height type="s32">20</height>
+  </staticMusic>
+  <staticComm type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="comms">1456</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-286</xOrigin>
+    <yOrigin type="s32">-150</yOrigin>
+    <width type="s32">250</width>
+    <height type="s32">20</height>
+  </staticComm>
+  <staticChat type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="netchat">1457</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-286</xOrigin>
+    <yOrigin type="s32">-100</yOrigin>
+    <width type="s32">250</width>
+    <height type="s32">20</height>
+  </staticChat>
+  <staticSpeed type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="gamespeed">1420</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-136</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticSpeed>
+  <staticScroll type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="scrollrate">1488</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-114</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticScroll>
+  <staticMouse type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="cursor_sensitivity">1463</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-158</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticMouse>
+  <sliderSound type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">-248</yOrigin>
+  </sliderSound>
+  <sliderMusic type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">-198</yOrigin>
+  </sliderMusic>
+  <sliderComm type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">-148</yOrigin>
+  </sliderComm>
+  <sliderChat type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </screenRect>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">-98</yOrigin>
+  </sliderChat>
+  <sliderSpeed type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">280</xOrigin>
+    <yOrigin type="s32">-136</yOrigin>
+  </sliderSpeed>
+  <sliderScroll type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">280</xOrigin>
+    <yOrigin type="s32">-114</yOrigin>
+  </sliderScroll>
+  <sliderMouse type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">280</xOrigin>
+    <yOrigin type="s32">-158</yOrigin>
+  </sliderMouse>
+  <pushSound type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">-30</xOrigin>
+    <yOrigin type="u32">-248</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushSound>
+  <pushMusic type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">-30</xOrigin>
+    <yOrigin type="u32">-198</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushMusic>
+  <pushComm type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">-30</xOrigin>
+    <yOrigin type="u32">-148</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushComm>
+  <pushChat type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">-100</xOrigin>
+    <yOrigin type="u32">-98</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushChat>
+  <staticDInput type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="hardware_cursor">1513</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-180</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticDInput>
+  <pushDInput type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">280</xOrigin>
+    <yOrigin type="u32">-178</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushDInput>
+  <staticStatus type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="status_text">1459</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-92</yOrigin>
+    <width type="s32">190</width>
+    <height type="s32">20</height>
+  </staticStatus>
+  <staticRollover type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="rollover">1462</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-70</yOrigin>
+    <width type="s32">190</width>
+    <height type="s32">20</height>
+  </staticRollover>
+  <staticSectorMap type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="maprotate">1461</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">-48</yOrigin>
+    <width type="s32">190</width>
+    <height type="s32">20</height>
+  </staticSectorMap>
+  <staticRightClick type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="rightclick">1476</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">230</xOrigin>
+    <yOrigin type="s32">-92</yOrigin>
+    <width type="s32">190</width>
+    <height type="s32">20</height>
+  </staticRightClick>
+  <staticSubtitles type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="subtitles">1563</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">230</xOrigin>
+    <yOrigin type="s32">-70</yOrigin>
+    <width type="s32">190</width>
+    <height type="s32">20</height>
+  </staticSubtitles>
+  <pushStatus type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">-90</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushStatus>
+  <pushRollover type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">-68</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushRollover>
+  <pushSectorMap type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">-46</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushSectorMap>
+  <pushRightClick type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">420</xOrigin>
+    <yOrigin type="u32">-90</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushRightClick>
+  <pushSubtitles type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">420</xOrigin>
+    <yOrigin type="u32">-68</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushSubtitles>
+  <staticGamma type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="gamma">1465</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-166</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticGamma>
+  <staticResolution type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="resolution">1493</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-140</xOrigin>
+    <yOrigin type="s32">-196</yOrigin>
+    <width type="s32">200</width>
+    <height type="s32">20</height>
+  </staticResolution>
+  <dropResolution type="DROPDOWN_DATA">
+    <dropdownType type="string">Dropdown!!Medium</dropdownType>
+    <screenRect type="RECT">
+      <left type="s32">70</left>
+      <top type="s32">-196</top>
+      <right type="s32">280</right>
+      <bottom type="s32">-96</bottom>
+    </screenRect>
+    <buttonData type="BUTTON_DATA">
+      <buttonType type="string">Button!!DropGraphics</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">0</xOrigin>
+      <yOrigin type="u32">0</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonData>
+    <listboxData type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Small</listboxType>
+      <xOrigin type="s32">6</xOrigin>
+      <yOrigin type="s32">18</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">196</right>
+        <bottom type="s32">80</bottom>
+      </textArea>
+      <leadingHeight type="u32">0</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">true</singleClick>
+      <scrollbar type="bool">true</scrollbar>
+      <solidBackground type="bool">true</solidBackground>
+      <noBorder type="bool">false</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </listboxData>
+  </dropResolution>
+  <sliderGamma type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">140</xOrigin>
+    <yOrigin type="s32">-166</yOrigin>
+  </sliderGamma>
+  <staticShips3D type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="ships3d">1560</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-116</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticShips3D>
+  <staticTrails type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="weapon_trails">1466</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-90</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticTrails>
+  <staticEmissive type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="emmisive_textures">1467</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-66</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticEmissive>
+  <staticDetail type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="lod">1468</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-42</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticDetail>
+  <staticDrawBack type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="background">1470</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-130</xOrigin>
+    <yOrigin type="s32">-140</yOrigin>
+    <width type="s32">260</width>
+    <height type="s32">20</height>
+  </staticDrawBack>
+  <pushTrails type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">140</xOrigin>
+    <yOrigin type="u32">-88</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushTrails>
+  <pushEmissive type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">140</xOrigin>
+    <yOrigin type="u32">-64</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushEmissive>
+  <pushDetail type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">140</xOrigin>
+    <yOrigin type="u32">-40</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </pushDetail>
+  <slideDrawBack type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">140</xOrigin>
+    <yOrigin type="s32">-140</yOrigin>
+  </slideDrawBack>
+  <sliderShips3D type="SLIDER_DATA">
+    <sliderType type="string">Slider!!Rounded</sliderType>
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </screenRect>
+    <xOrigin type="s32">140</xOrigin>
+    <yOrigin type="s32">-116</yOrigin>
+  </sliderShips3D>
+  <staticDevice type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="devices">1464</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-140</xOrigin>
+    <yOrigin type="s32">-220</yOrigin>
+    <width type="s32">200</width>
+    <height type="s32">20</height>
+  </staticDevice>
+  <dropDevice type="DROPDOWN_DATA">
+    <dropdownType type="string">Dropdown!!Medium</dropdownType>
+    <screenRect type="RECT">
+      <left type="s32">70</left>
+      <top type="s32">-220</top>
+      <right type="s32">280</right>
+      <bottom type="s32">-120</bottom>
+    </screenRect>
+    <buttonData type="BUTTON_DATA">
+      <buttonType type="string">Button!!DropGraphics</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">0</xOrigin>
+      <yOrigin type="u32">0</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonData>
+    <listboxData type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Small</listboxType>
+      <xOrigin type="s32">6</xOrigin>
+      <yOrigin type="s32">18</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">198</right>
+        <bottom type="s32">82</bottom>
+      </textArea>
+      <leadingHeight type="u32">0</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">true</singleClick>
+      <scrollbar type="bool">false</scrollbar>
+      <solidBackground type="bool">true</solidBackground>
+      <noBorder type="bool">false</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </listboxData>
+  </dropDevice>
+  <static3DHardware type="STATIC_DATA">
+    <staticType type="string">Static!!Players3DSmall</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="hardware">1492</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="right">2</alignment>
+    <xOrigin type="s32">-140</xOrigin>
+    <yOrigin type="s32">-250</yOrigin>
+    <width type="s32">200</width>
+    <height type="s32">20</height>
+  </static3DHardware>
+  <push3DHardware type="BUTTON_DATA">
+    <buttonType type="string">Button!!CheckboxSmall</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+    <xOrigin type="u32">70</xOrigin>
+    <yOrigin type="u32">-248</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </push3DHardware>
+  <tab type="TABCONTROL_DATA">
+    <tabcontrolType type="string">Tab!!Options</tabcontrolType>
+    <hotButtonType type="string">HotButton!!TabOptions</hotButtonType>
+    <baseImage type="s32">0</baseImage>
+    <numTabs type="s32">3</numTabs>
+    <textID type="TABTXT::TAB_TEXT[]">
+      <element type="TABTXT::TAB_TEXT" value="player" index="0">1901</element>
+      <element type="TABTXT::TAB_TEXT" value="graphics" index="1">1902</element>
+      <element type="TABTXT::TAB_TEXT" value="sounds" index="2">1903</element>
+      <element type="TABTXT::TAB_TEXT" value="no_tab_text" index="3">0</element>
+      <element type="TABTXT::TAB_TEXT" value="no_tab_text" index="4">0</element>
+      <element type="TABTXT::TAB_TEXT" value="no_tab_text" index="5">0</element>
+    </textID>
+    <upperTabs type="bool">false</upperTabs>
+    <xPos type="s32">38</xPos>
+    <yPos type="s32">331</yPos>
+  </tab>
+  <buttonOk type="BUTTON_DATA">
+    <buttonType type="string">Button!!Back2D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">180</xOrigin>
+    <yOrigin type="u32">364</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </buttonOk>
+  <buttonCancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!Back2D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">344</xOrigin>
+    <yOrigin type="u32">364</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </buttonCancel>
+</GT_OPTIONS>

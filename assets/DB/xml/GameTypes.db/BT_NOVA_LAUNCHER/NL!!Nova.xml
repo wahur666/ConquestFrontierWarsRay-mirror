@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_NOVA_LAUNCHER id="NL!!Nova">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_nova_launch">24</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <chargeTime type="f32">30.0</chargeTime>
+  <novaExplosion type="string">NE!!Nova</novaExplosion>
+</BT_NOVA_LAUNCHER>

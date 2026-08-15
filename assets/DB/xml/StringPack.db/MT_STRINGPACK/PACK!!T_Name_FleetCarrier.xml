@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_FleetCarrier" type="string[]">
+  <element index="0" type="string">Redcastle</element>
+  <element index="1" type="string">Kaga</element>
+  <element index="2" type="string">Great Phoenix</element>
+  <element index="3" type="string">Amphion</element>
+  <element index="4" type="string">Good Hope</element>
+  <element index="5" type="string">Kaiserin Alexandria</element>
+  <element index="6" type="string">Thomas Mann</element>
+  <element index="7" type="string">Gund</element>
+  <element index="8" type="string">Nurnberg</element>
+  <element index="9" type="string">Dresden</element>
+  <element index="10" type="string">Irresistable</element>
+  <element index="11" type="string">Garibaldi</element>
+  <element index="12" type="string">Natal</element>
+  <element index="13" type="string">Charlemagne</element>
+  <element index="14" type="string">Black Prince</element>
+  <element index="15" type="string">Prince Harry</element>
+  <element index="16" type="string">Imperatrista</element>
+  <element index="17" type="string">Regine</element>
+  <element index="18" type="string">Victory</element>
+  <element index="19" type="string">Chateaurenault</element>
+</MT_STRINGPACK>

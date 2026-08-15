@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_LISTBOX id="ListBox!!DropTeam">
+  <baseType type="GENBASE_TYPE" value="gbt_listbox">5</baseType>
+  <fontName type="string">Font!!DropCustom</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">100</red>
+    <green type="u8">100</green>
+    <blue type="u8">100</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">138</green>
+    <blue type="u8">191</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">40</red>
+    <green type="u8">178</green>
+    <blue type="u8">231</blue>
+  </highlightText>
+  <selectedText type="COLOR">
+    <red type="u8">61</red>
+    <green type="u8">17</green>
+    <blue type="u8">123</blue>
+  </selectedText>
+  <selectedTextGrayed type="COLOR">
+    <red type="u8">80</red>
+    <green type="u8">80</green>
+    <blue type="u8">80</blue>
+  </selectedTextGrayed>
+  <shapeFile type="string">listDropTeam.shp</shapeFile>
+  <scrollBarType type="string">ScrollBar!!Default</scrollBarType>
+</GT_LISTBOX>

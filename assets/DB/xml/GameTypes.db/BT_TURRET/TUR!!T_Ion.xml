@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TURRET id="TUR!!T_Ion">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_turret">1</type>
+  <weaponType type="string">PLASMAB!!T_ion</weaponType>
+  <supplyCost type="s32">20</supplyCost>
+  <refirePeriod type="f32">6.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <info type="f32" key1="angVelocity" key2="maxAngDeflection">1.0</info>
+  <animation type="string">Sc_blast</animation>
+  <hardpoint type="string">\turret\hp_laser</hardpoint>
+  <joint type="string">\turret</joint>
+  <animMuzzleFlash type="string">t_eglow.tga</animMuzzleFlash>
+  <muzzleFlashWidth type="u32">400</muzzleFlashWidth>
+  <muzzleFlashTime type="f32">0.5</muzzleFlashTime>
+  <colorMod type="COLOR">
+    <red type="u8">73</red>
+    <green type="u8">182</green>
+    <blue type="u8">245</blue>
+  </colorMod>
+  <warmUpBlast type="WarmUpBlast">
+    <blastType type="string">BLAST!!T_ion</blastType>
+    <triggerTime type="f32">-1.0</triggerTime>
+  </warmUpBlast>
+</BT_TURRET>

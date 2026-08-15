@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Monolith" type="string[]">
+  <element index="0" type="string">SMO3090.wav</element>
+  <element index="1" type="string">SMO3091.wav</element>
+  <element index="2" type="string">SMO3092.wav</element>
+  <element index="3" type="string">SMO3093.wav</element>
+  <element index="4" type="string">SMO3094.wav</element>
+</MT_STRINGPACK>

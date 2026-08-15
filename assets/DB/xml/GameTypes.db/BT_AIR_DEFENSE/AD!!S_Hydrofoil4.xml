@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_AIR_DEFENSE id="AD!!S_Hydrofoil4">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_air_defense">4</type>
+  <weaponType type="string">PROJ!!T_Bolt-!FighterDefense1</weaponType>
+  <supplyCost type="s32">1</supplyCost>
+  <refirePeriod type="f32">2.5</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <hardpoint type="string">\hp_gun4</hardpoint>
+  <baseAccuracy type="f32">1.0</baseAccuracy>
+  <flashTextureName type="string">tpd_muzflash.tga</flashTextureName>
+  <flashWidth type="f32">50.0</flashWidth>
+  <flashFrequency type="f32">0.05000000074505806</flashFrequency>
+  <flashColor type="COLOR">
+    <red type="u8">150</red>
+    <green type="u8">150</green>
+    <blue type="u8">205</blue>
+    <alpha type="u8">255</alpha>
+  </flashColor>
+  <soundFx type="SFX::ID" value="t_defensegun1">21</soundFx>
+</BT_AIR_DEFENSE>

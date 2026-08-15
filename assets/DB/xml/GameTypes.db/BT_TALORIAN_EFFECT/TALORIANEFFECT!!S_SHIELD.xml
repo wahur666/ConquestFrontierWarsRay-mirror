@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TALORIAN_EFFECT id="TALORIANEFFECT!!S_SHIELD">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_talorian_effect">9</fxClass>
+</BT_TALORIAN_EFFECT>

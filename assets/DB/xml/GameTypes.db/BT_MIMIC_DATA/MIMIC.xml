@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MIMIC_DATA id="MIMIC">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_mimic">15</baseWeaponData>
+  <supplyUse type="f32">1.0</supplyUse>
+  <shutoff type="f32">0.10000000149011612</shutoff>
+  <techNode type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_mantis">2</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="m_res_xcamo">268435457</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techNode>
+</BT_MIMIC_DATA>

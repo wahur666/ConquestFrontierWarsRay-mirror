@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_Corvette" type="string[]">
+  <element index="0" type="string">Vanguard</element>
+  <element index="1" type="string">Spearhead</element>
+  <element index="2" type="string">Velos</element>
+  <element index="3" type="string">Michael Johnson</element>
+  <element index="4" type="string">Hermers</element>
+  <element index="5" type="string">Trismegistus</element>
+  <element index="6" type="string">Artemis</element>
+  <element index="7" type="string">Tartar Bow</element>
+  <element index="8" type="string">Sun-Tzu</element>
+  <element index="9" type="string">Jehu</element>
+  <element index="10" type="string">Caduceus</element>
+  <element index="11" type="string">Avanti</element>
+  <element index="12" type="string">Agilant</element>
+  <element index="13" type="string">Jack B. Nimble</element>
+  <element index="14" type="string">Ivanhoe</element>
+  <element index="15" type="string">Sol Kane</element>
+  <element index="16" type="string">Bassanio</element>
+  <element index="17" type="string">Arrowhead</element>
+  <element index="18" type="string">Yuen Biao</element>
+  <element index="19" type="string">Barbarossa</element>
+</MT_STRINGPACK>

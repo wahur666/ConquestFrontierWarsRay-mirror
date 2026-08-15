@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!T_SuperHvyRefinery">
+  <addChildName type="string">refineupgrade2</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATREFINERY!!T_SpHvyRefinery</archetypeName>
+</BT_EXTENSION_INFO>

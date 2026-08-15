@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!EnemyDetected" type="string[]">
+  <element index="0" type="string">0001.wav</element>
+  <element index="1" type="string">0002.wav</element>
+  <element index="2" type="string">0003.wav</element>
+</MT_STRINGPACK>

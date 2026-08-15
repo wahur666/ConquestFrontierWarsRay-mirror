@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_HOTBUTTON id="HotButton!!TabScore">
+  <baseType type="GENBASE_TYPE" value="gbt_hotbutton">8</baseType>
+  <buttonType type="HOTBUTTON_TYPE" value="tabbutton">4</buttonType>
+  <fontType type="string">Font!!TabsBig</fontType>
+  <textColor type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </textColor>
+</GT_HOTBUTTON>

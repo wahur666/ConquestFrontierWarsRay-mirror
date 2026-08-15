@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MESH_EXPLOSION id="ME!!S_Medium Explosion">
+  <objClass type="OBJCLASS" value="oc_mexplode">4</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <secondaryBlastType type="string">BLAST!!SF_WhiteBlue_MED</secondaryBlastType>
+  <pieceBlastType type="string">BLAST!!SB_WhiteBlue_MED</pieceBlastType>
+  <catastrophicBlastType type="string">BLAST!!BSB_WhiteBlue_MED</catastrophicBlastType>
+  <rippleBlastType type="string">BLAST!!Ripple_WhiteBlue_MED</rippleBlastType>
+  <fireTrail type="string">FT_WhiteBlue.pte</fireTrail>
+</BT_MESH_EXPLOSION>

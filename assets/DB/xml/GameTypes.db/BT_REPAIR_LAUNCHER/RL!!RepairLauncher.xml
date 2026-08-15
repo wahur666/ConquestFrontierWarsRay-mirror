@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_REPAIR_LAUNCHER id="RL!!RepairLauncher">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_repair_launch">21</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <rangeRadius type="f32">4.0</rangeRadius>
+  <repairRate type="f32">25.0</repairRate>
+  <repairCostPerPoint type="f32">1.0</repairCostPerPoint>
+</BT_REPAIR_LAUNCHER>

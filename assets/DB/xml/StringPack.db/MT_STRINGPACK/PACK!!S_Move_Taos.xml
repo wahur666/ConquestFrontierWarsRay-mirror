@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Move_Taos" type="string[]">
+  <element index="0" type="string">STA3555.wav</element>
+  <element index="1" type="string">STA3556.wav</element>
+  <element index="2" type="string">STA3557.wav</element>
+  <element index="3" type="string">STA3558.wav</element>
+  <element index="4" type="string">STA3559.wav</element>
+</MT_STRINGPACK>

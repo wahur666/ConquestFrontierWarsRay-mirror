@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MOON_RESOURCE_LAUNCHER id="MRL!!M_Regener">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_moon_resource_launch">22</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <oreRegenRate type="f32">0.5</oreRegenRate>
+  <gasRegenRate type="f32">0.5</gasRegenRate>
+  <crewRegenRate type="f32">2.0</crewRegenRate>
+</BT_MOON_RESOURCE_LAUNCHER>

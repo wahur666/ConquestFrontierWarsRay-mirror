@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Tanker" type="string[]">
+  <element index="0" type="string">AOT 005</element>
+  <element index="1" type="string">AOT 010</element>
+  <element index="2" type="string">AOT 015</element>
+  <element index="3" type="string">AOT 020</element>
+  <element index="4" type="string">AOT 025</element>
+  <element index="5" type="string">AOT 030</element>
+  <element index="6" type="string">AOT 035</element>
+  <element index="7" type="string">AOT 040</element>
+  <element index="8" type="string">AOT 045</element>
+  <element index="9" type="string">AOT 050</element>
+  <element index="10" type="string">AOT 055</element>
+  <element index="11" type="string">AOT 060</element>
+  <element index="12" type="string">AOT 065</element>
+  <element index="13" type="string">AOT 070</element>
+  <element index="14" type="string">AOT 075</element>
+  <element index="15" type="string">AOT 080</element>
+  <element index="16" type="string">AOT 085</element>
+  <element index="17" type="string">AOT 090</element>
+  <element index="18" type="string">AOT 095</element>
+  <element index="19" type="string">AOT 100</element>
+  <element index="20" type="string">AOT 105</element>
+  <element index="21" type="string">AOT 110</element>
+  <element index="22" type="string">AOT 115</element>
+  <element index="23" type="string">AOT 120</element>
+  <element index="24" type="string">AOT 125</element>
+  <element index="25" type="string">AOT 130</element>
+  <element index="26" type="string">AOT 135</element>
+  <element index="27" type="string">AOT 140</element>
+  <element index="28" type="string">AOT 145</element>
+  <element index="29" type="string">AOT 150</element>
+  <element index="30" type="string">AOT 155</element>
+  <element index="31" type="string">AOT 160</element>
+</MT_STRINGPACK>

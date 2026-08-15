@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!M_Plantation2">
+  <addChildName type="string">M_plat_dissection</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATREPAIR!!M_Plantation2</archetypeName>
+</BT_EXTENSION_INFO>

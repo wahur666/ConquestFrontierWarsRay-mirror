@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_SHIPLAUNCH id="SLAUNCH_TERRAN">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_shiplaunch">8</type>
+  <weaponType type="string">MT_Probe</weaponType>
+  <supplyCost type="s32">20</supplyCost>
+  <refirePeriod type="f32">10.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <hardpoint type="string">\hp_fighter1</hardpoint>
+  <animation type="string" />
+</BT_SHIPLAUNCH>

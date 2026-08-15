@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Blanus" type="string[]">
+  <element index="0" type="string">SAB4008.wav</element>
+  <element index="1" type="string">SAB4009.wav</element>
+  <element index="2" type="string">SAB4010.wav</element>
+</MT_STRINGPACK>

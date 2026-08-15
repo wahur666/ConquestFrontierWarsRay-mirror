@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_JUMP_LAUNCHER id="JL!!BasiliskJump">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_jump_launch">16</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">200</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <jumpParticle type="string">Solarian_Explosion.anm</jumpParticle>
+</BT_JUMP_LAUNCHER>

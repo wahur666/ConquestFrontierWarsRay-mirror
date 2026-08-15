@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_HOTBUTTON id="HotButton!!Research">
+  <baseType type="GENBASE_TYPE" value="gbt_hotbutton">8</baseType>
+  <buttonType type="HOTBUTTON_TYPE" value="research">2</buttonType>
+  <fontType type="string">Font!!ContextWindow</fontType>
+  <textColor type="COLOR">
+    <red type="u8">255</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </textColor>
+</GT_HOTBUTTON>

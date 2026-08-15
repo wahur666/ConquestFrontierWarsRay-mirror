@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Procyo" type="string[]">
+  <element index="0" type="string">SAP4308.wav</element>
+  <element index="1" type="string">SAP4309.wav</element>
+  <element index="2" type="string">SAP4310.wav</element>
+</MT_STRINGPACK>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TROOPPOD_DATA id="TPOD!!V_Ertrag">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_trooppod">10</fxClass>
+  <podType type="string">BBUILDER!!T_TroopPod</podType>
+  <podHardpoints type="string[]">
+    <element type="string" index="0">\ttroop_beam\hp_pod1</element>
+    <element type="string" index="1">\ttroop_beam\hp_pod2</element>
+    <element type="string" index="2">\ttroop_beam\hp_pod3</element>
+  </podHardpoints>
+</BT_TROOPPOD_DATA>

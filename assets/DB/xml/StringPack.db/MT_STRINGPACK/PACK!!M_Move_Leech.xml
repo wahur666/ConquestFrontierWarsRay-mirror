@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Move_Leech" type="string[]">
+  <element index="0" type="string">MLE1005.wav</element>
+  <element index="1" type="string">MLE1006.wav</element>
+  <element index="2" type="string">MLE1007.wav</element>
+  <element index="3" type="string">MLE1008.wav</element>
+  <element index="4" type="string">MLE1009.wav</element>
+</MT_STRINGPACK>

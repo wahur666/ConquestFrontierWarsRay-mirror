@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_EDIT id="Edit!!ChatMShell">
+  <baseType type="GENBASE_TYPE" value="gbt_edit">4</baseType>
+  <fontName type="string">Font!!DropCustom</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">100</red>
+    <green type="u8">100</green>
+    <blue type="u8">100</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">138</green>
+    <blue type="u8">191</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">20</red>
+    <green type="u8">178</green>
+    <blue type="u8">231</blue>
+  </highlightText>
+  <selectedText type="COLOR">
+    <red type="u8">61</red>
+    <green type="u8">17</green>
+    <blue type="u8">123</blue>
+  </selectedText>
+  <caret type="COLOR">
+    <red type="u8">255</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </caret>
+  <shapeFile type="string">editChatMShell.shp</shapeFile>
+  <justify type="s32">6</justify>
+  <width type="s32">0</width>
+  <height type="s32">0</height>
+</GT_EDIT>

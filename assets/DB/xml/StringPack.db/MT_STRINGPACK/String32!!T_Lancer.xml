@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Lancer" type="string[]">
+  <element index="0" type="string">MLC Davis</element>
+  <element index="1" type="string">MLC Almovodar</element>
+  <element index="2" type="string">MLC Lester</element>
+  <element index="3" type="string">MLC Castaneda</element>
+  <element index="4" type="string">MLC Van Eaton</element>
+  <element index="5" type="string">MLC Sposato</element>
+  <element index="6" type="string">MLC Thomas</element>
+  <element index="7" type="string">MLC Stevens</element>
+  <element index="8" type="string">MLC Miyake</element>
+  <element index="9" type="string">MLC Straub</element>
+  <element index="10" type="string">MLC Ryan</element>
+  <element index="11" type="string">MLC Lassen</element>
+  <element index="12" type="string">MLC Metters</element>
+  <element index="13" type="string">MLC Gutierrez</element>
+  <element index="14" type="string">MLC Lindman</element>
+  <element index="15" type="string">MLC Gradwohl</element>
+  <element index="16" type="string">MLC Kumai</element>
+  <element index="17" type="string">MLC Tatsuke</element>
+  <element index="18" type="string">MLC Phillips</element>
+  <element index="19" type="string">MLC Osterhout</element>
+  <element index="20" type="string">MLC Bergstrom</element>
+  <element index="21" type="string">MLC Buch-Andersen</element>
+  <element index="22" type="string">MLC Kastner</element>
+  <element index="23" type="string">MLC Kimmich</element>
+  <element index="24" type="string">MLC Smith</element>
+  <element index="25" type="string" />
+  <element index="26" type="string" />
+  <element index="27" type="string" />
+  <element index="28" type="string" />
+  <element index="29" type="string" />
+  <element index="30" type="string" />
+  <element index="31" type="string" />
+</MT_STRINGPACK>

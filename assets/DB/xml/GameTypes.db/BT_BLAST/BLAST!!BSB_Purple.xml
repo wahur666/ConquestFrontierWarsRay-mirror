@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BLAST id="BLAST!!BSB_Purple">
+  <objClass type="OBJCLASS" value="oc_blast">256</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <effectType type="string[]">
+    <element type="string" index="0" />
+    <element type="string" index="1">FBALL!!Vyrium</element>
+    <element type="string" index="2">PART!!BSB_Purple</element>
+  </effectType>
+  <flash type="FLASH_DATA">
+    <lifeTime type="f32">3.0</lifeTime>
+    <range type="f32">5000.0</range>
+    <color type="COLOR">
+      <red type="u8">125</red>
+      <green type="u8">110</green>
+      <blue type="u8">230</blue>
+    </color>
+  </flash>
+  <totalTime type="f32">4.0</totalTime>
+  <sfx type="SFX::ID" value="explosion">134</sfx>
+  <leadTime type="f32">0.0</leadTime>
+  <drawThroughFog type="bool">false</drawThroughFog>
+</BT_BLAST>

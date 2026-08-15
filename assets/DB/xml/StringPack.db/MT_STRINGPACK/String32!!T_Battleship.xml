@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="String32!!T_Battleship" type="string[]">
+  <element index="0" type="string">SSB Athens</element>
+  <element index="1" type="string">SSB Havana</element>
+  <element index="2" type="string">SSB Munich</element>
+  <element index="3" type="string">SSB Melbourne</element>
+  <element index="4" type="string">SSB Santiago</element>
+  <element index="5" type="string">SSB Sao Paulo</element>
+  <element index="6" type="string">SSB Seoul</element>
+  <element index="7" type="string">SSB Madrid</element>
+  <element index="8" type="string">SSB Sydney</element>
+  <element index="9" type="string">SSB London</element>
+  <element index="10" type="string">SSB Warsaw</element>
+  <element index="11" type="string">SSB Berlin</element>
+  <element index="12" type="string">SSB Rome</element>
+  <element index="13" type="string">SSB Paris</element>
+  <element index="14" type="string">SSB New York</element>
+  <element index="15" type="string">SSB Los Angeles</element>
+  <element index="16" type="string">SSB Dublin</element>
+  <element index="17" type="string">SSB Tokyo</element>
+  <element index="18" type="string">SSB Beijing</element>
+  <element index="19" type="string">SSB Hong Kong</element>
+  <element index="20" type="string">SSB Shanghai</element>
+  <element index="21" type="string">SSB Bangkok</element>
+  <element index="22" type="string">SSB Moscow</element>
+  <element index="23" type="string">SSB Bombay</element>
+  <element index="24" type="string">SSB St Petersburg</element>
+  <element index="25" type="string">SSB Baghdad</element>
+  <element index="26" type="string">SSB Cairo</element>
+  <element index="27" type="string">SSB Calcutta</element>
+  <element index="28" type="string">SSB Singapore</element>
+  <element index="29" type="string">SSB Dallas</element>
+  <element index="30" type="string">SSB Istanbul</element>
+  <element index="31" type="string">SSB Jakarta</element>
+</MT_STRINGPACK>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_BUTTON id="Button!!RadioMedium">
+  <baseType type="GENBASE_TYPE" value="gbt_button">2</baseType>
+  <buttonType type="BUTTON_TYPE" value="pushpin">1</buttonType>
+  <leftMargin type="s32">0</leftMargin>
+  <rightMargin type="s32">0</rightMargin>
+  <fontName type="string">Font!!Button</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">100</red>
+    <green type="u8">100</green>
+    <blue type="u8">100</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">180</red>
+    <green type="u8">160</green>
+    <blue type="u8">120</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">200</red>
+    <green type="u8">180</green>
+    <blue type="u8">140</blue>
+  </highlightText>
+  <shapeFile type="string">Radio-med.shp</shapeFile>
+</GT_BUTTON>

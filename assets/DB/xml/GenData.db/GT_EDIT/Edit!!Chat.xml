@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_EDIT id="Edit!!Chat">
+  <baseType type="GENBASE_TYPE" value="gbt_edit">4</baseType>
+  <fontName type="string">Font!!Chat</fontName>
+  <disabledText type="COLOR">
+    <red type="u8">100</red>
+    <green type="u8">100</green>
+    <blue type="u8">100</blue>
+  </disabledText>
+  <normalText type="COLOR">
+    <red type="u8">200</red>
+    <green type="u8">180</green>
+    <blue type="u8">140</blue>
+  </normalText>
+  <highlightText type="COLOR">
+    <red type="u8">200</red>
+    <green type="u8">180</green>
+    <blue type="u8">140</blue>
+  </highlightText>
+  <selectedText type="COLOR">
+    <red type="u8">170</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </selectedText>
+  <caret type="COLOR">
+    <red type="u8">255</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </caret>
+  <shapeFile type="string" />
+  <justify type="s32">0</justify>
+  <width type="s32">421</width>
+  <height type="s32">28</height>
+</GT_EDIT>

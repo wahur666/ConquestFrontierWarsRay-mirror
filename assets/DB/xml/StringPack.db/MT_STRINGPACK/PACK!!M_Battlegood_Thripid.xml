@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Battlegood_Thripid" type="string[]">
+  <element index="0" type="string">MAT2429.wav</element>
+  <element index="1" type="string">MAT2430.wav</element>
+  <element index="2" type="string">MAT2431.wav</element>
+</MT_STRINGPACK>

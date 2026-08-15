@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_QUEUECONTROL id="QueueControl!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_queuecontrol">16</baseType>
+</GT_QUEUECONTROL>

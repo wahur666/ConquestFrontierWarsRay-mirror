@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_STREAK_DATA id="STREAK!!Terran">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_streak">3</fxClass>
+  <animName type="string">streak.anm</animName>
+  <numLines type="s32">6</numLines>
+  <lineTime type="f32">1.0</lineTime>
+</BT_STREAK_DATA>

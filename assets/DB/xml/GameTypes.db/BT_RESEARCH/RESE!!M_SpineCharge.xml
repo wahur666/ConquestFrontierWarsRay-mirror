@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_RESEARCH id="RESE!!M_SpineCharge">
+  <objClass type="OBJCLASS" value="oc_research">524288</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="RESEARCH_TYPE" value="research_tech">0</type>
+  <cost type="ResourceCost">
+    <gas type="u32">8</gas>
+    <metal type="u32">0</metal>
+    <crew type="u32">0</crew>
+    <commandPt type="u32">0</commandPt>
+  </cost>
+  <time type="u32">45</time>
+  <research_tech type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_mantis">2</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </research_tech>
+  <dependancy type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_mantis">2</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="mdepend_niad">268435504</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </dependancy>
+  <resFinishedSound type="string">MEY1704.wav</resFinishedSound>
+  <resFinishSubtitle type="RESEARCH_SUBTITLE" value="no_subtitle">0</resFinishSubtitle>
+</BT_RESEARCH>

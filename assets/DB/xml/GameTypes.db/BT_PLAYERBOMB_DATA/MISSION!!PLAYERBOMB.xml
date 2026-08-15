@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PLAYERBOMB_DATA id="MISSION!!PLAYERBOMB">
+  <objClass type="OBJCLASS" value="oc_playerbomb">2097152</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <race type="PlayerRace[]">
+    <element type="PlayerRace" index="0">
+      <minBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!T_HQ</element>
+        <element type="string" index="1">GBOAT!!T_Corvette</element>
+        <element type="string" index="2">GBOAT!!T_Corvette</element>
+        <element type="string" index="3" />
+      </minBombType>
+      <bombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!T_HQ</element>
+        <element type="string" index="1">FAB!!T_Fabricator</element>
+        <element type="string" index="2">GBOAT!!T_Corvette</element>
+        <element type="string" index="3">GBOAT!!T_Corvette</element>
+      </bombType>
+      <largeBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!T_HQ</element>
+        <element type="string" index="1">FAB!!T_Fabricator</element>
+        <element type="string" index="2">GBOAT!!T_Corvette</element>
+        <element type="string" index="3">GBOAT!!T_Corvette</element>
+        <element type="string" index="4">PLATREFINERY!!T_Refinery</element>
+        <element type="string" index="5">PLATBUILD!!T_LightIndustrial</element>
+        <element type="string" index="6" />
+        <element type="string" index="7" />
+      </largeBombType>
+    </element>
+    <element type="PlayerRace" index="1">
+      <minBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!M_Cocoon</element>
+        <element type="string" index="1">GBOAT!!M_Scout Carrier</element>
+        <element type="string" index="2">GBOAT!!M_Scout Carrier</element>
+        <element type="string" index="3" />
+      </minBombType>
+      <bombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!M_Cocoon</element>
+        <element type="string" index="1">FAB!!M_NymphWeever</element>
+        <element type="string" index="2">GBOAT!!M_Scout Carrier</element>
+        <element type="string" index="3">GBOAT!!M_Scout Carrier</element>
+      </bombType>
+      <largeBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!M_Cocoon</element>
+        <element type="string" index="1">FAB!!M_NymphWeever</element>
+        <element type="string" index="2">GBOAT!!M_Scout Carrier</element>
+        <element type="string" index="3">GBOAT!!M_Scout Carrier</element>
+        <element type="string" index="4">PLATREFINERY!!M_Collector</element>
+        <element type="string" index="5">PLATBUILD!!M_Thripid</element>
+        <element type="string" index="6" />
+        <element type="string" index="7" />
+      </largeBombType>
+    </element>
+    <element type="PlayerRace" index="2">
+      <minBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!S_Acropolis</element>
+        <element type="string" index="1">GBOAT!!S_Taos</element>
+        <element type="string" index="2">GBOAT!!S_Taos</element>
+        <element type="string" index="3" />
+      </minBombType>
+      <bombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!S_Acropolis</element>
+        <element type="string" index="1">GBOAT!!S_Taos</element>
+        <element type="string" index="2">GBOAT!!S_Taos</element>
+        <element type="string" index="3">FAB!!S_Forger</element>
+      </bombType>
+      <largeBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!S_Acropolis</element>
+        <element type="string" index="1">GBOAT!!S_Taos</element>
+        <element type="string" index="2">GBOAT!!S_Taos</element>
+        <element type="string" index="3">FAB!!S_Forger</element>
+        <element type="string" index="4">PLATREFINERY!!S_Oxidator</element>
+        <element type="string" index="5">PLATBUILD!!S_Pavilion</element>
+        <element type="string" index="6" />
+        <element type="string" index="7" />
+      </largeBombType>
+    </element>
+    <element type="PlayerRace" index="3">
+      <minBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!V_Locus</element>
+        <element type="string" index="1">GBOAT!!V_Viper</element>
+        <element type="string" index="2">GBOAT!!V_Viper</element>
+        <element type="string" index="3" />
+      </minBombType>
+      <bombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!V_Locus</element>
+        <element type="string" index="1">FAB!!V_Shaper</element>
+        <element type="string" index="2">GBOAT!!V_Viper</element>
+        <element type="string" index="3">GBOAT!!V_Viper</element>
+      </bombType>
+      <largeBombType type="PLAYERBOMB_TYPE[]">
+        <element type="string" index="0">PLATBUILDSUP!!V_Locus</element>
+        <element type="string" index="1">FAB!!V_Shaper</element>
+        <element type="string" index="2">GBOAT!!V_Viper</element>
+        <element type="string" index="3">GBOAT!!V_Viper</element>
+        <element type="string" index="4">PLATREFINERY!!V_Coalescer</element>
+        <element type="string" index="5">PLATBUILD!!V_Compiler</element>
+        <element type="string" index="6" />
+        <element type="string" index="7" />
+      </largeBombType>
+    </element>
+  </race>
+  <playerBomb_anim2D type="string">damg_spark.anm</playerBomb_anim2D>
+  <animSize type="s32">300</animSize>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_none">0</mObjClass>
+    <race type="M_RACE" value="m_terran">1</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_no_display_name">0</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">0</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">0</scrapValue>
+    <buildTime type="s32">0</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">0</gas>
+      <metal type="u32">0</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">0.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <filename type="string">light.3db</filename>
+</BT_PLAYERBOMB_DATA>

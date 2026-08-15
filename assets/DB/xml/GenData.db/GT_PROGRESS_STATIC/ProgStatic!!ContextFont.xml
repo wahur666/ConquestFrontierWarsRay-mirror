@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_PROGRESS_STATIC id="ProgStatic!!ContextFont">
+  <fontName type="string">Font!!ContextWindow</fontName>
+  <normalText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </normalText>
+  <overText type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </overText>
+  <background type="COLOR">
+    <red type="u8">200</red>
+    <green type="u8">200</green>
+    <blue type="u8">200</blue>
+  </background>
+  <background2 type="COLOR">
+    <red type="u8">50</red>
+    <green type="u8">50</green>
+    <blue type="u8">50</blue>
+  </background2>
+  <shapeFile type="string" />
+  <backgroundDraw type="DRAW_TYPE" value="fill">1</backgroundDraw>
+  <backdraw type="bool">false</backdraw>
+</GT_PROGRESS_STATIC>

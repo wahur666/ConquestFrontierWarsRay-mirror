@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_ENGINETRAIL id="ENGTRAIL!!MPlasma">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_enginetrail">7</fxClass>
+  <width type="f32">250.0</width>
+  <segments type="s32">2</segments>
+  <timePerSegment type="f32">0.30000001192092896</timePerSegment>
+  <tapperType type="ENGINETRAIL_TAPPER_TYPE" value="engine_trail_tapper_zero">1</tapperType>
+  <tapperMod type="f32">4.0</tapperMod>
+  <hardpoint type="string" />
+  <texture type="string">m_trail.tga</texture>
+  <colorMod type="COLOR">
+    <red type="u8">90</red>
+    <green type="u8">232</green>
+    <blue type="u8">62</blue>
+    <alpha type="u8">100</alpha>
+  </colorMod>
+  <engineGlowColorMod type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+    <alpha type="u8">0</alpha>
+  </engineGlowColorMod>
+  <engineGlowTexture type="string" />
+  <engineGlowWidth type="f32">40.0</engineGlowWidth>
+</BT_ENGINETRAIL>

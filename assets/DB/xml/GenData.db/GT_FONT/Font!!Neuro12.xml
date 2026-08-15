@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_FONT id="Font!!Neuro12">
+  <baseType type="GENBASE_TYPE" value="gbt_font">1</baseType>
+  <fontType type="FONT" value="neuro_12_400">927</fontType>
+  <multiline type="bool">true</multiline>
+  <notScaling type="bool">false</notScaling>
+  <toolbarMoney type="bool">false</toolbarMoney>
+</GT_FONT>

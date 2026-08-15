@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BLAST id="BLAST!!T_SecExplode_LRG">
+  <objClass type="OBJCLASS" value="oc_blast">256</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <effectType type="string[]">
+    <element type="string" index="0">ANIMOBJ!!T_SecExplode_LRG</element>
+    <element type="string" index="1" />
+    <element type="string" index="2" />
+  </effectType>
+  <flash type="FLASH_DATA">
+    <lifeTime type="f32">0.0</lifeTime>
+    <range type="f32">0.0</range>
+    <color type="COLOR">
+      <red type="u8">0</red>
+      <green type="u8">0</green>
+      <blue type="u8">0</blue>
+    </color>
+  </flash>
+  <totalTime type="f32">3.0</totalTime>
+  <sfx type="SFX::ID" value="invalid">0</sfx>
+  <leadTime type="f32">0.0</leadTime>
+  <drawThroughFog type="bool">false</drawThroughFog>
+</BT_BLAST>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PING_LAUNCHER id="PL!!T_Ping">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_ping_launch">13</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">1</supplyCost>
+  <refirePeriod type="f32">1.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <techNode type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_terran">1</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="tdepend_sensortower">1024</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techNode>
+</BT_PING_LAUNCHER>

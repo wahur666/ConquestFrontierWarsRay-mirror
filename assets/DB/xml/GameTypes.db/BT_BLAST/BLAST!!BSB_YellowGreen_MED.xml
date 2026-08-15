@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BLAST id="BLAST!!BSB_YellowGreen_MED">
+  <objClass type="OBJCLASS" value="oc_blast">256</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <effectType type="string[]">
+    <element type="string" index="0" />
+    <element type="string" index="1">FBALL!!Mantis</element>
+    <element type="string" index="2">PART!!BSB_YellowGreen_MED</element>
+  </effectType>
+  <flash type="FLASH_DATA">
+    <lifeTime type="f32">2.25</lifeTime>
+    <range type="f32">4000.0</range>
+    <color type="COLOR">
+      <red type="u8">50</red>
+      <green type="u8">200</green>
+      <blue type="u8">200</blue>
+    </color>
+  </flash>
+  <totalTime type="f32">2.25</totalTime>
+  <sfx type="SFX::ID" value="expm_m_final">124</sfx>
+  <leadTime type="f32">1.3799999952316284</leadTime>
+  <drawThroughFog type="bool">false</drawThroughFog>
+</BT_BLAST>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_RESEARCH id="RESE!!T_WeaponUpgrade4">
+  <objClass type="OBJCLASS" value="oc_research">524288</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="RESEARCH_TYPE" value="research_tech">0</type>
+  <cost type="ResourceCost">
+    <gas type="u32">72</gas>
+    <metal type="u32">40</metal>
+    <crew type="u32">0</crew>
+    <commandPt type="u32">0</commandPt>
+  </cost>
+  <time type="u32">145</time>
+  <research_tech type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_terran">1</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="res_weapons4">8388608</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </research_tech>
+  <dependancy type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_terran">1</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="tdepend_awslab">128</build>
+    <common type="TECHTREE::COMMON" value="res_weapons3">4194304</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </dependancy>
+  <resFinishedSound type="string">NAL5802.wav</resFinishedSound>
+  <resFinishSubtitle type="RESEARCH_SUBTITLE" value="sub_res_weapon">4544</resFinishSubtitle>
+</BT_RESEARCH>

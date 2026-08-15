@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BUILDERSHIP_DATA id="BBUILDER!!M_Spider">
+  <objClass type="OBJCLASS" value="oc_spaceship">1</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <spaceshipClass type="SPACESHIPCLASS" value="ssc_spiderdrone">13</spaceshipClass>
+  <fileName type="string">mspider.cmp</fileName>
+  <dynamicsData type="DYNAMICS_DATA_JR">
+    <maxLinearVelocity type="f32">0.0</maxLinearVelocity>
+    <linearAcceleration type="f32">0.0</linearAcceleration>
+    <maxAngVelocity type="f32">0.0</maxAngVelocity>
+  </dynamicsData>
+  <workAnimation type="string">Sc_SPIDER</workAnimation>
+  <sparkAnim type="string" />
+  <sparkHardpoint type="string" />
+  <explosionType type="string" />
+  <sparkWidth type="f32">200.0</sparkWidth>
+  <sparkDelay type="f32">1.0</sparkDelay>
+</BT_BUILDERSHIP_DATA>

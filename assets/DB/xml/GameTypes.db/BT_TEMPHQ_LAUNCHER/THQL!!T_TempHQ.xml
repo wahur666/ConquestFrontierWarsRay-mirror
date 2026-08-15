@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TEMPHQ_LAUNCHER id="THQL!!T_TempHQ">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_temphq_launcher">25</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <chargeRegenRate type="f32">1.0</chargeRegenRate>
+  <chargeUseRate type="f32">1.0</chargeUseRate>
+  <maxCharge type="f32">60.0</maxCharge>
+</BT_TEMPHQ_LAUNCHER>

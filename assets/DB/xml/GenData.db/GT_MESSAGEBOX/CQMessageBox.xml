@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_MESSAGEBOX id="CQMessageBox">
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!MessageDlg</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <title type="STATIC_DATA">
+    <staticType type="string">Static!!Reserved</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">100</xOrigin>
+    <yOrigin type="s32">24</yOrigin>
+    <width type="s32">450</width>
+    <height type="s32">24</height>
+  </title>
+  <message type="STATIC_DATA">
+    <staticType type="string">Static!!MessageBox</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">60</xOrigin>
+    <yOrigin type="s32">80</yOrigin>
+    <width type="s32">500</width>
+    <height type="s32">160</height>
+  </message>
+  <ok type="BUTTON_DATA">
+    <buttonType type="string">Button!!BackM</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">60</xOrigin>
+    <yOrigin type="u32">260</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </ok>
+  <cancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!BackM</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">400</xOrigin>
+    <yOrigin type="u32">260</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </cancel>
+  <okAlone type="BUTTON_DATA">
+    <buttonType type="string">Button!!BackM</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">240</xOrigin>
+    <yOrigin type="u32">260</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </okAlone>
+</GT_MESSAGEBOX>

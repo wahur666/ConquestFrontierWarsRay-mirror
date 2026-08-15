@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!M_Hybrid_Fusion">
+  <addChildName type="string">M_plat_carapce</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATBUILD!!M_HybridCenter</archetypeName>
+</BT_EXTENSION_INFO>

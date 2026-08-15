@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PROJECTILE_DATA id="PROJ!!T_Bolt-!FighterDefense1">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_bolt">2</baseWeaponData>
+  <fileName type="string">tpd_tracer.3db</fileName>
+  <launchSfx type="SFX::ID" value="t_defensegun1">21</launchSfx>
+  <damage type="u32">2</damage>
+  <maxVelocity type="f32">12500.0</maxVelocity>
+  <blastType type="string" />
+  <engineTrailType type="string" />
+</BT_PROJECTILE_DATA>

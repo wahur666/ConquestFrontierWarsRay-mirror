@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EFFECT_LAUNCHER id="EL!!T_Dread">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_effect_launcher">27</type>
+  <weaponType type="string">EFFECTS\t_dread_turrets.EFF</weaponType>
+  <supplyCost type="s32">1</supplyCost>
+  <refirePeriod type="f32">4.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <weaponDamage type="u32">10</weaponDamage>
+  <weaponFireDelay type="f32">0.0</weaponFireDelay>
+  <weaponVelocity type="f32">2000.0</weaponVelocity>
+</BT_EFFECT_LAUNCHER>

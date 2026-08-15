@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_NEBULA_DATA id="Nebula!!Antimatter(mantis)">
+  <objClass type="OBJCLASS" value="oc_nebula">32</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <fieldClass type="FIELDCLASS" value="fc_nebula">3</fieldClass>
+  <infoHelpID type="FIELDTXT::INFOHELP" value="field_anti_nebula">3125</infoHelpID>
+  <cloudEffect type="string" />
+  <mapTexName type="string">SysMap\antineb.bmp</mapTexName>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_eyestock">61</mObjClass>
+    <race type="M_RACE" value="m_no_race">0</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_no_display_name">0</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">0</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">0</scrapValue>
+    <buildTime type="s32">0</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">0</gas>
+      <metal type="u32">0</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">0.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <attributes type="FIELD_ATTRIBUTES">
+    <sensorDamp type="f32">-0.4000000059604645</sensorDamp>
+    <toHitPenalty type="f32">0.0</toHitPenalty>
+    <damage type="f32">0.0</damage>
+    <moveSpeedModifier type="f32">0.0</moveSpeedModifier>
+    <maneuverModifier type="f32">0.0</maneuverModifier>
+  </attributes>
+  <ambient type="AMBIENT_NEBULA_LIGHT">
+    <color type="COLOR">
+      <red type="u8">75</red>
+      <green type="u8">118</green>
+      <blue type="u8">32</blue>
+    </color>
+    <pulse_frequency type="f32">20.0</pulse_frequency>
+  </ambient>
+  <ambientSFX type="SFX::ID" value="nebula_lithium">110</ambientSFX>
+  <nebType type="NEBTYPE" value="neb_antimatter">1</nebType>
+  <nuggetsPerSquare type="u32">0</nuggetsPerSquare>
+  <nuggetZHeight type="f32">0.0</nuggetZHeight>
+  <nuggetType type="string[]">
+    <element type="string" index="0" />
+    <element type="string" index="1" />
+    <element type="string" index="2" />
+    <element type="string" index="3" />
+  </nuggetType>
+</BT_NEBULA_DATA>

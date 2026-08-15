@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TRAIL_DATA id="TRAIL!!T_Jump Trail">
+  <objClass type="OBJCLASS" value="oc_trail">16384</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <anim type="string">trail.anm</anim>
+</BT_TRAIL_DATA>

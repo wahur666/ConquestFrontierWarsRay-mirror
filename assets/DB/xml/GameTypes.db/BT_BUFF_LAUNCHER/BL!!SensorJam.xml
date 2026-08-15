@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BUFF_LAUNCHER id="BL!!SensorJam">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_buff_launcher">18</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">5</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">2</launcherSpecialID>
+  <rangeRadius type="f32">4.0</rangeRadius>
+  <buffType type="BuffType" value="sensor_jam_effect">10</buffType>
+  <targetType type="TargetType" value="enemies_ships_only">5</targetType>
+  <supplyUseType type="SupplyUseType" value="su_ship_supplies_toggle">1</supplyUseType>
+  <visualName type="string">PC!!White</visualName>
+</BT_BUFF_LAUNCHER>

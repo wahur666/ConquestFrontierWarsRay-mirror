@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TURRET id="TUR!!M_Voraak_Cannon">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_turret">1</type>
+  <weaponType type="string">PLASMAB!!Mantis!Voraak</weaponType>
+  <supplyCost type="s32">8</supplyCost>
+  <refirePeriod type="f32">1.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <info type="f32" key1="angVelocity" key2="maxAngDeflection">1.0</info>
+  <animation type="string" />
+  <hardpoint type="string">\M_Voraak_Mutation\M_voraak_barrel\hp_laser3</hardpoint>
+  <joint type="string">\M_Voraak_Mutation</joint>
+  <animMuzzleFlash type="string">m_eglow.tga</animMuzzleFlash>
+  <muzzleFlashWidth type="u32">300</muzzleFlashWidth>
+  <muzzleFlashTime type="f32">0.5</muzzleFlashTime>
+  <colorMod type="COLOR">
+    <red type="u8">255</red>
+    <green type="u8">255</green>
+    <blue type="u8">255</blue>
+  </colorMod>
+  <warmUpBlast type="WarmUpBlast">
+    <blastType type="string" />
+    <triggerTime type="f32">0.0</triggerTime>
+  </warmUpBlast>
+</BT_TURRET>

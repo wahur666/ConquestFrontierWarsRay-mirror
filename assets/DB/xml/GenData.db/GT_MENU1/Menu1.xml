@@ -1,0 +1,3848 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_MENU1 id="Menu1">
+  <opening type="OPENING">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!Background</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <single type="BUTTON_DATA">
+      <buttonType type="string">Button!!CustomSingle</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">232</xOrigin>
+      <yOrigin type="u32">134</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </single>
+    <multi type="BUTTON_DATA">
+      <buttonType type="string">Button!!CustomMulti</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">360</xOrigin>
+      <yOrigin type="u32">122</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">140</right>
+        <bottom type="s32">24</bottom>
+      </buttonArea>
+    </multi>
+    <intro type="BUTTON_DATA">
+      <buttonType type="string">Button!!CustomMedia</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">112</xOrigin>
+      <yOrigin type="u32">160</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </intro>
+    <options type="BUTTON_DATA">
+      <buttonType type="string">Button!!CustomOptions</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">484</xOrigin>
+      <yOrigin type="u32">130</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </options>
+    <help type="BUTTON_DATA">
+      <buttonType type="string">Button!!CustomQuit</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">600</xOrigin>
+      <yOrigin type="u32">160</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </help>
+    <quit type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="quit">1112</buttonText>
+      <xOrigin type="u32">650</xOrigin>
+      <yOrigin type="u32">570</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </quit>
+    <staticSingle type="STATIC_DATA">
+      <staticType type="string">Static!!SmallMulti</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="single_player">1102</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">230</xOrigin>
+      <yOrigin type="s32">234</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticSingle>
+    <staticMulti type="STATIC_DATA">
+      <staticType type="string">Static!!SmallMulti</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="multi_player">1103</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">358</xOrigin>
+      <yOrigin type="s32">222</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticMulti>
+    <staticIntro type="STATIC_DATA">
+      <staticType type="string">Static!!SmallMulti</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="intro">1475</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">100</xOrigin>
+      <yOrigin type="s32">260</yOrigin>
+      <width type="s32">128</width>
+      <height type="s32">20</height>
+    </staticIntro>
+    <staticOptions type="STATIC_DATA">
+      <staticType type="string">Static!!SmallMulti</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="options">1418</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">482</xOrigin>
+      <yOrigin type="s32">230</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticOptions>
+    <staticHelp type="STATIC_DATA">
+      <staticType type="string">Static!!SmallMulti</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="help">1497</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">598</xOrigin>
+      <yOrigin type="s32">260</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticHelp>
+    <animMedia type="ANIMATE_DATA">
+      <animateType type="string">Animate!!Media</animateType>
+      <xOrigin type="s32">298</xOrigin>
+      <yOrigin type="s32">278</yOrigin>
+      <dwTimer type="s32">2000</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animMedia>
+    <animSingle type="ANIMATE_DATA">
+      <animateType type="string">Animate!!Single</animateType>
+      <xOrigin type="s32">273</xOrigin>
+      <yOrigin type="s32">278</yOrigin>
+      <dwTimer type="s32">2000</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animSingle>
+    <animMulti type="ANIMATE_DATA">
+      <animateType type="string">Animate!!Multi</animateType>
+      <xOrigin type="s32">268</xOrigin>
+      <yOrigin type="s32">278</yOrigin>
+      <dwTimer type="s32">2000</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animMulti>
+    <animOptions type="ANIMATE_DATA">
+      <animateType type="string">Animate!!Options</animateType>
+      <xOrigin type="s32">348</xOrigin>
+      <yOrigin type="s32">278</yOrigin>
+      <dwTimer type="s32">1000</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animOptions>
+    <animQuestion type="ANIMATE_DATA">
+      <animateType type="string">Animate!!Question</animateType>
+      <xOrigin type="s32">348</xOrigin>
+      <yOrigin type="s32">278</yOrigin>
+      <dwTimer type="s32">2000</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animQuestion>
+    <staticLegal type="STATIC_DATA">
+      <staticType type="string">Static!!Legal</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="legal_mainscreen">41</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">534</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">64</height>
+    </staticLegal>
+  </opening>
+  <singlePlayerMenu type="SINGLEPLAYER_MENU">
+    <screenRect type="RECT">
+      <left type="s32">92</left>
+      <top type="s32">145</top>
+      <right type="s32">707</right>
+      <bottom type="s32">455</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!LoadSave</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <staticSingle type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="single_player">1102</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">100</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">20</height>
+    </staticSingle>
+    <staticName type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">350</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">200</width>
+      <height type="s32">20</height>
+    </staticName>
+    <buttonCampaign type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="campaign">1473</buttonText>
+      <xOrigin type="u32">116</xOrigin>
+      <yOrigin type="u32">74</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">380</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonCampaign>
+    <buttonSkirmish type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="skirmish">1107</buttonText>
+      <xOrigin type="u32">116</xOrigin>
+      <yOrigin type="u32">116</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">380</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonSkirmish>
+    <buttonLoad type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="load_saved">1140</buttonText>
+      <xOrigin type="u32">116</xOrigin>
+      <yOrigin type="u32">156</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">380</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonLoad>
+    <buttonQBLoad type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="load_quickbattle">1160</buttonText>
+      <xOrigin type="u32">116</xOrigin>
+      <yOrigin type="u32">196</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">380</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonQBLoad>
+    <buttonBack type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">236</xOrigin>
+      <yOrigin type="u32">240</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonBack>
+  </singlePlayerMenu>
+  <selectCampaign type="SELECT_CAMPAIGN">
+    <screenRect type="RECT">
+      <left type="s32">92</left>
+      <top type="s32">145</top>
+      <right type="s32">707</right>
+      <bottom type="s32">455</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!LoadSave</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <title type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="single_player">1102</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">120</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">180</width>
+      <height type="s32">20</height>
+    </title>
+    <staticName type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">310</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">220</width>
+      <height type="s32">20</height>
+    </staticName>
+    <buttonTerran type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="terran_camp">1157</buttonText>
+      <xOrigin type="u32">154</xOrigin>
+      <yOrigin type="u32">74</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">300</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonTerran>
+    <buttonMantis type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="mantis_training">1158</buttonText>
+      <xOrigin type="u32">154</xOrigin>
+      <yOrigin type="u32">126</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">300</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonMantis>
+    <buttonSolarian type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="solarian_training">1159</buttonText>
+      <xOrigin type="u32">154</xOrigin>
+      <yOrigin type="u32">176</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">300</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonSolarian>
+    <buttonBack type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">236</xOrigin>
+      <yOrigin type="u32">240</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">120</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonBack>
+  </selectCampaign>
+  <selectMission type="SELECT_MISSION">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!MissionMap</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <title type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="select_mission">1058</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">500</yOrigin>
+      <width type="s32">300</width>
+      <height type="s32">30</height>
+    </title>
+    <list type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Default</listboxType>
+      <xOrigin type="s32">630</xOrigin>
+      <yOrigin type="s32">320</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">160</right>
+        <bottom type="s32">170</bottom>
+      </textArea>
+      <leadingHeight type="u32">0</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">false</singleClick>
+      <scrollbar type="bool">true</scrollbar>
+      <solidBackground type="bool">false</solidBackground>
+      <noBorder type="bool">false</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </list>
+    <start type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="new_campaign">1144</buttonText>
+      <xOrigin type="u32">400</xOrigin>
+      <yOrigin type="u32">530</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">380</right>
+        <bottom type="s32">30</bottom>
+      </buttonArea>
+    </start>
+    <ok type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+      <xOrigin type="u32">630</xOrigin>
+      <yOrigin type="u32">500</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">120</right>
+        <bottom type="s32">24</bottom>
+      </buttonArea>
+    </ok>
+    <cancel type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+      <xOrigin type="u32">630</xOrigin>
+      <yOrigin type="u32">530</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">120</right>
+        <bottom type="s32">24</bottom>
+      </buttonArea>
+    </cancel>
+    <buttonUnlock type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">500</xOrigin>
+      <yOrigin type="u32">570</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">240</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonUnlock>
+    <staticMission type="STATIC_DATA">
+      <staticType type="string">Static!!MissionText</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">196</xOrigin>
+      <yOrigin type="s32">70</yOrigin>
+      <width type="s32">476</width>
+      <height type="s32">56</height>
+    </staticMission>
+    <staticHolder type="STATIC_DATA">
+      <staticType type="string">Static!!MissionDesc</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">130</xOrigin>
+      <yOrigin type="s32">40</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticHolder>
+    <buttonMissions type="BUTTON_DATA[]">
+      <element type="BUTTON_DATA" index="0">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">154</xOrigin>
+        <yOrigin type="u32">336</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="1">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">170</xOrigin>
+        <yOrigin type="u32">198</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="2">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">210</xOrigin>
+        <yOrigin type="u32">276</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="3">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">292</xOrigin>
+        <yOrigin type="u32">216</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="4">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">382</xOrigin>
+        <yOrigin type="u32">192</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="5">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">312</xOrigin>
+        <yOrigin type="u32">260</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="6">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">274</xOrigin>
+        <yOrigin type="u32">322</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="7">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">318</xOrigin>
+        <yOrigin type="u32">354</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="8">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">390</xOrigin>
+        <yOrigin type="u32">320</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="9">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">372</xOrigin>
+        <yOrigin type="u32">246</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="10">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">480</xOrigin>
+        <yOrigin type="u32">246</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="11">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">540</xOrigin>
+        <yOrigin type="u32">182</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="12">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">612</xOrigin>
+        <yOrigin type="u32">246</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="13">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">534</xOrigin>
+        <yOrigin type="u32">272</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="14">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">482</xOrigin>
+        <yOrigin type="u32">318</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+      <element type="BUTTON_DATA" index="15">
+        <buttonType type="string">Button!!CustomMission</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">446</xOrigin>
+        <yOrigin type="u32">370</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </element>
+    </buttonMissions>
+    <buttonMovies type="BUTTON_DATA[]" />
+    <buttonMovies type="BUTTON_DATA" index="0">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">226</xOrigin>
+      <yOrigin type="u32">208</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonMovies type="BUTTON_DATA" index="1">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">426</xOrigin>
+      <yOrigin type="u32">274</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonMovies type="BUTTON_DATA" index="2">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">466</xOrigin>
+      <yOrigin type="u32">180</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonMovies type="BUTTON_DATA" index="3">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">520</xOrigin>
+      <yOrigin type="u32">370</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonMovies type="BUTTON_DATA" index="4">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">100</xOrigin>
+      <yOrigin type="u32">370</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonMovies type="BUTTON_DATA" index="5">
+      <buttonType type="string">Button!!CustomMovie</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">480</xOrigin>
+      <yOrigin type="u32">440</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonMovies>
+    <buttonBack type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">330</xOrigin>
+      <yOrigin type="u32">570</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">120</right>
+        <bottom type="s32">24</bottom>
+      </buttonArea>
+    </buttonBack>
+    <staticMovie type="STATIC_DATA">
+      <staticType type="string">Static!!MovieDesc</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">130</xOrigin>
+      <yOrigin type="s32">40</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticMovie>
+    <staticMissionTitle type="STATIC_DATA">
+      <staticType type="string">Static!!TitleMission</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">140</xOrigin>
+      <yOrigin type="s32">46</yOrigin>
+      <width type="s32">530</width>
+      <height type="s32">20</height>
+    </staticMissionTitle>
+    <animSystem type="ANIMATE_DATA">
+      <animateType type="string">Animate!!System</animateType>
+      <xOrigin type="s32">121</xOrigin>
+      <yOrigin type="s32">129</yOrigin>
+      <dwTimer type="s32">2800</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animSystem>
+    <nLineFrom type="int[]">
+      <element type="s32" index="0">0</element>
+      <element type="s32" index="1">0</element>
+      <element type="s32" index="2">1</element>
+      <element type="s32" index="3">2</element>
+      <element type="s32" index="4">3</element>
+      <element type="s32" index="5">4</element>
+      <element type="s32" index="6">5</element>
+      <element type="s32" index="7">6</element>
+      <element type="s32" index="8">7</element>
+      <element type="s32" index="9">8</element>
+      <element type="s32" index="10">9</element>
+      <element type="s32" index="11">10</element>
+      <element type="s32" index="12">11</element>
+      <element type="s32" index="13">12</element>
+      <element type="s32" index="14">13</element>
+      <element type="s32" index="15">14</element>
+    </nLineFrom>
+    <nMoiveBeforeMission type="int[]">
+      <element type="s32" index="0">3</element>
+      <element type="s32" index="1">9</element>
+      <element type="s32" index="2">11</element>
+      <element type="s32" index="3">-15</element>
+      <element type="s32" index="4">0</element>
+      <element type="s32" index="5">-15</element>
+    </nMoiveBeforeMission>
+  </selectMission>
+  <netConnections type="NET_CONNECTIONS">
+    <screenRect type="RECT">
+      <left type="s32">57</left>
+      <top type="s32">120</top>
+      <right type="s32">744</right>
+      <bottom type="s32">430</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!NetConnect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <description type="STATIC_DATA">
+      <staticType type="string">Static!!GrayedRect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">320</yOrigin>
+      <width type="s32">686</width>
+      <height type="s32">90</height>
+    </description>
+    <list type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Connections</listboxType>
+      <xOrigin type="s32">152</xOrigin>
+      <yOrigin type="s32">126</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">378</right>
+        <bottom type="s32">120</bottom>
+      </textArea>
+      <leadingHeight type="u32">4</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">false</singleClick>
+      <scrollbar type="bool">true</scrollbar>
+      <solidBackground type="bool">false</solidBackground>
+      <noBorder type="bool">true</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </list>
+    <next type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="next">1111</buttonText>
+      <xOrigin type="u32">368</xOrigin>
+      <yOrigin type="u32">260</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </next>
+    <back type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">155</xOrigin>
+      <yOrigin type="u32">260</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </back>
+    <staticTitle type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="net_connect">1489</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">28</yOrigin>
+      <width type="s32">310</width>
+      <height type="s32">20</height>
+    </staticTitle>
+    <buttonZone type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimDefault</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="zonegame">1605</buttonText>
+      <xOrigin type="u32">132</xOrigin>
+      <yOrigin type="u32">82</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">236</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonZone>
+    <buttonWeb type="BUTTON_DATA">
+      <buttonType type="string">Button!!WebButton</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="webpage">1623</buttonText>
+      <xOrigin type="u32">170</xOrigin>
+      <yOrigin type="u32">438</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">350</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </buttonWeb>
+  </netConnections>
+  <ipAddress type="IP_ADDRESS">
+    <screenRect type="RECT">
+      <left type="s32">57</left>
+      <top type="s32">120</top>
+      <right type="s32">744</right>
+      <bottom type="s32">430</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!JoinCreate</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <description type="STATIC_DATA">
+      <staticType type="string">Static!!GrayedRect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">320</yOrigin>
+      <width type="s32">686</width>
+      <height type="s32">90</height>
+    </description>
+    <enterIP type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="ip_address">1402</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">280</xOrigin>
+      <yOrigin type="s32">192</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">24</height>
+    </enterIP>
+    <enterName type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="player_name">1401</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">80</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">150</width>
+      <height type="s32">20</height>
+    </enterName>
+    <staticName type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">250</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">360</width>
+      <height type="s32">20</height>
+    </staticName>
+    <staticJoin type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="join">1108</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">274</xOrigin>
+      <yOrigin type="s32">158</yOrigin>
+      <width type="s32">180</width>
+      <height type="s32">20</height>
+    </staticJoin>
+    <staticCreate type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="create">1109</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">274</xOrigin>
+      <yOrigin type="s32">98</yOrigin>
+      <width type="s32">180</width>
+      <height type="s32">20</height>
+    </staticCreate>
+    <checkJoin type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">250</xOrigin>
+      <yOrigin type="u32">160</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">20</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </checkJoin>
+    <checkCreate type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">250</xOrigin>
+      <yOrigin type="u32">100</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">20</right>
+        <bottom type="s32">20</bottom>
+      </buttonArea>
+    </checkCreate>
+    <next type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="next">1111</buttonText>
+      <xOrigin type="u32">368</xOrigin>
+      <yOrigin type="u32">260</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </next>
+    <back type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">156</xOrigin>
+      <yOrigin type="u32">260</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </back>
+    <comboboxIP type="COMBOBOX_DATA">
+      <comboboxType type="string">Combobox!!Default</comboboxType>
+      <screenRect type="RECT">
+        <left type="s32">280</left>
+        <top type="s32">221</top>
+        <right type="s32">448</right>
+        <bottom type="s32">348</bottom>
+      </screenRect>
+      <editData type="EDIT_DATA">
+        <editType type="string">Edit!!ComboIP</editType>
+        <editText type="EDTXT::EDIT_TEXT" value="ip_address_default">1110</editText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+      </editData>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!ComboboxDown</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">166</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!ComboIP</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">18</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">8</left>
+          <top type="s32">6</top>
+          <right type="s32">158</right>
+          <bottom type="s32">74</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </comboboxIP>
+  </ipAddress>
+  <gameZone type="GAME_ZONE">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <description type="STATIC_DATA">
+      <staticType type="string">Static!!GrayedRect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">60</xOrigin>
+      <yOrigin type="s32">510</yOrigin>
+      <width type="s32">687</width>
+      <height type="s32">70</height>
+    </description>
+  </gameZone>
+  <netSessions2 type="NET_SESSIONS2">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!SelectGame</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">60</xOrigin>
+      <yOrigin type="s32">20</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <description type="STATIC_DATA">
+      <staticType type="string">Static!!GrayedRect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">60</xOrigin>
+      <yOrigin type="s32">510</yOrigin>
+      <width type="s32">687</width>
+      <height type="s32">70</height>
+    </description>
+    <version type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">90</xOrigin>
+      <yOrigin type="s32">50</yOrigin>
+      <width type="s32">220</width>
+      <height type="s32">24</height>
+    </version>
+    <title type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="title_select_game">1407</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">308</xOrigin>
+      <yOrigin type="s32">46</yOrigin>
+      <width type="s32">370</width>
+      <height type="s32">24</height>
+    </title>
+    <list type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!GameSelect</listboxType>
+      <xOrigin type="s32">108</xOrigin>
+      <yOrigin type="s32">112</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">590</right>
+        <bottom type="s32">326</bottom>
+      </textArea>
+      <leadingHeight type="u32">6</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">false</singleClick>
+      <scrollbar type="bool">true</scrollbar>
+      <solidBackground type="bool">false</solidBackground>
+      <noBorder type="bool">true</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </list>
+    <next type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="next">1111</buttonText>
+      <xOrigin type="u32">402</xOrigin>
+      <yOrigin type="u32">456</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </next>
+    <back type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+      <xOrigin type="u32">244</xOrigin>
+      <yOrigin type="u32">456</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </back>
+    <staticGame type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="game">1498</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">112</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">116</width>
+      <height type="s32">20</height>
+    </staticGame>
+    <staticPlayers type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="player_list">1495</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">230</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">104</width>
+      <height type="s32">20</height>
+    </staticPlayers>
+    <staticSpeed type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="speed">1499</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">336</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">108</width>
+      <height type="s32">20</height>
+    </staticSpeed>
+    <staticMap type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="map">1413</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">444</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">20</height>
+    </staticMap>
+    <staticResources type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="static_terrain">1553</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">600</xOrigin>
+      <yOrigin type="s32">80</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">20</height>
+    </staticResources>
+  </netSessions2>
+  <mshell type="MSHELL">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!MShell</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">56</xOrigin>
+      <yOrigin type="s32">17</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <title type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="skirmish">1474</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">140</xOrigin>
+      <yOrigin type="s32">42</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">20</height>
+    </title>
+    <enterChat type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="chatbox">1415</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">90</xOrigin>
+      <yOrigin type="s32">248</yOrigin>
+      <width type="s32">180</width>
+      <height type="s32">20</height>
+    </enterChat>
+    <ipaddress type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">42</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">20</height>
+    </ipaddress>
+    <listChat type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Chat</listboxType>
+      <xOrigin type="s32">90</xOrigin>
+      <yOrigin type="s32">290</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">332</right>
+        <bottom type="s32">180</bottom>
+      </textArea>
+      <leadingHeight type="u32">0</leadingHeight>
+      <static type="bool">true</static>
+      <singleClick type="bool">false</singleClick>
+      <scrollbar type="bool">false</scrollbar>
+      <solidBackground type="bool">true</solidBackground>
+      <noBorder type="bool">true</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </listChat>
+    <editChat type="EDIT_DATA">
+      <editType type="string">Edit!!ChatMShell</editType>
+      <editText type="EDTXT::EDIT_TEXT" value="none">0</editText>
+      <xOrigin type="u32">90</xOrigin>
+      <yOrigin type="u32">270</yOrigin>
+    </editChat>
+  </mshell>
+  <map type="MAP">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <mapType type="BUTTON_DATA">
+      <buttonType type="string">Button!!BattleMap</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="map_type">1166</buttonText>
+      <xOrigin type="u32">600</xOrigin>
+      <yOrigin type="u32">256</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">120</right>
+        <bottom type="s32">16</bottom>
+      </buttonArea>
+    </mapType>
+    <staticGameType type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="gametype">1419</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">314</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticGameType>
+    <staticSpeed type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="gamespeed">1420</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">438</xOrigin>
+      <yOrigin type="s32">275</yOrigin>
+      <width type="s32">160</width>
+      <height type="s32">22</height>
+    </staticSpeed>
+    <staticMoney type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="static_resources">1427</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">296</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticMoney>
+    <staticUnits type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="units">1449</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">404</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticUnits>
+    <staticMapType type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="batlemap">1166</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">254</yOrigin>
+      <width type="s32">160</width>
+      <height type="s32">22</height>
+    </staticMapType>
+    <staticSize type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="mapsize">1425</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">350</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticSize>
+    <staticTerrain type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="terrain">1426</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">368</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticTerrain>
+    <staticVisibility type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="visibility">1504</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">386</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticVisibility>
+    <staticBandwidth type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="bandwidth">5123</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">580</xOrigin>
+      <yOrigin type="s32">500</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">22</height>
+    </staticBandwidth>
+    <dropGameType type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">319</top>
+        <right type="s32">716</right>
+        <bottom type="s32">384</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropGameType>
+    <dropSpeed type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">333</top>
+        <right type="s32">716</right>
+        <bottom type="s32">368</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!Small</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">18</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">108</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropSpeed>
+    <dropMoney type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">301</top>
+        <right type="s32">716</right>
+        <bottom type="s32">366</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropMoney>
+    <dropSize type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">356</top>
+        <right type="s32">716</right>
+        <bottom type="s32">421</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropSize>
+    <dropTerrain type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">374</top>
+        <right type="s32">716</right>
+        <bottom type="s32">439</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropTerrain>
+    <dropUnits type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">409</top>
+        <right type="s32">716</right>
+        <bottom type="s32">477</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropUnits>
+    <dropVisibility type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">392</top>
+        <right type="s32">716</right>
+        <bottom type="s32">457</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropVisibility>
+    <bandWidthOption type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">522</top>
+        <right type="s32">716</right>
+        <bottom type="s32">567</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropRace</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">48</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </bandWidthOption>
+    <sliderSpeed type="SLIDER_DATA">
+      <sliderType type="string">Slider!!Rounded</sliderType>
+      <screenRect type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </screenRect>
+      <xOrigin type="s32">600</xOrigin>
+      <yOrigin type="s32">277</yOrigin>
+    </sliderSpeed>
+    <sliderCmdPoints type="SLIDER_DATA">
+      <sliderType type="string">Slider!!Rounded</sliderType>
+      <screenRect type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </screenRect>
+      <xOrigin type="s32">589</xOrigin>
+      <yOrigin type="s32">120</yOrigin>
+    </sliderCmdPoints>
+    <staticSpectator type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="spectators">1515</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">596</xOrigin>
+      <yOrigin type="s32">176</yOrigin>
+      <width type="s32">124</width>
+      <height type="s32">20</height>
+    </staticSpectator>
+    <staticDiplomacy type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="lock_alliances">1516</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">596</xOrigin>
+      <yOrigin type="s32">200</yOrigin>
+      <width type="s32">124</width>
+      <height type="s32">40</height>
+    </staticDiplomacy>
+    <pushSpectator type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">574</xOrigin>
+      <yOrigin type="u32">178</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushSpectator>
+    <pushDiplomacy type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">574</xOrigin>
+      <yOrigin type="u32">202</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushDiplomacy>
+    <staticDifficulty type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="difficulty">1521</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">580</xOrigin>
+      <yOrigin type="s32">164</yOrigin>
+      <width type="s32">140</width>
+      <height type="s32">20</height>
+    </staticDifficulty>
+    <staticEasy type="STATIC_DATA">
+      <staticType type="string">Static!!DropCustom</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="easy">1557</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">600</xOrigin>
+      <yOrigin type="s32">186</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">16</height>
+    </staticEasy>
+    <staticAverage type="STATIC_DATA">
+      <staticType type="string">Static!!DropCustom</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="medium">1558</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">600</xOrigin>
+      <yOrigin type="s32">204</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">16</height>
+    </staticAverage>
+    <staticHard type="STATIC_DATA">
+      <staticType type="string">Static!!DropCustom</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="hard">1559</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">600</xOrigin>
+      <yOrigin type="s32">222</yOrigin>
+      <width type="s32">120</width>
+      <height type="s32">16</height>
+    </staticHard>
+    <pushEasy type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">580</xOrigin>
+      <yOrigin type="u32">186</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushEasy>
+    <pushAverage type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">580</xOrigin>
+      <yOrigin type="u32">204</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushAverage>
+    <pushHard type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">580</xOrigin>
+      <yOrigin type="u32">222</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushHard>
+    <staticLockSettings type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="lock_settings">1518</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">424</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">18</height>
+    </staticLockSettings>
+    <pushLockSettings type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">609</xOrigin>
+      <yOrigin type="u32">426</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </pushLockSettings>
+    <staticSystems type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="num_systems">1437</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">440</xOrigin>
+      <yOrigin type="s32">334</yOrigin>
+      <width type="s32">168</width>
+      <height type="s32">18</height>
+    </staticSystems>
+    <dropSystems type="DROPDOWN_DATA">
+      <dropdownType type="string">Dropdown!!Medium</dropdownType>
+      <screenRect type="RECT">
+        <left type="s32">609</left>
+        <top type="s32">336</top>
+        <right type="s32">716</right>
+        <bottom type="s32">566</bottom>
+      </screenRect>
+      <buttonData type="BUTTON_DATA">
+        <buttonType type="string">Button!!DropRace</buttonType>
+        <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+        <xOrigin type="u32">0</xOrigin>
+        <yOrigin type="u32">0</yOrigin>
+        <buttonArea type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">0</top>
+          <right type="s32">0</right>
+          <bottom type="s32">0</bottom>
+        </buttonArea>
+      </buttonData>
+      <listboxData type="LISTBOX_DATA">
+        <listboxType type="string">ListBox!!DropSystems</listboxType>
+        <xOrigin type="s32">0</xOrigin>
+        <yOrigin type="s32">13</yOrigin>
+        <textArea type="RECT">
+          <left type="s32">6</left>
+          <top type="s32">6</top>
+          <right type="s32">104</right>
+          <bottom type="s32">216</bottom>
+        </textArea>
+        <leadingHeight type="u32">0</leadingHeight>
+        <static type="bool">false</static>
+        <singleClick type="bool">true</singleClick>
+        <scrollbar type="bool">false</scrollbar>
+        <solidBackground type="bool">true</solidBackground>
+        <noBorder type="bool">false</noBorder>
+        <disableMouseSelect type="bool">false</disableMouseSelect>
+      </listboxData>
+    </dropSystems>
+    <staticCmdPoints type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">580</xOrigin>
+      <yOrigin type="s32">100</yOrigin>
+      <width type="s32">140</width>
+      <height type="s32">20</height>
+    </staticCmdPoints>
+    <staticCmdPointsDisplay type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">580</xOrigin>
+      <yOrigin type="s32">138</yOrigin>
+      <width type="s32">140</width>
+      <height type="s32">20</height>
+    </staticCmdPointsDisplay>
+  </map>
+  <slots type="SLOTS">
+    <screenRect type="RECT">
+      <left type="s32">87</left>
+      <top type="s32">93</top>
+      <right type="s32">566</right>
+      <bottom type="s32">240</bottom>
+    </screenRect>
+    <dropSlots type="DROPDOWN_DATA[]">
+      <element type="DROPDOWN_DATA" index="0">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">2</top>
+          <right type="s32">78</right>
+          <bottom type="s32">92</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="1">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">20</top>
+          <right type="s32">78</right>
+          <bottom type="s32">110</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="2">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">39</top>
+          <right type="s32">78</right>
+          <bottom type="s32">129</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="3">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">57</top>
+          <right type="s32">78</right>
+          <bottom type="s32">147</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="4">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">76</top>
+          <right type="s32">78</right>
+          <bottom type="s32">166</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="5">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">94</top>
+          <right type="s32">78</right>
+          <bottom type="s32">184</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="6">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">112</top>
+          <right type="s32">78</right>
+          <bottom type="s32">202</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="7">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">0</left>
+          <top type="s32">131</top>
+          <right type="s32">78</right>
+          <bottom type="s32">221</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropSlot</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropSlot</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">74</right>
+            <bottom type="s32">96</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+    </dropSlots>
+    <dropTeams type="DROPDOWN_DATA[]">
+      <element type="DROPDOWN_DATA" index="0">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">2</top>
+          <right type="s32">412</right>
+          <bottom type="s32">101</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="1">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">20</top>
+          <right type="s32">412</right>
+          <bottom type="s32">121</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="2">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">39</top>
+          <right type="s32">412</right>
+          <bottom type="s32">140</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="3">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">57</top>
+          <right type="s32">412</right>
+          <bottom type="s32">158</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="4">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">76</top>
+          <right type="s32">412</right>
+          <bottom type="s32">177</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="5">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">94</top>
+          <right type="s32">412</right>
+          <bottom type="s32">195</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="6">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">112</top>
+          <right type="s32">412</right>
+          <bottom type="s32">213</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="7">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">366</left>
+          <top type="s32">131</top>
+          <right type="s32">412</right>
+          <bottom type="s32">232</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropTeam</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropTeam</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">42</right>
+            <bottom type="s32">84</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+    </dropTeams>
+    <dropRaces type="DROPDOWN_DATA[]">
+      <element type="DROPDOWN_DATA" index="0">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">2</top>
+          <right type="s32">362</right>
+          <bottom type="s32">64</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="1">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">20</top>
+          <right type="s32">362</right>
+          <bottom type="s32">82</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="2">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">39</top>
+          <right type="s32">362</right>
+          <bottom type="s32">101</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="3">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">57</top>
+          <right type="s32">632</right>
+          <bottom type="s32">119</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="4">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">76</top>
+          <right type="s32">362</right>
+          <bottom type="s32">136</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="5">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">94</top>
+          <right type="s32">362</right>
+          <bottom type="s32">156</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="6">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">112</top>
+          <right type="s32">362</right>
+          <bottom type="s32">174</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="7">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">255</left>
+          <top type="s32">131</top>
+          <right type="s32">362</right>
+          <bottom type="s32">193</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropRace</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropRace</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">104</right>
+            <bottom type="s32">64</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+    </dropRaces>
+    <dropPlayers type="DROPDOWN_DATA[]">
+      <element type="DROPDOWN_DATA" index="0">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">2</top>
+          <right type="s32">251</right>
+          <bottom type="s32">139</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="1">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">20</top>
+          <right type="s32">251</right>
+          <bottom type="s32">161</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="2">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">39</top>
+          <right type="s32">251</right>
+          <bottom type="s32">180</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="3">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">57</top>
+          <right type="s32">251</right>
+          <bottom type="s32">198</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">16</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="4">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">76</top>
+          <right type="s32">251</right>
+          <bottom type="s32">214</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="5">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">94</top>
+          <right type="s32">251</right>
+          <bottom type="s32">235</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="6">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">112</top>
+          <right type="s32">251</right>
+          <bottom type="s32">253</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+      <element type="DROPDOWN_DATA" index="7">
+        <dropdownType type="string">Dropdown!!Medium</dropdownType>
+        <screenRect type="RECT">
+          <left type="s32">211</left>
+          <top type="s32">131</top>
+          <right type="s32">251</right>
+          <bottom type="s32">272</bottom>
+        </screenRect>
+        <buttonData type="BUTTON_DATA">
+          <buttonType type="string">Button!!DropColor</buttonType>
+          <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+          <xOrigin type="u32">0</xOrigin>
+          <yOrigin type="u32">0</yOrigin>
+          <buttonArea type="RECT">
+            <left type="s32">0</left>
+            <top type="s32">0</top>
+            <right type="s32">0</right>
+            <bottom type="s32">0</bottom>
+          </buttonArea>
+        </buttonData>
+        <listboxData type="LISTBOX_DATA">
+          <listboxType type="string">ListBox!!DropColor</listboxType>
+          <xOrigin type="s32">0</xOrigin>
+          <yOrigin type="s32">13</yOrigin>
+          <textArea type="RECT">
+            <left type="s32">6</left>
+            <top type="s32">6</top>
+            <right type="s32">36</right>
+            <bottom type="s32">120</bottom>
+          </textArea>
+          <leadingHeight type="u32">0</leadingHeight>
+          <static type="bool">false</static>
+          <singleClick type="bool">true</singleClick>
+          <scrollbar type="bool">false</scrollbar>
+          <solidBackground type="bool">true</solidBackground>
+          <noBorder type="bool">false</noBorder>
+          <disableMouseSelect type="bool">false</disableMouseSelect>
+        </listboxData>
+      </element>
+    </dropPlayers>
+    <staticNames type="STATIC_DATA[]">
+      <element type="STATIC_DATA" index="0">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">0</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="1">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">18</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="2">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">37</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="3">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">54</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="4">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">74</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="5">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">92</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="6">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">110</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+      <element type="STATIC_DATA" index="7">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">90</xOrigin>
+        <yOrigin type="s32">129</yOrigin>
+        <width type="s32">116</width>
+        <height type="s32">18</height>
+      </element>
+    </staticNames>
+    <staticPings type="STATIC_DATA[]">
+      <element type="STATIC_DATA" index="0">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">0</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="1">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">18</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="2">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">37</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="3">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">55</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="4">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">74</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="5">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">92</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="6">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">110</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+      <element type="STATIC_DATA" index="7">
+        <staticType type="string">Static!!Arial10</staticType>
+        <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+        <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+        <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+        <alignment type="alignmenttype" value="left">0</alignment>
+        <xOrigin type="s32">424</xOrigin>
+        <yOrigin type="s32">129</yOrigin>
+        <width type="s32">56</width>
+        <height type="s32">14</height>
+      </element>
+    </staticPings>
+    <terranComputerNames type="STRING[]">
+      <element type="string" index="0">Hardy r</element>
+      <element type="string" index="1">Robeson</element>
+      <element type="string" index="2">Fleming Prime</element>
+      <element type="string" index="3">MacLain</element>
+      <element type="string" index="4">LeCarre Prime</element>
+      <element type="string" index="5">Malory K</element>
+      <element type="string" index="6">Tennyson</element>
+      <element type="string" index="7">Ludlumor</element>
+    </terranComputerNames>
+    <mantisComputerNames type="string[]">
+      <element type="string" index="0">Mortak</element>
+      <element type="string" index="1">Tor'Kank</element>
+      <element type="string" index="2">Ducnu'mak</element>
+      <element type="string" index="3">Lokikream</element>
+      <element type="string" index="4">Dokaging</element>
+      <element type="string" index="5">Freggake</element>
+      <element type="string" index="6">Tikbiteor</element>
+      <element type="string" index="7">Stark'raacker</element>
+    </mantisComputerNames>
+    <solarianComputerNames type="string[]">
+      <element type="string" index="0">Pacmaus</element>
+      <element type="string" index="1">Waymeynus</element>
+      <element type="string" index="2">Eloi One</element>
+      <element type="string" index="3">Jubeus</element>
+      <element type="string" index="4">Piton Trion</element>
+      <element type="string" index="5">Vigar Sigma</element>
+      <element type="string" index="6">Erlkessa</element>
+      <element type="string" index="7">Hunta Pax</element>
+    </solarianComputerNames>
+  </slots>
+  <final type="FINAL">
+    <screenRect type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">799</right>
+      <bottom type="s32">599</bottom>
+    </screenRect>
+    <staticState type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="enter_state">1494</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">86</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">80</width>
+      <height type="s32">20</height>
+    </staticState>
+    <staticName type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="player_list">1495</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">176</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">110</width>
+      <height type="s32">20</height>
+    </staticName>
+    <staticColor type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="enter_color">1411</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">286</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">70</width>
+      <height type="s32">20</height>
+    </staticColor>
+    <staticRace type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="enter_race">1410</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">356</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">90</width>
+      <height type="s32">20</height>
+    </staticRace>
+    <staticTeam type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="enter_team">1412</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">445</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">66</width>
+      <height type="s32">20</height>
+    </staticTeam>
+    <staticPing type="STATIC_DATA">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="ping">1496</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">510</xOrigin>
+      <yOrigin type="s32">74</yOrigin>
+      <width type="s32">70</width>
+      <height type="s32">20</height>
+    </staticPing>
+    <description type="STATIC_DATA">
+      <staticType type="string">Static!!GrayedRect</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">180</xOrigin>
+      <yOrigin type="s32">500</yOrigin>
+      <width type="s32">400</width>
+      <height type="s32">94</height>
+    </description>
+    <staticAccept type="STATIC_DATA">
+      <staticType type="string">Static!!Opening</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="accept">1121</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">426</xOrigin>
+      <yOrigin type="s32">450</yOrigin>
+      <width type="s32">100</width>
+      <height type="s32">24</height>
+    </staticAccept>
+    <accept type="BUTTON_DATA">
+      <buttonType type="string">Button!!CheckboxSmall</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="no_text">0</buttonText>
+      <xOrigin type="u32">530</xOrigin>
+      <yOrigin type="u32">454</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </accept>
+    <start type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="start">1122</buttonText>
+      <xOrigin type="u32">430</xOrigin>
+      <yOrigin type="u32">450</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </start>
+    <cancel type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+      <xOrigin type="u32">584</xOrigin>
+      <yOrigin type="u32">450</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </cancel>
+    <staticCountdown type="STATIC_DATA">
+      <staticType type="string">Static!!Countdown</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">100</xOrigin>
+      <yOrigin type="s32">290</yOrigin>
+      <width type="s32">310</width>
+      <height type="s32">180</height>
+    </staticCountdown>
+  </final>
+  <helpMenu type="HELPMENU">
+    <screenRect type="RECT">
+      <left type="s32">92</left>
+      <top type="s32">145</top>
+      <right type="s32">707</right>
+      <bottom type="s32">455</bottom>
+    </screenRect>
+    <background type="STATIC_DATA">
+      <staticType type="string">Static!!LoadSave</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </background>
+    <title type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="help">1497</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">100</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">136</width>
+      <height type="s32">20</height>
+    </title>
+    <staticConquest type="STATIC_DATA">
+      <staticType type="string">Static!!Title</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="app_name">44</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">240</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">350</width>
+      <height type="s32">20</height>
+    </staticConquest>
+    <staticVersion type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="version">1428</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">150</xOrigin>
+      <yOrigin type="s32">70</yOrigin>
+      <width type="s32">140</width>
+      <height type="s32">20</height>
+    </staticVersion>
+    <staticNumber type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">300</xOrigin>
+      <yOrigin type="s32">70</yOrigin>
+      <width type="s32">240</width>
+      <height type="s32">20</height>
+    </staticNumber>
+    <buttonOk type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+      <xOrigin type="u32">340</xOrigin>
+      <yOrigin type="u32">250</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonOk>
+    <staticProductID type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="product_id">1514</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="right">2</alignment>
+      <xOrigin type="s32">20</xOrigin>
+      <yOrigin type="s32">100</yOrigin>
+      <width type="s32">270</width>
+      <height type="s32">20</height>
+    </staticProductID>
+    <staticProductNumber type="STATIC_DATA">
+      <staticType type="string">Static!!Small2DM</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">300</xOrigin>
+      <yOrigin type="s32">100</yOrigin>
+      <width type="s32">296</width>
+      <height type="s32">20</height>
+    </staticProductNumber>
+    <staticLegal type="STATIC_DATA">
+      <staticType type="string">Static!!Legal</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="legal_about">42</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">30</xOrigin>
+      <yOrigin type="s32">160</yOrigin>
+      <width type="s32">550</width>
+      <height type="s32">80</height>
+    </staticLegal>
+    <buttonCredits type="BUTTON_DATA">
+      <buttonType type="string">Button!!Back2D</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="credits">1127</buttonText>
+      <xOrigin type="u32">130</xOrigin>
+      <yOrigin type="u32">250</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">0</right>
+        <bottom type="s32">0</bottom>
+      </buttonArea>
+    </buttonCredits>
+  </helpMenu>
+  <deviceMenu type="DEVICEMENU">
+    <screenRect type="RECT">
+      <left type="s32">60</left>
+      <top type="s32">100</top>
+      <right type="s32">748</right>
+      <bottom type="s32">412</bottom>
+    </screenRect>
+    <staticBackground type="STATIC_DATA">
+      <staticType type="string">Static!!MenuDevice</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">0</xOrigin>
+      <yOrigin type="s32">0</yOrigin>
+      <width type="s32">0</width>
+      <height type="s32">0</height>
+    </staticBackground>
+    <staticTitle type="STATIC_DATA">
+      <staticType type="string">Static!!Neuro14</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="app_name">44</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="left">0</alignment>
+      <xOrigin type="s32">260</xOrigin>
+      <yOrigin type="s32">26</yOrigin>
+      <width type="s32">300</width>
+      <height type="s32">20</height>
+    </staticTitle>
+    <staticPickDevice type="STATIC_DATA">
+      <staticType type="string">Static!!FutureMessage</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="device_choice">1505</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="topleft">3</alignment>
+      <xOrigin type="s32">80</xOrigin>
+      <yOrigin type="s32">60</yOrigin>
+      <width type="s32">520</width>
+      <height type="s32">100</height>
+    </staticPickDevice>
+    <listDevices type="LISTBOX_DATA">
+      <listboxType type="string">ListBox!!Default</listboxType>
+      <xOrigin type="s32">80</xOrigin>
+      <yOrigin type="s32">164</yOrigin>
+      <textArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">520</right>
+        <bottom type="s32">90</bottom>
+      </textArea>
+      <leadingHeight type="u32">4</leadingHeight>
+      <static type="bool">false</static>
+      <singleClick type="bool">false</singleClick>
+      <scrollbar type="bool">true</scrollbar>
+      <solidBackground type="bool">false</solidBackground>
+      <noBorder type="bool">true</noBorder>
+      <disableMouseSelect type="bool">false</disableMouseSelect>
+    </listDevices>
+    <buttonOk type="BUTTON_DATA">
+      <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+      <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+      <xOrigin type="u32">278</xOrigin>
+      <yOrigin type="u32">260</yOrigin>
+      <buttonArea type="RECT">
+        <left type="s32">0</left>
+        <top type="s32">0</top>
+        <right type="s32">140</right>
+        <bottom type="s32">24</bottom>
+      </buttonArea>
+    </buttonOk>
+  </deviceMenu>
+</GT_MENU1>

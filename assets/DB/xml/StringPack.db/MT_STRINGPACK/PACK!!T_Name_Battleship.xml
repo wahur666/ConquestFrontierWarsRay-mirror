@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_Battleship" type="string[]">
+  <element index="0" type="string">Warrior</element>
+  <element index="1" type="string">Gloire</element>
+  <element index="2" type="string">Devastation</element>
+  <element index="3" type="string">Majestic</element>
+  <element index="4" type="string">King George V</element>
+  <element index="5" type="string">Prinz Eugen</element>
+  <element index="6" type="string">Suffolk</element>
+  <element index="7" type="string">Gonggong</element>
+  <element index="8" type="string">Kun-Iun</element>
+  <element index="9" type="string">Shimotsuki</element>
+  <element index="10" type="string">Bogtair</element>
+  <element index="11" type="string">Firebird</element>
+  <element index="12" type="string">Snow White</element>
+  <element index="13" type="string">Rose Red</element>
+  <element index="14" type="string">Thorfinn</element>
+  <element index="15" type="string">Erlking</element>
+  <element index="16" type="string">Farrago</element>
+  <element index="17" type="string">Davy Crockett</element>
+  <element index="18" type="string">Matthew Hopkins</element>
+  <element index="19" type="string">Vladimir Tepov</element>
+</MT_STRINGPACK>

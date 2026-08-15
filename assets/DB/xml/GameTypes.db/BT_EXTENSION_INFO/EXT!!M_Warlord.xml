@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!M_Warlord">
+  <addChildName type="string">M_plat_Warlord</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATREFINERY!!M_Warlord</archetypeName>
+</BT_EXTENSION_INFO>

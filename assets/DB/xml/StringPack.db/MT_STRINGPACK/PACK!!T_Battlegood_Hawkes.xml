@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Battlegood_Hawkes" type="string[]">
+  <element index="0" type="string">6223.wav</element>
+  <element index="1" type="string">6224.wav</element>
+  <element index="2" type="string">6225.wav</element>
+</MT_STRINGPACK>

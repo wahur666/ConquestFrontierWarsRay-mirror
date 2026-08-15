@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_WORMHOLE_EFFECT id="WORMEFF!!S_WORM">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_wormhole_blast">8</fxClass>
+</BT_WORMHOLE_EFFECT>

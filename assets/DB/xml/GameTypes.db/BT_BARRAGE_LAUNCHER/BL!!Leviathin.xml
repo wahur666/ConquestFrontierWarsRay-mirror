@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BARRAGE_LAUNCHER id="BL!!Leviathin">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_barrage_launch">20</type>
+  <weaponType type="string">PROJ!!T_Bolt-!FighterDefense1</weaponType>
+  <supplyCost type="s32">10</supplyCost>
+  <refirePeriod type="f32">0.10000000149011612</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <damagePerSec type="f32">50.0</damagePerSec>
+  <rangeRadius type="f32">1.5</rangeRadius>
+  <flashType type="string">BLAST!!Leviathin_Barrage</flashType>
+</BT_BARRAGE_LAUNCHER>

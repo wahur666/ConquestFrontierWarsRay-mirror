@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_SYSTEM_KIT id="new2">
+  <fileName type="string">backgrounds/BG_system2.3db</fileName>
+  <numLight type="u32">3</numLight>
+  <lightInfo type="LIGHT_INFO[]">
+    <element type="LIGHT_INFO" index="0">
+      <color type="COLOR">
+        <red type="u8">200</red>
+        <green type="u8">200</green>
+        <blue type="u8">190</blue>
+      </color>
+      <range type="s32">4096</range>
+      <position type="VECTOR">
+        <x type="f32">0.47763791680336</x>
+        <y type="f32">0.47012266516685486</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">-1.0</x>
+        <y type="f32">-1.0</y>
+        <z type="f32">-1.0</z>
+      </direction>
+      <cutoff type="f32">8.574341834666536e-38</cutoff>
+      <infinite type="bool">true</infinite>
+      <name type="string">LIGHT!!Keylight</name>
+      <ambient type="bool">false</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="1">
+      <color type="COLOR">
+        <red type="u8">70</red>
+        <green type="u8">70</green>
+        <blue type="u8">90</blue>
+      </color>
+      <range type="s32">4096</range>
+      <position type="VECTOR">
+        <x type="f32">0.47092288732528687</x>
+        <y type="f32">0.506713330745697</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">1.0</x>
+        <y type="f32">1.0</y>
+        <z type="f32">1.0</z>
+      </direction>
+      <cutoff type="f32">1.401298464324817e-45</cutoff>
+      <infinite type="bool">true</infinite>
+      <name type="string">LIGHT!!Fill</name>
+      <ambient type="bool">false</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="2">
+      <color type="COLOR">
+        <red type="u8">10</red>
+        <green type="u8">10</green>
+        <blue type="u8">10</blue>
+      </color>
+      <range type="s32">4096</range>
+      <position type="VECTOR">
+        <x type="f32">0.4751521050930023</x>
+        <y type="f32">0.5543584227561951</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">-1.0</x>
+        <y type="f32">-1.0</y>
+        <z type="f32">-1.0</z>
+      </direction>
+      <cutoff type="f32">8.559438184719363e-38</cutoff>
+      <infinite type="bool">true</infinite>
+      <name type="string">LIGHT!!Ambient</name>
+      <ambient type="bool">true</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="3">
+      <color type="COLOR">
+        <red type="u8">24</red>
+        <green type="u8">2</green>
+        <blue type="u8">134</blue>
+      </color>
+      <range type="s32">1238916</range>
+      <position type="VECTOR">
+        <x type="f32">8.527815362534637e-38</x>
+        <y type="f32">1.2734494705706595e-32</y>
+        <z type="f32">1.401298464324817e-45</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">1.401298464324817e-45</x>
+        <y type="f32">1.7361135090028743e-39</y>
+        <z type="f32">8.363482849545723e-38</z>
+      </direction>
+      <cutoff type="f32">2.802596928649634e-45</cutoff>
+      <infinite type="bool">false</infinite>
+      <name type="string" />
+      <ambient type="bool">true</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="4">
+      <color type="COLOR">
+        <red type="u8">196</red>
+        <green type="u8">231</green>
+        <blue type="u8">18</blue>
+      </color>
+      <range type="s32">176431364</range>
+      <position type="VECTOR">
+        <x type="f32">1.2723139430277652e-32</x>
+        <y type="f32">8.530256984978877e-38</y>
+        <z type="f32">7.286752014489049e-44</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">8.40386490817125e-38</x>
+        <y type="f32">0.0</y>
+        <z type="f32">1.2723168817636423e-32</z>
+      </direction>
+      <cutoff type="f32">-2.0</cutoff>
+      <infinite type="bool">true</infinite>
+      <name type="string" />
+      <ambient type="bool">true</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="5">
+      <color type="COLOR">
+        <red type="u8">14</red>
+        <green type="u8">179</green>
+        <blue type="u8">227</blue>
+      </color>
+      <range type="s32">2003136092</range>
+      <position type="VECTOR">
+        <x type="f32">7.006492321624085e-44</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </direction>
+      <cutoff type="f32">0.0</cutoff>
+      <infinite type="bool">false</infinite>
+      <name type="string" />
+      <ambient type="bool">false</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="6">
+      <color type="COLOR">
+        <red type="u8">0</red>
+        <green type="u8">0</green>
+        <blue type="u8">0</blue>
+      </color>
+      <range type="s32">0</range>
+      <position type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </direction>
+      <cutoff type="f32">0.0</cutoff>
+      <infinite type="bool">false</infinite>
+      <name type="string" />
+      <ambient type="bool">false</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="7">
+      <color type="COLOR">
+        <red type="u8">0</red>
+        <green type="u8">0</green>
+        <blue type="u8">0</blue>
+      </color>
+      <range type="s32">0</range>
+      <position type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </direction>
+      <cutoff type="f32">0.0</cutoff>
+      <infinite type="bool">false</infinite>
+      <name type="string" />
+      <ambient type="bool">false</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="8">
+      <color type="COLOR">
+        <red type="u8">0</red>
+        <green type="u8">0</green>
+        <blue type="u8">0</blue>
+      </color>
+      <range type="s32">0</range>
+      <position type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </direction>
+      <cutoff type="f32">0.0</cutoff>
+      <infinite type="bool">false</infinite>
+      <name type="string" />
+      <ambient type="bool">true</ambient>
+    </element>
+    <element type="LIGHT_INFO" index="9">
+      <color type="COLOR">
+        <red type="u8">162</red>
+        <green type="u8">167</green>
+        <blue type="u8">227</blue>
+      </color>
+      <range type="s32">176438808</range>
+      <position type="VECTOR">
+        <x type="f32">1.738075326852929e-39</x>
+        <y type="f32">1.7367020543578907e-39</y>
+        <z type="f32">1.8626827099363919e-38</z>
+      </position>
+      <direction type="VECTOR">
+        <x type="f32">1.7427892948869177e-39</x>
+        <y type="f32">1.7428005052746323e-39</y>
+        <z type="f32">-2.0</z>
+      </direction>
+      <cutoff type="f32">7.286752014489049e-44</cutoff>
+      <infinite type="bool">true</infinite>
+      <name type="string" />
+      <ambient type="bool">false</ambient>
+    </element>
+  </lightInfo>
+</GT_SYSTEM_KIT>

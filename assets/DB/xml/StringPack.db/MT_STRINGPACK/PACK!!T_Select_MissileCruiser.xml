@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Select_MissileCruiser" type="string[]">
+  <element index="0" type="string">5250.wav</element>
+  <element index="1" type="string">5251.wav</element>
+  <element index="2" type="string">5252.wav</element>
+  <element index="3" type="string">5253.wav</element>
+  <element index="4" type="string">5254.wav</element>
+</MT_STRINGPACK>

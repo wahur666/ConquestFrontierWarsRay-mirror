@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_IGOPTIONS id="Menu_igoptions">
+  <screenRect type="RECT">
+    <left type="s32">2</left>
+    <top type="s32">20</top>
+    <right type="s32">639</right>
+    <bottom type="s32">479</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!LoadSave</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">10</xOrigin>
+    <yOrigin type="s32">10</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <title type="STATIC_DATA">
+    <staticType type="string">Static!!MessageTrans</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="app_name">44</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">120</xOrigin>
+    <yOrigin type="s32">36</yOrigin>
+    <width type="s32">430</width>
+    <height type="s32">20</height>
+  </title>
+  <buttonSave type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="save">1123</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">70</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonSave>
+  <buttonLoad type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="load">1126</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">100</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonLoad>
+  <buttonOptions type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="options">1104</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">130</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonOptions>
+  <buttonRestart type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="restart">1130</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">160</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonRestart>
+  <buttonResign type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="resign">1131</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">220</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonResign>
+  <buttonAbdicate type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="abdicate">1162</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">190</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">240</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </buttonAbdicate>
+  <buttonReturn type="BUTTON_DATA">
+    <buttonType type="string">Button!!Back3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="back">1105</buttonText>
+    <xOrigin type="u32">250</xOrigin>
+    <yOrigin type="u32">270</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </buttonArea>
+  </buttonReturn>
+</GT_IGOPTIONS>

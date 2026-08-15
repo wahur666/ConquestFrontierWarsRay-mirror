@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_Troopship" type="string[]">
+  <element index="0" type="string">Invader</element>
+  <element index="1" type="string">Nicias</element>
+  <element index="2" type="string">Bluidy Sark</element>
+  <element index="3" type="string">St. George</element>
+  <element index="4" type="string">Montjoie</element>
+  <element index="5" type="string">Geronimo</element>
+  <element index="6" type="string">Prince Harry</element>
+  <element index="7" type="string">Injector</element>
+  <element index="8" type="string">Sherman</element>
+  <element index="9" type="string">Montgomery</element>
+  <element index="10" type="string">Yamato</element>
+  <element index="11" type="string">Atilla</element>
+  <element index="12" type="string">Banzai</element>
+  <element index="13" type="string">Navarino</element>
+  <element index="14" type="string">Vitorio Emmanuel</element>
+  <element index="15" type="string">Savini</element>
+  <element index="16" type="string">Seattle</element>
+  <element index="17" type="string">Ymir</element>
+  <element index="18" type="string">William Wallace</element>
+  <element index="19" type="string">Mario Bava</element>
+</MT_STRINGPACK>

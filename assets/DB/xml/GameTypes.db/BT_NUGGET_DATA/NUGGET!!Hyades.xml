@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_NUGGET_DATA id="NUGGET!!Hyades">
+  <objClass type="OBJCLASS" value="oc_nugget">131072</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <nuggetAnim2D type="string">hyadesNugget.anm</nuggetAnim2D>
+  <nuggetMesh type="string" />
+  <animSizeSmallMax type="s32">1000</animSizeSmallMax>
+  <animSizeMax type="s32">2000</animSizeMax>
+  <animSizeMin type="s32">150</animSizeMin>
+  <color type="ComplexColor">
+    <redHi type="u8">255</redHi>
+    <greenHi type="u8">255</greenHi>
+    <blueHi type="u8">255</blueHi>
+    <redLo type="u8">130</redLo>
+    <greenLo type="u8">130</greenLo>
+    <blueLo type="u8">130</blueLo>
+    <alphaIn type="u8">255</alphaIn>
+    <alphaOut type="u8">100</alphaOut>
+  </color>
+  <oriented type="bool">true</oriented>
+  <zRender type="bool">false</zRender>
+  <resType type="M_RESOURCE_TYPE" value="m_gas">0</resType>
+  <nuggetType type="M_NUGGET_TYPE" value="m_hyades_nugget">3</nuggetType>
+  <maxSupplies type="u32">14</maxSupplies>
+</BT_NUGGET_DATA>

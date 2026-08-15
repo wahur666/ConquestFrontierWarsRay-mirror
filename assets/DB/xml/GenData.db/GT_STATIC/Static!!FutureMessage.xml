@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_STATIC id="Static!!FutureMessage">
+  <baseType type="GENBASE_TYPE" value="gbt_static">3</baseType>
+  <fontName type="string">Font!!FutureMessage</fontName>
+  <normalText type="COLOR">
+    <red type="u8">245</red>
+    <green type="u8">183</green>
+    <blue type="u8">87</blue>
+  </normalText>
+  <background type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </background>
+  <shapeFile type="string" />
+  <backgroundDraw type="DrawType" value="nodraw">0</backgroundDraw>
+  <backdraw type="bool">true</backdraw>
+</GT_STATIC>

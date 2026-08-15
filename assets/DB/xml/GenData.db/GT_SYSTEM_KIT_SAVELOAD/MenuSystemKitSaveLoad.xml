@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_SYSTEM_KIT_SAVELOAD id="MenuSystemKitSaveLoad">
+  <screenRect type="RECT">
+    <left type="s32">0</left>
+    <top type="s32">0</top>
+    <right type="s32">639</right>
+    <bottom type="s32">479</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!LoadSave</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">12</xOrigin>
+    <yOrigin type="s32">30</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <staticLoad type="STATIC_DATA">
+    <staticType type="string">Static!!Control3D</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="loadgame">1431</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">140</xOrigin>
+    <yOrigin type="s32">6</yOrigin>
+    <width type="s32">360</width>
+    <height type="s32">24</height>
+  </staticLoad>
+  <staticSave type="STATIC_DATA">
+    <staticType type="string">Static!!Control3D</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="savegame">1432</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">140</xOrigin>
+    <yOrigin type="s32">6</yOrigin>
+    <width type="s32">360</width>
+    <height type="s32">24</height>
+  </staticSave>
+  <staticFile type="STATIC_DATA">
+    <staticType type="string">Static!!Control3D</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="filename">1433</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">20</xOrigin>
+    <yOrigin type="s32">350</yOrigin>
+    <width type="s32">600</width>
+    <height type="s32">60</height>
+  </staticFile>
+  <open type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="open">1119</buttonText>
+    <xOrigin type="u32">190</xOrigin>
+    <yOrigin type="u32">280</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">30</bottom>
+    </buttonArea>
+  </open>
+  <save type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="save">1123</buttonText>
+    <xOrigin type="u32">190</xOrigin>
+    <yOrigin type="u32">280</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">30</bottom>
+    </buttonArea>
+  </save>
+  <cancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">330</xOrigin>
+    <yOrigin type="u32">280</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">30</bottom>
+    </buttonArea>
+  </cancel>
+  <edit_file type="EDIT_DATA">
+    <editType type="string">Edit!!SaveLoad</editType>
+    <editText type="EDTXT::EDIT_TEXT" value="none">0</editText>
+    <xOrigin type="u32">110</xOrigin>
+    <yOrigin type="u32">56</yOrigin>
+  </edit_file>
+  <list type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!Default3D</listboxType>
+    <xOrigin type="s32">100</xOrigin>
+    <yOrigin type="s32">100</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">470</right>
+      <bottom type="s32">160</bottom>
+    </textArea>
+    <leadingHeight type="u32">6</leadingHeight>
+    <static type="bool">false</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">true</scrollbar>
+    <solidBackground type="bool">false</solidBackground>
+    <noBorder type="bool">true</noBorder>
+    <disableMouseSelect type="bool">false</disableMouseSelect>
+  </list>
+</GT_SYSTEM_KIT_SAVELOAD>

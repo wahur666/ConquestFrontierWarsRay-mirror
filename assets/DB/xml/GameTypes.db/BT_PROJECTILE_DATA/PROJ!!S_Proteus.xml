@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PROJECTILE_DATA id="PROJ!!S_Proteus">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_missile">1</baseWeaponData>
+  <fileName type="string">smissile.cmp</fileName>
+  <launchSfx type="SFX::ID" value="t_missile">29</launchSfx>
+  <damage type="u32">10</damage>
+  <maxVelocity type="f32">4000.0</maxVelocity>
+  <blastType type="string">BLAST!!SB_WhiteBlue_MED</blastType>
+  <engineTrailType type="string" />
+</BT_PROJECTILE_DATA>

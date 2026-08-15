@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PKBOLT_DATA id="PKBOLT!!Dead">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_pkbolt">28</baseWeaponData>
+  <fileName type="string">V_Missle.3db</fileName>
+  <explosionEffect type="string">BLAST!!BSB_WhiteBlue</explosionEffect>
+  <launchSfx type="SFX::ID" value="t_tempestlaunch">56</launchSfx>
+  <maxVelocity type="f32">2000.0</maxVelocity>
+  <newPlanetType type="string">Planet Dead!!Dead 1</newPlanetType>
+  <changeTime type="f32">10.0</changeTime>
+  <engineTrailType type="string">ENGTRAIL!!V_PlanetKiller</engineTrailType>
+</BT_PKBOLT_DATA>

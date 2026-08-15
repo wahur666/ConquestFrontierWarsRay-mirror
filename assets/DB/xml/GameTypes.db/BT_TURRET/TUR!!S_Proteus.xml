@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_TURRET id="TUR!!S_Proteus">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_turret">1</type>
+  <weaponType type="string">PROJ!!S_Missile-!S_SMS</weaponType>
+  <supplyCost type="s32">3</supplyCost>
+  <refirePeriod type="f32">3.5</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <info type="f32" key1="angVelocity" key2="maxAngDeflection">3.1600000858306885</info>
+  <animation type="string">Sc_fire2_bturret</animation>
+  <hardpoint type="string">\turret\hp_gun</hardpoint>
+  <joint type="string">\turret</joint>
+  <animMuzzleFlash type="string" />
+  <muzzleFlashWidth type="u32">100</muzzleFlashWidth>
+  <muzzleFlashTime type="f32">0.0</muzzleFlashTime>
+  <colorMod type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </colorMod>
+  <warmUpBlast type="WarmUpBlast">
+    <blastType type="string" />
+    <triggerTime type="f32">0.0</triggerTime>
+  </warmUpBlast>
+</BT_TURRET>

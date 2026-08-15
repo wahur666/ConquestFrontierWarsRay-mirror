@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_NUGGET_DATA id="NUGGET!!L_Ast3">
+  <objClass type="OBJCLASS" value="oc_nugget">131072</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <nuggetAnim2D type="string">anugget3.anm</nuggetAnim2D>
+  <nuggetMesh type="string" />
+  <animSizeSmallMax type="s32">1500</animSizeSmallMax>
+  <animSizeMax type="s32">1500</animSizeMax>
+  <animSizeMin type="s32">150</animSizeMin>
+  <color type="ComplexColor">
+    <redHi type="u8">255</redHi>
+    <greenHi type="u8">230</greenHi>
+    <blueHi type="u8">200</blueHi>
+    <redLo type="u8">255</redLo>
+    <greenLo type="u8">230</greenLo>
+    <blueLo type="u8">200</blueLo>
+    <alphaIn type="u8">255</alphaIn>
+    <alphaOut type="u8">255</alphaOut>
+  </color>
+  <oriented type="bool">false</oriented>
+  <zRender type="bool">true</zRender>
+  <resType type="M_RESOURCE_TYPE" value="m_metal">1</resType>
+  <nuggetType type="M_NUGGET_TYPE" value="m_metal_nugget">1</nuggetType>
+  <maxSupplies type="u32">20</maxSupplies>
+</BT_NUGGET_DATA>

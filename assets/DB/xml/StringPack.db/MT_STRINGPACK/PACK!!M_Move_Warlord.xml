@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Move_Warlord" type="string[]">
+  <element index="0" type="string">MWA1069.wav</element>
+  <element index="1" type="string">MWA1070.wav</element>
+  <element index="2" type="string">MWA1071.wav</element>
+  <element index="3" type="string">MWA1072.wav</element>
+</MT_STRINGPACK>

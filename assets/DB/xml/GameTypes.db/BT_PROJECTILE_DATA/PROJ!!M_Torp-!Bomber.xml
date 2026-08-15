@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PROJECTILE_DATA id="PROJ!!M_Torp-!Bomber">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_bolt">2</baseWeaponData>
+  <fileName type="string">bomb1.3db</fileName>
+  <launchSfx type="SFX::ID" value="t_missile">29</launchSfx>
+  <damage type="u32">20</damage>
+  <maxVelocity type="f32">2500.0</maxVelocity>
+  <blastType type="string">BLAST!!Missile Impact</blastType>
+  <engineTrailType type="string" />
+</BT_PROJECTILE_DATA>

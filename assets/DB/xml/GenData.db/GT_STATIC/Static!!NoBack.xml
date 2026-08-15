@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_STATIC id="Static!!NoBack">
+  <baseType type="GENBASE_TYPE" value="gbt_static">3</baseType>
+  <fontName type="string">Font!!StaticControl</fontName>
+  <normalText type="COLOR">
+    <red type="u8">216</red>
+    <green type="u8">201</green>
+    <blue type="u8">20</blue>
+  </normalText>
+  <background type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </background>
+  <shapeFile type="string" />
+  <backgroundDraw type="DrawType" value="nodraw">0</backgroundDraw>
+  <backdraw type="bool">false</backdraw>
+</GT_STATIC>

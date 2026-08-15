@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MANTIS_BUILD id="BUILD!!Mantis">
+  <objClass type="OBJCLASS" value="oc_buildobj">8388608</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <boClass type="BUILDOBJCLASS" value="bo_mantis">1</boClass>
+  <cocoonTextureName type="string">cocoon.tga</cocoonTextureName>
+</BT_MANTIS_BUILD>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_FIREBALL_DATA id="FBALL!!Solarian">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_fireball">1</fxClass>
+  <animName type="string">Solarian_Explosion.anm</animName>
+</BT_FIREBALL_DATA>

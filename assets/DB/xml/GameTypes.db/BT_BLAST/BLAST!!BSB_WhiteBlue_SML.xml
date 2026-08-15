@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BLAST id="BLAST!!BSB_WhiteBlue_SML">
+  <objClass type="OBJCLASS" value="oc_blast">256</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <effectType type="string[]">
+    <element type="string" index="0" />
+    <element type="string" index="1">FBALL!!Solarian</element>
+    <element type="string" index="2">PART!!BSB_WhiteBlue_SML</element>
+  </effectType>
+  <flash type="FLASH_DATA">
+    <lifeTime type="f32">1.5</lifeTime>
+    <range type="f32">3000.0</range>
+    <color type="COLOR">
+      <red type="u8">200</red>
+      <green type="u8">200</green>
+      <blue type="u8">255</blue>
+    </color>
+  </flash>
+  <totalTime type="f32">1.5</totalTime>
+  <sfx type="SFX::ID" value="exps_s_final">132</sfx>
+  <leadTime type="f32">0.0</leadTime>
+  <drawThroughFog type="bool">false</drawThroughFog>
+</BT_BLAST>

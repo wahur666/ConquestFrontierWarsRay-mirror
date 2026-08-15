@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Name_Spy" type="string[]">
+  <element index="0" type="string">Spacebee</element>
+  <element index="1" type="string">Osiris</element>
+  <element index="2" type="string">Tomahawk</element>
+  <element index="3" type="string">Ullambana</element>
+  <element index="4" type="string">Starwolf</element>
+  <element index="5" type="string">Solar Wind</element>
+  <element index="6" type="string">Intrepid</element>
+  <element index="7" type="string">Fleming</element>
+  <element index="8" type="string">Stark</element>
+  <element index="9" type="string">Maclean</element>
+  <element index="10" type="string">Follett</element>
+  <element index="11" type="string">Le Carre</element>
+  <element index="12" type="string">Vincent</element>
+  <element index="13" type="string">Hornet</element>
+  <element index="14" type="string">Fortunato</element>
+  <element index="15" type="string">Prospero</element>
+  <element index="16" type="string">Caliban</element>
+  <element index="17" type="string">Dutchman</element>
+  <element index="18" type="string">Ghost Dancer</element>
+  <element index="19" type="string">Silencio</element>
+</MT_STRINGPACK>

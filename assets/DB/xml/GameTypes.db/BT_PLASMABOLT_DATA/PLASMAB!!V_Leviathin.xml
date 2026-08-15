@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PLASMABOLT_DATA id="PLASMAB!!V_Leviathin">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_plasmabolt">11</baseWeaponData>
+  <fileName type="string">nothing.3db</fileName>
+  <launchSfx type="SFX::ID" value="invalid">0</launchSfx>
+  <damage type="u32">50</damage>
+  <maxVelocity type="f32">6000.0</maxVelocity>
+  <blastType type="string" />
+  <engineTrailType type="string" />
+  <textureName type="string">plasma.tga</textureName>
+  <animName type="string" />
+  <numBolts type="f32">1.0</numBolts>
+  <bolts type="_pBolt[]">
+    <element index="0">
+      <rollSpeed type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </rollSpeed>
+      <boltWidth type="f32">70.0</boltWidth>
+      <boltSpacing type="f32">70.0</boltSpacing>
+      <segmentsX type="u32">1</segmentsX>
+      <segmentsY type="u32">1</segmentsY>
+      <segmentsZ type="u32">6</segmentsZ>
+      <offset type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <boltColor type="COLOR">
+        <red type="u8">40</red>
+        <green type="u8">75</green>
+        <blue type="u8">60</blue>
+        <alpha type="u8">32</alpha>
+      </boltColor>
+    </element>
+    <element index="1">
+      <rollSpeed type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </rollSpeed>
+      <boltWidth type="f32">70.0</boltWidth>
+      <boltSpacing type="f32">70.0</boltSpacing>
+      <segmentsX type="u32">1</segmentsX>
+      <segmentsY type="u32">1</segmentsY>
+      <segmentsZ type="u32">6</segmentsZ>
+      <offset type="VECTOR">
+        <x type="f32">-30.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <boltColor type="COLOR">
+        <red type="u8">40</red>
+        <green type="u8">75</green>
+        <blue type="u8">60</blue>
+        <alpha type="u8">32</alpha>
+      </boltColor>
+    </element>
+    <element index="2">
+      <rollSpeed type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </rollSpeed>
+      <boltWidth type="f32">70.0</boltWidth>
+      <boltSpacing type="f32">70.0</boltSpacing>
+      <segmentsX type="u32">1</segmentsX>
+      <segmentsY type="u32">1</segmentsY>
+      <segmentsZ type="u32">6</segmentsZ>
+      <offset type="VECTOR">
+        <x type="f32">-173.0</x>
+        <y type="f32">-100.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <boltColor type="COLOR">
+        <red type="u8">40</red>
+        <green type="u8">75</green>
+        <blue type="u8">60</blue>
+        <alpha type="u8">32</alpha>
+      </boltColor>
+    </element>
+    <element index="3">
+      <rollSpeed type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </rollSpeed>
+      <boltWidth type="f32">0.0</boltWidth>
+      <boltSpacing type="f32">0.0</boltSpacing>
+      <segmentsX type="u32">0</segmentsX>
+      <segmentsY type="u32">0</segmentsY>
+      <segmentsZ type="u32">0</segmentsZ>
+      <offset type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <boltColor type="COLOR">
+        <red type="u8">0</red>
+        <green type="u8">0</green>
+        <blue type="u8">0</blue>
+        <alpha type="u8">0</alpha>
+      </boltColor>
+    </element>
+  </bolts>
+</BT_PLASMABOLT_DATA>

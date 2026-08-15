@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BUFF_LAUNCHER id="BL!!ResearchBuff">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_buff_launcher">18</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <rangeRadius type="f32">4.0</rangeRadius>
+  <buffType type="BuffType" value="research_effect">6</buffType>
+  <targetType type="TargetType" value="allies_planet_only">3</targetType>
+  <supplyUseType type="SupplyUseType" value="su_platform_standard">0</supplyUseType>
+  <visualName type="string" />
+</BT_BUFF_LAUNCHER>

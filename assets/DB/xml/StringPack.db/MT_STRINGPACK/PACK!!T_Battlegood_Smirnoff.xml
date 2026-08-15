@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!T_Battlegood_Smirnoff" type="string[]">
+  <element index="0" type="string">TAS6023.wav</element>
+  <element index="1" type="string">TAS6024.wav</element>
+  <element index="2" type="string">TAS6025.wav</element>
+</MT_STRINGPACK>

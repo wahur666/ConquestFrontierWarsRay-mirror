@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_PAUSE id="MenuPause">
+  <screenRect type="RECT">
+    <left type="s32">200</left>
+    <top type="s32">100</top>
+    <right type="s32">440</right>
+    <bottom type="s32">240</bottom>
+  </screenRect>
+  <staticTitle type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="game_paused">1416</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">240</width>
+    <height type="s32">20</height>
+  </staticTitle>
+  <staticDescription type="STATIC_DATA[]">
+    <element type="STATIC_DATA" index="0">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">30</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="1">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">50</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="2">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">70</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="3">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">90</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="4">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">110</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="5">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">130</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="6">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">150</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+    <element type="STATIC_DATA" index="7">
+      <staticType type="string">Static!!TitleSmall</staticType>
+      <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+      <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+      <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+      <alignment type="alignmenttype" value="center">1</alignment>
+      <xOrigin type="s32">-150</xOrigin>
+      <yOrigin type="s32">170</yOrigin>
+      <width type="s32">540</width>
+      <height type="s32">20</height>
+    </element>
+  </staticDescription>
+</GT_PAUSE>

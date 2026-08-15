@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Elan" type="string[]">
+  <element index="0" type="string">SAE4108.wav</element>
+  <element index="1" type="string">SAE4109.wav</element>
+  <element index="2" type="string">SAE4110.wav</element>
+</MT_STRINGPACK>

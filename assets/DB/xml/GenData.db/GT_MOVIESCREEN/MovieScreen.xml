@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_MOVIESCREEN id="MovieScreen">
+  <screenRect type="RECT">
+    <left type="s32">0</left>
+    <top type="s32">0</top>
+    <right type="s32">799</right>
+    <bottom type="s32">599</bottom>
+  </screenRect>
+</GT_MOVIESCREEN>

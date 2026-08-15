@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_SPECIALABILITIES id="SpecialAbilities">
+  <none type="ArtifactButtonInfo">
+    <baseButton type="u32">0</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="button_option">3087</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </none>
+  <assault type="ArtifactButtonInfo">
+    <baseButton type="u32">0</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="button_option">3087</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </assault>
+  <tempest type="ArtifactButtonInfo">
+    <baseButton type="u32">356</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="tempest_charge">836</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </tempest>
+  <probe type="ArtifactButtonInfo">
+    <baseButton type="u32">360</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="probe">837</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </probe>
+  <cloak type="ArtifactButtonInfo">
+    <baseButton type="u32">352</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="cloak">835</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </cloak>
+  <aegis type="ArtifactButtonInfo">
+    <baseButton type="u32">368</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="aegis_shield">839</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </aegis>
+  <vampire type="ArtifactButtonInfo">
+    <baseButton type="u32">364</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="vampire_arc">838</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </vampire>
+  <stasis type="ArtifactButtonInfo">
+    <baseButton type="u32">2545</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="gravity_well">842</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </stasis>
+  <furyram type="ArtifactButtonInfo">
+    <baseButton type="u32">2565</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="explo_ram">841</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </furyram>
+  <repel type="ArtifactButtonInfo">
+    <baseButton type="u32">2553</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="repellent_cloud">843</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </repel>
+  <bomber type="ArtifactButtonInfo">
+    <baseButton type="u32">1211</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="button_option">3087</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </bomber>
+  <mimic type="ArtifactButtonInfo">
+    <baseButton type="u32">2557</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="mimic">850</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </mimic>
+  <minelayer type="ArtifactButtonInfo">
+    <baseButton type="u32">2569</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="explomines">851</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </minelayer>
+  <s_minelayer type="ArtifactButtonInfo">
+    <baseButton type="u32">2573</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="pulsemines">853</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </s_minelayer>
+  <repulsor type="ArtifactButtonInfo">
+    <baseButton type="u32">2561</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="repulsor_beam">844</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </repulsor>
+  <synthesis type="ArtifactButtonInfo">
+    <baseButton type="u32">2382</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="synthesis">845</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </synthesis>
+  <massdisruptor type="ArtifactButtonInfo">
+    <baseButton type="u32">2390</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="mass_disruptor">847</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </massdisruptor>
+  <destabilizer type="ArtifactButtonInfo">
+    <baseButton type="u32">2378</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="destab_torp">848</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </destabilizer>
+  <wormhole type="ArtifactButtonInfo">
+    <baseButton type="u32">1939</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </wormhole>
+  <ping type="ArtifactButtonInfo">
+    <baseButton type="u32">2497</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="ping">840</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </ping>
+  <m_ping type="ArtifactButtonInfo">
+    <baseButton type="u32">2501</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="ping">840</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </m_ping>
+  <s_ping type="ArtifactButtonInfo">
+    <baseButton type="u32">2505</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="ping">840</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </s_ping>
+  <multiCloak type="ArtifactButtonInfo">
+    <baseButton type="u32">2374</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="aurora_cloaker">846</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </multiCloak>
+  <tractor type="ArtifactButtonInfo">
+    <baseButton type="u32">2386</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="tractor_beam">849</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_cloak">3160</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </tractor>
+  <jump type="ArtifactButtonInfo">
+    <baseButton type="u32">1939</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </jump>
+  <artilery type="ArtifactButtonInfo">
+    <baseButton type="u32">1939</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </artilery>
+  <tractorWave type="ArtifactButtonInfo">
+    <baseButton type="u32">1939</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="no_hotbuttoninfo">0</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </tractorWave>
+  <nova type="ArtifactButtonInfo">
+    <baseButton type="u32">2718</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="nova_bomb">6516</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </nova>
+  <shieldJam type="ArtifactButtonInfo">
+    <baseButton type="u32">2741</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="davinci_shieldjam">6517</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_shieldjam">6842</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </shieldJam>
+  <weaponJam type="ArtifactButtonInfo">
+    <baseButton type="u32">2745</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="davinci_weaponjam">6518</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_weapjam">6843</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </weaponJam>
+  <sensorJam type="ArtifactButtonInfo">
+    <baseButton type="u32">2737</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="davinci_sensorjam">6519</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="specialw_sensorjam">6841</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </sensorJam>
+  <transfer type="ArtifactButtonInfo">
+    <baseButton type="u32">1905</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="button_option">3087</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </transfer>
+</GT_SPECIALABILITIES>

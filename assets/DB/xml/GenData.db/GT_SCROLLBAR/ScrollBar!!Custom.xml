@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_SCROLLBAR id="ScrollBar!!Custom">
+  <baseType type="GENBASE_TYPE" value="gbt_scrollbar">9</baseType>
+  <upButtonType type="string">Button!!ScrollUp2</upButtonType>
+  <downButtonType type="string">Button!!ScrollDown2</downButtonType>
+  <thumbColor type="COLOR">
+    <red type="u8">128</red>
+    <green type="u8">64</green>
+    <blue type="u8">64</blue>
+  </thumbColor>
+  <backgroundColor type="COLOR">
+    <red type="u8">128</red>
+    <green type="u8">128</green>
+    <blue type="u8">128</blue>
+  </backgroundColor>
+  <disabledColor type="COLOR">
+    <red type="u8">64</red>
+    <green type="u8">64</green>
+    <blue type="u8">64</blue>
+  </disabledColor>
+  <horizontal type="bool">false</horizontal>
+  <shapeFile type="string">scrollbar.shp</shapeFile>
+</GT_SCROLLBAR>

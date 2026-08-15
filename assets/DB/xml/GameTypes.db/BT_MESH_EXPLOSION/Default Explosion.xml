@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_MESH_EXPLOSION id="Default Explosion">
+  <objClass type="OBJCLASS" value="oc_mexplode">4</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <secondaryBlastType type="string">Small</secondaryBlastType>
+  <pieceBlastType type="string">Piece Blast</pieceBlastType>
+  <catastrophicBlastType type="string">Big</catastrophicBlastType>
+  <rippleBlastType type="string" />
+  <fireTrail type="string" />
+</BT_MESH_EXPLOSION>

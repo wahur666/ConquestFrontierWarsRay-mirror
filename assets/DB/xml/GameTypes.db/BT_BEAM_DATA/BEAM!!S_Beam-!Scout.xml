@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_BEAM_DATA id="BEAM!!S_Beam-!Scout">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_beam">3</baseWeaponData>
+  <fileName type="string">band2.tga</fileName>
+  <launchSfx type="SFX::ID" value="s_beam_med2">98</launchSfx>
+  <damage type="u32">3</damage>
+  <lifetime type="f32">2.0</lifetime>
+  <maxSweepDist type="f32">600.0</maxSweepDist>
+  <beamWidth type="f32">30.0</beamWidth>
+  <blurColor type="COLOR">
+    <red type="u8">0</red>
+    <green type="u8">0</green>
+    <blue type="u8">0</blue>
+  </blurColor>
+  <contactBlast type="string" />
+</BT_BEAM_DATA>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_UNITSPEECH id="MLAYER!!M_Spinelayer">
+  <field index="0" type="string" gunboat="underAttack" harvester="underAttack" fabricator="underAttack" minelayer="underAttack" supplyship="underAttack" troopship="underAttack" flagship="underAttack" platform="underAttack" gunPlat="underAttack">M1804.wav</field>
+  <field index="1" type="string" gunboat="alliedAttack" harvester="alliedAttack" fabricator="alliedAttack" minelayer="alliedAttack" supplyship="alliedAttack" troopship="alliedAttack" flagship="alliedAttack" platform="alliedAttack" gunPlat="alliedAttack" />
+  <field index="2" type="string" gunboat="enemySighted" harvester="enemySighted" fabricator="enemySighted" minelayer="enemySighted" supplyship="enemySighted" troopship="enemySighted" flagship="enemySighted" platform="enemySighted" gunPlat="enemySighted">MSL1413.wav</field>
+  <field index="3" type="string" gunboat="selected" harvester="selected" fabricator="selected" minelayer="selected" supplyship="selected" troopship="selected" flagship="selected" platform="selected" gunPlat="selected">PACK!!M_Select_Spinelayer</field>
+  <field index="4" type="string" gunboat="destructionDenied" harvester="destructionDenied" fabricator="destructionDenied" minelayer="destructionDenied" supplyship="destructionDenied" troopship="destructionDenied" flagship="destructionDenied" platform="destructionDenied" gunPlat="destructionDenied">0901.wav</field>
+  <field index="5" type="string" gunboat="move" harvester="move" fabricator="move" minelayer="move" supplyship="move" troopship="move" flagship="move" platform="constructComplete" gunPlat="constructComplete">PACK!!M_Move_Spinelayer</field>
+  <field index="6" type="string" gunboat="aggravated" harvester="aggravated" fabricator="aggravated" minelayer="aggravated" supplyship="aggravated" troopship="aggravated" flagship="aggravated" platform="constructStarted" gunPlat="constructStarted">PACK!!M_Agg_Spinelayer</field>
+  <field index="7" type="string" gunboat="constructComplete" harvester="constructComplete" fabricator="constructComplete" minelayer="constructComplete" supplyship="constructComplete" troopship="constructComplete" flagship="constructComplete" platform="buildDelayed" gunPlat="buildDelayed">MSL1410.wav</field>
+  <field index="8" type="string" gunboat="death" harvester="death" fabricator="death" minelayer="death" supplyship="death" troopship="death" flagship="death" platform="research" gunPlat="research" />
+  <field index="9" type="string" gunboat="attacking" harvester="harvestResource" fabricator="notEnoughGas" supplyship="resupplyShips" troopship="attacking" flagship="attacking" platform="researchCompleted" gunPlat="researchCompleted" />
+  <field index="10" type="string" gunboat="suppliesout" harvester="planetDepleted" fabricator="notEnoughMetal" troopship="attackSuccess" flagship="fleetdamage50" platform="upgradeCompleted" gunPlat="upgradeCompleted">MSL1414.wav</field>
+  <field index="11" type="string" gunboat="specialAttack" harvester="planetDepletedRedeploy" fabricator="notEnoughCrew" troopship="attackFailed" flagship="fleetdamage75" platform="notEnoughGas" gunPlat="attacking" />
+  <field index="12" type="string" fabricator="notEnoughCommandPoints" flagship="supplieslow" platform="notEnoughMetal" gunPlat="suppliesout" />
+  <field index="13" type="string" fabricator="buildImposible" flagship="suppliesout" platform="notEnoughCrew" />
+  <field index="14" type="string" fabricator="constructStarted" flagship="battlegood" platform="notEnoughCommandPoints" />
+  <field index="15" type="string" flagship="battlemoderate" />
+  <field index="16" type="string" flagship="battlebleak" />
+  <field index="17" type="string" flagship="shipleaving" />
+  <field index="18" type="string" flagship="admiralondeck" />
+  <field index="19" type="string" flagship="flagshipintrouble" />
+  <field index="20" type="string" flagship="transferfailed" />
+  <field index="21" type="string" flagship="scuttle" />
+</MT_UNITSPEECH>

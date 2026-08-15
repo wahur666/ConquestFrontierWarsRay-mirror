@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Move_Legionnaire" type="string[]">
+  <element index="0" type="string">SLE3005.wav</element>
+  <element index="1" type="string">SLE3006.wav</element>
+  <element index="2" type="string">SLE3007.wav</element>
+  <element index="3" type="string">SLE3008.wav</element>
+  <element index="4" type="string">SLE3009.wav</element>
+</MT_STRINGPACK>

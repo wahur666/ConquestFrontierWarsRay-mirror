@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_JUMPGATE_DATA id="JGATE!!Jumpgate">
+  <objClass type="OBJCLASS" value="oc_jumpgate">16</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <billboardMesh type="BILLBOARD_MESH">
+    <element type="BILLBOARD_MESH" index="0">
+      <meshName type="string">morph2.ini</meshName>
+      <texName type="string">JG18_anim.anm</texName>
+      <sizeMin type="s32">500</sizeMin>
+      <sizeMax type="s32">700</sizeMax>
+      <offset type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <blendMode type="BLENDS" value="one_one">0</blendMode>
+    </element>
+    <element type="BILLBOARD_MESH" index="1">
+      <meshName type="string" />
+      <texName type="string" />
+      <sizeMin type="s32">0</sizeMin>
+      <sizeMax type="s32">0</sizeMax>
+      <offset type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <blendMode type="BLENDS" value="one_one">0</blendMode>
+    </element>
+    <element type="BILLBOARD_MESH" index="2">
+      <meshName type="string" />
+      <texName type="string" />
+      <sizeMin type="s32">0</sizeMin>
+      <sizeMax type="s32">0</sizeMax>
+      <offset type="VECTOR">
+        <x type="f32">0.0</x>
+        <y type="f32">0.0</y>
+        <z type="f32">0.0</z>
+      </offset>
+      <blendMode type="BLENDS" value="one_one">0</blendMode>
+    </element>
+  </billboardMesh>
+  <enter1 type="SFX::ID" value="jg_enter1">15</enter1>
+  <enter2 type="SFX::ID" value="jg_enter2">16</enter2>
+  <arrive1 type="SFX::ID" value="jg_arrive1">17</arrive1>
+  <arrive2 type="SFX::ID" value="jg_arrive2">18</arrive2>
+  <ambience type="SFX::ID" value="jg_ambience">19</ambience>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_jumpgate">50</mObjClass>
+    <race type="M_RACE" value="m_no_race">0</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_jumpgate">389</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">0</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">0</scrapValue>
+    <buildTime type="s32">30</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">0</gas>
+      <metal type="u32">4</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">0.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <minHoldTime type="f32">4.0</minHoldTime>
+  <minStaggerTime type="f32">0.20000000298023224</minStaggerTime>
+</BT_JUMPGATE_DATA>

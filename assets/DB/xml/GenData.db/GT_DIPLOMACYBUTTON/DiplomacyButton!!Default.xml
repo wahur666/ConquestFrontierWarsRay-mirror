@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_DIPLOMACYBUTTON id="DiplomacyButton!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_diplomacybutton">19</baseType>
+  <leftMargin type="s32">4</leftMargin>
+  <topMargin type="s32">2</topMargin>
+  <shapeFile type="string">diplomacyButton.shp</shapeFile>
+</GT_DIPLOMACYBUTTON>

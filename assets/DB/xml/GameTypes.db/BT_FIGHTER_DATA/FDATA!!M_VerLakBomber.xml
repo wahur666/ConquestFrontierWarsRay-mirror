@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_FIGHTER_DATA id="FDATA!!M_VerLakBomber">
+  <objClass type="OBJCLASS" value="oc_fighter">2048</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fileName type="string">mbomber.3db</fileName>
+  <dynamicsData type="DYNAMICS_DATA">
+    <linearAcceleration type="f32">500.0</linearAcceleration>
+    <angAcceleration type="f32">10.0</angAcceleration>
+    <maxLinearVelocity type="f32">1200.0</maxLinearVelocity>
+    <maxAngVelocity type="f32">6.0</maxAngVelocity>
+  </dynamicsData>
+  <armorData type="ARMOR_DATA">
+    <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+    <armorDamage type="ARMOR_DAMAGE">
+      <noArmor type="f32">0.6000000238418579</noArmor>
+      <lightArmor type="f32">0.6000000238418579</lightArmor>
+      <mediumArmor type="f32">0.6000000238418579</mediumArmor>
+      <heavyArmor type="f32">0.6000000238418579</heavyArmor>
+    </armorDamage>
+  </armorData>
+  <explosionType type="string">BLAST!!SB_YellowGreen_SML</explosionType>
+  <weaponType type="string">PROJ!!M_Torp-!Bomber</weaponType>
+  <engineTrailType type="string">ENGTRAIL!!MantisFighter</engineTrailType>
+  <sensorRadius type="u32">2</sensorRadius>
+  <cloakedSensorRadius type="u32">0</cloakedSensorRadius>
+  <patrolRadius type="f32">2.0</patrolRadius>
+  <patrolAltitude type="f32">0.0</patrolAltitude>
+  <attackRange type="f32">0.0</attackRange>
+  <dodge type="f32">0.0</dodge>
+  <hullPointsMax type="u32">3</hullPointsMax>
+  <maxSupplies type="u32">3</maxSupplies>
+  <refirePeriod type="f32">4.0</refirePeriod>
+  <patrolPeriod type="f32">30.0</patrolPeriod>
+  <kamikazeDamage type="u32">12</kamikazeDamage>
+  <kamikazeYell type="SFX::ID" value="invalid">0</kamikazeYell>
+  <fighterwhoosh type="SFX::ID" value="invalid">0</fighterwhoosh>
+  <fighterLaunch type="SFX::ID" value="invalid">0</fighterLaunch>
+</BT_FIGHTER_DATA>

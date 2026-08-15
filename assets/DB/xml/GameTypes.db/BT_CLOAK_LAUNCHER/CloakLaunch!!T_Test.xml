@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_CLOAK_LAUNCHER id="CloakLaunch!!T_Test">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_cloak_launch">10</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">1</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <cloakSupplyUse type="f32">0.0</cloakSupplyUse>
+  <cloakShutoff type="f32">0.25</cloakShutoff>
+  <techNode type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_terran">1</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="t_res_xcloak">8</tech>
+    <build type="TECHTREE::BUILDNODE" value="no_buildnode">0</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techNode>
+</BT_CLOAK_LAUNCHER>

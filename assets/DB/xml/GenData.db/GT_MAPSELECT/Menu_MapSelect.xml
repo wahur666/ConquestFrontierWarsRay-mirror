@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_MAPSELECT id="Menu_MapSelect">
+  <screenRect type="RECT">
+    <left type="s32">55</left>
+    <top type="s32">16</top>
+    <right type="s32">799</right>
+    <bottom type="s32">599</bottom>
+  </screenRect>
+  <staticBackground type="STATIC_DATA">
+    <staticType type="string">Static!!MapSelect</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </staticBackground>
+  <staticTitle type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="map">1413</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">94</xOrigin>
+    <yOrigin type="s32">26</yOrigin>
+    <width type="s32">500</width>
+    <height type="s32">20</height>
+  </staticTitle>
+  <staticRandom type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="map_random">1510</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">80</xOrigin>
+    <yOrigin type="s32">60</yOrigin>
+    <width type="s32">600</width>
+    <height type="s32">20</height>
+  </staticRandom>
+  <staticSupplied type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="map_conquest">1511</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">80</xOrigin>
+    <yOrigin type="s32">212</yOrigin>
+    <width type="s32">600</width>
+    <height type="s32">20</height>
+  </staticSupplied>
+  <staticSaved type="STATIC_DATA">
+    <staticType type="string">Static!!Neuro14</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="map_saved">1512</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">80</xOrigin>
+    <yOrigin type="s32">360</yOrigin>
+    <width type="s32">600</width>
+    <height type="s32">20</height>
+  </staticSaved>
+  <listRandom type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!Default</listboxType>
+    <xOrigin type="s32">44</xOrigin>
+    <yOrigin type="s32">92</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">594</right>
+      <bottom type="s32">110</bottom>
+    </textArea>
+    <leadingHeight type="u32">0</leadingHeight>
+    <static type="bool">false</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">false</scrollbar>
+    <solidBackground type="bool">false</solidBackground>
+    <noBorder type="bool">true</noBorder>
+    <disableMouseSelect type="bool">true</disableMouseSelect>
+  </listRandom>
+  <listSupplied type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!Default</listboxType>
+    <xOrigin type="s32">44</xOrigin>
+    <yOrigin type="s32">240</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">594</right>
+      <bottom type="s32">110</bottom>
+    </textArea>
+    <leadingHeight type="u32">0</leadingHeight>
+    <static type="bool">false</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">true</scrollbar>
+    <solidBackground type="bool">false</solidBackground>
+    <noBorder type="bool">true</noBorder>
+    <disableMouseSelect type="bool">true</disableMouseSelect>
+  </listSupplied>
+  <listSaved type="LISTBOX_DATA">
+    <listboxType type="string">ListBox!!Default</listboxType>
+    <xOrigin type="s32">44</xOrigin>
+    <yOrigin type="s32">390</yOrigin>
+    <textArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">594</right>
+      <bottom type="s32">110</bottom>
+    </textArea>
+    <leadingHeight type="u32">0</leadingHeight>
+    <static type="bool">false</static>
+    <singleClick type="bool">false</singleClick>
+    <scrollbar type="bool">true</scrollbar>
+    <solidBackground type="bool">false</solidBackground>
+    <noBorder type="bool">true</noBorder>
+    <disableMouseSelect type="bool">true</disableMouseSelect>
+  </listSaved>
+  <buttonOk type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="ok">1124</buttonText>
+    <xOrigin type="u32">200</xOrigin>
+    <yOrigin type="u32">520</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">100</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonOk>
+  <buttonCancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!PrimitiveNoMargin</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">400</xOrigin>
+    <yOrigin type="u32">520</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">120</right>
+      <bottom type="s32">20</bottom>
+    </buttonArea>
+  </buttonCancel>
+</GT_MAPSELECT>

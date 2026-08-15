@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Death_Thripid" type="string[]">
+  <element index="0" type="string">MAT2419.wav</element>
+  <element index="1" type="string">MAT2420.wav</element>
+  <element index="2" type="string">MAT2421.wav</element>
+</MT_STRINGPACK>

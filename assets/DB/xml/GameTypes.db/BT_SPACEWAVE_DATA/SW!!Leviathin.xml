@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_SPACEWAVE_DATA id="SW!!Leviathin">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_spacewave">27</baseWeaponData>
+</BT_SPACEWAVE_DATA>

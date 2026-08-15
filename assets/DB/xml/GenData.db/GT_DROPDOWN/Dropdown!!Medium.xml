@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_DROPDOWN id="Dropdown!!Medium">
+  <baseType type="GENBASE_TYPE" value="gbt_dropdown">6</baseType>
+</GT_DROPDOWN>

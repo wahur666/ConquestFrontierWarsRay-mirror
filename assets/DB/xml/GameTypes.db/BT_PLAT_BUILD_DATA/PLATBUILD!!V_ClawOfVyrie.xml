@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PLAT_BUILD_DATA id="PLATBUILD!!V_ClawOfVyrie">
+  <objClass type="OBJCLASS" value="oc_platform">1024</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <type type="PLATFORMCLASS" value="pc_buildplat">3</type>
+  <fileName type="string">v_helionveil.3db</fileName>
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_claw_of_vyrie">141</mObjClass>
+    <race type="M_RACE" value="m_vyrium">4</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_claw_of_vyrie">6010</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">300</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">6</scrapValue>
+    <buildTime type="s32">50</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">8</gas>
+      <metal type="u32">16</metal>
+      <crew type="u32">5</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">2.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="medium_armor">2</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <extension type="EXTENSION_DATA">
+    <element type="EXTENSION_DATA" index="0">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="1">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="2">
+      <extensionName type="string" />
+    </element>
+    <element type="EXTENSION_DATA" index="3">
+      <extensionName type="string" />
+    </element>
+  </extension>
+  <extensionBits type="u32">0</extensionBits>
+  <extensionLevel type="s32">0</extensionLevel>
+  <explosionType type="string">ME!!T_Large Explosion</explosionType>
+  <shieldHitType type="string">BLAST!!T_Shield Hit</shieldHitType>
+  <ambientAnimation type="string" />
+  <ambientEffect type="string" />
+  <mass type="f32">3000.0</mass>
+  <techActive type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_vyrium">4</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="tdepend_ballistics">256</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="vdepend_claw_of_vyrie">1077936128</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </techActive>
+  <shield type="SHIELD_DATA">
+    <meshName type="string" />
+    <animName type="string" />
+    <fizzAnimName type="string" />
+    <sfx type="SFX::ID" value="invalid">0</sfx>
+    <fizzOut type="SFX::ID" value="invalid">0</fizzOut>
+    <fizzIn type="SFX::ID" value="invalid">0</fizzIn>
+  </shield>
+  <slotsNeeded type="u32">1</slotsNeeded>
+  <blinkers type="BLINKER_DATA">
+    <lightScript type="string" />
+    <textureName type="string">light.tga</textureName>
+  </blinkers>
+  <commandPoints type="u32">0</commandPoints>
+  <metalStorage type="u32">0</metalStorage>
+  <gasStorage type="u32">0</gasStorage>
+  <crewStorage type="u32">0</crewStorage>
+  <size type="u32">0</size>
+  <moonPlatform type="bool">false</moonPlatform>
+  <shipHardpoint type="string" />
+  <droneRelease type="DRONE_RELEASE[]">
+    <element type="DRONE_RELEASE" index="0">
+      <hardpoint type="string" />
+      <builderType type="string" />
+      <numDrones type="u32">0</numDrones>
+    </element>
+    <element type="DRONE_RELEASE" index="1">
+      <hardpoint type="string" />
+      <builderType type="string" />
+      <numDrones type="u32">0</numDrones>
+    </element>
+  </droneRelease>
+  <buildRate type="s32">18</buildRate>
+  <maxQueueSize type="u32">10</maxQueueSize>
+</BT_PLAT_BUILD_DATA>

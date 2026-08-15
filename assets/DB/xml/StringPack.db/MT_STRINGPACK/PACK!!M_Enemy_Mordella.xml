@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Enemy_Mordella" type="string[]">
+  <element index="0" type="string">2019.wav</element>
+  <element index="1" type="string">2020.wav</element>
+  <element index="2" type="string">2021.wav</element>
+</MT_STRINGPACK>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_SYSTEM_BUFF_LAUNCHER id="SBL!!T_IntelCenter">
+  <objClass type="OBJCLASS" value="oc_launcher">64</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="LAUNCHCLASS" value="lc_system_buff_launcher">23</type>
+  <weaponType type="string" />
+  <supplyCost type="s32">0</supplyCost>
+  <refirePeriod type="f32">0.0</refirePeriod>
+  <launcherSpecialID type="u32">0</launcherSpecialID>
+  <buffType type="BuffType" value="intel_center_effect">0</buffType>
+  <targetType type="TargetType" value="allies_only">1</targetType>
+</BT_SYSTEM_BUFF_LAUNCHER>

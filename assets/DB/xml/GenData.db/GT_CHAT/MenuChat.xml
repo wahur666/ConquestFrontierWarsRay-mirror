@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_CHAT id="MenuChat">
+  <rect type="RECT">
+    <left type="s32">0</left>
+    <top type="s32">272</top>
+    <right type="s32">108</right>
+    <bottom type="s32">310</bottom>
+  </rect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!ControlFill</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="center">1</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">108</width>
+    <height type="s32">30</height>
+  </background>
+  <ask type="STATIC_DATA">
+    <staticType type="string">Static!!Control</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="ingame_chat">1450</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">638</width>
+    <height type="s32">30</height>
+  </ask>
+  <chatbox type="EDIT_DATA">
+    <editType type="string">Edit!!ChatInGame</editType>
+    <editText type="EDTXT::EDIT_TEXT" value="none">0</editText>
+    <xOrigin type="u32">108</xOrigin>
+    <yOrigin type="u32">3</yOrigin>
+  </chatbox>
+</GT_CHAT>

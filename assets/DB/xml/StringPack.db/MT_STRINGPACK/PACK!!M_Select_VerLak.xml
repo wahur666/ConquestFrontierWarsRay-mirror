@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Select_VerLak" type="string[]">
+  <element index="0" type="string">MAV2200.wav</element>
+  <element index="1" type="string">MAV2201.wav</element>
+  <element index="2" type="string">MAV2202.wav</element>
+  <element index="3" type="string">MAV2203.wav</element>
+</MT_STRINGPACK>

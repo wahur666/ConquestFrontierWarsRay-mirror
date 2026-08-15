@@ -2,6 +2,7 @@
   <Project Path="src/Conquest/ConquestFrontierWars.csproj" />
   <Project Path="src/Data/Data.csproj" />
   <Project Path="src/Framework/Framework.csproj" />
+  <Project Path="src/Framework.TestApp/Framework.TestApp.csproj" />
   <Project Path="src/Gloabls/Gloabls.csproj" />
   <Project Path="src/Legacy.RaySharp/Legacy.RaySharp.csproj" />
   <Project Path="src/Math3D/Math3D.csproj" />

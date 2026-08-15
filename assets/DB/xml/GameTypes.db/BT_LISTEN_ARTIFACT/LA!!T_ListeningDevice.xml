@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_LISTEN_ARTIFACT id="LA!!T_ListeningDevice">
+  <objClass type="OBJCLASS" value="oc_weapon">128</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <baseWeaponData type="WPNCLASS" value="wpn_art_listen">30</baseWeaponData>
+  <shipName type="string" />
+  <successChance type="f32">0.009999999776482582</successChance>
+  <buttonInfo type="ArtifactButtonInfo">
+    <baseButton type="u32">356</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="notext">0</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="no_multi_info">0</hintBox>
+  </buttonInfo>
+</BT_LISTEN_ARTIFACT>

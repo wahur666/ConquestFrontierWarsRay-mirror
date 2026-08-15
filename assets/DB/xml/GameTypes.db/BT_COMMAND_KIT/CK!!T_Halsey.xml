@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_COMMAND_KIT id="CK!!T_Halsey">
+  <objClass type="OBJCLASS" value="oc_research">524288</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <type type="RESEARCH_TYPE" value="research_command_kit">3</type>
+  <cost type="ResourceCost">
+    <gas type="u32">40</gas>
+    <metal type="u32">40</metal>
+    <crew type="u32">100</crew>
+    <commandPt type="u32">0</commandPt>
+  </cost>
+  <time type="u32">30</time>
+  <kitBonuses type="AdmiralBonuses">
+    <baseBonuses type="BonusValues">
+      <damage type="f32">0.05000000074505806</damage>
+      <supplyUsage type="f32">0.05000000074505806</supplyUsage>
+      <rangeModifier type="f32">0.05000000074505806</rangeModifier>
+      <speed type="f32">0.05000000074505806</speed>
+      <sensors type="f32">0.05000000074505806</sensors>
+      <defence type="f32">0.05000000074505806</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </baseBonuses>
+    <favoredShipBonus type="BonusValues">
+      <damage type="f32">0.0</damage>
+      <supplyUsage type="f32">0.0</supplyUsage>
+      <rangeModifier type="f32">0.0</rangeModifier>
+      <speed type="f32">0.0</speed>
+      <sensors type="f32">0.0</sensors>
+      <defence type="f32">0.0</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </favoredShipBonus>
+    <favoredArmor type="BonusValues">
+      <damage type="f32">0.0</damage>
+      <supplyUsage type="f32">0.0</supplyUsage>
+      <rangeModifier type="f32">0.05000000074505806</rangeModifier>
+      <speed type="f32">0.05000000074505806</speed>
+      <sensors type="f32">0.0</sensors>
+      <defence type="f32">0.05000000074505806</defence>
+      <platformDamage type="f32">0.0</platformDamage>
+      <hatedRaceDamage type="RaceDamage">
+        <terran type="f32">0.0</terran>
+        <mantis type="f32">0.0</mantis>
+        <celareon type="f32">0.0</celareon>
+        <vyrium type="f32">0.0</vyrium>
+      </hatedRaceDamage>
+      <hatedArmorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </hatedArmorDamage>
+    </favoredArmor>
+    <bonusShips type="M_OBJCLASS[]">
+      <element type="M_OBJCLASS" value="m_none" index="0">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="1">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="2">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="3">0</element>
+      <element type="M_OBJCLASS" value="m_none" index="4">0</element>
+    </bonusShips>
+    <noArmorFavored type="bool">false</noArmorFavored>
+    <lightArmorFavored type="bool">false</lightArmorFavored>
+    <mediumArmorFavored type="bool">true</mediumArmorFavored>
+    <heavyArmorFavored type="bool">true</heavyArmorFavored>
+  </kitBonuses>
+  <buttonInfo type="ArtifactButtonInfo">
+    <baseButton type="u32">2646</baseButton>
+    <tooltip type="HBTNTXT::BUTTON_TEXT" value="kitt_halsey">6705</tooltip>
+    <helpBox type="HBTNTXT::HOTBUTTONINFO" value="nohotbuttoninfo">1047</helpBox>
+    <hintBox type="HBTNTXT::MULTIBUTTONINFO" value="kit_halsey">6808</hintBox>
+  </buttonInfo>
+  <dependancy type="SINGLE_TECHNODE">
+    <raceID type="M_RACE" value="m_terran">1</raceID>
+    <tech type="TECHTREE::TECHUPGRADE" value="no_techupgrade">0</tech>
+    <build type="TECHTREE::BUILDNODE" value="tcombo_prop_aws">32896</build>
+    <common type="TECHTREE::COMMON" value="no_commonupgrade">0</common>
+    <common_extra type="TECHTREE::COMMON_EXTRA" value="no_commonextraupgrade">0</common_extra>
+    <cq2Vars1 type="TECHTREE::CQ2_VARS_1" value="no_cq2_vars_1">0</cq2Vars1>
+    <cq2Vars2 type="TECHTREE::CQ2_VARS_2" value="no_cq2_vars_2">0</cq2Vars2>
+  </dependancy>
+  <formations type="string[]">
+    <element type="string" index="0">FORMATION!!T_Halsey</element>
+    <element type="string" index="1" />
+    <element type="string" index="2" />
+  </formations>
+</BT_COMMAND_KIT>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Attack_Aurora" type="string[]">
+  <element index="0" type="string">SEC3310.wav</element>
+  <element index="1" type="string">SEC3311.wav</element>
+  <element index="2" type="string">SEC3312.wav</element>
+  <element index="3" type="string">SEC3313.wav</element>
+  <element index="4" type="string">SEC3314.wav</element>
+</MT_STRINGPACK>

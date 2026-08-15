@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_GLOBAL_SOUNDS id="GlobalSounds">
+  <defaultButton type="SFX::ID" value="confirmation">133</defaultButton>
+  <systemSelect type="SFX::ID" value="confirmation">133</systemSelect>
+  <buildConfirm type="SFX::ID" value="confirmation">133</buildConfirm>
+  <moveConfirm type="SFX::ID" value="invalid">0</moveConfirm>
+  <startConstuction type="SFX::ID" value="start_construction">4</startConstuction>
+  <endConstruction type="SFX::ID" value="end_construction">5</endConstruction>
+  <zeroMoney type="SFX::ID" value="zero_money">6</zeroMoney>
+  <lightindustryButton type="SFX::ID" value="lightindustry_button">7</lightindustryButton>
+  <heavyindustryButton type="SFX::ID" value="heavyindustry_button">8</heavyindustryButton>
+  <hitechindustryButton type="SFX::ID" value="hitechindustry_button">9</hitechindustryButton>
+  <hqButton type="SFX::ID" value="hq_button">10</hqButton>
+  <researchButton type="SFX::ID" value="research_button">11</researchButton>
+  <planetDepleted type="SFX::ID" value="planet_depleted">12</planetDepleted>
+  <harvestRedeploy type="SFX::ID" value="harvest_redeploy">13</harvestRedeploy>
+  <researchCompleted type="SFX::ID" value="research_button">11</researchCompleted>
+</GT_GLOBAL_SOUNDS>

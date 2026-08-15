@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_EXTENSION_INFO id="EXT!!M_GreaterCollector">
+  <addChildName type="string">M_plat_collector1</addChildName>
+  <removeChildName type="string" />
+  <archetypeName type="string">PLATREFINERY!!M_GrCollector</archetypeName>
+</BT_EXTENSION_INFO>

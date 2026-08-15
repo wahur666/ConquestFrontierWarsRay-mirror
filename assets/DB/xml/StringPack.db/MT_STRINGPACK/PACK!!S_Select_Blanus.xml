@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!S_Select_Blanus" type="string[]">
+  <element index="0" type="string">SAB4000.wav</element>
+  <element index="1" type="string">SAB4001.wav</element>
+  <element index="2" type="string">SAB4002.wav</element>
+  <element index="3" type="string">SAB4003.wav</element>
+</MT_STRINGPACK>

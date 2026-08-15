@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_BRIEFING id="MenuBriefing">
+  <screenRect type="RECT">
+    <left type="s32">0</left>
+    <top type="s32">0</top>
+    <right type="s32">799</right>
+    <bottom type="s32">599</bottom>
+  </screenRect>
+  <background type="STATIC_DATA">
+    <staticType type="string">Static!!Briefing</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="no_static_text">0</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">0</xOrigin>
+    <yOrigin type="s32">0</yOrigin>
+    <width type="s32">0</width>
+    <height type="s32">0</height>
+  </background>
+  <title type="STATIC_DATA">
+    <staticType type="string">Static!!Title</staticType>
+    <staticText type="STTXT::STATIC_TEXT" value="briefing">1165</staticText>
+    <staticTooltip type="STTXT::STATIC_TOOLTIP" value="no_tooltip">0</staticTooltip>
+    <staticHintbox type="STTXT::STATIC_HINTBOX" value="no_hintbox">0</staticHintbox>
+    <alignment type="alignmenttype" value="left">0</alignment>
+    <xOrigin type="s32">152</xOrigin>
+    <yOrigin type="s32">42</yOrigin>
+    <width type="s32">240</width>
+    <height type="s32">16</height>
+  </title>
+  <start type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="start">1122</buttonText>
+    <xOrigin type="u32">280</xOrigin>
+    <yOrigin type="u32">530</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">140</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </start>
+  <replay type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="replay">1145</buttonText>
+    <xOrigin type="u32">440</xOrigin>
+    <yOrigin type="u32">530</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">140</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </replay>
+  <cancel type="BUTTON_DATA">
+    <buttonType type="string">Button!!Prim3D</buttonType>
+    <buttonText type="BTNTXT::BUTTON_TEXT" value="cancel">1113</buttonText>
+    <xOrigin type="u32">600</xOrigin>
+    <yOrigin type="u32">530</yOrigin>
+    <buttonArea type="RECT">
+      <left type="s32">0</left>
+      <top type="s32">0</top>
+      <right type="s32">140</right>
+      <bottom type="s32">24</bottom>
+    </buttonArea>
+  </cancel>
+  <rcTeletype type="RECT">
+    <left type="s32">80</left>
+    <top type="s32">300</top>
+    <right type="s32">730</right>
+    <bottom type="s32">500</bottom>
+  </rcTeletype>
+  <rcComm type="RECT[]">
+    <rect type="RECT" index="0">
+      <left type="s32">100</left>
+      <top type="s32">130</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </rect>
+    <rect type="RECT" index="1">
+      <left type="s32">260</left>
+      <top type="s32">130</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </rect>
+    <rect type="RECT" index="2">
+      <left type="s32">420</left>
+      <top type="s32">130</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </rect>
+    <rect type="RECT" index="3">
+      <left type="s32">580</left>
+      <top type="s32">130</top>
+      <right type="s32">0</right>
+      <bottom type="s32">0</bottom>
+    </rect>
+  </rcComm>
+  <animFuzz type="ANIMATE_DATA[]">
+    <animateData type="ANIMATE_DATA" index="0">
+      <animateType type="string">Animate!!Fuzz</animateType>
+      <xOrigin type="s32">100</xOrigin>
+      <yOrigin type="s32">130</yOrigin>
+      <dwTimer type="s32">600</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animateData>
+    <animateData type="ANIMATE_DATA" index="1">
+      <animateType type="string">Animate!!Fuzz</animateType>
+      <xOrigin type="s32">260</xOrigin>
+      <yOrigin type="s32">130</yOrigin>
+      <dwTimer type="s32">600</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animateData>
+    <animateData type="ANIMATE_DATA" index="2">
+      <animateType type="string">Animate!!Fuzz</animateType>
+      <xOrigin type="s32">420</xOrigin>
+      <yOrigin type="s32">130</yOrigin>
+      <dwTimer type="s32">600</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animateData>
+    <animateData type="ANIMATE_DATA" index="3">
+      <animateType type="string">Animate!!Fuzz</animateType>
+      <xOrigin type="s32">580</xOrigin>
+      <yOrigin type="s32">130</yOrigin>
+      <dwTimer type="s32">600</dwTimer>
+      <fuzzEffect type="bool">false</fuzzEffect>
+    </animateData>
+  </animFuzz>
+</GT_BRIEFING>

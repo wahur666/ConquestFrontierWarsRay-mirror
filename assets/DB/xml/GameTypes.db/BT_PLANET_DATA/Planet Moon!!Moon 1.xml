@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PLANET_DATA id="Planet Moon!!Moon 1">
+  <objClass type="OBJCLASS" value="oc_planetoid">2</objClass>
+  <bEditDropable type="bool">true</bEditDropable>
+  <fileName type="string">PLANETS\cq2\moon1.3db</fileName>
+  <ambient_animation type="string">Sc_rotate_clouds</ambient_animation>
+  <sysMapIcon type="string">SysMap\moonplanet.bmp</sysMapIcon>
+  <ambientEffect type="string" />
+  <missionData type="MISSION_DATA">
+    <mObjClass type="M_OBJCLASS" value="m_planet">46</mObjClass>
+    <race type="M_RACE" value="m_no_race">0</race>
+    <displayName type="OBJNAMES::M_DISPLAY_NAME" value="mt_planet_moon">655</displayName>
+    <caps>
+      <moveOk type="bool">false</moveOk>
+      <attackOk type="bool">false</attackOk>
+      <specialAttackOk type="bool">false</specialAttackOk>
+      <specialEOAOk type="bool">false</specialEOAOk>
+      <specialAbilityOk type="bool">false</specialAbilityOk>
+      <specialAttackWormOk type="bool">false</specialAttackWormOk>
+      <defendOk type="bool">false</defendOk>
+      <supplyOk type="bool">false</supplyOk>
+      <harvestOk type="bool">false</harvestOk>
+      <buildOk type="bool">false</buildOk>
+      <repairOk type="bool">false</repairOk>
+      <jumpOk type="bool">false</jumpOk>
+      <admiralOk type="bool">false</admiralOk>
+      <captureOk type="bool">false</captureOk>
+      <salvageOk type="bool">false</salvageOk>
+      <probeOk type="bool">false</probeOk>
+      <mimicOk type="bool">false</mimicOk>
+      <recoverOk type="bool">false</recoverOk>
+      <createWormholeOk type="bool">false</createWormholeOk>
+      <synthesisOk type="bool">false</synthesisOk>
+      <cloakOk type="bool">false</cloakOk>
+      <specialAttackShipOk type="bool">false</specialAttackShipOk>
+      <targetPositionOk type="bool">false</targetPositionOk>
+      <specialTargetPlanetOk type="bool">false</specialTargetPlanetOk>
+    </caps>
+    <hullPointsMax type="s32">0</hullPointsMax>
+    <supplyPointsMax type="s32">0</supplyPointsMax>
+    <scrapValue type="s32">0</scrapValue>
+    <buildTime type="s32">0</buildTime>
+    <cost type="ResourceCost">
+      <gas type="u32">0</gas>
+      <metal type="u32">0</metal>
+      <crew type="u32">0</crew>
+      <commandPt type="u32">0</commandPt>
+    </cost>
+    <sensorRadius type="f32">0.0</sensorRadius>
+    <cloakedSensorRadius type="f32">0.0</cloakedSensorRadius>
+    <maxVelocity type="f32">0.0</maxVelocity>
+    <baseWeaponAccuracy type="f32">0.0</baseWeaponAccuracy>
+    <baseShieldLevel type="f32">0.0</baseShieldLevel>
+    <armorData type="ARMOR_DATA">
+      <myArmor type="ARMOR_TYPE" value="no_armor">0</myArmor>
+      <armorDamage type="ARMOR_DAMAGE">
+        <noArmor type="f32">0.0</noArmor>
+        <lightArmor type="f32">0.0</lightArmor>
+        <mediumArmor type="f32">0.0</mediumArmor>
+        <heavyArmor type="f32">0.0</heavyArmor>
+      </armorDamage>
+    </armorData>
+    <silhouetteImage type="SILNAMES::M_SILHOUETTE_NAME" value="none">0</silhouetteImage>
+    <specialAbility type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility>
+    <specialAbility1 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility1>
+    <specialAbility2 type="UNIT_SPECIAL_ABILITY" value="usa_none">0</specialAbility2>
+    <speechPriority type="UNITSOUNDS::PRIORITY" value="low">0</speechPriority>
+  </missionData>
+  <maxMetal type="u32">400</maxMetal>
+  <maxGas type="u32">0</maxGas>
+  <maxCrew type="u32">0</maxCrew>
+  <metalRegen type="f32">0.07999999821186066</metalRegen>
+  <gasRegen type="f32">0.0</gasRegen>
+  <crewRegen type="f32">0.0</crewRegen>
+  <planetType type="PlanetType" value="metal_planet">1</planetType>
+  <teraParticle type="string">Terran_Explosion.anm</teraParticle>
+  <teraColor type="COLOR">
+    <red type="u8">50</red>
+    <green type="u8">50</green>
+    <blue type="u8">50</blue>
+  </teraColor>
+  <teraExplosions type="string" />
+  <halo type="Halo">
+    <color type="COLOR">
+      <red type="u8">0</red>
+      <green type="u8">0</green>
+      <blue type="u8">0</blue>
+    </color>
+    <sizeInner type="f32">0.0</sizeInner>
+    <sizeOuter type="f32">0.0</sizeOuter>
+  </halo>
+  <moon type="bool">false</moon>
+  <uncommon type="bool">false</uncommon>
+</BT_PLANET_DATA>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_ANIMOBJ_DATA id="ANIMOBJ!!Spark">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_animobj">5</fxClass>
+  <animName type="string">damg_spark.anm</animName>
+  <animSize type="f32">300.0</animSize>
+  <sizeVel type="f32">0.0</sizeVel>
+  <lifeTime type="f32">1.5</lifeTime>
+  <fadeOut type="bool">true</fadeOut>
+  <faceFront type="bool">true</faceFront>
+  <smooth type="bool">false</smooth>
+  <looping type="bool">false</looping>
+  <hasAlphaChannel type="bool">false</hasAlphaChannel>
+</BT_ANIMOBJ_DATA>

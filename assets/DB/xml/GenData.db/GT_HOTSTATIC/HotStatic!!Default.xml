@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GT_HOTSTATIC id="HotStatic!!Default">
+  <baseType type="GENBASE_TYPE" value="gbt_hotstatic">10</baseType>
+  <fontType type="string">Font!!ContextWindow</fontType>
+</GT_HOTSTATIC>

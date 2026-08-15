@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BT_PARTICLE_CIRCLE id="PC!!White">
+  <objClass type="OBJCLASS" value="oc_effect">32768</objClass>
+  <bEditDropable type="bool">false</bEditDropable>
+  <fxClass type="EFFECTCLASS" value="fx_particle_circle">11</fxClass>
+  <color type="COLOR">
+    <red type="u8">128</red>
+    <green type="u8">128</green>
+    <blue type="u8">128</blue>
+  </color>
+</BT_PARTICLE_CIRCLE>

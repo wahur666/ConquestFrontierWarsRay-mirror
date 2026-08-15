@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MT_STRINGPACK id="PACK!!M_Death_Malkor" type="string[]">
+  <element index="0" type="string">MAL2519.wav</element>
+  <element index="1" type="string">MAL2520.wav</element>
+  <element index="2" type="string">MAL2521.wav</element>
+</MT_STRINGPACK>
