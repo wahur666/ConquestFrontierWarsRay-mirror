@@ -1,7 +1,3 @@
-using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace ConquestFrontierWarsRay.Globals;
 
 public sealed class GlobalResourceManifest {
@@ -11,35 +7,39 @@ public sealed class GlobalResourceManifest {
 	public required IReadOnlyList<RgbColor> SectorColorTable { get; init; }
 
 	public static GlobalResourceManifest LoadDefault() {
-		var assembly = typeof(GlobalResourceManifest).Assembly;
-		const string resourceName = "ConquestFrontierWarsRay.Globals.Resources.globals-resource-manifest.json";
-
-		using var stream = assembly.GetManifestResourceStream(resourceName)
-		                  ?? throw new InvalidOperationException($"Missing embedded resource '{resourceName}'.");
-		using var reader = new StreamReader(stream);
-		var json = reader.ReadToEnd();
-		var manifest = JsonSerializer.Deserialize<GlobalResourceManifestDto>(json, new JsonSerializerOptions {
-			PropertyNameCaseInsensitive = true,
-		})
-		              ?? throw new InvalidOperationException("Could not deserialize globals resource manifest.");
-
 		return new GlobalResourceManifest {
-			ScreenHIdealWidth = manifest.ScreenHIdealWidth,
-			ScreenHIdealHeight = manifest.ScreenHIdealHeight,
-			DefaultColorTable = manifest.DefaultColorTable.Select(static color => new RgbColor(color[0], color[1], color[2])).ToArray(),
-			SectorColorTable = manifest.SectorColorTable.Select(static color => new RgbColor(color[0], color[1], color[2])).ToArray(),
+			ScreenHIdealWidth = 1024,
+			ScreenHIdealHeight = 768,
+			DefaultColorTable = [
+				new RgbColor(100, 100, 100),
+				new RgbColor(255, 255, 0),
+				new RgbColor(240, 0, 0),
+				new RgbColor(56, 52, 255),
+				new RgbColor(255, 0, 255),
+				new RgbColor(18, 200, 0),
+				new RgbColor(255, 150, 0),
+				new RgbColor(128, 0, 255),
+				new RgbColor(85, 218, 240),
+			],
+			SectorColorTable = [
+				new RgbColor(255, 255, 255),
+				new RgbColor(255, 0, 0),
+				new RgbColor(0, 255, 0),
+				new RgbColor(0, 0, 255),
+				new RgbColor(255, 255, 0),
+				new RgbColor(0, 255, 255),
+				new RgbColor(255, 0, 255),
+				new RgbColor(0, 128, 255),
+				new RgbColor(255, 0, 128),
+				new RgbColor(128, 255, 0),
+				new RgbColor(128, 0, 255),
+				new RgbColor(255, 128, 0),
+				new RgbColor(0, 255, 128),
+				new RgbColor(128, 128, 255),
+				new RgbColor(255, 128, 128),
+				new RgbColor(128, 255, 128),
+			],
 		};
-	}
-
-	private sealed class GlobalResourceManifestDto {
-		[JsonPropertyName("screenHIdealWidth")]
-		public int ScreenHIdealWidth { get; init; }
-		[JsonPropertyName("screenHIdealHeight")]
-		public int ScreenHIdealHeight { get; init; }
-		[JsonPropertyName("defaultColorTable")]
-		public required int[][] DefaultColorTable { get; init; }
-		[JsonPropertyName("sectorColorTable")]
-		public required int[][] SectorColorTable { get; init; }
 	}
 }
 

@@ -4,7 +4,7 @@ namespace ConquestFrontierWarsRay.Globals.Tests;
 
 public sealed class GlobalResourceManifestTests {
 	[Fact]
-	public void LoadDefault_ReadsEmbeddedJsonManifest() {
+	public void LoadDefault_ReturnsBuiltInManifest() {
 		var manifest = GlobalResourceManifest.LoadDefault();
 
 		Assert.Equal(ConquestGlobalsConstants.ScreenHIdealWidth, manifest.ScreenHIdealWidth);

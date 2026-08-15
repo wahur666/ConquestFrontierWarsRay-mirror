@@ -13,7 +13,7 @@ It intentionally keeps the parts that are still useful to the raylib runtime:
 - resource totals and caps
 - mission objective state
 - object-class classification helpers
-- JSON-backed resource metadata such as shared color tables
+- built-in resource metadata such as shared color tables
 
 It intentionally drops the old native shell:
 
@@ -29,5 +29,5 @@ It intentionally drops the old native shell:
 - [ConquestGlobalState.cs](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/ConquestGlobalState.cs)
 - [ObjectClassClassifier.cs](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/ObjectClassClassifier.cs)
 - [MGlobals-port-ledger.md](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/MGlobals-port-ledger.md)
-- [Resources/globals-resource-manifest.json](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/Resources/globals-resource-manifest.json)
+- [GlobalResourceManifest.cs](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/GlobalResourceManifest.cs)
 - [tools/generate_globals_assets.py](D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Gloabls/tools/generate_globals_assets.py)

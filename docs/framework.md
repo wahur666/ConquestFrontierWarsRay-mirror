@@ -77,6 +77,23 @@ This document tracks what is currently implemented in the node framework.
 - Parent-child 2D transform composition is implemented through `Transform2D`.
 - Parent-child draw ordering is implemented through `GlobalZIndex` and optional Y sorting.
 
+### 3D Node Stack
+
+- `Transform3D` owns 3D transform composition and matrix-backed decomposition.
+- `Node3D` adds transform properties:
+  - `Position`
+  - `Rotation`
+  - `Scale`
+- `Node3D` computes:
+  - `LocalTransform3D`
+  - `GlobalTransform3D`
+  - `LocalTransform`
+  - `GlobalTransform`
+  - `GlobalPosition`
+  - `GlobalRotation`
+  - `GlobalScale`
+- Parent-child 3D transform composition is implemented through `Transform3D`.
+
 ### Debugging
 
 - `DebugTreeView` prints any node subtree.
