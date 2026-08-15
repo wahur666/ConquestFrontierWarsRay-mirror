@@ -6,7 +6,7 @@ namespace ConquestFrontierWarsRay.Data.Tests.DOSFile;
 public sealed class DosFileReaderTests {
 	[Fact]
 	public void StringPackDatabase_Exposes_ParseData_And_GametypesHeader() {
-		var reader = new DosFileReader(Path.Combine(GetRepoRoot(), "DB", "StringPack.db"));
+		var reader = new DosFileReader(Path.Combine(GetRepoRoot(), "assets", "DB", "StringPack.db"));
 
 		var rootEntries = reader.FindFiles();
 		Assert.Contains(rootEntries, entry => entry.IsDirectory && entry.Name.Equals("ParseData", StringComparison.OrdinalIgnoreCase));
@@ -77,7 +77,7 @@ public sealed class DosFileReaderTests {
 		while (current is not null) {
 			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx")) &&
 			    File.Exists(Path.Combine(current.FullName, "src", "Conquest", "ConquestFrontierWars.csproj")) &&
-			    Directory.Exists(Path.Combine(current.FullName, "DB")) &&
+			    Directory.Exists(Path.Combine(current.FullName, "assets", "DB")) &&
 			    Directory.Exists(Path.Combine(current.FullName, "tests", "Data.Tests", "utfArchives"))) {
 				return current.FullName;
 			}

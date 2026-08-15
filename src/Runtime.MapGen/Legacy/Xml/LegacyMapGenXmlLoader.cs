@@ -10,7 +10,7 @@ public static class LegacyMapGenXmlLoader {
 	public static string LocateDefaultXmlPath() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
-			var candidate = Path.Combine(current.FullName, "DB", "xml", "GameTypes.db", "BT_MAP_GEN", "MAPGEN!!Map.xml");
+			var candidate = Path.Combine(current.FullName, "assets", "DB", "xml", "GameTypes.db", "BT_MAP_GEN", "MAPGEN!!Map.xml");
 			if (File.Exists(candidate)) {
 				return candidate;
 			}
@@ -19,6 +19,6 @@ public static class LegacyMapGenXmlLoader {
 		}
 
 		throw new DirectoryNotFoundException(
-			"Could not locate DB/xml/GameTypes.db/BT_MAP_GEN/MAPGEN!!Map.xml from the application directory.");
+			"Could not locate assets/DB/xml/GameTypes.db/BT_MAP_GEN/MAPGEN!!Map.xml from the application directory.");
 	}
 }

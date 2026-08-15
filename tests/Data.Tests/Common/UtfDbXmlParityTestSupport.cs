@@ -56,7 +56,7 @@ public static class UtfDbXmlParityTestSupport
     private static RepoFixture CreateFixture()
     {
         var repoRoot = FindRepoRoot();
-        var dbRoot = Path.Combine(repoRoot, "DB");
+        var dbRoot = Path.Combine(repoRoot, "assets", "DB");
         var xmlRoot = Path.Combine(dbRoot, "xml");
 
         var specs = new[]
@@ -111,7 +111,7 @@ public static class UtfDbXmlParityTestSupport
         var current = new DirectoryInfo(AppContext.BaseDirectory);
         while (current is not null)
         {
-            if (Directory.Exists(Path.Combine(current.FullName, "DB", "xml")) &&
+            if (Directory.Exists(Path.Combine(current.FullName, "assets", "DB", "xml")) &&
                 File.Exists(Path.Combine(current.FullName, "src", "Conquest", "ConquestFrontierWars.csproj")))
             {
                 return current.FullName;
