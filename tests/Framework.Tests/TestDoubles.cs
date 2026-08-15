@@ -6,11 +6,14 @@ internal sealed class TestNode : Node {
 	public List<string> LifecycleEvents { get; } = [];
 	public List<float> UpdateDeltas { get; } = [];
 	public int DrawCount { get; private set; }
+	public bool WasDisposed { get; private set; }
 
 	public TestNode(string? name = null) : base(name) {
 	}
 
 	public InputManager ExposedInput => Input;
+
+	public SceneTree ExposedTree => Tree;
 
 	public void ExposedRequestQuit() {
 		RequestQuit();
@@ -34,6 +37,10 @@ internal sealed class TestNode : Node {
 
 	protected override void OnDraw() {
 		DrawCount++;
+	}
+
+	protected override void OnDispose() {
+		WasDisposed = true;
 	}
 }
 

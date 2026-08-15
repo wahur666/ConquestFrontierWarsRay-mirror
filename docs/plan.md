@@ -17,7 +17,7 @@ Related: [Framework Status](./framework.md)
 
 ## Next Plan
 
-1. [ ] `SceneTree`:
+1. [x] `SceneTree`:
    add a Godot-style owner for the active tree, quit flow, root switching, and global update/draw orchestration instead of keeping all runtime control inside `RaylibApplication`.
 
 2. [ ] `Camera3DNode`:

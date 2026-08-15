@@ -54,6 +54,19 @@ public class Node : IDisposable {
 	}
 
 	/// <summary>
+	/// Owning scene tree for the active node hierarchy.
+	/// </summary>
+	protected SceneTree Tree {
+		get {
+			if (_context is null) {
+				throw new InvalidOperationException($"Node '{Name}' is not attached to a runtime context.");
+			}
+
+			return _context.Tree;
+		}
+	}
+
+	/// <summary>
 	/// Removes the node from the tree and disposes its children.
 	/// </summary>
 	public void Dispose() {

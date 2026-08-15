@@ -9,21 +9,26 @@ namespace ConquestFrontierWarsRay.Windowing;
 /// Owns the Raylib window and runs the main loop.
 /// </summary>
 public sealed class RaylibApplication : IDisposable {
-	private readonly InputManager _input = new();
-	private readonly Node _root;
+	private readonly SceneTree _sceneTree;
 	private readonly WindowOptions _windowOptions;
 	private readonly Stopwatch _frameClock = new();
 	private bool _disposed;
 	private bool _isRunningFrame;
-	private bool _shouldQuit;
 	private long _lastFrameTicks;
 
 	/// <summary>
 	/// Creates the app runner with one root node.
 	/// </summary>
-	public RaylibApplication(WindowOptions windowOptions, Node root) {
+	public RaylibApplication(WindowOptions windowOptions, Node root)
+		: this(windowOptions, new SceneTree(root, new InputManager())) {
+	}
+
+	/// <summary>
+	/// Creates the app runner with an existing scene tree.
+	/// </summary>
+	public RaylibApplication(WindowOptions windowOptions, SceneTree sceneTree) {
 		_windowOptions = windowOptions;
-		_root = root ?? throw new ArgumentNullException(nameof(root));
+		_sceneTree = sceneTree ?? throw new ArgumentNullException(nameof(sceneTree));
 	}
 
 	/// <summary>
@@ -34,7 +39,7 @@ public sealed class RaylibApplication : IDisposable {
 			return;
 		}
 
-		_root.Dispose();
+		_sceneTree.Dispose();
 
 		if (Raylib.IsWindowReady()) {
 			Raylib.CloseWindow();
@@ -53,33 +58,27 @@ public sealed class RaylibApplication : IDisposable {
 		Raylib.InitWindow(_windowOptions.Width, _windowOptions.Height, _windowOptions.Title);
 		Raylib.SetTargetFPS(_windowOptions.TargetFps);
 		Raylib.SetExitKey(KeyboardKey.Null);
-		_input.SetupHotkeys();
-		_root.AttachContextRecursive(new NodeContext(_input, SignalQuit));
-		_root.InitializeRecursive();
-		_root.EnterTreeRecursive();
+		_sceneTree.Input.SetupHotkeys();
+		_sceneTree.Start();
 		_frameClock.Restart();
 		_lastFrameTicks = _frameClock.ElapsedTicks;
 		using var modalMoveLoopWorkaround = Win32Window.TryInstall(() => RunFrame(GetDeltaTime()));
 
 		try {
 			while (true) {
-				if (_shouldQuit || Raylib.WindowShouldClose()) {
+				if (_sceneTree.IsQuitRequested || Raylib.WindowShouldClose()) {
 					break;
 				}
 
 				RunFrame(GetDeltaTime());
 			}
 		} finally {
-			_root.ExitTreeRecursive();
+			_sceneTree.Stop();
 		}
 	}
 
 	private void ThrowIfDisposed() {
 		ObjectDisposedException.ThrowIf(_disposed, this);
-	}
-
-	private void SignalQuit() {
-		_shouldQuit = true;
 	}
 
 	private float GetDeltaTime() {
@@ -90,17 +89,17 @@ public sealed class RaylibApplication : IDisposable {
 	}
 
 	private void RunFrame(float deltaTime) {
-		if (_isRunningFrame || _shouldQuit || Raylib.WindowShouldClose()) {
+		if (_isRunningFrame || _sceneTree.IsQuitRequested || Raylib.WindowShouldClose()) {
 			return;
 		}
 
 		_isRunningFrame = true;
 
 		try {
-			_input.Update(deltaTime);
-			_root.UpdateRecursive(deltaTime);
+			_sceneTree.Input.Update(deltaTime);
+			_sceneTree.Update(deltaTime);
 			Raylib.BeginDrawing();
-			_root.DrawRecursive();
+			_sceneTree.Draw();
 			Raylib.EndDrawing();
 		} finally {
 			_isRunningFrame = false;

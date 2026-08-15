@@ -27,24 +27,23 @@ public sealed class AppTests {
 
 	[Fact]
 	public void NodeContext_StoresDependenciesAndRejectsNulls() {
-		var input = new InputManager();
-		var quitCalled = false;
-		var context = new NodeContext(input, () => quitCalled = true);
+		var tree = new SceneTree(new Node("Root"), new InputManager());
+		var context = new NodeContext(tree);
 
-		Assert.Same(input, context.Input);
+		Assert.Same(tree, context.Tree);
+		Assert.Same(tree.Input, context.Input);
 		context.RequestQuit();
-		Assert.True(quitCalled);
+		Assert.True(tree.IsQuitRequested);
 
-		Assert.Throws<ArgumentNullException>(() => new NodeContext(null!, () => {
-		}));
-		Assert.Throws<ArgumentNullException>(() => new NodeContext(input, null!));
+		Assert.Throws<ArgumentNullException>(() => new NodeContext(null!));
 	}
 
 	[Fact]
 	public void RaylibApplication_RejectsNullRootAndDisposesRoot() {
 		var options = new WindowOptions(320, 200, "Test");
 
-		Assert.Throws<ArgumentNullException>(() => new RaylibApplication(options, null!));
+		Assert.Throws<ArgumentNullException>(() => new RaylibApplication(options, (Node)null!));
+		Assert.Throws<ArgumentNullException>(() => new RaylibApplication(options, (SceneTree)null!));
 
 		var root = new Node("Root");
 		var app = new RaylibApplication(options, root);

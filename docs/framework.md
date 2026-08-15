@@ -8,14 +8,19 @@ This document tracks what is currently implemented in the node framework.
 
 - `RaylibApplication` owns the window lifecycle and main loop.
 - Window setup is configured through `WindowOptions`.
+- `SceneTree` owns:
+  - the active root
+  - quit flow
+  - root switching
+  - whole-tree update/draw orchestration
 - The main loop:
   - updates input state once per frame
-  - updates the node tree
+  - updates the active `SceneTree`
   - begins drawing
-  - draws the node tree
+  - draws the active `SceneTree`
   - ends drawing
 - The application exits when:
-  - a node requests quit through `RequestQuit()`
+  - the active `SceneTree` receives a quit request
   - or `Raylib.WindowShouldClose()` returns `true`
 
 ### Node System
@@ -35,6 +40,7 @@ This document tracks what is currently implemented in the node framework.
   - tree entry
 - Recursive update and draw traversal are built into `Node`.
 - Nodes receive a `NodeContext`.
+- `NodeContext` exposes the owning `SceneTree`.
 - Nodes can request application shutdown through `RequestQuit()`.
 
 ### Input
@@ -98,14 +104,12 @@ This document tracks what is currently implemented in the node framework.
 
 ### 3D Direction
 
-- The top 3D framework priority is a real `SceneTree`.
-- `SceneTree` should become the Godot-style owner for:
+- `SceneTree` now provides the framework owner for:
   - the active root
-  - current scene switching
+  - current root switching
   - global update/draw orchestration
   - quit flow
-  - later deferred tree mutations and tree-wide services
-- After `SceneTree`, the next most useful Godot-like 3D additions are:
+- The next most useful Godot-like 3D additions are:
   1. `Camera3DNode`
   2. `VisualInstance3D` with a first concrete `MeshInstance3D`
   3. `Socket3D` for named attachments and hardpoints

@@ -92,10 +92,9 @@ public sealed class NodeTests {
 		var root = new TestNode("Root");
 		var child = root.AddChild(new TestNode("Child"));
 		var grandChild = child.AddChild(new TestNode("GrandChild"));
-		var input = new InputManager();
-		var quitRequested = false;
+		var tree = new SceneTree(root, new InputManager());
 
-		root.AttachContextRecursive(new NodeContext(input, () => quitRequested = true));
+		root.AttachContextRecursive(new NodeContext(tree));
 		root.InitializeRecursive();
 		root.EnterTreeRecursive();
 		root.UpdateRecursive(0.25f);
@@ -103,8 +102,9 @@ public sealed class NodeTests {
 		root.ExitTreeRecursive();
 		grandChild.ExposedRequestQuit();
 
-		Assert.Same(input, grandChild.ExposedInput);
-		Assert.True(quitRequested);
+		Assert.Same(tree, grandChild.ExposedTree);
+		Assert.Same(tree.Input, grandChild.ExposedInput);
+		Assert.True(tree.IsQuitRequested);
 		Assert.Equal(["Root:Initialize", "Root:EnterTree", "Root:ExitTree"], root.LifecycleEvents);
 		Assert.Equal(["Child:Initialize", "Child:EnterTree", "Child:ExitTree"], child.LifecycleEvents);
 		Assert.Equal(["GrandChild:Initialize", "GrandChild:EnterTree", "GrandChild:ExitTree"], grandChild.LifecycleEvents);
