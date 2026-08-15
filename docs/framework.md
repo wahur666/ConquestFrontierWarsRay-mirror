@@ -162,5 +162,6 @@ This document tracks what is currently implemented in the node framework.
 
 - `Control` adds size and hit-testing to `Node2D`.
 - `PanelNode`, `TextNode`, and `ButtonNode` provide basic lightweight UI drawing.
+- `ListViewNode` provides a mouse-driven single-selection list of clickable rows.
 - `MenuList` provides vertical menu selection logic.
 - `PauseDialog` provides a small modal dialog pattern on top of `MenuList`.

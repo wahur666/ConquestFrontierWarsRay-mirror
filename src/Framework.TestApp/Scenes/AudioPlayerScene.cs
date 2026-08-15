@@ -19,6 +19,18 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		Outline = new Color(72, 90, 120, 255),
 		OutlineThickness = 1.5f
 	};
+	private readonly ListViewNode _trackList = new("TrackList") {
+		Position = new Vector2(418f, 166f),
+		Size = new Vector2(316f, 344f),
+		FontSize = 17f,
+		ItemHeight = 52f,
+		ItemSpacing = 16f,
+		Fill = new Color(30, 38, 56, 255),
+		HoverFill = new Color(46, 60, 86, 255),
+		SelectedFill = new Color(74, 108, 170, 255),
+		Outline = new Color(82, 98, 126, 255),
+		SelectedOutline = Color.Gold
+	};
 	private readonly PanelNode _playerPanel = new("PlayerPanel") {
 		Position = new Vector2(786f, 112f),
 		Size = new Vector2(432f, 428f),
@@ -117,6 +129,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 		AddChild(_panel);
 		AddChild(_listPanel);
+		AddChild(_trackList);
 		AddChild(_playerPanel);
 		AddChild(_trackTitle);
 		AddChild(_trackMeta);
@@ -136,36 +149,19 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 	protected override void OnInitialize() {
 		_backendDropdown.SetItems(Enum.GetNames<PlaybackBackend>(), (int)PlaybackBackend.NAudio);
+		_trackList.SetItems(_tracks.Select(static track => track.Label), _selectedTrackIndex);
 		_player.Volume = _volumeSlider.Value;
 		_player.Pan = _panSlider.Value;
 		LoadSelectedTrack();
 	}
 
-	public override bool HandleNavigation(MenuNavigation navigation) {
-		var consumed = false;
-
-		if (navigation.Up) {
-			_selectedTrackIndex = (_selectedTrackIndex - 1 + _tracks.Count) % _tracks.Count;
-			LoadSelectedTrack();
-			consumed = true;
-		}
-
-		if (navigation.Down) {
-			_selectedTrackIndex = (_selectedTrackIndex + 1) % _tracks.Count;
-			LoadSelectedTrack();
-			consumed = true;
-		}
-
-		if (navigation.Confirm) {
-			PlaySelectedTrack();
-			consumed = true;
-		}
-
-		return consumed;
-	}
-
 	protected override void OnUpdate(float deltaTime) {
 		_ = deltaTime;
+
+		if (_trackList.HandleInput() && _trackList.SelectedIndex >= 0) {
+			_selectedTrackIndex = _trackList.SelectedIndex;
+			LoadSelectedTrack();
+		}
 
 		if (_playButton.HandleInput()) {
 			PlaySelectedTrack();
@@ -217,30 +213,19 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 	protected override void OnDraw() {
 		UiText.Draw("Audio player demo", 396f, 48f, 26f, Color.RayWhite, UiTextStyle.Title);
-		UiText.Draw("Up/Down changes the selected track. Enter or the Play button starts it. This scene can switch between the NAudio and raylib backends without changing the framework AudioPlayer API.", 396f, 82f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("Track selection now uses a framework list view control, so the showcase sidebar keeps arrow-key navigation while this scene stays mouse-driven.", 396f, 82f, 17f, new Color(188, 200, 218, 255));
 		UiText.Draw("Track list", 424f, 128f, 20f, new Color(230, 236, 246, 255));
 		UiText.Draw("Player", 816f, 128f, 20f, new Color(230, 236, 246, 255));
 		UiText.Draw("Seek", 816f, 256f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Volume", 816f, 346f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Pan", 816f, 416f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Mouse: drag sliders and click transport buttons. Seek commits on slider release.", 816f, 550f, 16f, new Color(188, 200, 218, 255));
-		UiText.Draw("Keyboard: Up/Down select, Enter plays. Backend selection is in the dropdown.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
-		DrawTrackList();
-	}
-
-	private void DrawTrackList() {
-		for (var i = 0; i < _tracks.Count; i++) {
-			var selected = i == _selectedTrackIndex;
-			var y = 166f + (i * 68f);
-			var row = new Rectangle(418f, y, 316f, 52f);
-			Raylib.DrawRectangleRec(row, selected ? new Color(74, 108, 170, 255) : new Color(30, 38, 56, 255));
-			Raylib.DrawRectangleLinesEx(row, 1.25f, selected ? Color.Gold : new Color(82, 98, 126, 255));
-			UiText.Draw(_tracks[i].Label, row.X + 14f, row.Y + 11f, 17f, Color.RayWhite);
-			UiText.Draw(Path.GetExtension(_tracks[i].Path).TrimStart('.').ToUpperInvariant(), row.X + 14f, row.Y + 30f, 14f, new Color(196, 206, 224, 255));
-		}
+		UiText.Draw("Keyboard: sidebar scene selection is active again. Backend selection stays in the dropdown.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
 	}
 
 	private void LoadSelectedTrack() {
+		_trackList.SetSelectedIndex(_selectedTrackIndex);
+
 		var selectedTrack = _tracks[_selectedTrackIndex];
 		if (!File.Exists(selectedTrack.Path)) {
 			_player.DisposeAudio();
