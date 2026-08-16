@@ -1,6 +1,4 @@
-using ConquestFrontierWarsRay.Runtime.Trim.Terrain;
-
-namespace MapGen.Terrain;
+namespace ConquestFrontierWarsRay.Runtime.Trim.Terrain;
 
 public class FootprintList {
     public readonly LinkedList<FootprintInfo> FpInfoList;
@@ -8,6 +6,7 @@ public class FootprintList {
     private int _count;
     public uint AllFlags;
 
+    // Needed for path finding
     public PathNode Node { get; set; }
 
     public FootprintList()
@@ -20,7 +19,7 @@ public class FootprintList {
 
     public void Add(FootprintInfo fpInfo) {
         FpInfoList.AddLast(fpInfo);
-        _count++;
+        _count+=1;
 
         AllFlags |= fpInfo.Flags;
     }

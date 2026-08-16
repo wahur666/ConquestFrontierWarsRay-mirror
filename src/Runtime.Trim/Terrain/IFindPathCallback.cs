@@ -1,5 +1,3 @@
-using MapGen.Terrain;
-
 namespace ConquestFrontierWarsRay.Runtime.Trim.Terrain;
 
 public interface IFindPathCallback {

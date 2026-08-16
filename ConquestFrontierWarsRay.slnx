@@ -10,6 +10,7 @@
   <Project Path="src/MiniLayout.Demo/MiniLayout.Demo.csproj" />
   <Project Path="src/Runtime.Collision/Runtime.Collision.csproj" />
   <Project Path="src/Runtime.MapGen/Runtime.MapGen.csproj" />
+  <Project Path="src/Runtime.Trim/Runtime.Trim.csproj" />
   <Project Path="src/Runtime.MapGen.Tool/Runtime.MapGen.Tool.csproj" />
   <Project Path="src/Runtime.Physics/Runtime.Physics.csproj" />
   <Project Path="src/Windowing/Windowing.csproj" />
