@@ -1,7 +1,7 @@
 ﻿namespace MapGen.Terrain;
 
 public class FootprintList {
-	public readonly InfoList<FootprintInfo> FpInfoList;
+	public readonly LinkedList<FootprintInfo> FpInfoList;
     
     private int _count;
     public uint AllFlags;
@@ -11,14 +11,14 @@ public class FootprintList {
     
     public FootprintList()
     {
-        FpInfoList = new InfoList<FootprintInfo>();
+        FpInfoList = new LinkedList<FootprintInfo>();
         _count = 0;
         AllFlags = 0;
         Node = new PathNode();
     }
     
     public void Add(FootprintInfo fpInfo) {
-        FpInfoList.Add(fpInfo);
+        FpInfoList.AddLast(fpInfo);
         _count++;
 
         AllFlags |= fpInfo.Flags;
@@ -26,14 +26,14 @@ public class FootprintList {
 
     public void Undo(FootprintInfo fpInfo)
     {
-        var node = FpInfoList.Items.First;
+        var node = FpInfoList.First;
         while (node is not null)
         {
             var next = node.Next;
             if (node.Value.MissionID == fpInfo.MissionID)
             {
                 _count--;
-                FpInfoList.Items.Remove(node);
+                FpInfoList.Remove(node);
             }
             node = next;
         }
@@ -48,7 +48,7 @@ public class FootprintList {
     public void ResetFlags()
     {
         AllFlags = 0;
-        foreach (var info in FpInfoList.Items)
+        foreach (var info in FpInfoList)
         {
             AllFlags |= info.Flags;
         }
@@ -57,7 +57,7 @@ public class FootprintList {
     public uint GetMissionFlags(uint missionID, uint cornerID = 0)
     {
         uint retFlag = 0;
-        foreach (var info in FpInfoList.Items)
+        foreach (var info in FpInfoList)
         {
             // Get all flags associated with the mission ID
             if (cornerID != 0)

@@ -198,7 +198,7 @@ public class MapMatrix {
 		}
 
 		// find the field ID
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 		foreach (var footprintInfo in it) {
 			if ((footprintInfo.Flags & TerrainMap.TERRAIN_FIELD) != 0) {
 				return footprintInfo.MissionID;
@@ -213,7 +213,7 @@ public class MapMatrix {
 
 	public bool IsDestinationOpen(uint x, uint y, uint dwMissionID) {
 		uint dwFlags;
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 
 		// if the square is out of bounds, then keep moving
 		if ((matrix[x, y].AllFlags & TerrainMap.TERRAIN_OUTOFSYSTEM) != 0) {
@@ -245,7 +245,7 @@ public class MapMatrix {
 
 	bool IsParkedAtSquare(uint x, uint y, uint dwMissionID) {
 		uint dwFlags;
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 
 		// if the square is out of bounds, then keep moving
 		if ((matrix[x, y].AllFlags & TerrainMap.TERRAIN_OUTOFSYSTEM) != 0) {
@@ -272,7 +272,7 @@ public class MapMatrix {
 			return false;
 		}
 
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 
 		foreach (var footprintInfo in it) {
 			var dwFlags = footprintInfo.Flags;
@@ -301,7 +301,7 @@ public class MapMatrix {
 		}
 
 		if (checkParkedUnits) {
-			var it = matrix[x, y].FpInfoList.Items;
+			var it = matrix[x, y].FpInfoList;
 			foreach (var footprintInfo in it) {
 				dwFlags = footprintInfo.Flags;
 				if ((dwFlags & testFlags) != 0)
@@ -325,7 +325,7 @@ public class MapMatrix {
 		}
 
 		if (checkParkedUnits) {
-			var it = matrix[x, y].FpInfoList.Items;
+			var it = matrix[x, y].FpInfoList;
 			foreach (var footprintInfo in it) {
 				dwFlags = footprintInfo.Flags;
 				if ((dwFlags & dwCornerID) == 0) {
@@ -351,7 +351,7 @@ public class MapMatrix {
 		uint dwFlags;
 		bool bSamePlayer;
 		uint thisMissionID;
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 
 		foreach (var footprintInfo in it) {
 			thisMissionID = footprintInfo.MissionID;
@@ -403,7 +403,7 @@ public class MapMatrix {
 
 	uint GetQuarterFlags(int x, int y, uint dwQuarter) {
 		uint flags = 0;
-		var it = matrix[x, y].FpInfoList.Items;
+		var it = matrix[x, y].FpInfoList;
 
 
 		foreach (var footprintInfo in it) {
