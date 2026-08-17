@@ -20,13 +20,13 @@ Related: [Framework Status](./framework.md)
 1. [x] `SceneTree`:
    add a Godot-style owner for the active tree, quit flow, root switching, and global update/draw orchestration instead of keeping all runtime control inside `RaylibApplication`.
 
-2. [ ] `Camera3DNode`:
+2. [x] `Camera3DNode`:
    move 3D camera state into the node framework so scenes can compose and switch cameras through the tree instead of keeping `Camera3D` instances in scene-local code.
 
 3. [ ] `VisualInstance3D` and `MeshInstance3D`:
    add a reusable 3D renderable base plus a first concrete mesh/model node so the 3D framework can compose visible world objects instead of transform-only placeholders.
 
-4. [ ] `Socket3D`:
+4. [x] `Socket3D`:
    add named attachment nodes for hardpoints, weapon mounts, particle anchors, and compound-part composition so Conquest-style ship assembly fits the scene graph cleanly.
 
 5. [ ] `Light3D`:
