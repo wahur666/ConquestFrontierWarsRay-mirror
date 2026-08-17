@@ -46,6 +46,18 @@ public sealed class Node3DTests {
 		AssertQuaternionEquivalent(DecomposeRotation(expectedGlobalTransform), child.GlobalRotation);
 	}
 
+	[Fact]
+	public void Light3D_DerivesDirectionFromNodeRotation() {
+		var light = new Light3D("Light") {
+			Rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, MathF.PI * 0.5f)
+		};
+
+		var expectedDirection = new Vector3(-1f, 0f, 0f);
+
+		AssertVectorEqual(expectedDirection, light.WorldDirection);
+		AssertVectorEqual(expectedDirection, light.TargetPosition - light.WorldPosition);
+	}
+
 	private static Quaternion DecomposeRotation(Matrix4x4 matrix) {
 		Matrix4x4.Decompose(matrix, out _, out var rotation, out _);
 		return Quaternion.Normalize(rotation);

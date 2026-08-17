@@ -130,6 +130,7 @@ This document tracks what is currently implemented in the node framework.
 - The currently available 3D node types are:
   - `Node3D`
   - `Camera3DNode`
+  - `Light3D`
   - `Socket3D`
   - `Hardpoint3D`
 - `Camera3DNode` mirrors raylib's `Camera3D` shape:
@@ -158,6 +159,45 @@ This document tracks what is currently implemented in the node framework.
   - weapon mounts
   - dock points
   - particle anchors
+- `Light3D` is now the reusable 3D lighting node for:
+  - ambient-tagged scene baseline lights
+  - directional lights
+  - point lights
+  - spot lights
+  - transform-derived world-space position and direction
+  - raylib-style position/target snapshots for shader upload
+- `LightShader3D` is now the reusable framework shader resource for:
+  - ambient baseline upload through raylib shader uniforms
+  - forward-lit 3D shading from `Light3DState` snapshots
+  - directional, point, and spot light evaluation
+  - configurable compiled light count through `maxLights`
+  - clamping `maxLights` to the current framework cap of `8`
+  - a stable `Begin(...)` / draw / `End()` call pattern for renderer code
+- `LightShader3D` should be used in this order:
+  1. create one shader resource for the renderer, scene, or view that owns the lit pass
+  2. choose `maxLights` up front; it changes the compiled shader shape, so it is not a per-frame toggle
+  3. each frame, gather `Light3DState` values from the active `Light3D` nodes with `ToLightState()`
+  4. start the camera 3D pass
+  5. call `LightShader3D.Begin(cameraPosition, lights)`
+  6. draw the geometry that should receive this lighting
+  7. call `LightShader3D.End()`
+  8. dispose the shader resource when the owning scene or renderer is torn down
+- `LightShader3D` currently expects the caller to provide:
+  - the camera/view position for shader upload
+  - the ordered list of active lights for the pass
+  - geometry that already provides positions, normals, and vertex colors
+- Ambient-tagged `Light3D` nodes are accumulated into the shader ambient baseline.
+- Ambient-tagged `Light3D` nodes do not consume one of the compiled directional/point/spot light slots.
+- `LightShader3D` currently does not:
+  - discover `Light3D` nodes automatically
+  - select the best subset of lights for a mesh or region
+  - bind textures or materials by itself
+  - manage multiple passes or mixed lighting models
+- The practical rule is:
+  - use `Light3D` for reusable world-space light data
+  - use the `Light3D.Ambient` flag when a light should contribute only to the scene ambient baseline
+  - use `LightShader3D` for the actual shader-backed draw pass
+  - keep light collection and pass ownership in the scene or renderer layer above them
 - `Hardpoint3D` now extends `Socket3D` with native-style constraint metadata:
   - `JointType`
   - `Axis`
@@ -178,8 +218,16 @@ This document tracks what is currently implemented in the node framework.
   - quit flow
 - The next most useful Godot-like 3D additions are:
   1. `VisualInstance3D` with a first concrete `MeshInstance3D`
-  2. `Socket3D` for named attachments and hardpoints
-  3. `Light3D`
+  2. broader render-facing 3D nodes on top of the current transform, camera, socket, hardpoint, and light stack
+- The framework lighting boundary is now split into:
+  1. `Light3D` for reusable scene/node light state
+  2. `LightShader3D` for reusable raylib shader upload and lighting evaluation
+- The current lighting split is:
+  1. ambient contribution through the `Light3D.Ambient` flag and the shader `ambientColor` upload
+  2. directional, point, and spot contribution through the compiled dynamic light array
+- This keeps lighting data separate from scene-local demo code and makes the
+  first renderer-facing lighting component reusable across test scenes and
+  future mesh nodes.
 - This order is preferred because the project needs more reusable 3D
   composition nodes before adding deeper specialized systems.
 - `Socket3D` is especially important for Conquest-style compound ships,

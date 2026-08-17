@@ -37,6 +37,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("Video Player", "VideoPlayer extracted from the legacy runtime into the framework as a standalone Control node with Media Foundation decoding.", () => new VideoPlayerScene()),
 			new SceneDefinition("Sprites", "CompressedTexture2D, AtlasDefinitionResource, AtlasTexture, and Sprite in one resource-driven scene.", () => new SpriteScene()),
 			new SceneDefinition("3D Camera Node", "Camera3DNode driving a raylib camera with EngineCameras-style projection helpers, visibility checks, and interactive orbit/pan/zoom controls.", () => new ThreeDScene()),
+			new SceneDefinition("Light3D", "Framework Light3D nodes feeding a local raylib shader with directional, point, and spot lights. Includes xml-driven BT_LIGHT source data.", () => new LightScene()),
 			new SceneDefinition("Hardpoints", "Socket3D and Hardpoint3D isolated as real attachment nodes with native-style joint metadata and connection math.", () => new HardpointScene())
 		]);
 

@@ -29,7 +29,7 @@ Related: [Framework Status](./framework.md)
 4. [x] `Socket3D`:
    add named attachment nodes for hardpoints, weapon mounts, particle anchors, and compound-part composition so Conquest-style ship assembly fits the scene graph cleanly.
 
-5. [ ] `Light3D`:
+5. [x] `Light3D`:
    add a reusable lighting node so 3D scenes can own light setup through the framework instead of relying on scene-local rendering glue.
 
 6. [ ] `AnimatedSprite2D`:
