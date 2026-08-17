@@ -7,7 +7,6 @@ namespace ConquestFrontierWarsRay.Framework;
 /// </summary>
 public sealed class InputManager {
 	private const float StickTriggerThreshold = 0.6f;
-	private const float StickReleaseThreshold = 0.35f;
 	private const int PrimaryGamepad = 0;
 	private const float ExitHoldDurationSeconds = 1.25f;
 	private readonly Dictionary<string, List<InputBinding>> _bindings = new(StringComparer.Ordinal);
@@ -17,10 +16,41 @@ public sealed class InputManager {
 	private float _exitHoldElapsed;
 	private bool _exitRequestedThisFrame;
 	private bool _exitTriggeredDuringCurrentHold;
-	private bool _stickLatchUp;
-	private bool _stickLatchDown;
-	private bool _stickLatchLeft;
-	private bool _stickLatchRight;
+
+	/// <summary>
+	/// Standard action name for UI up navigation.
+	/// </summary>
+	public const string UiUpAction = "UiUp";
+
+	/// <summary>
+	/// Standard action name for UI down navigation.
+	/// </summary>
+	public const string UiDownAction = "UiDown";
+
+	/// <summary>
+	/// Standard action name for UI left navigation.
+	/// </summary>
+	public const string UiLeftAction = "UiLeft";
+
+	/// <summary>
+	/// Standard action name for UI right navigation.
+	/// </summary>
+	public const string UiRightAction = "UiRight";
+
+	/// <summary>
+	/// Standard action name for UI accept/confirm.
+	/// </summary>
+	public const string UiAcceptAction = "UiAccept";
+
+	/// <summary>
+	/// Standard action name for UI cancel/escape.
+	/// </summary>
+	public const string UiEscapeAction = "UiEscape";
+
+	/// <summary>
+	/// Standard action name for UI back.
+	/// </summary>
+	public const string UiBackAction = "UiBack";
 
 	/// <summary>
 	/// Raised every frame while an action is down.
@@ -50,43 +80,42 @@ public sealed class InputManager {
 	/// <summary>
 	/// Returns true on the frame UI up navigation is triggered.
 	/// </summary>
-	public bool UiUp => _gamepad.DPadUpPressed || Raylib.IsKeyPressed(KeyboardKey.Up) ||
-	                    StickCrossed(_gamepad.LeftStickY, true, ref _stickLatchUp);
+	public bool UiUp => IsActionJustPressed(UiUpAction);
 
 	/// <summary>
 	/// Returns true on the frame UI down navigation is triggered.
 	/// </summary>
-	public bool UiDown => _gamepad.DPadDownPressed || Raylib.IsKeyPressed(KeyboardKey.Down) ||
-	                      StickCrossed(_gamepad.LeftStickY, false, ref _stickLatchDown);
+	public bool UiDown => IsActionJustPressed(UiDownAction);
 
 	/// <summary>
 	/// Returns true on the frame UI left navigation is triggered.
 	/// </summary>
-	public bool UiLeft => _gamepad.DPadLeftPressed || Raylib.IsKeyPressed(KeyboardKey.Left) ||
-	                      StickCrossed(_gamepad.LeftStickX, true, ref _stickLatchLeft);
+	public bool UiLeft => IsActionJustPressed(UiLeftAction);
 
 	/// <summary>
 	/// Returns true on the frame UI right navigation is triggered.
 	/// </summary>
-	public bool UiRight => _gamepad.DPadRightPressed || Raylib.IsKeyPressed(KeyboardKey.Right) ||
-	                       StickCrossed(_gamepad.LeftStickX, false, ref _stickLatchRight);
+	public bool UiRight => IsActionJustPressed(UiRightAction);
 
 	/// <summary>
 	/// Returns true on the frame the primary cancel key is pressed.
 	/// </summary>
-	public bool UiEsc => Raylib.IsKeyPressed(KeyboardKey.Escape) || _gamepad.BPressed;
+	public bool UiEsc => IsActionJustPressed(UiEscapeAction);
 
 	/// <summary>
 	/// Returns true on the frame the primary accept key is pressed.
 	/// </summary>
-	public bool UiAccept => Raylib.IsKeyPressed(KeyboardKey.Enter) || _gamepad.APressed;
+	public bool UiAccept => IsActionJustPressed(UiAcceptAction);
 
 	/// <summary>
 	/// Returns true on the frame the secondary back key is pressed.
 	/// </summary>
-	public bool UiBack => Raylib.IsKeyPressed(KeyboardKey.Backspace) || _gamepad.BackPressed;
+	public bool UiBack => IsActionJustPressed(UiBackAction);
 
-	private void Register(string actionName, params KeyboardKey[] keys) {
+	/// <summary>
+	/// Registers one keyboard chord for an action. Calling this again adds another binding to the same action.
+	/// </summary>
+	public void RegisterAction(string actionName, params KeyboardKey[] keys) {
 		ArgumentException.ThrowIfNullOrWhiteSpace(actionName);
 		ArgumentNullException.ThrowIfNull(keys);
 
@@ -94,14 +123,29 @@ public sealed class InputManager {
 			throw new ArgumentException("At least one key is required for an input binding.", nameof(keys));
 		}
 
-		if (!_bindings.TryGetValue(actionName, out var bindings)) {
-			bindings = [];
-			_bindings[actionName] = bindings;
-			_currentStates[actionName] = false;
-			_previousStates[actionName] = false;
+		RegisterBinding(actionName, new KeyboardChordBinding(keys));
+	}
+
+	/// <summary>
+	/// Registers one gamepad button binding for an action. Calling this again adds another binding to the same action.
+	/// </summary>
+	public void RegisterAction(string actionName, GamepadButton button) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(actionName);
+
+		RegisterBinding(actionName, new GamepadButtonBinding(button));
+	}
+
+	/// <summary>
+	/// Registers one gamepad axis-direction binding for an action. Calling this again adds another binding to the same action.
+	/// </summary>
+	public void RegisterAction(string actionName, GamepadAxis axis, InputAxisDirection direction, float triggerThreshold = StickTriggerThreshold) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(actionName);
+
+		if (triggerThreshold <= 0f || triggerThreshold > 1f) {
+			throw new ArgumentOutOfRangeException(nameof(triggerThreshold), triggerThreshold, "Trigger threshold must be within (0, 1].");
 		}
 
-		bindings.Add(new InputBinding(keys));
+		RegisterBinding(actionName, new GamepadAxisBinding(axis, direction, triggerThreshold));
 	}
 
 	/// <summary>
@@ -156,7 +200,7 @@ public sealed class InputManager {
 
 		foreach (var (actionName, bindings) in _bindings) {
 			var previousState = _currentStates[actionName];
-			var currentState = bindings.Any(binding => binding.IsDown());
+			var currentState = bindings.Any(binding => binding.IsDown(_gamepad));
 
 			_previousStates[actionName] = previousState;
 			_currentStates[actionName] = currentState;
@@ -211,33 +255,31 @@ public sealed class InputManager {
 		return states[actionName];
 	}
 
-	private static bool StickCrossed(float axisValue, bool negative, ref bool latch) {
-		var magnitude = negative ? -axisValue : axisValue;
+	private void RegisterBinding(string actionName, InputBinding binding) {
+		ArgumentNullException.ThrowIfNull(binding);
 
-		if (magnitude > StickTriggerThreshold) {
-			if (latch) {
-				return false;
-			}
-
-			latch = true;
-			return true;
+		if (!_bindings.TryGetValue(actionName, out var bindings)) {
+			bindings = [];
+			_bindings[actionName] = bindings;
+			_currentStates[actionName] = false;
+			_previousStates[actionName] = false;
 		}
 
-		if (magnitude < StickReleaseThreshold) {
-			latch = false;
-		}
-
-		return false;
+		bindings.Add(binding);
 	}
 
-	private sealed class InputBinding {
+	private abstract class InputBinding {
+		public abstract bool IsDown(GamepadState gamepad);
+	}
+
+	private sealed class KeyboardChordBinding : InputBinding {
 		private readonly KeyboardKey[] _keys;
 
-		public InputBinding(KeyboardKey[] keys) {
+		public KeyboardChordBinding(KeyboardKey[] keys) {
 			_keys = [.. keys];
 		}
 
-		public bool IsDown() {
+		public override bool IsDown(GamepadState gamepad) {
 			foreach (var key in _keys) {
 				if (!Raylib.IsKeyDown(key)) {
 					return false;
@@ -248,10 +290,92 @@ public sealed class InputManager {
 		}
 	}
 
+	private sealed class GamepadButtonBinding : InputBinding {
+		private readonly GamepadButton _button;
+
+		public GamepadButtonBinding(GamepadButton button) {
+			_button = button;
+		}
+
+		public override bool IsDown(GamepadState gamepad) {
+			return _button switch {
+				GamepadButton.LeftFaceUp => gamepad.DPadUp,
+				GamepadButton.LeftFaceRight => gamepad.DPadRight,
+				GamepadButton.LeftFaceDown => gamepad.DPadDown,
+				GamepadButton.LeftFaceLeft => gamepad.DPadLeft,
+				GamepadButton.RightFaceUp => gamepad.Y,
+				GamepadButton.RightFaceRight => gamepad.B,
+				GamepadButton.RightFaceDown => gamepad.A,
+				GamepadButton.RightFaceLeft => gamepad.X,
+				GamepadButton.LeftTrigger1 => gamepad.LB,
+				GamepadButton.RightTrigger1 => gamepad.RB,
+				GamepadButton.MiddleLeft => gamepad.Back,
+				GamepadButton.Middle => gamepad.Guide,
+				GamepadButton.MiddleRight => gamepad.Start,
+				GamepadButton.LeftThumb => gamepad.L3,
+				GamepadButton.RightThumb => gamepad.R3,
+				_ => Raylib.IsGamepadButtonDown(PrimaryGamepad, _button)
+			};
+		}
+	}
+
+	private sealed class GamepadAxisBinding : InputBinding {
+		private readonly GamepadAxis _axis;
+		private readonly InputAxisDirection _direction;
+		private readonly float _triggerThreshold;
+
+		public GamepadAxisBinding(GamepadAxis axis, InputAxisDirection direction, float triggerThreshold) {
+			_axis = axis;
+			_direction = direction;
+			_triggerThreshold = triggerThreshold;
+		}
+
+		public override bool IsDown(GamepadState gamepad) {
+			var axisValue = _axis switch {
+				GamepadAxis.LeftX => gamepad.LeftStickX,
+				GamepadAxis.LeftY => gamepad.LeftStickY,
+				GamepadAxis.RightX => gamepad.RightStickX,
+				GamepadAxis.RightY => gamepad.RightStickY,
+				GamepadAxis.LeftTrigger => gamepad.LeftTrigger,
+				GamepadAxis.RightTrigger => gamepad.RightTrigger,
+				_ => Raylib.GetGamepadAxisMovement(PrimaryGamepad, _axis)
+			};
+
+			return _direction switch {
+				InputAxisDirection.Positive => axisValue >= _triggerThreshold,
+				InputAxisDirection.Negative => axisValue <= -_triggerThreshold,
+				_ => false
+			};
+		}
+	}
+
 	/// <summary>
 	/// Registers the default input actions used by the app.
 	/// </summary>
 	public void SetupHotkeys() {
-		Register("UiEscape", KeyboardKey.Escape);
+		RegisterAction(UiUpAction, KeyboardKey.Up);
+		RegisterAction(UiUpAction, GamepadButton.LeftFaceUp);
+		RegisterAction(UiUpAction, GamepadAxis.LeftY, InputAxisDirection.Negative);
+
+		RegisterAction(UiDownAction, KeyboardKey.Down);
+		RegisterAction(UiDownAction, GamepadButton.LeftFaceDown);
+		RegisterAction(UiDownAction, GamepadAxis.LeftY, InputAxisDirection.Positive);
+
+		RegisterAction(UiLeftAction, KeyboardKey.Left);
+		RegisterAction(UiLeftAction, GamepadButton.LeftFaceLeft);
+		RegisterAction(UiLeftAction, GamepadAxis.LeftX, InputAxisDirection.Negative);
+
+		RegisterAction(UiRightAction, KeyboardKey.Right);
+		RegisterAction(UiRightAction, GamepadButton.LeftFaceRight);
+		RegisterAction(UiRightAction, GamepadAxis.LeftX, InputAxisDirection.Positive);
+
+		RegisterAction(UiAcceptAction, KeyboardKey.Enter);
+		RegisterAction(UiAcceptAction, GamepadButton.RightFaceDown);
+
+		RegisterAction(UiEscapeAction, KeyboardKey.Escape);
+		RegisterAction(UiEscapeAction, GamepadButton.RightFaceRight);
+
+		RegisterAction(UiBackAction, KeyboardKey.Backspace);
+		RegisterAction(UiBackAction, GamepadButton.MiddleLeft);
 	}
 }

@@ -68,68 +68,67 @@ Reusable controls are still difficult to compose because every caller must manua
 4. Add measured text helpers to `TextNode`.
 5. Convert one test app scene from hard-coded coordinates to containers as a proof point.
 
-## 3. Input Actions Are Not Configurable Enough
+## 3. Input Actions Need Broader Binding Coverage
 
 ### Evidence
 
-- `InputManager` stores named actions internally.
-- The action registration method is private.
-- `SetupHotkeys()` only registers the built-in `UiEscape` action.
-- UI navigation also directly checks fixed Raylib keys and gamepad state.
+- `InputManager` now exposes public action registration.
+- `SetupHotkeys()` registers the built-in UI navigation actions.
+- UI navigation now goes through named actions rather than bypassing them.
+- The remaining coverage is still narrow compared to a full reusable input map.
 
 ### Why This Hurts Reuse
 
-The framework advertises named actions, but game/application code cannot define its own action map through a public API. That means consumers either use hard-coded Raylib calls or modify the framework.
+The framework now has a usable action-registration entry point, but it still is
+not broad enough for a fully reusable input map. Consumers can define keyboard
+and basic gamepad navigation actions, but they still lack the wider binding and
+configuration surface needed for gameplay-scale input setup.
 
 ### Missing Framework Pieces
 
-- Public action registration.
 - Public action unregistration or rebinding.
-- Multiple binding kinds, not just keyboard chords.
-- Mouse button and gamepad button bindings.
+- Mouse button bindings.
 - Axis actions or analog values.
 - Action groups or contexts.
 - Serializable input map configuration.
 
 ### Suggested Work Items
 
-1. Make action registration public with validation.
-2. Add mouse and gamepad binding support.
-3. Route `UiUp`, `UiDown`, `UiAccept`, and related navigation through named actions.
-4. Add tests for rebinding and multiple input devices.
-5. Consider input contexts for gameplay, UI, debug, and modal states.
+1. Add action removal and rebinding APIs with validation.
+2. Add mouse bindings and broader analog/axis action support where continuous values matter.
+3. Add tests for rebinding and multiple input devices.
+4. Consider input contexts for gameplay, UI, debug, and modal states.
 
-## 4. 3D Is Transform-Only
+## 4. 3D Still Lacks Reusable Renderables
 
 ### Evidence
 
-- `Node3D` only owns position, rotation, scale, and global transform composition.
-- The test app creates the camera, render traversal, cube mesh drawing, and gizmos inside `ThreeDScene`.
-- The status document already identifies `Camera3DNode`, `VisualInstance3D`, `MeshInstance3D`, `Socket3D`, and `Light3D` as next useful additions.
+- `Node3D`, `Camera3DNode`, `Socket3D`, `Hardpoint3D`, `Light3D`, and `LightShader3D` are implemented.
+- The test app still creates render traversal, cube mesh drawing, and gizmos inside `ThreeDScene`.
+- The next missing layer is still `VisualInstance3D` and a first concrete reusable renderable such as `MeshInstance3D`.
 
 ### Why This Hurts Reuse
 
-The current 3D stack proves transform propagation, but it does not yet let game code build reusable 3D scene objects. Every 3D consumer still has to invent rendering traversal, camera ownership, and renderable node conventions.
+The current 3D stack proves transform propagation and basic scene ownership, but
+it still does not let game code build reusable renderable 3D scene objects.
+Every 3D consumer still has to invent render traversal and renderable node
+conventions in app code.
 
 ### Missing Framework Pieces
 
-- `Camera3DNode`.
 - Active camera selection.
 - 3D draw traversal or render pass ownership.
 - `VisualInstance3D`.
 - `MeshInstance3D`.
 - Mesh/model resource abstraction.
-- `Socket3D` for hardpoints and attachments.
-- `Light3D`.
 - 3D visibility/layers.
 
 ### Suggested Work Items
 
-1. Add `Camera3DNode` and active camera resolution through `SceneTree` or a 3D viewport node.
+1. Add active camera resolution through `SceneTree` or a 3D viewport node.
 2. Add `VisualInstance3D` as the base renderable 3D node.
 3. Move the test app cube renderer into a first framework renderable node.
-4. Add `Socket3D` before ship composition work starts depending on ad hoc child names.
-5. Add tests for 3D transform inheritance through sockets and renderable children.
+4. Add tests for 3D transform inheritance through sockets and renderable children.
 
 ## 5. Rendering Backend Boundary Is Raylib-Only By Design
 
