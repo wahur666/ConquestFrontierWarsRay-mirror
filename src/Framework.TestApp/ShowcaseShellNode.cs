@@ -36,7 +36,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
 			new SceneDefinition("Video Player", "VideoPlayer extracted from the legacy runtime into the framework as a standalone Control node with Media Foundation decoding.", () => new VideoPlayerScene()),
 			new SceneDefinition("Sprites", "CompressedTexture2D, AtlasDefinitionResource, AtlasTexture, and Sprite in one resource-driven scene.", () => new SpriteScene()),
-			new SceneDefinition("3D Nodes", "Node3D hierarchy with animated transforms, world-space gizmos, and a camera pass.", () => new ThreeDScene())
+			new SceneDefinition("3D Camera Node", "Camera3DNode driving a raylib camera with EngineCameras-style projection helpers, visibility checks, and interactive orbit/pan/zoom controls.", () => new ThreeDScene())
 		]);
 
 		for (var i = 0; i < _scenes.Count; i++) {

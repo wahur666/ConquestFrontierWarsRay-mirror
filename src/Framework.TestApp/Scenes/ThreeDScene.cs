@@ -5,25 +5,36 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
 
 internal sealed class ThreeDScene : ShowcaseScene {
-	private readonly Camera3D _camera = new(
-		new Vector3(9f, 7f, 9f),
-		new Vector3(0f, 0.75f, 0f),
-		new Vector3(0f, 1f, 0f),
-		45f,
-		CameraProjection.Perspective);
+	private const float SidebarWidth = 360f;
+	private const float KeyboardMoveSpeed = 7.5f;
+	private static readonly Vector3 SceneCenter = Vector3.Zero;
+	private const int GridHalfExtent = 10;
+	private readonly Camera3DNode _camera = new("ShowcaseCamera") {
+		FovY = 48f,
+		ZNear = 0.1f,
+		ZFar = 250f
+	};
 	private readonly RenderableCubeNode _root = new("WorldRoot", Color.SkyBlue, new Vector3(1.8f, 1.8f, 1.8f));
 	private readonly RenderableCubeNode _child = new("ChildNode", Color.Lime, new Vector3(1.1f, 1.1f, 1.1f)) {
-		Position = new Vector3(4f, 0f, 0f)
+		Position = new Vector3(2.6f, 0f, 0f)
 	};
 	private readonly RenderableCubeNode _grandChild = new("GrandChildNode", Color.Orange, new Vector3(0.8f, 0.8f, 0.8f)) {
-		Position = new Vector3(2.4f, 0f, 0f)
+		Position = new Vector3(-5.2f, 0f, 0f)
 	};
+	private Vector3 _orbitTarget = SceneCenter;
+	private float _cameraYaw = MathF.PI / 4f;
+	private float _cameraPitch = -0.42f;
+	private float _cameraDistance;
 	private float _elapsed;
+	private Vector2? _previousMouse;
+	private DragMode _dragMode;
 
-	public ThreeDScene() : base("ThreeDScene", "3D Nodes") {
+	public ThreeDScene() : base("ThreeDScene", "3D Camera Node") {
+		AddChild(_camera);
 		AddChild(_root);
 		_root.AddChild(_child);
 		_child.AddChild(_grandChild);
+		ResetCamera();
 	}
 
 	protected override void OnUpdate(float deltaTime) {
@@ -33,19 +44,157 @@ internal sealed class ThreeDScene : ShowcaseScene {
 		_child.Scale = Vector3.One * (1f + (MathF.Sin(_elapsed * 1.2f) * 0.18f));
 		_grandChild.Rotation = Quaternion.CreateFromYawPitchRoll(_elapsed * 2f, 0f, _elapsed * 0.9f);
 		_grandChild.Scale = Vector3.One * (0.8f + (MathF.Sin(_elapsed * 1.8f) * 0.12f));
+
+		_camera.ViewportOverride = new CameraViewport(
+			SidebarWidth,
+			0f,
+			Math.Max(1f, Raylib.GetScreenWidth() - SidebarWidth),
+			Math.Max(1f, Raylib.GetScreenHeight()));
+
+		HandleKeyboardMovement(deltaTime);
+		HandleCameraInput();
+
+		if (Raylib.IsKeyPressed(KeyboardKey.R)) {
+			ResetCamera();
+		}
+
+		RefreshCameraPose();
 	}
 
 	protected override void OnDraw() {
-		Raylib.BeginMode3D(_camera);
-		Raylib.DrawGrid(14, 1f);
+		_camera.BeginMode();
+		DrawOriginGrid();
 		DrawNodeRecursive(_root);
 		Raylib.EndMode3D();
 
-		UiText.Draw("Node3D hierarchy", 402f, 44f, 26f, Color.RayWhite, UiTextStyle.Title);
-		UiText.Draw("The cubes are positioned by Node3D global transforms. Axis lines are derived from the decomposed global rotation to keep transform propagation visible.", 402f, 78f, 17f, new Color(176, 190, 212, 255));
-		DrawInfoChip($"Root global: {_root.GlobalPosition.X:0.00}, {_root.GlobalPosition.Y:0.00}, {_root.GlobalPosition.Z:0.00}", 402f, 604f);
-		DrawInfoChip($"Child global: {_child.GlobalPosition.X:0.00}, {_child.GlobalPosition.Y:0.00}, {_child.GlobalPosition.Z:0.00}", 402f, 632f);
-		DrawInfoChip($"Grandchild global: {_grandChild.GlobalPosition.X:0.00}, {_grandChild.GlobalPosition.Y:0.00}, {_grandChild.GlobalPosition.Z:0.00}", 402f, 660f);
+		UiText.Draw("Camera3D node", 402f, 44f, 26f, Color.RayWhite, UiTextStyle.Title);
+		UiText.Draw("The scene uses Framework.Camera3DNode for raylib Camera3D output plus EngineCameras-style projection, near-plane reconstruction, and visibility queries.", 402f, 78f, 17f, new Color(176, 190, 212, 255));
+		UiText.Draw("Drag LMB to orbit, Shift+LMB or MMB to pan, wheel to zoom, WASD moves on X/Z, Q/E moves on Y, R reframes.", 402f, 120f, 17f, new Color(206, 216, 232, 255));
+
+		DrawInfoChip($"Camera pos: {_camera.GlobalPosition.X:0.00}, {_camera.GlobalPosition.Y:0.00}, {_camera.GlobalPosition.Z:0.00}", 402f, 576f);
+		DrawInfoChip($"Target: {_camera.Target.X:0.00}, {_camera.Target.Y:0.00}, {_camera.Target.Z:0.00}", 402f, 604f);
+		DrawInfoChip($"Angles yaw/pitch: {RadiansToDegrees(_cameraYaw):0.0} / {RadiansToDegrees(_cameraPitch):0.0} deg", 402f, 632f);
+		DrawInfoChip($"FOV Y/X: {_camera.FovY:0.0} / {_camera.FovX:0.0} deg   aspect {_camera.Aspect:0.00}", 402f, 660f);
+		DrawInfoChip($"Blue root: {_camera.ObjectVisibility(_root.GlobalPosition, 1.6f)}", 402f, 688f);
+		DrawInfoChip($"Green cube: {_camera.ObjectVisibility(_child.GlobalPosition, 1.3f)}", 402f, 716f);
+		DrawInfoChip($"Orange cube: {_camera.ObjectVisibility(_grandChild.GlobalPosition, 1.0f)}", 402f, 744f);
+	}
+
+	private void HandleCameraInput() {
+		var mouse = Raylib.GetMousePosition();
+		var viewport = _camera.Viewport;
+		var viewportRect = new Rectangle(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+		var insideViewport = Raylib.CheckCollisionPointRec(mouse, viewportRect);
+
+		if (Raylib.IsMouseButtonPressed(MouseButton.Left) && insideViewport) {
+			_dragMode = Raylib.IsKeyDown(KeyboardKey.LeftShift) || Raylib.IsKeyDown(KeyboardKey.RightShift)
+				? DragMode.Pan
+				: DragMode.Orbit;
+			_previousMouse = mouse;
+		} else if (Raylib.IsMouseButtonPressed(MouseButton.Middle) && insideViewport) {
+			_dragMode = DragMode.Pan;
+			_previousMouse = mouse;
+		}
+
+		if (Raylib.IsMouseButtonReleased(MouseButton.Left) || Raylib.IsMouseButtonReleased(MouseButton.Middle)) {
+			_dragMode = DragMode.None;
+			_previousMouse = null;
+		}
+
+		if (_dragMode != DragMode.None && _previousMouse is { } previousMouse) {
+			var delta = mouse - previousMouse;
+			_previousMouse = mouse;
+
+			if (_dragMode == DragMode.Orbit) {
+				_cameraYaw -= delta.X * 0.006f;
+				_cameraPitch = Math.Clamp(_cameraPitch - delta.Y * 0.006f, -1.35f, 1.35f);
+			} else {
+				PanCamera(delta, viewport.Height);
+			}
+		}
+
+		if (!insideViewport) {
+			return;
+		}
+
+		var wheel = Raylib.GetMouseWheelMove();
+		if (wheel != 0f) {
+			_cameraDistance = Math.Clamp(_cameraDistance * MathF.Exp(-wheel * 0.12f), 2.5f, 60f);
+		}
+	}
+
+	private void HandleKeyboardMovement(float deltaTime) {
+		var movement = Vector3.Zero;
+		var planarForward = Vector3.Normalize(new Vector3(_camera.Forward.X, 0f, _camera.Forward.Z));
+		if (float.IsNaN(planarForward.X) || float.IsNaN(planarForward.Y) || float.IsNaN(planarForward.Z)) {
+			planarForward = -Vector3.UnitZ;
+		}
+
+		var planarRight = Vector3.Normalize(new Vector3(_camera.RightDirection.X, 0f, _camera.RightDirection.Z));
+		if (float.IsNaN(planarRight.X) || float.IsNaN(planarRight.Y) || float.IsNaN(planarRight.Z)) {
+			planarRight = Vector3.UnitX;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.W)) {
+			movement += planarForward;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.S)) {
+			movement -= planarForward;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.D)) {
+			movement += planarRight;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.A)) {
+			movement -= planarRight;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.E)) {
+			movement += Vector3.UnitY;
+		}
+
+		if (Raylib.IsKeyDown(KeyboardKey.Q)) {
+			movement -= Vector3.UnitY;
+		}
+
+		if (movement.LengthSquared() <= 0.000001f) {
+			return;
+		}
+
+		movement = Vector3.Normalize(movement) * (KeyboardMoveSpeed * deltaTime);
+		_orbitTarget += movement;
+	}
+
+	private void RefreshCameraPose() {
+		var cosPitch = MathF.Cos(_cameraPitch);
+		var offset = new Vector3(
+			_cameraDistance * MathF.Sin(_cameraYaw) * cosPitch,
+			_cameraDistance * MathF.Sin(_cameraPitch),
+			_cameraDistance * MathF.Cos(_cameraYaw) * cosPitch);
+
+		_camera.Position = _orbitTarget + offset;
+		_camera.LookAt(_orbitTarget);
+	}
+
+	private void ResetCamera() {
+		_orbitTarget = SceneCenter;
+		_camera.Position = new Vector3(0f, 8f, -8f);
+		_camera.LookAt(Vector3.Zero);
+		var offset = _camera.GlobalPosition - _orbitTarget;
+		_cameraDistance = offset.Length();
+		var planarDistance = MathF.Sqrt((offset.X * offset.X) + (offset.Z * offset.Z));
+		_cameraYaw = MathF.Atan2(offset.X, offset.Z);
+		_cameraPitch = MathF.Atan2(offset.Y, planarDistance);
+	}
+
+	private void PanCamera(Vector2 delta, float viewportHeight) {
+		var right = _camera.RightDirection;
+		var up = _camera.UpDirection;
+		var scale = _cameraDistance / Math.Max(viewportHeight, 1f);
+		_orbitTarget -= right * delta.X * scale;
+		_orbitTarget += up * delta.Y * scale;
 	}
 
 	private static void DrawInfoChip(string text, float x, float y) {
@@ -64,6 +213,27 @@ internal sealed class ThreeDScene : ShowcaseScene {
 		foreach (var child in node.Children) {
 			DrawNodeRecursive(child);
 		}
+	}
+
+	private static void DrawOriginGrid() {
+		var minor = new Color(58, 70, 92, 255);
+		for (var i = -GridHalfExtent; i <= GridHalfExtent; i++) {
+			var lineColor = i == 0 ? new Color(92, 108, 138, 255) : minor;
+			Raylib.DrawLine3D(new Vector3(i, 0f, -GridHalfExtent), new Vector3(i, 0f, GridHalfExtent), lineColor);
+			Raylib.DrawLine3D(new Vector3(-GridHalfExtent, 0f, i), new Vector3(GridHalfExtent, 0f, i), lineColor);
+		}
+
+		Raylib.DrawLine3D(Vector3.Zero, new Vector3(GridHalfExtent, 0f, 0f), Color.Red);
+		Raylib.DrawLine3D(Vector3.Zero, new Vector3(0f, GridHalfExtent, 0f), Color.Green);
+		Raylib.DrawLine3D(Vector3.Zero, new Vector3(0f, 0f, GridHalfExtent), Color.Blue);
+	}
+
+	private static float RadiansToDegrees(float radians) => radians * (180f / MathF.PI);
+
+	private enum DragMode {
+		None,
+		Orbit,
+		Pan
 	}
 
 	private sealed class RenderableCubeNode : Node3D {

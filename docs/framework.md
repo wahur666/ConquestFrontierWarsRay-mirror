@@ -127,8 +127,30 @@ This document tracks what is currently implemented in the node framework.
 - Parent-child 3D transform composition is implemented through `Transform3D`.
 - The current 3D stack is still transform-only and does not yet provide a
   full scene-graph owner or reusable renderable 3D node types.
-- The currently available 3D node type is:
+- The currently available 3D node types are:
   - `Node3D`
+  - `Camera3DNode`
+- `Camera3DNode` mirrors raylib's `Camera3D` shape:
+  - `Position`
+  - `Target`
+  - `Up`
+  - `FovY`
+  - `Projection`
+- `Camera3DNode` also provides:
+  - `LookAt`
+  - `FrameSphere`
+  - `BeginMode`
+  - `EndMode`
+  - `TryPointToScreen`
+  - `ScreenToPoint`
+  - `ObjectVisibility` for bounding spheres
+  - `ObjectVisibility` for axis-aligned bounding boxes
+- `Camera3DNode` uses raylib helpers where available for:
+  - camera matrix generation
+  - world-to-screen projection
+  - screen-to-world ray reconstruction
+- Coarse frustum culling is now implemented through explicit frustum-plane
+  tests for spheres and AABBs.
 
 ### 3D Direction
 
@@ -138,10 +160,9 @@ This document tracks what is currently implemented in the node framework.
   - global update/draw orchestration
   - quit flow
 - The next most useful Godot-like 3D additions are:
-  1. `Camera3DNode`
-  2. `VisualInstance3D` with a first concrete `MeshInstance3D`
-  3. `Socket3D` for named attachments and hardpoints
-  4. `Light3D`
+  1. `VisualInstance3D` with a first concrete `MeshInstance3D`
+  2. `Socket3D` for named attachments and hardpoints
+  3. `Light3D`
 - This order is preferred because the project needs more reusable 3D
   composition nodes before adding deeper specialized systems.
 - `Socket3D` is especially important for Conquest-style compound ships,
