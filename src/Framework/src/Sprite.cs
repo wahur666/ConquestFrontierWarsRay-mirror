@@ -4,7 +4,7 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Draws a texture as a 2D node.
+/// Texture-backed 2D node that renders through the framework texture abstraction.
 /// </summary>
 public sealed class Sprite : Node2D {
 	private Texture2D _texture;

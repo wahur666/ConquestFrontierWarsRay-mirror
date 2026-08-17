@@ -3,8 +3,13 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Clickable button with hover feedback and centered text.
+/// Mouse-clickable button with hover feedback and centered text.
 /// </summary>
+/// <remarks>
+/// Input is intentionally explicit. Call <see cref="HandleInput"/> during the
+/// owning scene or UI controller update step to turn the current frame's mouse
+/// state into a button press decision.
+/// </remarks>
 public sealed class ButtonNode : Control {
 	public ButtonNode(string? name = null) : base(name) {
 	}

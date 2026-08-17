@@ -3,7 +3,7 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Draws a filled rectangle panel with an optional outline.
+/// Filled rectangular panel with an optional outline.
 /// </summary>
 public sealed class PanelNode : Control {
 	public PanelNode(string? name = null) : base(name) {

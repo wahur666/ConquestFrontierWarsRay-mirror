@@ -24,6 +24,7 @@
           "index.md",
           "framework.md",
           "plan.md",
+          "framework-pain-points.md",
           "toc.yml",
           "api/**.yml"
         ]

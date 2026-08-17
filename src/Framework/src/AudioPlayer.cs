@@ -3,6 +3,16 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Non-visual node that owns streamed audio playback.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="AudioPlayer"/> owns play, pause, stop, seek, volume, looping,
+/// pitch, pan, and assignment of the current <see cref="AudioStreamResource"/>.
+/// </para>
+/// <para>
+/// The node pauses active playback when it leaves the tree and resumes it on
+/// re-entry when appropriate.
+/// </para>
+/// </remarks>
 public sealed class AudioPlayer : Node {
 	private AudioStreamResource? _audio;
 	private bool _ownsAudio;

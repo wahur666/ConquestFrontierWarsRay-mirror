@@ -5,14 +5,24 @@ namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
 /// Reusable forward-lighting shader that consumes <see cref="Light3DState"/> snapshots.
-/// Typical usage is:
-/// 1. construct once for the desired compiled light budget
-/// 2. gather per-frame <see cref="Light3D.ToLightState"/> snapshots
-/// 3. call <see cref="Begin"/> after the camera 3D pass starts
-/// 4. draw lit geometry
-/// 5. call <see cref="End"/>
-/// 6. dispose the resource with the owning scene or renderer
 /// </summary>
+/// <remarks>
+/// <para>
+/// Typical usage is: construct once for the desired compiled light budget,
+/// gather per-frame <see cref="Light3D.ToLightState"/> snapshots, call
+/// <see cref="Begin"/> after the camera 3D pass starts, draw lit geometry,
+/// call <see cref="End"/>, then dispose the resource with the owning scene or renderer.
+/// </para>
+/// <para>
+/// Ambient-tagged lights are accumulated into the shader baseline and do not
+/// consume one of the compiled dynamic light slots.
+/// </para>
+/// <para>
+/// The caller remains responsible for choosing active lights, providing the
+/// camera position, and drawing geometry that already supplies positions,
+/// normals, and vertex colors.
+/// </para>
+/// </remarks>
 public sealed class LightShader3D : Resource {
 	private const int OpenGlLightLimit = 8;
 	private readonly int _maxLights;

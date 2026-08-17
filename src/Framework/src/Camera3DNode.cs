@@ -24,8 +24,19 @@ public readonly record struct CameraViewport(float X, float Y, float Width, floa
 }
 
 /// <summary>
-/// Scene-tree camera node that mirrors raylib's <see cref="RlCamera3D"/> and delegates projection work to raylib where possible.
+/// Scene-tree camera node that mirrors raylib's <see cref="RlCamera3D"/>.
 /// </summary>
+/// <remarks>
+/// <para>
+/// The node owns camera-facing state such as target, up vector, field of view,
+/// projection mode, viewport-dependent helpers, and begin/end wrappers for a
+/// raylib 3D pass.
+/// </para>
+/// <para>
+/// Projection, screen-space conversion, and coarse frustum culling delegate to
+/// raylib where possible and fall back to explicit framework math where needed.
+/// </para>
+/// </remarks>
 public sealed class Camera3DNode : Node3D {
 	private const float DefaultWidth = 640f;
 	private const float DefaultHeight = 480f;

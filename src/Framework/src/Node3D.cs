@@ -3,8 +3,20 @@ using System.Numerics;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// A 3D node with position, rotation, and scale.
+/// 3D transform node for scene-space hierarchy composition.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Node3D"/> adds local position, quaternion rotation, and scale on
+/// top of <see cref="Node"/>, then exposes both local and parent-composed global
+/// transforms through <see cref="Transform3D"/> and matrix views.
+/// </para>
+/// <para>
+/// The current 3D stack is primarily transform-oriented. Rendering behavior is
+/// provided by specialized descendants such as <see cref="Camera3DNode"/> and
+/// <see cref="Light3D"/>.
+/// </para>
+/// </remarks>
 public class Node3D : Node {
 	/// <summary>
 	/// Creates a 3D node.

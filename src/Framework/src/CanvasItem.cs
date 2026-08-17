@@ -4,8 +4,18 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Base node for simple 2D drawing helpers.
+/// Drawing-oriented base node for the 2D canvas stack.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="CanvasItem"/> sits between <see cref="Node"/> and concrete 2D
+/// nodes such as <see cref="Node2D"/> and <see cref="Control"/>.
+/// </para>
+/// <para>
+/// It adds visibility, z ordering, optional Y sorting, and local-space helper
+/// drawing methods that are transformed through <see cref="CanvasTransform"/>.
+/// </para>
+/// </remarks>
 public abstract class CanvasItem : Node {
 	/// <summary>
 	/// Creates a drawable canvas node.

@@ -6,6 +6,17 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Reusable 3D light node with transform-derived world position and direction.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Light3D"/> owns reusable world-space light data for ambient,
+/// directional, point, and spot light cases.
+/// </para>
+/// <para>
+/// Use <see cref="Ambient"/> when the light should contribute only to the scene
+/// ambient baseline. Use <see cref="ToLightState"/> to export the per-frame
+/// snapshot consumed by <see cref="LightShader3D"/>.
+/// </para>
+/// </remarks>
 public sealed class Light3D : Node3D {
 	private const float Epsilon = 0.000001f;
 	private static readonly Vector3 DefaultLocalDirection = -Vector3.UnitZ;

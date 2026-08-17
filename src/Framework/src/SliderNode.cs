@@ -3,8 +3,17 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Horizontal slider control with mouse dragging and normalized values.
+/// Mouse-driven horizontal slider with normalized values.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Value"/> is clamped to the range [0, 1].
+/// </para>
+/// <para>
+/// Input is intentionally explicit. Call <see cref="HandleInput"/> during the
+/// owning scene or UI controller update step to apply drag behavior.
+/// </para>
+/// </remarks>
 public sealed class SliderNode : Control {
 	private bool _dragging;
 	private float _value;

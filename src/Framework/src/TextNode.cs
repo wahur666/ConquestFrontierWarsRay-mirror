@@ -3,7 +3,7 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Draws a text label inside the 2D node hierarchy.
+/// Simple text label node for the 2D hierarchy.
 /// </summary>
 public sealed class TextNode : Control {
 	public TextNode(string? name = null) : base(name) {

@@ -3,8 +3,19 @@ using System.Numerics;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// A 2D node with position, rotation, and scale.
+/// 2D transform node for the canvas hierarchy.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Node2D"/> adds local position, rotation, and scale on top of
+/// <see cref="CanvasItem"/>, then exposes both local and parent-composed global
+/// transforms through <see cref="Transform2D"/> and matrix views.
+/// </para>
+/// <para>
+/// Derived nodes override <see cref="Draw"/> to render in local space while the
+/// framework applies the composed canvas transform automatically.
+/// </para>
+/// </remarks>
 public class Node2D : CanvasItem {
 	/// <summary>
 	/// Creates a 2D node.

@@ -5,6 +5,18 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Named 3D attachment node for mesh parts, mounts, emitters, and similar anchors.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Socket3D"/> is the framework's reusable named attachment point for
+/// ownership-driven content such as weapon mounts, dock points, particle anchors,
+/// and mesh-part sockets.
+/// </para>
+/// <para>
+/// The node stores local attachment transform data and derives world-space
+/// attachment state from the scene hierarchy instead of flattening sockets into
+/// standalone world markers.
+/// </para>
+/// </remarks>
 public class Socket3D : Node3D {
 	/// <summary>
 	/// Creates a socket node.

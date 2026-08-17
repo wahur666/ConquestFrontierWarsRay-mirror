@@ -3,8 +3,12 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Simple mouse-driven single-selection list control.
+/// Mouse-driven single-selection list of clickable rows.
 /// </summary>
+/// <remarks>
+/// Input is intentionally explicit. Call <see cref="HandleInput"/> during the
+/// owning scene or UI controller update step to apply selection changes.
+/// </remarks>
 public sealed class ListViewNode : Control {
 	private readonly List<string> _items = [];
 

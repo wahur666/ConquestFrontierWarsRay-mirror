@@ -9,6 +9,17 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Screen-space video playback control backed by Media Foundation decoding.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="VideoPlayer"/> owns source loading, play, pause, stop, seek,
+/// frame decoding, optional embedded audio playback, and aspect-fit presentation
+/// within the control bounds.
+/// </para>
+/// <para>
+/// Media Foundation lifetime is managed inside the framework so callers only
+/// interact with the node and its source file.
+/// </para>
+/// </remarks>
 public sealed unsafe class VideoPlayer : Control {
 	private const long TicksPerSecond = 10_000_000;
 

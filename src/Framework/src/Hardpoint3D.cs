@@ -5,6 +5,17 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Native-style hardpoint node with both socket transform and joint metadata.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Hardpoint3D"/> extends <see cref="Socket3D"/> with the constraint
+/// metadata needed to model native fixed, revolute, and prismatic attachment rules.
+/// </para>
+/// <para>
+/// Use <see cref="ToInfo"/> to export immutable hardpoint data and
+/// <see cref="BuildConnectionTo"/> to derive a native-style parent/child
+/// attachment descriptor.
+/// </para>
+/// </remarks>
 public sealed class Hardpoint3D : Socket3D {
 	/// <summary>
 	/// Creates a hardpoint node.

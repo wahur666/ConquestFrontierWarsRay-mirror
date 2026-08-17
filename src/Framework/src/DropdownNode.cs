@@ -3,8 +3,13 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Simple dropdown control for selecting one item from a small list.
+/// Mouse-driven single-select dropdown control.
 /// </summary>
+/// <remarks>
+/// Input is intentionally explicit. Call <see cref="HandleInput"/> during the
+/// owning scene or UI controller update step to apply click handling for the
+/// collapsed button and expanded item list.
+/// </remarks>
 public sealed class DropdownNode : Control {
 	private readonly List<string> _items = [];
 

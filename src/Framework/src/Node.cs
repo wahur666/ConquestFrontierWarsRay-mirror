@@ -1,8 +1,19 @@
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Base class for every node in the scene tree.
+/// Base class for every framework node in the scene tree.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <see cref="Node"/> owns parent/child composition, recursive initialization,
+/// tree entry and exit, update traversal, draw traversal, and disposal.
+/// </para>
+/// <para>
+/// Runtime state is attached through <see cref="NodeContext"/>. Child nodes
+/// added after the tree is live inherit the current context, initialization
+/// state, and tree membership automatically.
+/// </para>
+/// </remarks>
 public class Node : IDisposable {
 	private readonly List<Node> _children = [];
 	private NodeContext? _context;
@@ -157,6 +168,9 @@ public class Node : IDisposable {
 		_context.RequestQuit();
 	}
 
+	/// <summary>
+	/// Attaches the shared runtime context to this node and its descendants.
+	/// </summary>
 	public void AttachContextRecursive(NodeContext context) {
 		ArgumentNullException.ThrowIfNull(context);
 
@@ -167,6 +181,9 @@ public class Node : IDisposable {
 		}
 	}
 
+	/// <summary>
+	/// Runs initialization on this node and any descendants that have not been initialized yet.
+	/// </summary>
 	public void InitializeRecursive() {
 		if (IsInitialized) {
 			return;
@@ -180,6 +197,9 @@ public class Node : IDisposable {
 		}
 	}
 
+	/// <summary>
+	/// Marks this node and its descendants as present in the active tree.
+	/// </summary>
 	public void EnterTreeRecursive() {
 		if (IsInTree) {
 			return;
@@ -193,6 +213,9 @@ public class Node : IDisposable {
 		}
 	}
 
+	/// <summary>
+	/// Removes this node and its descendants from the active tree.
+	/// </summary>
 	public void ExitTreeRecursive() {
 		if (!IsInTree) {
 			return;
@@ -206,6 +229,9 @@ public class Node : IDisposable {
 		IsInTree = false;
 	}
 
+	/// <summary>
+	/// Runs per-frame update traversal for this node and its descendants.
+	/// </summary>
 	public void UpdateRecursive(float deltaTime) {
 		OnUpdate(deltaTime);
 
@@ -214,6 +240,9 @@ public class Node : IDisposable {
 		}
 	}
 
+	/// <summary>
+	/// Runs per-frame draw traversal for this node and its descendants.
+	/// </summary>
 	public virtual void DrawRecursive() {
 		OnDraw();
 
