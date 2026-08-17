@@ -5,6 +5,13 @@ reusable the framework components are. It is intentionally about live missing
 systems and rough integration surfaces, not about already-resolved direction
 decisions or documentation cleanups.
 
+Related: [Plan](./plan.md)
+
+## Proposal Pages
+
+- [UI Event Consumption Proposal](./ui-event-consumption-proposal.md)
+- [Basic Layout Containers Proposal](./basic-layout-containers-proposal.md)
+
 ## Current Assessment
 
 The framework has a usable foundation: node lifecycle, tree ownership, root
@@ -56,6 +63,8 @@ panels.
    main integration path.
 5. Keep direct polling only as a low-level escape hatch or testing helper.
 
+Related proposal: [UI Event Consumption Proposal](./ui-event-consumption-proposal.md)
+
 ## 2. No Layout System
 
 ### Evidence
@@ -89,6 +98,8 @@ length, or localization change becomes manual coordinate work.
 4. Add measured text helpers to `TextNode`.
 5. Convert one test app scene from hard-coded coordinates to containers as a
    proof point.
+
+Related proposal: [Basic Layout Containers Proposal](./basic-layout-containers-proposal.md)
 
 ## 3. 3D Still Lacks Reusable Renderables
 

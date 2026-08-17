@@ -25,6 +25,8 @@
           "framework.md",
           "plan.md",
           "framework-pain-points.md",
+          "ui-event-consumption-proposal.md",
+          "basic-layout-containers-proposal.md",
           "toc.yml",
           "api/**.yml"
         ]

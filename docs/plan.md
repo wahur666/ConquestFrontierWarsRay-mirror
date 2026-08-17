@@ -4,6 +4,8 @@ This document tracks the next framework steps for the node-based raylib foundati
 
 Related: [Framework Status](./framework.md)
 
+Related: [Framework Pain Points](./framework-pain-points.md)
+
 ## Completed Foundation
 
 - [x] Introduce a base `Node` abstraction with lifecycle hooks.
@@ -16,6 +18,11 @@ Related: [Framework Status](./framework.md)
 - [x] Fold in reusable menu/UI primitives from the former scene reference layer.
 
 ## Next Plan
+
+Supporting design notes for the first two pain points:
+
+- [UI Event Consumption Proposal](./ui-event-consumption-proposal.md)
+- [Basic Layout Containers Proposal](./basic-layout-containers-proposal.md)
 
 1. [x] `SceneTree`:
    add a Godot-style owner for the active tree, quit flow, root switching, and global update/draw orchestration instead of keeping all runtime control inside `RaylibApplication`.

@@ -2,9 +2,17 @@
   href: index.md
 - name: Framework Status
   href: framework.md
-- name: Framework Pain Points
-  href: framework-pain-points.md
 - name: Plan
   href: plan.md
+  topicHref: plan.md
+  items:
+    - name: Framework Pain Points
+      href: framework-pain-points.md
+      topicHref: framework-pain-points.md
+      items:
+        - name: UI Event Consumption Proposal
+          href: ui-event-consumption-proposal.md
+        - name: Basic Layout Containers Proposal
+          href: basic-layout-containers-proposal.md
 - name: API Reference
   href: api/
