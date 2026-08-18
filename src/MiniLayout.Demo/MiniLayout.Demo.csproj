@@ -15,4 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MiniLayout\MiniLayout.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
 </Project>

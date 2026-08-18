@@ -66,13 +66,12 @@ public sealed class CollisionRuntimeTests {
 		Assert.Same(model, instanceModel);
 	}
 
-	private static string GetAsteroidModelPath() => Path.Combine(GetRepoRoot(), "ConquestSharp", "3dbModels", "asteroid4.3db");
+	private static string GetAsteroidModelPath() => Path.Combine(GetRepoRoot(), "tests", "Data.Tests", "src", "utfArchives", "asteroid4.3db");
 
 	private static string GetRepoRoot() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
-			if (File.Exists(Path.Combine(current.FullName, "CMakeLists.txt")) &&
-			    Directory.Exists(Path.Combine(current.FullName, "ConquestSharp"))) {
+			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx"))) {
 				return current.FullName;
 			}
 

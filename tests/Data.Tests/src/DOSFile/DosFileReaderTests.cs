@@ -16,7 +16,7 @@ public sealed class DosFileReaderTests {
 	}
 
 	public static IEnumerable<object[]> UtfArchiveCases() {
-		var utfArchiveRoot = Path.Combine(GetRepoRoot(), "tests", "Data.Tests", "utfArchives");
+		var utfArchiveRoot = Path.Combine(GetRepoRoot(), "tests", "Data.Tests", "src", "utfArchives");
 		foreach (var treePath in Directory.EnumerateFiles(utfArchiveRoot, "*.tree.txt", SearchOption.TopDirectoryOnly)
 			         .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)) {
 			var archivePath = treePath[..^".tree.txt".Length];
@@ -75,16 +75,13 @@ public sealed class DosFileReaderTests {
 	private static string GetRepoRoot() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
-			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx")) &&
-			    File.Exists(Path.Combine(current.FullName, "src", "Conquest", "ConquestFrontierWars.csproj")) &&
-			    Directory.Exists(Path.Combine(current.FullName, "assets", "DB")) &&
-			    Directory.Exists(Path.Combine(current.FullName, "tests", "Data.Tests", "utfArchives"))) {
+			if (File.Exists(Path.Combine(current.FullName, "ConquestFrontierWarsRay.slnx"))) {
 				return current.FullName;
 			}
 
 			current = current.Parent;
 		}
 
-		throw new DirectoryNotFoundException("Could not locate ConquestFrontierWarsRay repo root.");
+		throw new DirectoryNotFoundException("Could not locate ConquestFrontierWarsRay.slnx from test output.");
 	}
 }
