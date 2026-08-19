@@ -231,7 +231,7 @@ internal sealed class LightScene : ShowcaseScene {
 		var cosPitch = MathF.Cos(_cameraPitch);
 		var offset = new Vector3(
 			_cameraDistance * MathF.Sin(_cameraYaw) * cosPitch,
-			_cameraDistance * MathF.Sin(_cameraPitch),
+			_cameraDistance * MathF.Sin(_cameraPitch) + 18,
 			_cameraDistance * MathF.Cos(_cameraYaw) * cosPitch);
 
 		_camera.Position = _orbitTarget + offset;
