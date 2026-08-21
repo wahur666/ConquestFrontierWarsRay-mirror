@@ -304,6 +304,11 @@
       "vfxShapeId": "VFXShape!!AnimateXmission",
       "filename": "Xmission_atlas.png",
       "metaJson": "Xmission_atlas.json"
-    }
+    },
+  	"talkingHeadBorder": {
+			"vfxShapeId": "talkingHeadBorder",
+			"filename": "talkingHeadBorder_atlas.png",
+			"metaJson": "talkingHeadBorder_atlas.json"
+		}
   }
 }

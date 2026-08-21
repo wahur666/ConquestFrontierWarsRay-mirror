@@ -59,8 +59,7 @@ internal sealed class TalkingHeadScene : ShowcaseScene {
 	private bool _wasDragging;
 
 	public TalkingHeadScene() : base("TalkingHeadScene", "Talking Head") {
-		var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets");
-		_clip = TalkingHeadClipLoader.LoadBlackwellDemo(assetRoot);
+		_clip = TalkingHeadClipLoader.LoadBlackwellDemo();
 
 		AddChild(_panel);
 		AddChild(_clipLabel);
