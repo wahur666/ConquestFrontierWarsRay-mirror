@@ -17,6 +17,14 @@ public sealed class Sprite : Node2D {
 	}
 
 	/// <summary>
+	/// Creates a sprite from one indexed frame in a shared frame collection.
+	/// </summary>
+	public Sprite(SpriteFrames frames, int frameIndex = 0, string? name = null) : base(name) {
+		ArgumentNullException.ThrowIfNull(frames);
+		_texture = frames.GetFrameTexture(frameIndex);
+	}
+
+	/// <summary>
 	/// Normalized pivot point used for rotation and placement.
 	/// </summary>
 	public Vector2 Pivot { get; set; } = new(0.5f, 0.5f);
@@ -41,6 +49,14 @@ public sealed class Sprite : Node2D {
 	/// </summary>
 	public void SetTexture(Texture2D texture) {
 		_texture = texture ?? throw new ArgumentNullException(nameof(texture));
+	}
+
+	/// <summary>
+	/// Replaces the current texture source with one indexed frame from a shared frame collection.
+	/// </summary>
+	public void SetFrame(SpriteFrames frames, int frameIndex) {
+		ArgumentNullException.ThrowIfNull(frames);
+		_texture = frames.GetFrameTexture(frameIndex);
 	}
 
 	protected override void OnDraw() {

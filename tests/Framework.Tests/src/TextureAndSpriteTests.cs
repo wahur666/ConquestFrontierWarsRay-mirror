@@ -53,8 +53,26 @@ public sealed class TextureAndSpriteTests {
 	}
 
 	[Fact]
+	public void Sprite_CanBeCreatedFromIndexedFramesAndRetargetedToAnotherFrame() {
+		var texture = new FakeTexture(new Texture2D.TextureSlice(
+			new Raylib_cs.Texture2D(),
+			new Rectangle(0f, 0f, 64f, 32f)));
+		var frames = new SpriteFrames(texture, [
+			new Rectangle(1f, 2f, 3f, 4f),
+			new Rectangle(5f, 6f, 7f, 8f)
+		]);
+
+		var sprite = new Sprite(frames, 0, "FrameSprite");
+
+		sprite.SetFrame(frames, 1);
+
+		Assert.Equal("FrameSprite", sprite.Name);
+		Assert.Equal(2, frames.Count);
+	}
+
+	[Fact]
 	public void Sprite_RejectsNullTexture() {
-		Assert.Throws<ArgumentNullException>(() => new Sprite(null!));
+		Assert.Throws<ArgumentNullException>(() => new Sprite((Texture2D)null!));
 
 		var texture = new FakeTexture(new Texture2D.TextureSlice(
 			new Raylib_cs.Texture2D(),
@@ -62,5 +80,7 @@ public sealed class TextureAndSpriteTests {
 		var sprite = new Sprite(texture);
 
 		Assert.Throws<ArgumentNullException>(() => sprite.SetTexture(null!));
+		Assert.Throws<ArgumentNullException>(() => new Sprite((SpriteFrames)null!));
+		Assert.Throws<ArgumentNullException>(() => sprite.SetFrame(null!, 0));
 	}
 }

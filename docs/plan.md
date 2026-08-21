@@ -39,7 +39,7 @@ Supporting design notes for the first two pain points:
 5. [x] `Light3D`:
    add a reusable lighting node so 3D scenes can own light setup through the framework instead of relying on scene-local rendering glue.
 
-6. [ ] `AnimatedSprite2D`:
+6. [x] `AnimatedSprite2D`:
    build the next obvious 2D primitive on top of atlas textures and frame metadata, instead of leaving atlas handling to higher-level scenes.
 
 7. [ ] `ResourceCache`:

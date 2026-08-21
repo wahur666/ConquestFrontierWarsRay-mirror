@@ -1,5 +1,4 @@
 using System.Numerics;
-using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
@@ -27,31 +26,29 @@ internal sealed class SpriteScene : ShowcaseScene {
 	};
 	private readonly CompressedTexture2D _posterTexture;
 	private readonly AtlasDefinitionResource _atlasDefinition;
-	private readonly AtlasTexture _frameTexture;
+	private readonly SpriteFrames _atlasFrames;
 	private readonly Sprite _posterSprite;
-	private readonly Sprite _frameSprite;
-	private int _frameIndex;
-	private float _frameElapsed;
+	private readonly AnimatedSprite2D _animatedSprite;
 	private float _animationFps = DefaultAnimationFps;
 
 	public SpriteScene() : base("SpriteScene", "Sprites") {
 		var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets", "interface");
 		_posterTexture = new CompressedTexture2D(Path.Combine(assetRoot, "animMedia_atlas.png"));
 		_atlasDefinition = new AtlasDefinitionResource(Path.Combine(assetRoot, "animMedia_atlas.json"));
-		var initialFrame = _atlasDefinition.GetFrame(0);
-		_frameTexture = new AtlasTexture(_posterTexture, ToRectangle(initialFrame));
+		_atlasFrames = SpriteFrames.FromAtlas(_posterTexture, _atlasDefinition);
 		_posterSprite = new Sprite(_posterTexture, "PosterSprite") {
 			Position = new Vector2(782f, 300f),
 			Scale = new Vector2(0.34f, 0.34f)
 		};
-		_frameSprite = new Sprite(_frameTexture, "FrameSprite") {
-			Position = new Vector2(1080f, 230f),
-			Scale = new Vector2(1.1f, 1.1f)
+		_animatedSprite = new AnimatedSprite2D(_atlasFrames, "FrameSprite") {
+			Position = new Vector2(1080f, 130f),
+			Scale = new Vector2(1.1f, 1.1f),
+			SpeedFps = DefaultAnimationFps
 		};
 
 		AddChild(_panel);
 		AddChild(_posterSprite);
-		AddChild(_frameSprite);
+		AddChild(_animatedSprite);
 		AddChild(_statusLabel);
 		AddChild(_frameLabel);
 	}
@@ -64,17 +61,10 @@ internal sealed class SpriteScene : ShowcaseScene {
 		if (Input.UiRight) {
 			_animationFps = MathF.Min(MaxAnimationFps, _animationFps + 1f);
 		}
-
-		_frameElapsed += deltaTime;
-		var frameDuration = 1f / _animationFps;
-		while (_frameElapsed >= frameDuration) {
-			_frameElapsed -= frameDuration;
-			_frameIndex = (_frameIndex + 1) % _atlasDefinition.Frames.Count;
-			_frameTexture.Region = ToRectangle(_atlasDefinition.GetFrame(_frameIndex));
-		}
+		_animatedSprite.SpeedFps = _animationFps;
 
 		_statusLabel.Text = $"Texture loaded: {_posterTexture.IsLoaded}    Atlas loaded: {_atlasDefinition.IsLoaded}    Playback: {_animationFps:0} FPS";
-		_frameLabel.Text = $"Atlas frame: {_frameIndex + 1} / {_atlasDefinition.Frames.Count}    Left/Right adjusts rate";
+		_frameLabel.Text = $"Atlas frame: {_animatedSprite.Frame + 1} / {_animatedSprite.Frames.Count}    Left/Right adjusts rate";
 	}
 
 	protected override void OnDraw() {
@@ -86,12 +76,8 @@ internal sealed class SpriteScene : ShowcaseScene {
 	}
 
 	protected override void OnDispose() {
-		_frameTexture.Dispose();
+		_atlasFrames.Dispose();
 		_atlasDefinition.Dispose();
 		_posterTexture.Dispose();
-	}
-
-	private static Rectangle ToRectangle(AtlasDefinitionResource.AtlasFrame frame) {
-		return new Rectangle(frame.X, frame.Y, frame.Width, frame.Height);
 	}
 }
