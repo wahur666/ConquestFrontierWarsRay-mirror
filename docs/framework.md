@@ -58,6 +58,7 @@ concept.
   - `SliderNode`
   - `ListViewNode`
   - `Sprite`
+  - `AnimatedSprite2D`
   - `Node3D`
   - `Camera3DNode`
   - `Socket3D`
@@ -68,6 +69,10 @@ concept.
   - `VideoPlayer`
 - Lifecycle, composition, transform behavior, and node-specific usage notes
   should now be maintained on those classes instead of here.
+- The current 2D sprite split is:
+  1. `Sprite` for drawing one resolved texture or one indexed frame from a
+     shared frame collection
+  2. `AnimatedSprite2D` for time-based playback over indexed sprite frames
 
 ### Input
 
@@ -151,8 +156,19 @@ concept.
 - The texture stack includes:
   - `Texture2D`
   - `CompressedTexture2D`
+  - `SpriteFrames`
   - `AtlasDefinitionResource`
   - `AtlasTexture`
+- The current sprite-frame normalization boundary is:
+  1. `CompressedTexture2D` for whole-image texture resources
+  2. `AtlasTexture` for one resolved rectangular slice from a texture
+  3. `SpriteFrames` for one indexed frame collection over a shared texture
+- `SpriteFrames` is the common runtime form consumed by `AnimatedSprite2D` and
+  can also feed `Sprite`.
+- The current frame sources that normalize into `SpriteFrames` are:
+  1. one full texture through `SpriteFrames.FromTexture(...)`
+  2. atlas JSON metadata plus a texture through `SpriteFrames.FromAtlas(...)`
+  3. math-based grid slicing through `SpriteFrames.FromGrid(...)`
 - The audio stack includes:
   - `AudioStreamResource`
   - `MusicAudioResource`
