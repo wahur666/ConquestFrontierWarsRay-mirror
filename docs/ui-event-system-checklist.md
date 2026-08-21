@@ -15,11 +15,12 @@ when implementation moves, so the current state does not depend on chat history.
 - [x] Switch `ControlsScene` to dispatcher-driven button clicks
 - [x] Support `Down` and `Up` routing for left, middle, and right mouse buttons
 - [x] Preserve `Click` routing when press and release resolve to the same target
+- [x] Convert `SliderNode` to routed pointer events
+- [x] Add framework-owned pointer capture for drag interactions
+- [x] Switch one slider-heavy scene (`VideoPlayerScene`) to dispatcher-driven controls
 
 ## Next Slice
 
-- [ ] Convert `SliderNode` to routed pointer events
-- [ ] Add framework-owned pointer capture for drag interactions
 - [ ] Convert `DropdownNode` to routed pointer events
 - [ ] Convert `ListViewNode` to routed pointer events
 - [ ] Move more test scenes off manual control polling
@@ -37,4 +38,6 @@ when implementation moves, so the current state does not depend on chat history.
   experiment seam.
 - `HotRectEventScene` remains the debug scene for routed pointer-event traces.
 - Right and middle mouse button support currently covers routed `Down`, `Up`,
-  and same-target `Click` semantics. Pointer capture is still pending.
+  and same-target `Click` semantics.
+- Pointer capture is now dispatcher-owned for routed drag interactions and is
+  currently exercised by `SliderNode`.

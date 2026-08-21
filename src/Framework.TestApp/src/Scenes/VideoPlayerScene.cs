@@ -1,10 +1,12 @@
 using System.Numerics;
+using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
 
 internal sealed class VideoPlayerScene : ShowcaseScene {
+	private readonly UiEventSource _eventSource = new("VideoControlsEventSource");
 	private readonly PanelNode _panel = new("VideoPanel") {
 		Position = new Vector2(364f, 20f),
 		Size = new Vector2(896f, 680f),
@@ -66,6 +68,13 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 	private bool _wasPositionDragging;
 
 	public VideoPlayerScene() : base("VideoPlayerScene", "Video Player") {
+		_eventSource.ScopeRoot = this;
+		_playButton.Clicked += _ => _video.Play();
+		_pauseButton.Clicked += _ => _video.Pause();
+		_stopButton.Clicked += _ => _video.Stop();
+		_volumeSlider.ValueChanged += _ => _video.Volume = _volumeSlider.Value;
+
+		AddChild(_eventSource);
 		AddChild(_panel);
 		AddChild(_video);
 		AddChild(_playButton);
@@ -91,18 +100,6 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 	protected override void OnUpdate(float deltaTime) {
 		_ = deltaTime;
 
-		if (_playButton.HandleInput()) {
-			_video.Play();
-		}
-
-		if (_pauseButton.HandleInput()) {
-			_video.Pause();
-		}
-
-		if (_stopButton.HandleInput()) {
-			_video.Stop();
-		}
-
 		if (_positionSlider.HandleInput()) {
 		} else if (!_positionSlider.IsDragging) {
 			var length = _video.PlaybackLengthSeconds;
@@ -118,10 +115,6 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 
 		_wasPositionDragging = _positionSlider.IsDragging;
 
-		if (_volumeSlider.HandleInput()) {
-			_video.Volume = _volumeSlider.Value;
-		}
-
 		_status.Text = !_video.HasVideo
 			? "No video loaded"
 			: $"{_video.FileName}   {FormatFrameRate(_video.FrameRate)}   {GetPlaybackState()}";
@@ -135,7 +128,7 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 		UiText.Draw("Viewport", 396f, 100f, 20f, new Color(230, 236, 246, 255));
 		UiText.Draw("Seek", 796f, 622f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Volume", 796f, 662f, 15f, new Color(206, 216, 232, 255));
-		UiText.Draw("Mouse: transport buttons and sliders. Stop pauses on frame zero.", 396f, 700f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Mouse: transport buttons and sliders. Seek drag now stays captured even after the pointer leaves the slider bounds. Stop pauses on frame zero.", 396f, 700f, 16f, new Color(188, 200, 218, 255));
 	}
 
 	private string GetPlaybackState() {

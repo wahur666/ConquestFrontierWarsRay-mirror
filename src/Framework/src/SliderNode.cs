@@ -14,8 +14,10 @@ namespace ConquestFrontierWarsRay.Framework;
 /// owning scene or UI controller update step to apply drag behavior.
 /// </para>
 /// </remarks>
-public sealed class SliderNode : Control {
+public sealed class SliderNode : Control, IUiPointerEventHandler {
 	private bool _dragging;
+	private bool _isHovered;
+	private bool _pendingValueChanged;
 	private float _value;
 
 	public SliderNode(string? name = null) : base(name) {
@@ -36,8 +38,16 @@ public sealed class SliderNode : Control {
 	public Color KnobOutline { get; set; } = new(24, 30, 42, 255);
 	public float TrackHeight { get; set; } = 8f;
 	public float KnobRadius { get; set; } = 9f;
+	public bool IsPointerInputEnabled => Visible && Size.X > 0f && Size.Y > 0f;
+
+	public event Action<SliderNode>? ValueChanged;
 
 	public bool HandleInput() {
+		if (_pendingValueChanged) {
+			_pendingValueChanged = false;
+			return true;
+		}
+
 		if (!Visible || Size.X <= 0f || Size.Y <= 0f) {
 			_dragging = false;
 			return false;
@@ -64,6 +74,49 @@ public sealed class SliderNode : Control {
 		return changed;
 	}
 
+	public bool HitTest(System.Numerics.Vector2 screenPoint) {
+		return ContainsPoint(screenPoint) || Raylib.CheckCollisionPointRec(screenPoint, GetKnobBounds());
+	}
+
+	public void OnPointerEvent(UiPointerEvent pointerEvent) {
+		switch (pointerEvent.Kind) {
+			case UiPointerEventKind.Enter:
+				_isHovered = true;
+				break;
+			case UiPointerEventKind.Leave:
+				_isHovered = false;
+				break;
+			case UiPointerEventKind.Move:
+				_isHovered = HitTest(pointerEvent.Position);
+				if (_dragging && pointerEvent.Button is null) {
+					ApplyPointerValue(pointerEvent.Position.X);
+				}
+				break;
+			case UiPointerEventKind.Down:
+				if (pointerEvent.Button == MouseButton.Left && HitTest(pointerEvent.Position)) {
+					_isHovered = true;
+					_dragging = true;
+					ApplyPointerValue(pointerEvent.Position.X);
+					pointerEvent.RequestPointerCapture();
+					pointerEvent.MarkHandled();
+				}
+				break;
+			case UiPointerEventKind.Up:
+				if (pointerEvent.Button == MouseButton.Left && _dragging) {
+					_dragging = false;
+					_isHovered = HitTest(pointerEvent.Position);
+					ApplyPointerValue(pointerEvent.Position.X);
+					pointerEvent.MarkHandled();
+				}
+				break;
+			case UiPointerEventKind.Click:
+				break;
+			case UiPointerEventKind.Wheel:
+				_isHovered = HitTest(pointerEvent.Position);
+				break;
+		}
+	}
+
 	public bool Nudge(float direction) {
 		if (direction == 0f) {
 			return false;
@@ -84,7 +137,7 @@ public sealed class SliderNode : Control {
 		activeTrack.Width *= Value;
 		var knob = GetKnobBounds();
 		var mouse = Raylib.GetMousePosition();
-		var hovered = ContainsPoint(mouse) || Raylib.CheckCollisionPointRec(mouse, knob);
+		var hovered = _isHovered || ContainsPoint(mouse) || Raylib.CheckCollisionPointRec(mouse, knob);
 
 		Raylib.DrawRectangleRounded(track, 0.5f, 8, TrackFill);
 		if (activeTrack.Width > 0f) {
@@ -123,5 +176,16 @@ public sealed class SliderNode : Control {
 		}
 
 		return Math.Clamp((mouseX - bounds.X) / bounds.Width, 0f, 1f);
+	}
+
+	private void ApplyPointerValue(float mouseX) {
+		var previous = Value;
+		Value = NormalizeFromMouse(mouseX);
+		if (Value == previous) {
+			return;
+		}
+
+		_pendingValueChanged = true;
+		ValueChanged?.Invoke(this);
 	}
 }

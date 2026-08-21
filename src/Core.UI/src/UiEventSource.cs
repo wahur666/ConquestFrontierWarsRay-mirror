@@ -11,6 +11,7 @@ public sealed class UiEventSource : Node {
 	private static readonly MouseButton[] RoutedButtons = [MouseButton.Left, MouseButton.Middle, MouseButton.Right];
 	private readonly List<PointerTarget> _targets = [];
 	private readonly Dictionary<MouseButton, Node> _pressedTargets = [];
+	private readonly Dictionary<MouseButton, Node> _capturedTargets = [];
 	private Vector2 _lastPointerPosition;
 	private bool _hasPointerPosition;
 	private Node? _hoveredTarget;
@@ -48,27 +49,36 @@ public sealed class UiEventSource : Node {
 			if (targetNode is not null) {
 				Dispatch(targetNode, UiPointerEventKind.Move, pointerPosition, null, 0f);
 			}
+
+			DispatchCapturedMoves(pointerPosition, targetNode);
 		}
 
 		foreach (var button in RoutedButtons) {
 			if (IsPressed(inputSnapshot, button) && targetNode is not null) {
 				_pressedTargets[button] = targetNode;
-				Dispatch(targetNode, UiPointerEventKind.Down, pointerPosition, button, 0f);
+				var pointerEvent = Dispatch(targetNode, UiPointerEventKind.Down, pointerPosition, button, 0f);
+				if (pointerEvent.CaptureRequested && pointerEvent.CaptureTarget is not null) {
+					_capturedTargets[button] = pointerEvent.CaptureTarget;
+				}
 			}
 
 			if (!IsReleased(inputSnapshot, button)) {
 				continue;
 			}
 
-			if (_pressedTargets.TryGetValue(button, out var pressedTarget)) {
-				Dispatch(pressedTarget, UiPointerEventKind.Up, pointerPosition, button, 0f);
+			var releaseTarget = ResolveReleaseTarget(button);
+			if (releaseTarget is not null) {
+				Dispatch(releaseTarget, UiPointerEventKind.Up, pointerPosition, button, 0f);
+			}
 
+			if (_pressedTargets.TryGetValue(button, out var pressedTarget)) {
 				if (targetNode is not null && ReferenceEquals(targetNode, pressedTarget)) {
 					Dispatch(pressedTarget, UiPointerEventKind.Click, pointerPosition, button, 0f);
 				}
 			}
 
 			_pressedTargets.Remove(button);
+			_capturedTargets.Remove(button);
 		}
 
 		var wheelDelta = inputSnapshot.WheelDelta;
@@ -105,7 +115,34 @@ public sealed class UiEventSource : Node {
 		}
 	}
 
-	private static void Dispatch(Node targetNode, UiPointerEventKind kind, Vector2 pointerPosition, MouseButton? button, float wheelDelta) {
+	private void DispatchCapturedMoves(Vector2 pointerPosition, Node? hoverTarget) {
+		var dispatchedTargets = new HashSet<Node>(ReferenceEqualityComparer.Instance);
+		if (hoverTarget is not null) {
+			dispatchedTargets.Add(hoverTarget);
+		}
+
+		foreach (var capturedTarget in _capturedTargets.Values) {
+			if (!capturedTarget.IsInTree || !dispatchedTargets.Add(capturedTarget)) {
+				continue;
+			}
+
+			Dispatch(capturedTarget, UiPointerEventKind.Move, pointerPosition, null, 0f);
+		}
+	}
+
+	private Node? ResolveReleaseTarget(MouseButton button) {
+		if (_capturedTargets.TryGetValue(button, out var capturedTarget) && capturedTarget.IsInTree) {
+			return capturedTarget;
+		}
+
+		if (_pressedTargets.TryGetValue(button, out var pressedTarget) && pressedTarget.IsInTree) {
+			return pressedTarget;
+		}
+
+		return null;
+	}
+
+	private static UiPointerEvent Dispatch(Node targetNode, UiPointerEventKind kind, Vector2 pointerPosition, MouseButton? button, float wheelDelta) {
 		var pointerEvent = new UiPointerEvent(kind, pointerPosition, button, wheelDelta, targetNode);
 
 		for (Node? current = targetNode; current is not null; current = current.Parent) {
@@ -119,6 +156,20 @@ public sealed class UiEventSource : Node {
 			if (pointerEvent.Handled) {
 				break;
 			}
+		}
+
+		return pointerEvent;
+	}
+
+	private sealed class ReferenceEqualityComparer : IEqualityComparer<Node> {
+		public static readonly ReferenceEqualityComparer Instance = new();
+
+		public bool Equals(Node? x, Node? y) {
+			return ReferenceEquals(x, y);
+		}
+
+		public int GetHashCode(Node obj) {
+			return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);
 		}
 	}
 
