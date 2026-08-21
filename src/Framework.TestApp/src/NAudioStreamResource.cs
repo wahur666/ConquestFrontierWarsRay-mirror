@@ -100,19 +100,37 @@ internal sealed class NAudioStreamResource : AudioStreamResource {
 	}
 
 	protected override void LoadCore() {
-		var reader = new AudioFileReader(ResourcePath!);
-		var channel = new WaveChannel32(reader) {
-			PadWithZeroes = false,
-			Volume = _volume,
-			Pan = (_pan * 2f) - 1f
-		};
-		var output = new WaveOutEvent();
-		output.Init(channel);
-		output.PlaybackStopped += OnPlaybackStopped;
+		AudioFileReader? reader = null;
+		WaveChannel32? channel = null;
+		WaveOutEvent? output = null;
 
-		_reader = reader;
-		_channel = channel;
-		_output = output;
+		try {
+			reader = new AudioFileReader(ResourcePath!);
+			channel = new WaveChannel32(reader) {
+				PadWithZeroes = false,
+				Volume = _volume,
+				Pan = (_pan * 2f) - 1f
+			};
+			output = new WaveOutEvent();
+			output.Init(channel);
+			output.PlaybackStopped += OnPlaybackStopped;
+
+			_reader = reader;
+			_channel = channel;
+			_output = output;
+
+			reader = null;
+			channel = null;
+			output = null;
+		} finally {
+			if (output is not null) {
+				output.PlaybackStopped -= OnPlaybackStopped;
+				output.Dispose();
+			}
+
+			channel?.Dispose();
+			reader?.Dispose();
+		}
 	}
 
 	protected override void UnloadCore() {

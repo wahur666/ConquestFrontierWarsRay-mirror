@@ -163,13 +163,13 @@ public sealed class MediaFoundationAudioStreamResource : AudioStreamResource {
 			reader.SetStreamSelection(SourceReaderIndex.AllStreams, false);
 			reader.SetStreamSelection(SourceReaderIndex.FirstAudioStream, true);
 
-			var outputType = MediaFactory.MFCreateMediaType();
+			using var outputType = MediaFactory.MFCreateMediaType();
 			outputType.Set(MediaTypeAttributeKeys.MajorType, MediaTypeGuids.Audio).CheckError();
 			outputType.Set(MediaTypeAttributeKeys.Subtype, AudioFormatGuids.Pcm).CheckError();
 			outputType.Set(MediaTypeAttributeKeys.AudioBitsPerSample, 16).CheckError();
 			reader.SetCurrentMediaType(SourceReaderIndex.FirstAudioStream, outputType);
 
-			var currentType = reader.GetCurrentMediaType(SourceReaderIndex.FirstAudioStream);
+			using var currentType = reader.GetCurrentMediaType(SourceReaderIndex.FirstAudioStream);
 			var sampleRate = currentType.GetUInt32(MediaTypeAttributeKeys.AudioSamplesPerSecond);
 			var channels = currentType.GetUInt32(MediaTypeAttributeKeys.AudioNumChannels);
 
