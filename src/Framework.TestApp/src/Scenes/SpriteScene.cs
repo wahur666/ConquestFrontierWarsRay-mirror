@@ -31,10 +31,8 @@ internal sealed class SpriteScene : ShowcaseScene {
 	private readonly string _vfxShapeId;
 	private readonly string _atlasJsonFileName;
 	private readonly string _atlasPngFileName;
-	private readonly CompressedTexture2D _posterTexture;
+	private readonly AtlasFramesResource _posterAtlas;
 	private readonly CompressedTexture2D _test2Texture;
-	private readonly AtlasDefinitionResource _atlasDefinition;
-	private readonly SpriteFrames _atlasFrames;
 	private readonly Sprite _posterSprite;
 	private readonly AnimatedSprite2D _animatedSprite;
 	private readonly Sprite _test2Sprite;
@@ -55,14 +53,12 @@ internal sealed class SpriteScene : ShowcaseScene {
 		_atlasPngFileName = entry.Value.Filename;
 		_atlasJsonFileName = entry.Value.MetaJson;
 
-		_posterTexture = new CompressedTexture2D(vfxRepository.GetInterfaceAssetPath(entry.Value));
-		_atlasDefinition = new AtlasDefinitionResource(vfxRepository.GetInterfaceAssetPath(entry.Value, metaJson: true));
-		_atlasFrames = SpriteFrames.FromAtlas(_posterTexture, _atlasDefinition);
-		_posterSprite = new Sprite(_posterTexture, "PosterSprite") {
+		_posterAtlas = vfxRepository.CreateAtlasFramesResource(entry.Value);
+		_posterSprite = new Sprite(_posterAtlas.Texture, "PosterSprite") {
 			Position = new Vector2(782f, 300f),
 			Scale = new Vector2(0.34f, 0.34f)
 		};
-		_animatedSprite = new AnimatedSprite2D(_atlasFrames, "FrameSprite") {
+		_animatedSprite = new AnimatedSprite2D(_posterAtlas.Frames, "FrameSprite") {
 			Position = new Vector2(1080f, 130f),
 			Scale = new Vector2(1.1f, 1.1f),
 			SpeedFps = DefaultAnimationFps
@@ -92,7 +88,7 @@ internal sealed class SpriteScene : ShowcaseScene {
 		}
 		_animatedSprite.SpeedFps = _animationFps;
 
-		_statusLabel.Text = $"Animate: {_animateId}    Shape: {_vfxShapeId}    Texture loaded: {_posterTexture.IsLoaded}    Atlas loaded: {_atlasDefinition.IsLoaded}    Playback: {_animationFps:0} FPS";
+		_statusLabel.Text = $"Animate: {_animateId}    Shape: {_vfxShapeId}    Texture loaded: {_posterAtlas.Texture.IsLoaded}    Atlas loaded: {_posterAtlas.AtlasDefinition.IsLoaded}    Playback: {_animationFps:0} FPS";
 		_frameLabel.Text = $"Atlas frame: {_animatedSprite.Frame + 1:00} / {_animatedSprite.Frames.Count}    Source: {EntryFileNames()}    Left/Right adjusts rate";
 	}
 
@@ -109,8 +105,6 @@ internal sealed class SpriteScene : ShowcaseScene {
 	}
 
 	protected override void OnDispose() {
-		_atlasFrames.Dispose();
-		_atlasDefinition.Dispose();
-		_posterTexture.Dispose();
+		_posterAtlas.Dispose();
 	}
 }

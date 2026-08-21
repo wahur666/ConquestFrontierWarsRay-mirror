@@ -4,6 +4,7 @@ namespace ConquestFrontierWarsRay.Framework;
 /// Base class for lazily loaded disposable resources.
 /// </summary>
 public abstract class Resource : IDisposable {
+	private readonly List<IDisposable> _ownedResources = [];
 	private bool _disposed;
 
 	/// <summary>
@@ -36,13 +37,21 @@ public abstract class Resource : IDisposable {
 			return;
 		}
 
+		List<Exception>? exceptions = null;
+
 		if (IsLoaded) {
-			UnloadCore();
-			IsLoaded = false;
+			try {
+				UnloadCore();
+			} catch (Exception ex) {
+				exceptions = [ex];
+			} finally {
+				IsLoaded = false;
+			}
 		}
 
 		_disposed = true;
 		GC.SuppressFinalize(this);
+		DisposeOwnedResources(exceptions);
 	}
 
 	/// <summary>
@@ -55,8 +64,18 @@ public abstract class Resource : IDisposable {
 			return;
 		}
 
-		LoadCore();
-		IsLoaded = true;
+		try {
+			LoadCore();
+			IsLoaded = true;
+		} catch {
+			try {
+				UnloadCore();
+			} catch {
+				// Best effort cleanup after a failed partial load.
+			}
+
+			throw;
+		}
 	}
 
 	/// <summary>
@@ -68,5 +87,42 @@ public abstract class Resource : IDisposable {
 	/// Unloads resource data.
 	/// </summary>
 	protected virtual void UnloadCore() {
+	}
+
+	/// <summary>
+	/// Registers one child resource or disposable owned by this resource.
+	/// </summary>
+	protected T Own<T>(T resource) where T : IDisposable {
+		ArgumentNullException.ThrowIfNull(resource);
+		_ownedResources.Add(resource);
+		return resource;
+	}
+
+	/// <summary>
+	/// Registers multiple child resources or disposables owned by this resource.
+	/// </summary>
+	protected void OwnRange(IEnumerable<IDisposable> resources) {
+		ArgumentNullException.ThrowIfNull(resources);
+
+		foreach (var resource in resources) {
+			Own(resource);
+		}
+	}
+
+	private void DisposeOwnedResources(List<Exception>? exceptions) {
+		for (var i = _ownedResources.Count - 1; i >= 0; i--) {
+			try {
+				_ownedResources[i].Dispose();
+			} catch (Exception ex) {
+				exceptions ??= [];
+				exceptions.Add(ex);
+			}
+		}
+
+		_ownedResources.Clear();
+
+		if (exceptions is { Count: > 0 }) {
+			throw new AggregateException($"Failed to dispose resource '{GetType().Name}'.", exceptions);
+		}
 	}
 }

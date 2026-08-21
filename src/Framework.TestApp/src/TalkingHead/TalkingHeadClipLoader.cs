@@ -23,20 +23,11 @@ internal static class TalkingHeadClipLoader {
 		
 		const string talkingHeadBorder = "talkingHeadBorder";
 		if (!vfxData.TryGetAtlasByVfxShapeId(talkingHeadBorder, out var talkingHeadBorderAtlas)) {
-			throw new InvalidOperationException($"Could not find atlas entry for '{talkBlackwell2}' in vfx-animation-data.json.");
+			throw new InvalidOperationException($"Could not find atlas entry for '{talkingHeadBorder}' in vfx-animation-data.json.");
 		}
-		
-		var faceTexture = new CompressedTexture2D(vfxRepository.GetInterfaceAssetPath(blackwell2Atlas.Value, metaJson: false)) {
-			Filter = TextureFilter.Bilinear
-		};
-		var faceAtlas = new AtlasDefinitionResource(vfxRepository.GetInterfaceAssetPath(blackwell2Atlas.Value, metaJson: true));
-		var faceFrames = SpriteFrames.FromAtlas(faceTexture, faceAtlas);
 
-		var borderTexture = new CompressedTexture2D(vfxRepository.GetInterfaceAssetPath(talkingHeadBorderAtlas.Value, metaJson: false)) {
-			Filter = TextureFilter.Bilinear
-		};
-		var borderAtlas = new AtlasDefinitionResource(vfxRepository.GetInterfaceAssetPath(talkingHeadBorderAtlas.Value, metaJson: true));
-		var borderFrames = SpriteFrames.FromAtlas(borderTexture, borderAtlas);
+		var faceResource = vfxRepository.CreateAtlasFramesResource(blackwell2Atlas.Value, TextureFilter.Bilinear);
+		var borderResource = vfxRepository.CreateAtlasFramesResource(talkingHeadBorderAtlas.Value, TextureFilter.Bilinear);
 
 		var fuzzTexture = new CompressedTexture2D(Path.Combine(texturesRoot, "videoFX.png")) {
 			Filter = TextureFilter.Point
@@ -47,12 +38,12 @@ internal static class TalkingHeadClipLoader {
 		var timeline = LoadTimingRows(Path.Combine(vfxRoot, "m01bl03.txt"));
 
 		return new TalkingHeadClip(
-			faceFrames,
+			faceResource.Frames,
 			voiceAudio,
 			timeline,
 			fuzzFrames,
-			borderFrames,
-			ownedResources: [voiceAudio, fuzzFrames, fuzzTexture, borderFrames, borderAtlas, borderTexture, faceFrames, faceAtlas, faceTexture]);
+			borderResource.Frames,
+			ownedResources: [voiceAudio, fuzzFrames, fuzzTexture, borderResource, faceResource]);
 	}
 
 	public static IReadOnlyList<TalkingHeadTimingRow> LoadTimingRows(string timingPath) {
