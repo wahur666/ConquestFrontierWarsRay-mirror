@@ -14,6 +14,8 @@ ordering themselves. That creates inconsistent input ownership:
 This is not only a `bool consumed` problem. It is a missing framework-owned
 dispatch model.
 
+Stealing good ideas from the Godot Engine is permitted!
+
 ## Current Spike Status
 
 A first vertical slice now exists in `Core.UI` as an experiment surface.
