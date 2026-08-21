@@ -45,5 +45,10 @@ public sealed class AtlasTexture : Texture2D {
 
 	protected override void LoadCore() {
 		Atlas.GetSlice();
+		ApplyConfiguredFilter();
+	}
+
+	protected override void ApplyTextureFilterCore(TextureFilter filter) {
+		Atlas.Filter = filter;
 	}
 }

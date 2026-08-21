@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Runtime.InteropServices;
 using Raylib_cs;
 using SharpGen.Runtime;
 using Vortice.MediaFoundation;
@@ -23,8 +22,8 @@ namespace ConquestFrontierWarsRay.Framework;
 public sealed unsafe class VideoPlayer : Control {
 	private const long TicksPerSecond = 10_000_000;
 
+	private readonly AudioPlayer _audioPlayer;
 	private IMFSourceReader? _videoReader;
-	private AudioTrack? _audioTrack;
 	private MediaFoundationRuntime.Lease _mediaFoundationLease;
 	private byte[]? _rgbaFrame;
 	private Raylib_cs.Texture2D _texture;
@@ -42,6 +41,7 @@ public sealed unsafe class VideoPlayer : Control {
 	private float _volume = 1f;
 
 	public VideoPlayer(string? name = null) : base(name) {
+		_audioPlayer = new AudioPlayer($"{Name}.Audio");
 	}
 
 	/// <summary>
@@ -116,7 +116,7 @@ public sealed unsafe class VideoPlayer : Control {
 		get => _volume;
 		set {
 			_volume = Math.Clamp(value, 0f, 1f);
-			_audioTrack?.SetVolume(_volume);
+			_audioPlayer.Volume = _volume;
 		}
 	}
 
@@ -153,7 +153,7 @@ public sealed unsafe class VideoPlayer : Control {
 		}
 
 		_isPlaying = true;
-		_audioTrack?.Play();
+		_audioPlayer.Play();
 	}
 
 	/// <summary>
@@ -162,7 +162,7 @@ public sealed unsafe class VideoPlayer : Control {
 	public void Pause() {
 		_resumeOnEnter = false;
 		_isPlaying = false;
-		_audioTrack?.Pause();
+		_audioPlayer.Pause();
 	}
 
 	/// <summary>
@@ -187,7 +187,7 @@ public sealed unsafe class VideoPlayer : Control {
 		var wasPlaying = _isPlaying;
 
 		_videoReader.SetCurrentPosition(targetTimestamp);
-		_audioTrack?.Seek(targetTimestamp);
+		_audioPlayer.Seek((float)clampedPosition);
 		_elapsedSeconds = clampedPosition;
 		_pendingFrameTimestamp = 0;
 		_hasPendingFrame = false;
@@ -199,7 +199,7 @@ public sealed unsafe class VideoPlayer : Control {
 
 		if (wasPlaying && !_endOfStream) {
 			_isPlaying = true;
-			_audioTrack?.Play();
+			_audioPlayer.Play();
 		}
 	}
 
@@ -236,7 +236,7 @@ public sealed unsafe class VideoPlayer : Control {
 			return;
 		}
 
-		_audioTrack?.Update();
+		_audioPlayer.Audio?.Update();
 		_elapsedSeconds = Math.Min(_elapsedSeconds + deltaTime, _durationSeconds > 0d ? _durationSeconds : double.MaxValue);
 		var targetTimestamp = SecondsToTicks(_elapsedSeconds);
 
@@ -321,8 +321,9 @@ public sealed unsafe class VideoPlayer : Control {
 			}
 
 			_videoReader = reader;
-			_audioTrack = AudioTrack.TryOpen(fullPath);
-			_audioTrack?.SetVolume(_volume);
+			var audio = TryCreateEmbeddedAudio(fullPath);
+			_audioPlayer.SetAudio(audio, disposeCurrent: true, takeOwnership: audio is not null);
+			_audioPlayer.Volume = _volume;
 			_sourcePath = fullPath;
 			VideoWidth = width;
 			VideoHeight = height;
@@ -377,8 +378,7 @@ public sealed unsafe class VideoPlayer : Control {
 		_videoReader?.Dispose();
 		_videoReader = null;
 
-		_audioTrack?.Dispose();
-		_audioTrack = null;
+		_audioPlayer.SetAudio(null, disposeCurrent: true);
 
 		_mediaFoundationLease.Dispose();
 		_mediaFoundationLease = default;
@@ -408,7 +408,7 @@ public sealed unsafe class VideoPlayer : Control {
 		if ((flags & SourceReaderFlag.EndOfStream) != 0) {
 			_endOfStream = true;
 			_isPlaying = false;
-			_audioTrack?.Pause();
+			_audioPlayer.Pause();
 		}
 
 		if ((flags & SourceReaderFlag.Error) != 0) {
@@ -525,170 +525,13 @@ public sealed unsafe class VideoPlayer : Control {
 		}
 	}
 
-	private sealed unsafe class AudioTrack : IDisposable {
-		private const int BufferFrameCount = 4096;
-
-		private readonly IMFSourceReader _reader;
-		private readonly Queue<short> _queuedSamples = new();
-		private AudioStream _stream;
-		private bool _endOfStream;
-		private bool _started;
-		private int _channels;
-		private float _volume = 1f;
-
-		private AudioTrack(IMFSourceReader reader, AudioStream stream) {
-			_reader = reader;
-			_stream = stream;
-			_channels = (int)stream.Channels;
-			FillNextAudioBuffer();
-			FillNextAudioBuffer();
-		}
-
-		public static AudioTrack? TryOpen(string path) {
-			try {
-				var reader = MediaFactory.MFCreateSourceReaderFromURL(path, null);
-				reader.SetStreamSelection(SourceReaderIndex.AllStreams, false);
-				reader.SetStreamSelection(SourceReaderIndex.FirstAudioStream, true);
-
-				var outputType = MediaFactory.MFCreateMediaType();
-				outputType.Set(MediaTypeAttributeKeys.MajorType, MediaTypeGuids.Audio).CheckError();
-				outputType.Set(MediaTypeAttributeKeys.Subtype, AudioFormatGuids.Pcm).CheckError();
-				outputType.Set(MediaTypeAttributeKeys.AudioBitsPerSample, 16).CheckError();
-				reader.SetCurrentMediaType(SourceReaderIndex.FirstAudioStream, outputType);
-
-				var currentType = reader.GetCurrentMediaType(SourceReaderIndex.FirstAudioStream);
-				var sampleRate = currentType.GetUInt32(MediaTypeAttributeKeys.AudioSamplesPerSecond);
-				var channels = currentType.GetUInt32(MediaTypeAttributeKeys.AudioNumChannels);
-
-				if (sampleRate == 0 || channels == 0) {
-					reader.Dispose();
-					return null;
-				}
-
-				Raylib.SetAudioStreamBufferSizeDefault(BufferFrameCount);
-				var stream = Raylib.LoadAudioStream(sampleRate, 16, channels);
-				return new AudioTrack(reader, stream);
-			} catch {
-				return null;
-			}
-		}
-
-		public void Update() {
-			if (_endOfStream || _stream.Buffer == 0) {
-				return;
-			}
-
-			while (Raylib.IsAudioStreamProcessed(_stream)) {
-				if (!FillNextAudioBuffer()) {
-					return;
-				}
-			}
-		}
-
-		public void Play() {
-			if (_stream.Buffer == 0) {
-				return;
-			}
-
-			if (!_started) {
-				Raylib.PlayAudioStream(_stream);
-				_started = true;
-				return;
-			}
-
-			Raylib.ResumeAudioStream(_stream);
-		}
-
-		public void Seek(long positionTicks) {
-			_reader.SetCurrentPosition(positionTicks);
-			_queuedSamples.Clear();
-			_endOfStream = false;
-			FillNextAudioBuffer();
-			FillNextAudioBuffer();
-		}
-
-		public void SetVolume(float volume) {
-			_volume = Math.Clamp(volume, 0f, 1f);
-
-			if (_stream.Buffer != 0) {
-				Raylib.SetAudioStreamVolume(_stream, _volume);
-			}
-		}
-
-		public void Pause() {
-			if (_stream.Buffer != 0) {
-				Raylib.PauseAudioStream(_stream);
-			}
-		}
-
-		public void Dispose() {
-			if (_stream.Buffer != 0) {
-				Raylib.StopAudioStream(_stream);
-				Raylib.UnloadAudioStream(_stream);
-				_stream = default;
-			}
-
-			_reader.Dispose();
-		}
-
-		private bool FillNextAudioBuffer() {
-			var targetSampleCount = BufferFrameCount * _channels;
-			QueueDecodedSamples(targetSampleCount);
-
-			if (_queuedSamples.Count == 0) {
-				return false;
-			}
-
-			var samples = new short[targetSampleCount];
-			var writableSamples = Math.Min(samples.Length, _queuedSamples.Count);
-			for (var i = 0; i < writableSamples; i++) {
-				samples[i] = _queuedSamples.Dequeue();
-			}
-
-			Raylib.UpdateAudioStream(_stream, samples, BufferFrameCount);
-			return true;
-		}
-
-		private void QueueDecodedSamples(int minimumSampleCount) {
-			while (!_endOfStream && _queuedSamples.Count < minimumSampleCount) {
-				var samples = ReadNextSamples();
-				if (samples is null) {
-					return;
-				}
-
-				foreach (var sample in samples) {
-					_queuedSamples.Enqueue(sample);
-				}
-			}
-		}
-
-		private short[]? ReadNextSamples() {
-			var sample = _reader.ReadSample(SourceReaderIndex.FirstAudioStream, SourceReaderControlFlag.None, out _, out var flags, out _);
-
-			if ((flags & SourceReaderFlag.EndOfStream) != 0) {
-				_endOfStream = true;
-			}
-
-			if ((flags & SourceReaderFlag.Error) != 0) {
-				throw new InvalidOperationException("Media Foundation reported an audio read error.");
-			}
-
-			if (sample is null) {
-				return null;
-			}
-
-			var buffer = sample.ConvertToContiguousBuffer();
-			try {
-				buffer.Lock(out var sourcePointer, out _, out var currentLength);
-				var sampleCount = currentLength / sizeof(short);
-				var samples = new short[sampleCount];
-				Marshal.Copy(sourcePointer, samples, 0, sampleCount);
-				return samples;
-			} finally {
-				buffer.Unlock();
-				buffer.Dispose();
-				sample.Dispose();
-			}
+	private static AudioStreamResource? TryCreateEmbeddedAudio(string path) {
+		try {
+			var audio = new MediaFoundationAudioStreamResource(path);
+			_ = audio.TimeLength;
+			return audio;
+		} catch {
+			return null;
 		}
 	}
 }

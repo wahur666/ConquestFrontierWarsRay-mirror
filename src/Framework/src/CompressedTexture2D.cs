@@ -49,10 +49,17 @@ public sealed class CompressedTexture2D : Texture2D {
 			}
 
 			_texture = texture;
+			ApplyConfiguredFilter();
 		} finally {
 			if (Raylib.IsImageValid(image)) {
 				Raylib.UnloadImage(image);
 			}
+		}
+	}
+
+	protected override void ApplyTextureFilterCore(TextureFilter filter) {
+		if (Raylib.IsTextureValid(_texture)) {
+			Raylib.SetTextureFilter(_texture, filter);
 		}
 	}
 

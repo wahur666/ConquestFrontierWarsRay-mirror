@@ -31,6 +31,11 @@ public sealed class AnimatedSprite2D : Node2D {
 	public Color Modulate { get; set; } = Color.White;
 
 	/// <summary>
+	/// Blend mode applied while drawing this animated sprite.
+	/// </summary>
+	public BlendMode BlendMode { get; set; } = BlendMode.Alpha;
+
+	/// <summary>
 	/// Mirrors the sprite horizontally when drawing.
 	/// </summary>
 	public bool FlipH { get; set; }
@@ -152,7 +157,9 @@ public sealed class AnimatedSprite2D : Node2D {
 		var origin = new Vector2(destinationSize.X * Pivot.X, destinationSize.Y * Pivot.Y);
 		var rotationDegrees = GlobalRotation * (180f / MathF.PI);
 
+		Raylib.BeginBlendMode(BlendMode);
 		Raylib.DrawTexturePro(slice.Texture, source, destination, origin, rotationDegrees, Modulate);
+		Raylib.EndBlendMode();
 	}
 
 	private void SetFrame(int frame) {
