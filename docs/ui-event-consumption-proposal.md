@@ -14,6 +14,32 @@ ordering themselves. That creates inconsistent input ownership:
 This is not only a `bool consumed` problem. It is a missing framework-owned
 dispatch model.
 
+## Current Spike Status
+
+A first vertical slice now exists in `Core.UI` as an experiment surface.
+
+Implemented spike pieces:
+
+- `UiEventSource`
+- `UiPointerEvent`
+- `IUiPointerEventHandler`
+- `HotRectNode`
+- `Framework.TestApp` scene `Hot Rect Events`
+
+The spike currently proves:
+
+- topmost target resolution inside a scoped node subtree
+- upward bubbling through the node parent chain
+- stop-propagation through `Handled`
+- visible/logged event traces for debugging
+- a practical first replacement for the `BaseHotRect` idea of:
+  - rectangular hit ownership
+  - root-attached event sampling
+  - upward event routing
+
+The spike is intentionally narrow. It is not yet the final framework-wide UI
+dispatcher.
+
 ## Goal
 
 Move UI input ownership into the framework so controls receive routed events and
@@ -47,6 +73,8 @@ Add lightweight event objects instead of direct polling from each control.
 
 Suggested event kinds:
 
+- `Enter`
+- `Leave`
 - `Move`
 - `Down`
 - `Up`
@@ -58,9 +86,31 @@ Suggested event fields:
 - `Position`
 - `Button`
 - `WheelDelta`
+- `OriginalTarget`
+- `CurrentTarget`
 - `Handled`
 - `CaptureRequested`
 - `FocusRequested`
+
+### Spike-Observed Pointer Semantics
+
+The current spike emits and logs these pointer events:
+
+- `Enter`: pointer moved from no target or a different target into the resolved target
+- `Leave`: pointer moved from the previous resolved target to no target or a different target
+- `Move`: pointer position changed while a target is resolved
+- `Down`: left mouse button pressed on the resolved target
+- `Up`: left mouse button released and routed to the node that received `Down`
+- `Click`: left mouse button released over the same resolved target that received `Down`
+- `Wheel`: wheel moved while a target is resolved
+
+This is good enough for a first dispatcher slice because it exposes the real
+questions clearly:
+
+- which node becomes the resolved target
+- how bubbling should work
+- when a node may stop propagation
+- where pointer capture must take over from plain hit-testing
 
 ### Keyboard / Navigation Events
 
@@ -112,6 +162,19 @@ Suggested events raised by controls:
 - Dispatch to the first eligible control under the pointer.
 - If the event is handled, do not continue to siblings or parents.
 
+### Bubbling
+
+- Start dispatch at the resolved target.
+- Then walk upward through `Parent`.
+- Only nodes implementing the pointer-handler contract participate.
+- Update `CurrentTarget` at each step.
+- Stop when `Handled` becomes `true`.
+
+This bubbling rule is now proven by the `Hot Rect Events` test scene:
+
+- one child target allows bubbling into its parent
+- one child target marks the event handled and blocks the parent route
+
 ### Pointer Capture
 
 - A control may request capture during pointer down.
@@ -153,15 +216,27 @@ values on existing polling methods.
 
 Implement the smallest useful vertical slice first:
 
-1. Add `UiInputDispatcher`.
-2. Add `UiPointerEvent`.
-3. Add `Handled` and `CaptureRequested`.
-4. Store focused control in `SceneTree`.
-5. Convert `ButtonNode` to dispatched pointer click handling.
-6. Convert `SliderNode` next to prove pointer capture.
+1. Keep the existing `Core.UI` spike as the experimental seam.
+2. Rename or stabilize `UiEventSource` as the framework-owned dispatcher shape.
+3. Promote `UiPointerEvent` and the pointer-handler contract to the intended long-term package boundary.
+4. Convert one existing framework control, preferably `ButtonNode`, to dispatched pointer click handling.
+5. Convert `SliderNode` next to prove pointer capture.
+6. Add framework-owned focus state after pointer routing is stable.
 
-This is the minimum slice that actually resolves the event consumption problem
-instead of relocating it.
+This is the minimum slice that moves the current spike toward a real framework
+solution instead of leaving it as a parallel experiment.
+
+## Immediate Next Step
+
+The next implementation target should be:
+
+1. adapt `ButtonNode` to `IUiPointerEventHandler`
+2. let `UiEventSource` route to real framework controls, not only `HotRectNode`
+3. preserve the `Hot Rect Events` scene as the debugger scene for routed events
+4. add pointer capture only when `SliderNode` is converted
+
+This ordering matters. The current system first needs one normal control using
+dispatch cleanly before adding capture, focus, modal scopes, or full migration.
 
 ## Migration Plan
 
