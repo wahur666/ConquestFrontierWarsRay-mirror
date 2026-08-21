@@ -1,9 +1,9 @@
 using System.Numerics;
 
-namespace ConquestFrontierWarsRay.Core.UI;
+namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Pointer target contract used by <see cref="UiEventSource"/>.
+/// Pointer target contract used by a UI input dispatcher.
 /// </summary>
 public interface IUiPointerEventHandler {
 	/// <summary>

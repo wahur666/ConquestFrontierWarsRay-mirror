@@ -1,7 +1,7 @@
-namespace ConquestFrontierWarsRay.Core.UI;
+namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Pointer event kinds routed by <see cref="UiEventSource"/>.
+/// Pointer event kinds routed by a UI input dispatcher.
 /// </summary>
 public enum UiPointerEventKind {
 	Enter,

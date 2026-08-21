@@ -1,5 +1,7 @@
 # UI Event Consumption Proposal
 
+Tracking checklist: [ui-event-system-checklist.md](./ui-event-system-checklist.md)
+
 ## Problem
 
 The current UI framework requires scenes to poll controls manually and decide
@@ -101,9 +103,9 @@ The current spike emits and logs these pointer events:
 - `Enter`: pointer moved from no target or a different target into the resolved target
 - `Leave`: pointer moved from the previous resolved target to no target or a different target
 - `Move`: pointer position changed while a target is resolved
-- `Down`: left mouse button pressed on the resolved target
-- `Up`: left mouse button released and routed to the node that received `Down`
-- `Click`: left mouse button released over the same resolved target that received `Down`
+- `Down`: a routed mouse button pressed on the resolved target
+- `Up`: a routed mouse button released and routed to the node that received `Down`
+- `Click`: a routed mouse button released over the same resolved target that received `Down`
 - `Wheel`: wheel moved while a target is resolved
 
 This is good enough for a first dispatcher slice because it exposes the real

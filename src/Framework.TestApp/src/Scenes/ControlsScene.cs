@@ -1,10 +1,12 @@
 using System.Numerics;
+using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
 
 internal sealed class ControlsScene : ShowcaseScene {
+	private readonly UiEventSource _eventSource = new("ControlsEventSource");
 	private readonly PanelNode _panel = new("ControlsPanel") {
 		Position = new Vector2(390f, 76f),
 		Size = new Vector2(812f, 568f),
@@ -60,6 +62,12 @@ internal sealed class ControlsScene : ShowcaseScene {
 	private int _accentIndex;
 
 	public ControlsScene() : base("ControlsScene", "Controls") {
+		_eventSource.ScopeRoot = this;
+		_incrementButton.Clicked += _ => _count++;
+		_resetButton.Clicked += _ => _count = 0;
+		_themeButton.Clicked += _ => _accentIndex = (_accentIndex + 1) % _accents.Length;
+
+		AddChild(_eventSource);
 		AddChild(_panel);
 		AddChild(_title);
 		AddChild(_counterLabel);
@@ -71,26 +79,14 @@ internal sealed class ControlsScene : ShowcaseScene {
 	}
 
 	protected override void OnUpdate(float deltaTime) {
-		if (_incrementButton.HandleInput()) {
-			_count++;
-		}
-
-		if (_resetButton.HandleInput()) {
-			_count = 0;
-		}
-
-		if (_themeButton.HandleInput()) {
-			_accentIndex = (_accentIndex + 1) % _accents.Length;
-		}
-
 		_panel.Fill = _accents[_accentIndex];
 		_counterLabel.Text = $"Counter value: {_count}";
 		_themeLabel.Text = $"Panel accent: {_accentIndex + 1} / {_accents.Length}";
 	}
 
 	protected override void OnDraw() {
-		UiText.Draw("Control is the hit-test base here. The hot zone below is a plain Control-derived node using ContainsPoint(...) for hover feedback.", 426f, 334f, 17f, new Color(188, 200, 218, 255));
-		UiText.Draw("Buttons and labels are framework nodes; interaction stays inside the framework node tree.", 426f, 358f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("ControlsScene now routes button clicks through UiEventSource instead of scene-owned polling. The hot zone below is still a plain Control using ContainsPoint(...) for hover feedback.", 426f, 334f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("This is the first framework control converted to routed pointer events. Slider, dropdown, list, capture, and focus still need follow-up slices.", 426f, 358f, 17f, new Color(188, 200, 218, 255));
 	}
 
 	private sealed class HotZoneNode : Control {

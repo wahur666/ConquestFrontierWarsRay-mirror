@@ -90,9 +90,10 @@ internal sealed class HotRectEventScene : ShowcaseScene {
 	}
 
 	private void HandleHotRectEvent(HotRectNode sender, UiPointerEvent pointerEvent) {
-		_eventLog = $"{pointerEvent.Kind} received by {sender.Name}";
+		var buttonText = pointerEvent.Button?.ToString() ?? "None";
+		_eventLog = $"{pointerEvent.Kind} ({buttonText}) received by {sender.Name}";
 		_routeLog = $"{pointerEvent.OriginalTarget.Name} -> {pointerEvent.CurrentTarget.Name}    handled={pointerEvent.Handled}";
-		var line = $"{pointerEvent.Kind,-5} target={pointerEvent.OriginalTarget.Name} current={pointerEvent.CurrentTarget.Name} handler={sender.Name} handled={pointerEvent.Handled}";
+		var line = $"{pointerEvent.Kind,-5} button={buttonText,-6} target={pointerEvent.OriginalTarget.Name} current={pointerEvent.CurrentTarget.Name} handler={sender.Name} handled={pointerEvent.Handled}";
 		_eventLines.Enqueue(line);
 		while (_eventLines.Count > MaxLogEntries) {
 			_eventLines.Dequeue();

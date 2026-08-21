@@ -221,6 +221,31 @@ public sealed class InputManager {
 		UpdateExitGesture(deltaTime);
 	}
 
+	/// <summary>
+	/// Samples the current frame into a single UI input snapshot.
+	/// </summary>
+	public UiInputSnapshot CaptureUiSnapshot() {
+		return new UiInputSnapshot(
+			PointerPosition: Raylib.GetMousePosition(),
+			LeftPressed: Raylib.IsMouseButtonPressed(MouseButton.Left),
+			LeftDown: Raylib.IsMouseButtonDown(MouseButton.Left),
+			LeftReleased: Raylib.IsMouseButtonReleased(MouseButton.Left),
+			MiddlePressed: Raylib.IsMouseButtonPressed(MouseButton.Middle),
+			MiddleDown: Raylib.IsMouseButtonDown(MouseButton.Middle),
+			MiddleReleased: Raylib.IsMouseButtonReleased(MouseButton.Middle),
+			RightPressed: Raylib.IsMouseButtonPressed(MouseButton.Right),
+			RightDown: Raylib.IsMouseButtonDown(MouseButton.Right),
+			RightReleased: Raylib.IsMouseButtonReleased(MouseButton.Right),
+			WheelDelta: Raylib.GetMouseWheelMove(),
+			NavigateUp: IsActionJustPressedOrDefault(UiUpAction),
+			NavigateDown: IsActionJustPressedOrDefault(UiDownAction),
+			NavigateLeft: IsActionJustPressedOrDefault(UiLeftAction),
+			NavigateRight: IsActionJustPressedOrDefault(UiRightAction),
+			AcceptPressed: IsActionJustPressedOrDefault(UiAcceptAction),
+			BackPressed: IsActionJustPressedOrDefault(UiBackAction),
+			EscapePressed: IsActionJustPressedOrDefault(UiEscapeAction));
+	}
+
 	private void UpdateExitGesture(float deltaTime) {
 		if (!Raylib.IsGamepadAvailable(PrimaryGamepad)) {
 			_exitHoldElapsed = 0f;
@@ -253,6 +278,10 @@ public sealed class InputManager {
 		}
 
 		return states[actionName];
+	}
+
+	private bool IsActionJustPressedOrDefault(string actionName) {
+		return _bindings.ContainsKey(actionName) && IsActionJustPressed(actionName);
 	}
 
 	private void RegisterBinding(string actionName, InputBinding binding) {

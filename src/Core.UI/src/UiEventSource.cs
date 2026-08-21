@@ -8,10 +8,11 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// Primitive pointer event source that samples Raylib input and bubbles events up the node tree.
 /// </summary>
 public sealed class UiEventSource : Node {
+	private static readonly MouseButton[] RoutedButtons = [MouseButton.Left, MouseButton.Middle, MouseButton.Right];
 	private readonly List<PointerTarget> _targets = [];
+	private readonly Dictionary<MouseButton, Node> _pressedTargets = [];
 	private Vector2 _lastPointerPosition;
 	private bool _hasPointerPosition;
-	private Node? _pressedTarget;
 	private Node? _hoveredTarget;
 
 	public UiEventSource(string? name = null) : base(name ?? "UiEventSource") {
@@ -23,7 +24,8 @@ public sealed class UiEventSource : Node {
 	public Node? ScopeRoot { get; set; }
 
 	protected override void OnUpdate(float deltaTime) {
-		var pointerPosition = Raylib.GetMousePosition();
+		var inputSnapshot = Input.CaptureUiSnapshot();
+		var pointerPosition = inputSnapshot.PointerPosition;
 		var target = ResolveTarget(pointerPosition);
 		var targetNode = target?.Node;
 
@@ -48,24 +50,28 @@ public sealed class UiEventSource : Node {
 			}
 		}
 
-		if (Raylib.IsMouseButtonPressed(MouseButton.Left) && targetNode is not null) {
-			_pressedTarget = targetNode;
-			Dispatch(targetNode, UiPointerEventKind.Down, pointerPosition, MouseButton.Left, 0f);
-		}
+		foreach (var button in RoutedButtons) {
+			if (IsPressed(inputSnapshot, button) && targetNode is not null) {
+				_pressedTargets[button] = targetNode;
+				Dispatch(targetNode, UiPointerEventKind.Down, pointerPosition, button, 0f);
+			}
 
-		if (Raylib.IsMouseButtonReleased(MouseButton.Left)) {
-			if (_pressedTarget is not null) {
-				Dispatch(_pressedTarget, UiPointerEventKind.Up, pointerPosition, MouseButton.Left, 0f);
+			if (!IsReleased(inputSnapshot, button)) {
+				continue;
+			}
 
-				if (targetNode is not null && ReferenceEquals(targetNode, _pressedTarget)) {
-					Dispatch(_pressedTarget, UiPointerEventKind.Click, pointerPosition, MouseButton.Left, 0f);
+			if (_pressedTargets.TryGetValue(button, out var pressedTarget)) {
+				Dispatch(pressedTarget, UiPointerEventKind.Up, pointerPosition, button, 0f);
+
+				if (targetNode is not null && ReferenceEquals(targetNode, pressedTarget)) {
+					Dispatch(pressedTarget, UiPointerEventKind.Click, pointerPosition, button, 0f);
 				}
 			}
 
-			_pressedTarget = null;
+			_pressedTargets.Remove(button);
 		}
 
-		var wheelDelta = Raylib.GetMouseWheelMove();
+		var wheelDelta = inputSnapshot.WheelDelta;
 		if (MathF.Abs(wheelDelta) > float.Epsilon && targetNode is not null) {
 			Dispatch(targetNode, UiPointerEventKind.Wheel, pointerPosition, null, wheelDelta);
 		}
@@ -107,13 +113,31 @@ public sealed class UiEventSource : Node {
 				continue;
 			}
 
-			pointerEvent.CurrentTarget = current;
+			pointerEvent.RouteTo(current);
 			handler.OnPointerEvent(pointerEvent);
 
 			if (pointerEvent.Handled) {
 				break;
 			}
 		}
+	}
+
+	private static bool IsPressed(UiInputSnapshot inputSnapshot, MouseButton button) {
+		return button switch {
+			MouseButton.Left => inputSnapshot.LeftPressed,
+			MouseButton.Middle => inputSnapshot.MiddlePressed,
+			MouseButton.Right => inputSnapshot.RightPressed,
+			_ => false
+		};
+	}
+
+	private static bool IsReleased(UiInputSnapshot inputSnapshot, MouseButton button) {
+		return button switch {
+			MouseButton.Left => inputSnapshot.LeftReleased,
+			MouseButton.Middle => inputSnapshot.MiddleReleased,
+			MouseButton.Right => inputSnapshot.RightReleased,
+			_ => false
+		};
 	}
 
 	private readonly record struct PointerTarget(Node Node, IUiPointerEventHandler Handler);
