@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "buttonDropGraphics.shp",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "buttonDropGraphics_atlas.png",
+    "total_frames": 5,
+    "width": 1150,
+    "height": 37,
+    "cell_width": 230,
+    "cell_height": 37,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 210,
+      "height": 17
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 240,
+      "y": 10,
+      "width": 210,
+      "height": 17
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 470,
+      "y": 10,
+      "width": 210,
+      "height": 17
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 700,
+      "y": 10,
+      "width": 210,
+      "height": 17
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 930,
+      "y": 10,
+      "width": 210,
+      "height": 3
+    }
+  ]
+}

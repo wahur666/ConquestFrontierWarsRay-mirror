@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "progress.SHP",
+      "total_frames": 1,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "progress_atlas.png",
+    "total_frames": 1,
+    "width": 438,
+    "height": 41,
+    "cell_width": 438,
+    "cell_height": 41,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 418,
+      "height": 21
+    }
+  ]
+}

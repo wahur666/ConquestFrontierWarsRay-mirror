@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "tabOptions.SHP",
+      "total_frames": 14,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "tabOptions_atlas.png",
+    "total_frames": 14,
+    "width": 1750,
+    "height": 88,
+    "cell_width": 175,
+    "cell_height": 44,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 185,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 360,
+      "y": 10,
+      "width": 143,
+      "height": 24
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 535,
+      "y": 10,
+      "width": 143,
+      "height": 24
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 710,
+      "y": 10,
+      "width": 143,
+      "height": 24
+    },
+    {
+      "key": "frame_0005",
+      "index": 5,
+      "x": 885,
+      "y": 10,
+      "width": 143,
+      "height": 24
+    },
+    {
+      "key": "frame_0006",
+      "index": 6,
+      "x": 1060,
+      "y": 10,
+      "width": 147,
+      "height": 24
+    },
+    {
+      "key": "frame_0007",
+      "index": 7,
+      "x": 1235,
+      "y": 10,
+      "width": 147,
+      "height": 24
+    },
+    {
+      "key": "frame_0008",
+      "index": 8,
+      "x": 1410,
+      "y": 10,
+      "width": 147,
+      "height": 24
+    },
+    {
+      "key": "frame_0009",
+      "index": 9,
+      "x": 1585,
+      "y": 10,
+      "width": 147,
+      "height": 24
+    },
+    {
+      "key": "frame_0010",
+      "index": 10,
+      "x": 10,
+      "y": 54,
+      "width": 155,
+      "height": 24
+    },
+    {
+      "key": "frame_0011",
+      "index": 11,
+      "x": 185,
+      "y": 54,
+      "width": 155,
+      "height": 24
+    },
+    {
+      "key": "frame_0012",
+      "index": 12,
+      "x": 360,
+      "y": 54,
+      "width": 155,
+      "height": 24
+    },
+    {
+      "key": "frame_0013",
+      "index": 13,
+      "x": 535,
+      "y": 54,
+      "width": 155,
+      "height": 24
+    }
+  ]
+}

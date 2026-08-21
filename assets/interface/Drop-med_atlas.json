@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "Drop-med.shp",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "Drop-med_atlas.png",
+    "total_frames": 5,
+    "width": 1195,
+    "height": 57,
+    "cell_width": 239,
+    "cell_height": 57,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 219,
+      "height": 37
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 249,
+      "y": 10,
+      "width": 219,
+      "height": 37
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 488,
+      "y": 10,
+      "width": 219,
+      "height": 37
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 727,
+      "y": 10,
+      "width": 219,
+      "height": 37
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 966,
+      "y": 10,
+      "width": 219,
+      "height": 37
+    }
+  ]
+}

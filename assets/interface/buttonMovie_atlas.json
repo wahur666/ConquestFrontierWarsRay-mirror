@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "buttonMovie.SHP",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "buttonMovie_atlas.png",
+    "total_frames": 5,
+    "width": 305,
+    "height": 60,
+    "cell_width": 61,
+    "cell_height": 60,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 41,
+      "height": 40
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 71,
+      "y": 10,
+      "width": 41,
+      "height": 40
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 132,
+      "y": 10,
+      "width": 41,
+      "height": 40
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 193,
+      "y": 10,
+      "width": 41,
+      "height": 40
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 254,
+      "y": 10,
+      "width": 41,
+      "height": 40
+    }
+  ]
+}

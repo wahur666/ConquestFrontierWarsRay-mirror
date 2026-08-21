@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "checkObjectives.shp",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "checkObjectives_atlas.png",
+    "total_frames": 5,
+    "width": 170,
+    "height": 34,
+    "cell_width": 34,
+    "cell_height": 34,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 14,
+      "height": 14
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 44,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 78,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 112,
+      "y": 10,
+      "width": 14,
+      "height": 14
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 146,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "tabEndGame.SHP",
+      "total_frames": 16,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "tabEndGame_atlas.png",
+    "total_frames": 16,
+    "width": 1460,
+    "height": 90,
+    "cell_width": 146,
+    "cell_height": 45,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 122,
+      "height": 25
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 156,
+      "y": 10,
+      "width": 122,
+      "height": 25
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 302,
+      "y": 10,
+      "width": 122,
+      "height": 25
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 448,
+      "y": 10,
+      "width": 122,
+      "height": 25
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 594,
+      "y": 10,
+      "width": 124,
+      "height": 25
+    },
+    {
+      "key": "frame_0005",
+      "index": 5,
+      "x": 740,
+      "y": 10,
+      "width": 124,
+      "height": 25
+    },
+    {
+      "key": "frame_0006",
+      "index": 6,
+      "x": 886,
+      "y": 10,
+      "width": 124,
+      "height": 25
+    },
+    {
+      "key": "frame_0007",
+      "index": 7,
+      "x": 1032,
+      "y": 10,
+      "width": 124,
+      "height": 25
+    },
+    {
+      "key": "frame_0008",
+      "index": 8,
+      "x": 1178,
+      "y": 10,
+      "width": 126,
+      "height": 25
+    },
+    {
+      "key": "frame_0009",
+      "index": 9,
+      "x": 1324,
+      "y": 10,
+      "width": 126,
+      "height": 25
+    },
+    {
+      "key": "frame_0010",
+      "index": 10,
+      "x": 10,
+      "y": 55,
+      "width": 126,
+      "height": 25
+    },
+    {
+      "key": "frame_0011",
+      "index": 11,
+      "x": 156,
+      "y": 55,
+      "width": 126,
+      "height": 25
+    },
+    {
+      "key": "frame_0012",
+      "index": 12,
+      "x": 302,
+      "y": 55,
+      "width": 119,
+      "height": 25
+    },
+    {
+      "key": "frame_0013",
+      "index": 13,
+      "x": 448,
+      "y": 55,
+      "width": 119,
+      "height": 25
+    },
+    {
+      "key": "frame_0014",
+      "index": 14,
+      "x": 594,
+      "y": 55,
+      "width": 119,
+      "height": 25
+    },
+    {
+      "key": "frame_0015",
+      "index": 15,
+      "x": 740,
+      "y": 55,
+      "width": 119,
+      "height": 25
+    }
+  ]
+}

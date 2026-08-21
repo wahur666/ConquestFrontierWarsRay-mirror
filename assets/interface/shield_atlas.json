@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "shield.SHP",
+      "total_frames": 1,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "shield_atlas.png",
+    "total_frames": 1,
+    "width": 52,
+    "height": 52,
+    "cell_width": 52,
+    "cell_height": 52,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 32,
+      "height": 32
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "s_toolbar_Moveme.SHP",
+      "total_frames": 2,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "s_toolbar_Moveme_atlas.png",
+    "total_frames": 2,
+    "width": 1320,
+    "height": 176,
+    "cell_width": 660,
+    "cell_height": 176,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 640,
+      "height": 156
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 670,
+      "y": 10,
+      "width": 308,
+      "height": 13
+    }
+  ]
+}

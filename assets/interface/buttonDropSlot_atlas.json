@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "buttonDropSlot.shp",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "buttonDropSlot_atlas.png",
+    "total_frames": 5,
+    "width": 495,
+    "height": 33,
+    "cell_width": 99,
+    "cell_height": 33,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 79,
+      "height": 13
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 109,
+      "y": 10,
+      "width": 79,
+      "height": 13
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 208,
+      "y": 10,
+      "width": 79,
+      "height": 13
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 307,
+      "y": 10,
+      "width": 79,
+      "height": 13
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 406,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    }
+  ]
+}

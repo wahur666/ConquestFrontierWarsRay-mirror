@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "listDropSystems.SHP",
+      "total_frames": 1,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "listDropSystems_atlas.png",
+    "total_frames": 1,
+    "width": 132,
+    "height": 248,
+    "cell_width": 132,
+    "cell_height": 248,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 112,
+      "height": 228
+    }
+  ]
+}

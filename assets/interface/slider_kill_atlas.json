@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "slider_kill.SHP",
+      "total_frames": 8,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "slider_kill_atlas.png",
+    "total_frames": 8,
+    "width": 1136,
+    "height": 37,
+    "cell_width": 142,
+    "cell_height": 37,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 122,
+      "height": 17
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 152,
+      "y": 10,
+      "width": 122,
+      "height": 17
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 294,
+      "y": 10,
+      "width": 122,
+      "height": 17
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 436,
+      "y": 10,
+      "width": 122,
+      "height": 17
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 578,
+      "y": 10,
+      "width": 8,
+      "height": 13
+    },
+    {
+      "key": "frame_0005",
+      "index": 5,
+      "x": 720,
+      "y": 10,
+      "width": 8,
+      "height": 13
+    },
+    {
+      "key": "frame_0006",
+      "index": 6,
+      "x": 862,
+      "y": 10,
+      "width": 8,
+      "height": 13
+    },
+    {
+      "key": "frame_0007",
+      "index": 7,
+      "x": 1004,
+      "y": 10,
+      "width": 8,
+      "height": 13
+    }
+  ]
+}

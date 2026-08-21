@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "diplomacyButton.SHP",
+      "total_frames": 9,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "diplomacyButton_atlas.png",
+    "total_frames": 9,
+    "width": 729,
+    "height": 40,
+    "cell_width": 81,
+    "cell_height": 40,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 61,
+      "height": 20
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 91,
+      "y": 10,
+      "width": 61,
+      "height": 20
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 172,
+      "y": 10,
+      "width": 61,
+      "height": 20
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 253,
+      "y": 10,
+      "width": 61,
+      "height": 20
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 334,
+      "y": 10,
+      "width": 61,
+      "height": 3
+    },
+    {
+      "key": "frame_0005",
+      "index": 5,
+      "x": 415,
+      "y": 10,
+      "width": 52,
+      "height": 15
+    },
+    {
+      "key": "frame_0006",
+      "index": 6,
+      "x": 496,
+      "y": 10,
+      "width": 52,
+      "height": 15
+    },
+    {
+      "key": "frame_0007",
+      "index": 7,
+      "x": 577,
+      "y": 10,
+      "width": 52,
+      "height": 15
+    },
+    {
+      "key": "frame_0008",
+      "index": 8,
+      "x": 658,
+      "y": 10,
+      "width": 52,
+      "height": 15
+    }
+  ]
+}

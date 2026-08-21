@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "scrollbarNC.SHP",
+      "total_frames": 2,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "scrollbarNC_atlas.png",
+    "total_frames": 2,
+    "width": 98,
+    "height": 99,
+    "cell_width": 49,
+    "cell_height": 99,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 29,
+      "height": 79
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 59,
+      "y": 10,
+      "width": 15,
+      "height": 77
+    }
+  ]
+}

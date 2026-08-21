@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "IP_arrow.shp",
+      "total_frames": 5,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "IP_arrow_atlas.png",
+    "total_frames": 5,
+    "width": 185,
+    "height": 37,
+    "cell_width": 37,
+    "cell_height": 37,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 17,
+      "height": 17
+    },
+    {
+      "key": "frame_0001",
+      "index": 1,
+      "x": 47,
+      "y": 10,
+      "width": 17,
+      "height": 17
+    },
+    {
+      "key": "frame_0002",
+      "index": 2,
+      "x": 84,
+      "y": 10,
+      "width": 17,
+      "height": 17
+    },
+    {
+      "key": "frame_0003",
+      "index": 3,
+      "x": 121,
+      "y": 10,
+      "width": 17,
+      "height": 17
+    },
+    {
+      "key": "frame_0004",
+      "index": 4,
+      "x": 158,
+      "y": 10,
+      "width": 3,
+      "height": 3
+    }
+  ]
+}

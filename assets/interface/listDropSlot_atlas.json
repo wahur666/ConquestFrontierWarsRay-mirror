@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "app": "VFX JSON Atlas Converter",
+    "version": "1.0",
+    "source_format": "JSON with base64-encoded images",
+    "source_meta": {
+      "app": "VFX Shape Extractor",
+      "version": "1.0",
+      "source_file": "listDropSlot.SHP",
+      "total_frames": 1,
+      "export_format": "JSON with base64-encoded images"
+    },
+    "atlas": "listDropSlot_atlas.png",
+    "total_frames": 1,
+    "width": 100,
+    "height": 121,
+    "cell_width": 100,
+    "cell_height": 121,
+    "max_columns": 10,
+    "padding": 10,
+    "extrude": 2
+  },
+  "frames": [
+    {
+      "key": "frame_0000",
+      "index": 0,
+      "x": 10,
+      "y": 10,
+      "width": 80,
+      "height": 101
+    }
+  ]
+}
