@@ -130,6 +130,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		];
 
 		_eventSource.ScopeRoot = this;
+		_trackList.SelectionChanged += HandleTrackSelectionChanged;
 		_backendDropdown.SelectionChanged += _ => LoadSelectedTrack();
 
 		AddChild(_eventSource);
@@ -163,11 +164,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 	protected override void OnUpdate(float deltaTime) {
 		_ = deltaTime;
-
-		if (_trackList.HandleInput() && _trackList.SelectedIndex >= 0) {
-			_selectedTrackIndex = _trackList.SelectedIndex;
-			LoadSelectedTrack();
-		}
 
 		if (_playButton.HandleInput()) {
 			PlaySelectedTrack();
@@ -222,7 +218,16 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		UiText.Draw("Volume", 816f, 346f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Pan", 816f, 416f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Mouse: drag sliders and click transport buttons. Seek commits on slider release.", 816f, 550f, 16f, new Color(188, 200, 218, 255));
-		UiText.Draw("Keyboard: sidebar scene selection is active again. Backend selection now routes through the UI event dispatcher.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Keyboard: sidebar scene selection is active again. Backend selection and track picking now route through the UI event dispatcher.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
+	}
+
+	private void HandleTrackSelectionChanged(ListViewNode listView) {
+		if (listView.SelectedIndex < 0) {
+			return;
+		}
+
+		_selectedTrackIndex = listView.SelectedIndex;
+		LoadSelectedTrack();
 	}
 
 	private void LoadSelectedTrack() {

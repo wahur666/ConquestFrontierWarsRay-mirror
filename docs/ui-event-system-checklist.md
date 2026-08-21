@@ -23,8 +23,8 @@ when implementation moves, so the current state does not depend on chat history.
 
 ## Next Slice
 
-- [ ] Convert `ListViewNode` to routed pointer events
-- [ ] Move more test scenes off manual control polling
+- [x] Convert `ListViewNode` to routed pointer events
+- [x] Move more test scenes off manual control polling
 
 ## Later Work
 
@@ -45,3 +45,5 @@ when implementation moves, so the current state does not depend on chat history.
 - Expanded dropdown interaction is currently dispatcher-driven and consumes the
   next pointer press while open, which is acceptable for the current popup-like
   behavior until broader modal/input-scope work lands.
+- `ListViewNode` now routes row selection through dispatcher pointer events, and
+  `AudioPlayerScene` no longer polls the track list manually.

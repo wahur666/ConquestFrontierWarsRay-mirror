@@ -9,8 +9,11 @@ namespace ConquestFrontierWarsRay.Framework;
 /// Input is intentionally explicit. Call <see cref="HandleInput"/> during the
 /// owning scene or UI controller update step to apply selection changes.
 /// </remarks>
-public sealed class ListViewNode : Control {
+public sealed class ListViewNode : Control, IUiPointerEventHandler {
 	private readonly List<string> _items = [];
+	private bool _isHovered;
+	private int _hoveredItemIndex = -1;
+	private bool _pendingSelectionChanged;
 
 	public ListViewNode(string? name = null) : base(name) {
 	}
@@ -35,6 +38,9 @@ public sealed class ListViewNode : Control {
 	public Color SelectedOutline { get; set; } = Color.Gold;
 	public Color TextColor { get; set; } = Color.RayWhite;
 	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
+	public bool IsPointerInputEnabled => Visible && Size.X > 0f && Size.Y > 0f;
+
+	public event Action<ListViewNode>? SelectionChanged;
 
 	public void SetItems(IEnumerable<string> items, int selectedIndex = 0) {
 		ArgumentNullException.ThrowIfNull(items);
@@ -60,6 +66,11 @@ public sealed class ListViewNode : Control {
 	}
 
 	public bool HandleInput() {
+		if (_pendingSelectionChanged) {
+			_pendingSelectionChanged = false;
+			return true;
+		}
+
 		if (!Visible || Size.X <= 0f || Size.Y <= 0f || !Raylib.IsMouseButtonPressed(MouseButton.Left)) {
 			return false;
 		}
@@ -73,10 +84,43 @@ public sealed class ListViewNode : Control {
 
 			var changed = SelectedIndex != i;
 			SelectedIndex = i;
+			if (changed) {
+				SelectionChanged?.Invoke(this);
+			}
+
 			return changed;
 		}
 
 		return false;
+	}
+
+	public bool HitTest(System.Numerics.Vector2 screenPoint) {
+		return ContainsPoint(screenPoint);
+	}
+
+	public void OnPointerEvent(UiPointerEvent pointerEvent) {
+		switch (pointerEvent.Kind) {
+			case UiPointerEventKind.Enter:
+				UpdateHover(pointerEvent.Position);
+				break;
+			case UiPointerEventKind.Leave:
+				_isHovered = false;
+				_hoveredItemIndex = -1;
+				break;
+			case UiPointerEventKind.Move:
+				UpdateHover(pointerEvent.Position);
+				break;
+			case UiPointerEventKind.Down:
+				if (pointerEvent.Button == MouseButton.Left) {
+					HandleLeftPointerDown(pointerEvent);
+				}
+				break;
+			case UiPointerEventKind.Up:
+			case UiPointerEventKind.Click:
+			case UiPointerEventKind.Wheel:
+				UpdateHover(pointerEvent.Position);
+				break;
+		}
 	}
 
 	protected override void Draw() {
@@ -92,7 +136,7 @@ public sealed class ListViewNode : Control {
 			}
 
 			var selected = i == SelectedIndex;
-			var hovered = Raylib.CheckCollisionPointRec(mouse, itemBounds);
+			var hovered = i == _hoveredItemIndex || (_isHovered && Raylib.CheckCollisionPointRec(mouse, itemBounds));
 			var fill = selected
 				? SelectedFill
 				: hovered ? HoverFill : Fill;
@@ -113,5 +157,37 @@ public sealed class ListViewNode : Control {
 		var bounds = GlobalBounds;
 		var y = bounds.Y + (index * (ItemHeight + ItemSpacing));
 		return new Rectangle(bounds.X, y, bounds.Width, ItemHeight);
+	}
+
+	private void HandleLeftPointerDown(UiPointerEvent pointerEvent) {
+		var index = GetItemIndexAt(pointerEvent.Position);
+		if (index < 0) {
+			return;
+		}
+
+		var changed = SelectedIndex != index;
+		SelectedIndex = index;
+		UpdateHover(pointerEvent.Position);
+		if (changed) {
+			_pendingSelectionChanged = true;
+			SelectionChanged?.Invoke(this);
+		}
+
+		pointerEvent.MarkHandled();
+	}
+
+	private int GetItemIndexAt(System.Numerics.Vector2 position) {
+		for (var i = 0; i < _items.Count; i++) {
+			if (Raylib.CheckCollisionPointRec(position, GetItemBounds(i))) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	private void UpdateHover(System.Numerics.Vector2 position) {
+		_isHovered = ContainsPoint(position);
+		_hoveredItemIndex = _isHovered ? GetItemIndexAt(position) : -1;
 	}
 }
