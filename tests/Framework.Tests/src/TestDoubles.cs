@@ -85,6 +85,10 @@ internal sealed class FakeTexture : Texture2D {
 	protected override void LoadCore() {
 		LoadCount++;
 	}
+
+	protected override void ApplyTextureFilterCore(Raylib_cs.TextureFilter filter) {
+		_ = filter;
+	}
 }
 
 internal sealed class FakeAudioStreamResource : AudioStreamResource {

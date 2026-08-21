@@ -1,0 +1,309 @@
+{
+  "image": {
+    "Animate!!AndromedaWreckage": {
+      "vfxShapeId": "VFXShape!!AndromedaWreckage",
+      "filename": "AndrWrec.tga"
+    },
+    "Animate!!AndromWorm": {
+      "vfxShapeId": "VFXShape!!AndromWorm",
+      "filename": "AndromWorm.tga"
+    },
+    "Animate!!AndrWrec": {
+      "vfxShapeId": "VFXShape!!AndrWrec",
+      "filename": "AndrWrec.tga"
+    },
+    "Animate!!Austin": {
+      "vfxShapeId": "VFXShape!!Austin",
+      "filename": "Austin.tga"
+    },
+    "Animate!!BlackBox": {
+      "vfxShapeId": "VFXShape!!BlackBox",
+      "filename": "BlckBox.tga"
+    },
+    "Animate!!Celareon": {
+      "vfxShapeId": "VFXShape!!CelareonPic",
+      "filename": "CelareonPicture.tga"
+    },
+    "Animate!!Dread": {
+      "vfxShapeId": "VFXShape!!Dread",
+      "filename": "Dread.tga"
+    },
+    "Animate!!EnergyRibbon": {
+      "vfxShapeId": "VFXShape!!EnergyRibbon",
+      "filename": "EnergyRibbon.tga"
+    },
+    "Animate!!Hawkesonscreen": {
+      "vfxShapeId": "VFXShape!!Hawkesonscreen",
+      "filename": "Hawkesonscreen.tga"
+    },
+    "Animate!!Ker'tak": {
+      "vfxShapeId": "VFXShape!!Ker'tak",
+      "filename": "Ker'tak.tga"
+    },
+    "Animate!!MantisPrisoner": {
+      "vfxShapeId": "VFXShape!!MantisPrisoner",
+      "filename": "MantisPrisoner.tga"
+    },
+    "Animate!!TNR": {
+      "vfxShapeId": "VFXShape!!TNRLogo",
+      "filename": "TNR.tga"
+    }
+  },
+  "atlas": {
+    "Animate!!Benson": {
+      "vfxShapeId": "VFXShape!!AnimateBenson",
+      "filename": "talkBenson_atlas.png",
+      "metaJson": "talkBenson_atlas.json"
+    },
+    "Animate!!Benson2": {
+      "vfxShapeId": "VFXShape!!AnimateBenson2",
+      "filename": "talkBenson2_atlas.png",
+      "metaJson": "talkBenson2_atlas.json"
+    },
+    "Animate!!Blackwell": {
+      "vfxShapeId": "VFXShape!!AnimateBlackwell",
+      "filename": "talkBlackwell_atlas.png",
+      "metaJson": "talkBlackwell_atlas.json"
+    },
+    "Animate!!Blackwell2": {
+      "vfxShapeId": "VFXShape!!AnimateBlackwell2",
+      "filename": "talkBlackwell2_atlas.png",
+      "metaJson": "talkBlackwell2_atlas.json"
+    },
+    "Animate!!Blackwellonscreen": {
+      "vfxShapeId": "VFXShape!!Blackwellonscreen",
+      "filename": "TECH1SHP_atlas.png",
+      "metaJson": "Tech1shp_atlas.json"
+    },
+    "Animate!!Boxwave": {
+      "vfxShapeId": "VFXShape!!AnimateBoxwave",
+      "filename": "boxshape_atlas.png",
+      "metaJson": "boxshape_atlas.json"
+    },
+    "Animate!!Elan": {
+      "vfxShapeId": "VFXShape!!AnimateElan",
+      "filename": "talkelan_atlas.png",
+      "metaJson": "talkElan_atlas.json"
+    },
+    "Animate!!Elan2": {
+      "vfxShapeId": "VFXShape!!AnimateElan2",
+      "filename": "talkelan2_atlas.png",
+      "metaJson": "talkElan2_atlas.json"
+    },
+    "Animate!!Espionage": {
+      "vfxShapeId": "VFXShape!!AnimateEspionage",
+      "filename": "espionage_atlas.png",
+      "metaJson": "espionage_atlas.json"
+    },
+    "Animate!!Espionage2": {
+      "vfxShapeId": "VFXShape!!AnimateEspionage2",
+      "filename": "espionage2_atlas.png",
+      "metaJson": "espionage2_atlas.json"
+    },
+    "Animate!!Espionage3": {
+      "vfxShapeId": "VFXShape!!AnimateEspionage3",
+      "filename": "espionage3_atlas.png",
+      "metaJson": "espionage3_atlas.json"
+    },
+    "Animate!!Fuzz": {
+      "vfxShapeId": "VFXShape!!AnimateFuzz",
+      "filename": "animFuzz_atlas.png",
+      "metaJson": "animFuzz_atlas.json"
+    },
+    "Animate!!Halsey": {
+      "vfxShapeId": "VFXShape!!AnimateHalsey",
+      "filename": "talkhalsey_atlas.png",
+      "metaJson": "talkHalsey_atlas.json"
+    },
+    "Animate!!Halsey2": {
+      "vfxShapeId": "VFXShape!!AnimateHalsey2",
+      "filename": "talkhalsey2_atlas.png",
+      "metaJson": "talkHalsey2_atlas.json"
+    },
+    "Animate!!Hawkes": {
+      "vfxShapeId": "VFXShape!!AnimateHawkes",
+      "filename": "talkHawkes_atlas.png",
+      "metaJson": "talkHawkes_atlas.json"
+    },
+    "Animate!!Hawkes2": {
+      "vfxShapeId": "VFXShape!!AnimateHawkes2",
+      "filename": "talkHawkes2_atlas.png",
+      "metaJson": "talkHawkes2_atlas.json"
+    },
+    "Animate!!KerTak": {
+      "vfxShapeId": "VFXShape!!AnimateKerTak",
+      "filename": "talkKerTak_atlas.png",
+      "metaJson": "talkKerTak_atlas.json"
+    },
+    "Animate!!KerTak2": {
+      "vfxShapeId": "VFXShape!!AnimateKerTak2",
+      "filename": "talkKerTak2_atlas.png",
+      "metaJson": "talkKerTak2_atlas.json"
+    },
+    "Animate!!Malkor": {
+      "vfxShapeId": "VFXShape!!AnimateMalkor",
+      "filename": "talkMalkor_atlas.png",
+      "metaJson": "talkMalkor_atlas.json"
+    },
+    "Animate!!Malkor2": {
+      "vfxShapeId": "VFXShape!!AnimateMalkor2",
+      "filename": "talkMalkor2_atlas.png",
+      "metaJson": "talkMalkor2_atlas.json"
+    },
+    "Animate!!MantisRebel": {
+      "vfxShapeId": "VFXShape!!AnimateMantisRebel",
+      "filename": "talkMantisRebel_atlas.png",
+      "metaJson": "talkMantisRebel_atlas.json"
+    },
+    "Animate!!MantisRebel2": {
+      "vfxShapeId": "VFXShape!!AnimateMantisRebel2",
+      "filename": "talkMantisRebel2_atlas.png",
+      "metaJson": "talkMantisRebel2_atlas.json"
+    },
+    "Animate!!MantisRebelLeader": {
+      "vfxShapeId": "VFXShape!!AnimateManRebLed",
+      "filename": "talkMantisRebelLeader_atlas.png",
+      "metaJson": "talkMantisRebelLeader_atlas.json"
+    },
+    "Animate!!MantisRebelLeader2": {
+      "vfxShapeId": "VFXShape!!AnimateManRebLed2",
+      "filename": "talkMantisRebelLeader2_atlas.png",
+      "metaJson": "talkMantisRebelLeader2_atlas.json"
+    },
+    "Animate!!Media": {
+      "vfxShapeId": "VFXShape!!AnimateMedia",
+      "filename": "animMedia_atlas.png",
+      "metaJson": "animMedia_atlas.json"
+    },
+    "Animate!!Mordella": {
+      "vfxShapeId": "VFXShape!!AnimateMordella",
+      "filename": "talkMordella_atlas.png",
+      "metaJson": "talkMordella_atlas.json"
+    },
+    "Animate!!Mordella2": {
+      "vfxShapeId": "VFXShape!!AnimateMordella2",
+      "filename": "talkMordella2_atlas.png",
+      "metaJson": "talkMordella2_atlas.json"
+    },
+    "Animate!!Multi": {
+      "vfxShapeId": "VFXShape!!AnimateMulti",
+      "filename": "animMulti_atlas.png",
+      "metaJson": "animMulti_atlas.json"
+    },
+    "Animate!!Natus": {
+      "vfxShapeId": "VFXShape!!AnimateNatus",
+      "filename": "talkNatus_atlas.png",
+      "metaJson": "talkNatus_atlas.json"
+    },
+    "Animate!!Natus2": {
+      "vfxShapeId": "VFXShape!!AnimateNatus2",
+      "filename": "talkNatus2_atlas.png",
+      "metaJson": "talkNatus2_atlas.json"
+    },
+    "Animate!!Options": {
+      "vfxShapeId": "VFXShape!!AnimateOptions",
+      "filename": "animOptions_atlas.png",
+      "metaJson": "animOptions_atlas.json"
+    },
+    "Animate!!Progress": {
+      "vfxShapeId": "VFXShape!!AnimateFuzz",
+      "filename": "animFuzz_atlas.png",
+      "metaJson": "animFuzz_atlas.json"
+    },
+    "Animate!!Question": {
+      "vfxShapeId": "VFXShape!!AnimateQuestion",
+      "filename": "animQuestion_atlas.png",
+      "metaJson": "animQuestion_atlas.json"
+    },
+    "Animate!!Radiowave": {
+      "vfxShapeId": "VFXShape!!AnimateRadiowave",
+      "filename": "WAVESHP_atlas.png",
+      "metaJson": "Waveshp_atlas.json"
+    },
+    "Animate!!Single": {
+      "vfxShapeId": "VFXShape!!AnimateSingle",
+      "filename": "animSingle_atlas.png",
+      "metaJson": "animSingle_atlas.json"
+    },
+    "Animate!!Smirnoff": {
+      "vfxShapeId": "VFXShape!!AnimateSmirnoff",
+      "filename": "talkSmirnoff_atlas.png",
+      "metaJson": "talkSmirnoff_atlas.json"
+    },
+    "Animate!!Smirnoff2": {
+      "vfxShapeId": "VFXShape!!AnimateSmirnoff2",
+      "filename": "talkSmirnoff2_atlas.png",
+      "metaJson": "talkSmirnoff2_atlas.json"
+    },
+    "Animate!!Steele": {
+      "vfxShapeId": "VFXShape!!AnimateSteele",
+      "filename": "talkSteele_atlas.png",
+      "metaJson": "talkSteele_atlas.json"
+    },
+    "Animate!!Steele2": {
+      "vfxShapeId": "VFXShape!!AnimateSteele2",
+      "filename": "talkSteele2_atlas.png",
+      "metaJson": "talkSteele2_atlas.json"
+    },
+    "Animate!!System": {
+      "vfxShapeId": "VFXShape!!AnimateSystem",
+      "filename": "animSystem_atlas.png",
+      "metaJson": "animSystem_atlas.json"
+    },
+    "Animate!!Takei": {
+      "vfxShapeId": "VFXShape!!AnimateTakei",
+      "filename": "talkTakei_atlas.png",
+      "metaJson": "talkTakei_atlas.json"
+    },
+    "Animate!!Takei2": {
+      "vfxShapeId": "VFXShape!!AnimateTakei2",
+      "filename": "talkTakei2_atlas.png",
+      "metaJson": "talkTakei2_atlas.json"
+    },
+    "Animate!!TechLoop1": {
+      "vfxShapeId": "VFXShape!!AnimateTechLoop1",
+      "filename": "TECH1SHP_atlas.png",
+      "metaJson": "Tech1shp_atlas.json"
+    },
+    "Animate!!TechLoop2": {
+      "vfxShapeId": "VFXShape!!AnimateTechLoop2",
+      "filename": "TECH2SHP_atlas.png",
+      "metaJson": "Tech2shp_atlas.json"
+    },
+    "Animate!!TechLoop3": {
+      "vfxShapeId": "VFXShape!!AnimateTechLoop3",
+      "filename": "TECH3SHP_atlas.png",
+      "metaJson": "Tech3shp_atlas.json"
+    },
+    "Animate!!TH_test": {
+      "vfxShapeId": "VFXShape!!AnimateTest",
+      "filename": "TH_test_atlas.png",
+      "metaJson": "TH_test_atlas.json"
+    },
+    "Animate!!TNRLogo": {
+      "vfxShapeId": "VFXShape!!AnimateTNRLogo",
+      "filename": "Tnrlogo_atlas.png",
+      "metaJson": "TNRlogo_atlas.json"
+    },
+    "Animate!!Vivac": {
+      "vfxShapeId": "VFXShape!!AnimateVivac",
+      "filename": "talkVivac_atlas.png",
+      "metaJson": "talkVivac_atlas.json"
+    },
+    "Animate!!Vivac2": {
+      "vfxShapeId": "VFXShape!!AnimateVivac2",
+      "filename": "talkVivac2_atlas.png",
+      "metaJson": "talkVivac2_atlas.json"
+    },
+    "Animate!!Xmission": {
+      "vfxShapeId": "VFXShape!!AnimateXmission",
+      "filename": "Xmission_atlas.png",
+      "metaJson": "Xmission_atlas.json"
+    },
+    "Animte!!Xmission": {
+      "vfxShapeId": "VFXShape!!AnimateXmission",
+      "filename": "Xmission_atlas.png",
+      "metaJson": "Xmission_atlas.json"
+    }
+  }
+}

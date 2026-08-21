@@ -1,5 +1,8 @@
 using System.Numerics;
 using Raylib_cs;
+using SixLabors.ImageSharp.PixelFormats;
+using ImageSharpImage = SixLabors.ImageSharp.Image;
+using RaylibImage = Raylib_cs.Image;
 
 namespace ConquestFrontierWarsRay.Framework;
 
@@ -8,6 +11,12 @@ namespace ConquestFrontierWarsRay.Framework;
 /// </summary>
 public sealed class CompressedTexture2D : Texture2D {
 	private Raylib_cs.Texture2D _texture;
+
+	internal sealed class DecodedImageData {
+		public required byte[] Rgba { get; init; }
+		public required int Width { get; init; }
+		public required int Height { get; init; }
+	}
 
 	/// <summary>
 	/// Creates a texture resource from a file path.
@@ -35,6 +44,11 @@ public sealed class CompressedTexture2D : Texture2D {
 	}
 
 	protected override void LoadCore() {
+		if (string.Equals(Path.GetExtension(ResourcePath), ".tga", StringComparison.OrdinalIgnoreCase)) {
+			LoadTgaTexture();
+			return;
+		}
+
 		var image = Raylib.LoadImage(ResourcePath!);
 
 		try {
@@ -54,6 +68,41 @@ public sealed class CompressedTexture2D : Texture2D {
 			if (Raylib.IsImageValid(image)) {
 				Raylib.UnloadImage(image);
 			}
+		}
+	}
+
+	internal static DecodedImageData DecodeTga(string path) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(path);
+
+		using var image = ImageSharpImage.Load<Rgba32>(path);
+		var pixels = new byte[image.Width * image.Height * 4];
+		image.CopyPixelDataTo(pixels);
+		return new DecodedImageData {
+			Rgba = pixels,
+			Width = image.Width,
+			Height = image.Height
+		};
+	}
+
+	private unsafe void LoadTgaTexture() {
+		var decoded = DecodeTga(ResourcePath!);
+
+		fixed (byte* pixels = decoded.Rgba) {
+			RaylibImage image = new() {
+				Data = pixels,
+				Width = decoded.Width,
+				Height = decoded.Height,
+				Mipmaps = 1,
+				Format = PixelFormat.UncompressedR8G8B8A8
+			};
+
+			var texture = Raylib.LoadTextureFromImage(image);
+			if (!Raylib.IsTextureValid(texture)) {
+				throw new InvalidOperationException($"Failed to create texture resource from TGA image '{ResourcePath}'.");
+			}
+
+			_texture = texture;
+			ApplyConfiguredFilter();
 		}
 	}
 

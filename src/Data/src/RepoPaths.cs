@@ -1,6 +1,36 @@
 namespace ConquestFrontierWarsRay.Data;
 
 public static class RepoPaths {
+	public static string LocateInterfaceAssetsPath() {
+		var current = new DirectoryInfo(AppContext.BaseDirectory);
+		while (current is not null) {
+			var interfacePath = Path.Combine(current.FullName, "assets", "interface");
+			if (Directory.Exists(interfacePath)) {
+				return interfacePath;
+			}
+
+			current = current.Parent;
+		}
+
+		throw new DirectoryNotFoundException(
+			"Could not locate assets/interface from the application directory.");
+	}
+
+	public static string LocateVfxAnimationDataPath() {
+		var current = new DirectoryInfo(AppContext.BaseDirectory);
+		while (current is not null) {
+			var jsonPath = Path.Combine(current.FullName, "assets", "DB", "vfx-animation-data.json");
+			if (File.Exists(jsonPath)) {
+				return jsonPath;
+			}
+
+			current = current.Parent;
+		}
+
+		throw new DirectoryNotFoundException(
+			"Could not locate assets/DB/vfx-animation-data.json from the application directory.");
+	}
+
 	public static (string DatabasePath, string XmlRootPath, string RepoRoot) LocateStringPackPaths() {
 		var current = new DirectoryInfo(AppContext.BaseDirectory);
 		while (current is not null) {
