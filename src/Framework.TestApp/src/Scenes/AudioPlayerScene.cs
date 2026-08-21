@@ -1,10 +1,12 @@
 using System.Numerics;
+using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Framework.TestApp.Scenes;
 
 internal sealed class AudioPlayerScene : ShowcaseScene {
+	private readonly UiEventSource _eventSource = new("AudioControlsEventSource");
 	private readonly PanelNode _panel = new("AudioPanel") {
 		Position = new Vector2(364f, 20f),
 		Size = new Vector2(896f, 680f),
@@ -127,6 +129,10 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 			new TrackEntry("Blackwell 01", Path.Combine(speechRoot, "comm_blackwell_01.wav"))
 		];
 
+		_eventSource.ScopeRoot = this;
+		_backendDropdown.SelectionChanged += _ => LoadSelectedTrack();
+
+		AddChild(_eventSource);
 		AddChild(_panel);
 		AddChild(_listPanel);
 		AddChild(_trackList);
@@ -165,10 +171,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 		if (_playButton.HandleInput()) {
 			PlaySelectedTrack();
-		}
-
-		if (_backendDropdown.HandleInput()) {
-			LoadSelectedTrack();
 		}
 
 		if (_pauseButton.HandleInput()) {
@@ -220,7 +222,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		UiText.Draw("Volume", 816f, 346f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Pan", 816f, 416f, 15f, new Color(206, 216, 232, 255));
 		UiText.Draw("Mouse: drag sliders and click transport buttons. Seek commits on slider release.", 816f, 550f, 16f, new Color(188, 200, 218, 255));
-		UiText.Draw("Keyboard: sidebar scene selection is active again. Backend selection stays in the dropdown.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Keyboard: sidebar scene selection is active again. Backend selection now routes through the UI event dispatcher.", 816f, 574f, 16f, new Color(188, 200, 218, 255));
 	}
 
 	private void LoadSelectedTrack() {

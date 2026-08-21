@@ -18,10 +18,11 @@ when implementation moves, so the current state does not depend on chat history.
 - [x] Convert `SliderNode` to routed pointer events
 - [x] Add framework-owned pointer capture for drag interactions
 - [x] Switch one slider-heavy scene (`VideoPlayerScene`) to dispatcher-driven controls
+- [x] Convert `DropdownNode` to routed pointer events
+- [x] Switch one dropdown consumer (`AudioPlayerScene` backend selector) to dispatcher-driven selection
 
 ## Next Slice
 
-- [ ] Convert `DropdownNode` to routed pointer events
 - [ ] Convert `ListViewNode` to routed pointer events
 - [ ] Move more test scenes off manual control polling
 
@@ -41,3 +42,6 @@ when implementation moves, so the current state does not depend on chat history.
   and same-target `Click` semantics.
 - Pointer capture is now dispatcher-owned for routed drag interactions and is
   currently exercised by `SliderNode`.
+- Expanded dropdown interaction is currently dispatcher-driven and consumes the
+  next pointer press while open, which is acceptable for the current popup-like
+  behavior until broader modal/input-scope work lands.

@@ -10,8 +10,11 @@ namespace ConquestFrontierWarsRay.Framework;
 /// owning scene or UI controller update step to apply click handling for the
 /// collapsed button and expanded item list.
 /// </remarks>
-public sealed class DropdownNode : Control {
+public sealed class DropdownNode : Control, IUiPointerEventHandler {
 	private readonly List<string> _items = [];
+	private bool _isHovered;
+	private int _hoveredItemIndex = -1;
+	private bool _pendingSelectionChanged;
 
 	public DropdownNode(string? name = null) : base(name) {
 	}
@@ -36,6 +39,10 @@ public sealed class DropdownNode : Control {
 	public Color SelectedItemFill { get; set; } = new(74, 108, 170, 255);
 	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
 	public string Placeholder { get; set; } = "Select";
+	public bool IsPointerInputEnabled => Visible && Size.X > 0f && Size.Y > 0f;
+
+	public event Action<DropdownNode>? SelectionChanged;
+	public event Action<DropdownNode, UiExpandedState>? ExpandedStateChanged;
 
 	public void SetItems(IEnumerable<string> items, int selectedIndex = 0) {
 		ArgumentNullException.ThrowIfNull(items);
@@ -63,6 +70,11 @@ public sealed class DropdownNode : Control {
 	}
 
 	public bool HandleInput() {
+		if (_pendingSelectionChanged) {
+			_pendingSelectionChanged = false;
+			return true;
+		}
+
 		if (!Visible || Size.X <= 0f || Size.Y <= 0f || !Raylib.IsMouseButtonPressed(MouseButton.Left)) {
 			return false;
 		}
@@ -98,6 +110,39 @@ public sealed class DropdownNode : Control {
 		return false;
 	}
 
+	public bool HitTest(System.Numerics.Vector2 screenPoint) {
+		if (!IsExpanded) {
+			return ContainsPoint(screenPoint);
+		}
+
+		return true;
+	}
+
+	public void OnPointerEvent(UiPointerEvent pointerEvent) {
+		switch (pointerEvent.Kind) {
+			case UiPointerEventKind.Enter:
+				UpdateHover(pointerEvent.Position);
+				break;
+			case UiPointerEventKind.Leave:
+				_isHovered = false;
+				_hoveredItemIndex = -1;
+				break;
+			case UiPointerEventKind.Move:
+				UpdateHover(pointerEvent.Position);
+				break;
+			case UiPointerEventKind.Down:
+				if (pointerEvent.Button == MouseButton.Left) {
+					HandleLeftPointerDown(pointerEvent);
+				}
+				break;
+			case UiPointerEventKind.Up:
+			case UiPointerEventKind.Click:
+			case UiPointerEventKind.Wheel:
+				UpdateHover(pointerEvent.Position);
+				break;
+		}
+	}
+
 	protected override void Draw() {
 		if (Size.X <= 0f || Size.Y <= 0f) {
 			return;
@@ -105,7 +150,7 @@ public sealed class DropdownNode : Control {
 
 		var bounds = GlobalBounds;
 		var mouse = Raylib.GetMousePosition();
-		var hovered = ContainsPoint(mouse);
+		var hovered = _isHovered || ContainsPoint(mouse);
 		var fill = hovered || IsExpanded ? HoverFill : Fill;
 
 		Raylib.DrawRectangleRec(bounds, fill);
@@ -126,7 +171,7 @@ public sealed class DropdownNode : Control {
 
 		for (var i = 0; i < _items.Count; i++) {
 			var itemBounds = GetItemBounds(i);
-			var itemHovered = Raylib.CheckCollisionPointRec(mouse, itemBounds);
+			var itemHovered = i == _hoveredItemIndex || Raylib.CheckCollisionPointRec(mouse, itemBounds);
 			var itemFill = i == SelectedIndex
 				? SelectedItemFill
 				: itemHovered ? HoverFill : ExpandedFill;
@@ -152,5 +197,72 @@ public sealed class DropdownNode : Control {
 			bounds.Y + bounds.Height + (index * ItemHeight),
 			bounds.Width,
 			ItemHeight);
+	}
+
+	private void HandleLeftPointerDown(UiPointerEvent pointerEvent) {
+		var position = pointerEvent.Position;
+		var collapsedBounds = GlobalBounds;
+
+		if (ContainsPoint(position)) {
+			SetExpanded(!IsExpanded);
+			UpdateHover(position);
+			pointerEvent.MarkHandled();
+			return;
+		}
+
+		if (!IsExpanded) {
+			return;
+		}
+
+		for (var i = 0; i < _items.Count; i++) {
+			var itemBounds = GetItemBounds(i);
+			if (!Raylib.CheckCollisionPointRec(position, itemBounds)) {
+				continue;
+			}
+
+			var changed = SelectedIndex != i;
+			SelectedIndex = i;
+			SetExpanded(false);
+			UpdateHover(position);
+			if (changed) {
+				_pendingSelectionChanged = true;
+				SelectionChanged?.Invoke(this);
+			}
+
+			pointerEvent.MarkHandled();
+			return;
+		}
+
+		if (!Raylib.CheckCollisionPointRec(position, GetExpandedBounds(collapsedBounds))) {
+			SetExpanded(false);
+			_hoveredItemIndex = -1;
+			_isHovered = false;
+			pointerEvent.MarkHandled();
+		}
+	}
+
+	private void SetExpanded(bool expanded) {
+		if (IsExpanded == expanded) {
+			return;
+		}
+
+		IsExpanded = expanded;
+		_hoveredItemIndex = -1;
+		ExpandedStateChanged?.Invoke(this, expanded ? UiExpandedState.Expanded : UiExpandedState.Collapsed);
+	}
+
+	private void UpdateHover(System.Numerics.Vector2 position) {
+		_isHovered = ContainsPoint(position);
+		_hoveredItemIndex = -1;
+		if (!IsExpanded) {
+			return;
+		}
+
+		for (var i = 0; i < _items.Count; i++) {
+			if (Raylib.CheckCollisionPointRec(position, GetItemBounds(i))) {
+				_hoveredItemIndex = i;
+				return;
+			}
+		}
 	}
 }
