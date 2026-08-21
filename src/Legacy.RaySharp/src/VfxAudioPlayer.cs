@@ -4,271 +4,343 @@ using Raylib_cs;
 
 namespace RaySharp;
 
-internal sealed class VfxAudioPlayer : IDisposable
-{
-    private const int TimingFps = 30;
+internal sealed class VfxAudioPlayer : IDisposable {
+	private const int TimingFps = 30;
+	private const int FuzzFps = 30;
+	private const float LegacyPortraitWidth = 62.0f;
+	private const float LegacyPortraitHeight = 79.0f;
+	private const float BorderLeftInset = 5.0f;
+	private const float BorderTopInset = 8.0f;
+	private const float BorderRightInset = 13.0f;
+	private const float BorderBottomInset = 2.0f;
+	private const int FuzzTileColumns = 4;
+	private const int FuzzTileRows = 4;
 
-    private readonly Texture2D atlas;
-    private readonly Music audio;
-    private readonly AtlasFrame[] frames;
-    private readonly TimingRow[] timingRows;
-    private int currentFrameIndex;
-    private int lastTimingFrame = -1;
-    private bool isPlaying;
-    private bool finished;
+	private readonly Texture2D atlas;
+	private readonly Texture2D borderAtlas;
+	private readonly Texture2D fuzzTexture;
+	private readonly Music audio;
+	private readonly AtlasFrame[] frames;
+	private readonly AtlasFrame[] borderFrames;
+	private readonly TimingRow[] timingRows;
+	private int currentFrameIndex;
+	private int lastTimingFrame = -1;
+	private int lastFuzzFrame = -1;
+	private int fuzzIndex;
+	private bool isPlaying;
+	private bool finished;
 
-    private VfxAudioPlayer(Texture2D atlas, Music audio, AtlasFrame[] frames, TimingRow[] timingRows)
-    {
-        this.atlas = atlas;
-        this.audio = audio;
-        this.frames = frames;
-        this.timingRows = timingRows;
-        currentFrameIndex = ImageIndexAtTimingFrame(0);
-        this.audio.Looping = false;
-    }
+	private VfxAudioPlayer(
+		Texture2D atlas,
+		Texture2D borderAtlas,
+		Texture2D fuzzTexture,
+		Music audio,
+		AtlasFrame[] frames,
+		AtlasFrame[] borderFrames,
+		TimingRow[] timingRows) {
+		this.atlas = atlas;
+		this.borderAtlas = borderAtlas;
+		this.fuzzTexture = fuzzTexture;
+		this.audio = audio;
+		this.frames = frames;
+		this.borderFrames = borderFrames;
+		this.timingRows = timingRows;
+		currentFrameIndex = ImageIndexAtTimingFrame(0);
+		this.audio.Looping = false;
+	}
 
-    public string Label => $"Blackwell VFX frame {currentFrameIndex}";
+	public string Label => $"Blackwell VFX frame {currentFrameIndex}";
 
-    public bool IsPlaying => isPlaying;
+	public bool IsPlaying => isPlaying;
 
-    public static VfxAudioPlayer? TryLoad()
-    {
-        string? root = FindAssetRoot();
-        if (root is null)
-        {
-            return null;
-        }
+	public static VfxAudioPlayer? TryLoad() {
+		string? atlasJsonPath = FindOptionalAssetPath("vfx", "talkBlackwell2_atlas.json");
+		string? atlasPngPath = FindOptionalAssetPath("vfx", "talkBlackwell2_atlas.png");
+		string? timingPath = FindOptionalAssetPath("vfx", "m01bl03.txt");
+		string? audioPath = FindOptionalAssetPath("vfx", "m01bl03_pcm.wav");
+		string? borderAtlasJsonPath = FindOptionalAssetPath("interface", "talkingHeadBorder_atlas.json");
+		string? borderAtlasPngPath = FindOptionalAssetPath("interface", "talkingHeadBorder_atlas.png");
+		string? fuzzTexturePath = FindOptionalAssetPath("textures", "videoFX.png");
 
-        string atlasJsonPath = Path.Combine(root, "talkBlackwell2_atlas.json");
-        string atlasPngPath = Path.Combine(root, "talkBlackwell2_atlas.png");
-        string timingPath = Path.Combine(root, "m01bl03.txt");
-        string audioPath = Path.Combine(root, "m01bl03_pcm.wav");
+		List<string?> assets = [atlasJsonPath, atlasPngPath, timingPath, audioPath, borderAtlasJsonPath, borderAtlasPngPath, fuzzTexturePath];
+		
+		
+		if (!assets.All(File.Exists)) {
+			Console.WriteLine("Missing files");
+			return null;
+		}
 
-        if (!File.Exists(atlasJsonPath) || !File.Exists(atlasPngPath) || !File.Exists(timingPath) || !File.Exists(audioPath))
-        {
-            return null;
-        }
+		try {
+			AtlasFrame[] frames = LoadFrames(atlasJsonPath);
+			AtlasFrame[] borderFrames = LoadOptionalFrames(borderAtlasJsonPath);
+			TimingRow[] timingRows = LoadTimingRows(timingPath);
+			Texture2D atlas = Raylib.LoadTexture(atlasPngPath);
+			Texture2D borderAtlas = LoadOptionalTexture(borderAtlasPngPath);
+			Texture2D fuzzTexture = LoadOptionalTexture(fuzzTexturePath);
+			Music audio = Raylib.LoadMusicStream(audioPath);
 
-        try
-        {
-            AtlasFrame[] frames = LoadFrames(atlasJsonPath);
-            TimingRow[] timingRows = LoadTimingRows(timingPath);
-            Texture2D atlas = Raylib.LoadTexture(atlasPngPath);
-            Music audio = Raylib.LoadMusicStream(audioPath);
+			if (atlas.Id == 0 || frames.Length == 0 || timingRows.Length == 0) {
+				if (atlas.Id != 0) {
+					Raylib.UnloadTexture(atlas);
+				}
 
-            if (atlas.Id == 0 || frames.Length == 0 || timingRows.Length == 0)
-            {
-                if (atlas.Id != 0)
-                {
-                    Raylib.UnloadTexture(atlas);
-                }
+				if (Raylib.IsMusicValid(audio)) {
+					Raylib.UnloadMusicStream(audio);
+				}
 
-                if (Raylib.IsMusicValid(audio))
-                {
-                    Raylib.UnloadMusicStream(audio);
-                }
+				if (borderAtlas.Id != 0) {
+					Raylib.UnloadTexture(borderAtlas);
+				}
 
-                return null;
-            }
+				if (fuzzTexture.Id != 0) {
+					Raylib.UnloadTexture(fuzzTexture);
+				}
 
-            Raylib.SetTextureFilter(atlas, TextureFilter.Bilinear);
-            return new VfxAudioPlayer(atlas, audio, frames, timingRows);
-        }
-        catch
-        {
-            return null;
-        }
-    }
+				return null;
+			}
 
-    public void Update()
-    {
-        if (!isPlaying || finished)
-        {
-            return;
-        }
+			Raylib.SetTextureFilter(atlas, TextureFilter.Bilinear);
+			if (borderAtlas.Id != 0) {
+				Raylib.SetTextureFilter(borderAtlas, TextureFilter.Bilinear);
+			}
 
-        Raylib.UpdateMusicStream(audio);
+			if (fuzzTexture.Id != 0) {
+				Raylib.SetTextureFilter(fuzzTexture, TextureFilter.Point);
+			}
 
-        float audioTime = Raylib.GetMusicTimePlayed(audio);
-        int timingFrame = (int)MathF.Floor(audioTime * TimingFps);
-        ApplyTimingFrame(timingFrame);
+			return new VfxAudioPlayer(atlas, borderAtlas, fuzzTexture, audio, frames, borderFrames, timingRows);
+		} catch {
+			return null;
+		}
+	}
 
-        if (!Raylib.IsMusicStreamPlaying(audio) && audioTime >= Raylib.GetMusicTimeLength(audio) - 0.01f)
-        {
-            finished = true;
-            isPlaying = false;
-        }
-    }
+	public void Update() {
+		if (!isPlaying || finished) {
+			return;
+		}
 
-    public void Play()
-    {
-        if (!Raylib.IsMusicValid(audio))
-        {
-            return;
-        }
+		Raylib.UpdateMusicStream(audio);
 
-        if (finished)
-        {
-            Stop();
-        }
+		float audioTime = Raylib.GetMusicTimePlayed(audio);
+		int timingFrame = (int)MathF.Floor(audioTime * TimingFps);
+		int fuzzFrame = (int)MathF.Floor(audioTime * FuzzFps);
+		ApplyTimingFrame(timingFrame);
+		ApplyFuzzFrame(fuzzFrame);
 
-        isPlaying = true;
-        Raylib.PlayMusicStream(audio);
-    }
+		if (!Raylib.IsMusicStreamPlaying(audio) && audioTime >= Raylib.GetMusicTimeLength(audio) - 0.01f) {
+			finished = true;
+			isPlaying = false;
+		}
+	}
 
-    public void Stop()
-    {
-        if (!Raylib.IsMusicValid(audio))
-        {
-            return;
-        }
+	public void Play() {
+		if (!Raylib.IsMusicValid(audio)) {
+			return;
+		}
 
-        Raylib.StopMusicStream(audio);
-        Raylib.SeekMusicStream(audio, 0.0f);
-        isPlaying = false;
-        finished = false;
-        lastTimingFrame = -1;
-        currentFrameIndex = ImageIndexAtTimingFrame(0);
-    }
+		if (finished) {
+			Stop();
+		}
 
-    public void Draw(Rectangle destination, Color tint)
-    {
-        if (atlas.Id == 0 || frames.Length == 0)
-        {
-            return;
-        }
+		isPlaying = true;
+		Raylib.PlayMusicStream(audio);
+	}
 
-        AtlasFrame frame = frames[Math.Clamp(currentFrameIndex, 0, frames.Length - 1)];
-        Rectangle source = new(frame.X, frame.Y, frame.Width, frame.Height);
-        Raylib.DrawTexturePro(atlas, source, destination, Vector2.Zero, 0.0f, tint);
-    }
+	public void Stop() {
+		if (!Raylib.IsMusicValid(audio)) {
+			return;
+		}
 
-    public void Dispose()
-    {
-        if (Raylib.IsMusicValid(audio))
-        {
-            Raylib.StopMusicStream(audio);
-            Raylib.UnloadMusicStream(audio);
-        }
+		Raylib.StopMusicStream(audio);
+		Raylib.SeekMusicStream(audio, 0.0f);
+		isPlaying = false;
+		finished = false;
+		lastTimingFrame = -1;
+		lastFuzzFrame = -1;
+		currentFrameIndex = ImageIndexAtTimingFrame(0);
+		fuzzIndex = 0;
+	}
 
-        if (atlas.Id != 0)
-        {
-            Raylib.UnloadTexture(atlas);
-        }
-    }
+	public void Draw(Rectangle destination, Color tint) {
+		if (atlas.Id == 0 || frames.Length == 0) {
+			return;
+		}
 
-    private void ApplyTimingFrame(int timingFrame)
-    {
-        if (timingFrame == lastTimingFrame)
-        {
-            return;
-        }
+		AtlasFrame frame = frames[Math.Clamp(currentFrameIndex, 0, frames.Length - 1)];
+		Rectangle source = new(frame.X, frame.Y, frame.Width, frame.Height);
+		Raylib.DrawTexturePro(atlas, source, destination, Vector2.Zero, 0.0f, tint);
 
-        lastTimingFrame = timingFrame;
-        if ((uint)timingFrame >= timingRows.Length)
-        {
-            finished = true;
-            return;
-        }
+		DrawFuzz(destination);
+		DrawBorder(destination, tint);
+	}
 
-        int sourceIndex = timingRows[timingFrame].SourceIndex;
-        if (sourceIndex >= 0)
-        {
-            currentFrameIndex = Math.Clamp(sourceIndex, 0, frames.Length - 1);
-        }
-    }
+	public void Dispose() {
+		if (Raylib.IsMusicValid(audio)) {
+			Raylib.StopMusicStream(audio);
+			Raylib.UnloadMusicStream(audio);
+		}
 
-    private int ImageIndexAtTimingFrame(int timingFrame)
-    {
-        int imageIndex = 0;
-        int rowCount = Math.Min(timingRows.Length, timingFrame + 1);
+		if (atlas.Id != 0) {
+			Raylib.UnloadTexture(atlas);
+		}
 
-        for (int i = 0; i < rowCount; i++)
-        {
-            int sourceIndex = timingRows[i].SourceIndex;
-            if (sourceIndex >= 0)
-            {
-                imageIndex = sourceIndex;
-            }
-        }
+		if (borderAtlas.Id != 0) {
+			Raylib.UnloadTexture(borderAtlas);
+		}
 
-        return Math.Clamp(imageIndex, 0, frames.Length - 1);
-    }
+		if (fuzzTexture.Id != 0) {
+			Raylib.UnloadTexture(fuzzTexture);
+		}
+	}
 
-    private static AtlasFrame[] LoadFrames(string jsonPath)
-    {
-        using JsonDocument document = JsonDocument.Parse(File.ReadAllText(jsonPath));
-        JsonElement framesElement = document.RootElement.GetProperty("frames");
-        List<AtlasFrame> frames = [];
+	private void ApplyTimingFrame(int timingFrame) {
+		if (timingFrame == lastTimingFrame) {
+			return;
+		}
 
-        foreach (JsonElement frame in framesElement.EnumerateArray())
-        {
-            frames.Add(new AtlasFrame(
-                frame.GetProperty("index").GetInt32(),
-                frame.GetProperty("x").GetSingle(),
-                frame.GetProperty("y").GetSingle(),
-                frame.GetProperty("width").GetSingle(),
-                frame.GetProperty("height").GetSingle()));
-        }
+		lastTimingFrame = timingFrame;
+		if ((uint)timingFrame >= timingRows.Length) {
+			finished = true;
+			return;
+		}
 
-        return frames
-            .OrderBy(frame => frame.Index)
-            .ToArray();
-    }
+		int sourceIndex = timingRows[timingFrame].SourceIndex;
+		if (sourceIndex >= 0) {
+			currentFrameIndex = Math.Clamp(sourceIndex, 0, frames.Length - 1);
+		}
+	}
 
-    private static TimingRow[] LoadTimingRows(string timingPath)
-    {
-        return File.ReadLines(timingPath)
-            .Skip(1)
-            .Select(ParseTimingRow)
-            .Where(row => row is not null)
-            .Select(row => row!.Value)
-            .ToArray();
-    }
+	private int ImageIndexAtTimingFrame(int timingFrame) {
+		int imageIndex = 0;
+		int rowCount = Math.Min(timingRows.Length, timingFrame + 1);
 
-    private static TimingRow? ParseTimingRow(string line)
-    {
-        string[] parts = line.Split(',', 2);
-        if (parts.Length == 0 || !int.TryParse(parts[0], out int frame))
-        {
-            return null;
-        }
+		for (int i = 0; i < rowCount; i++) {
+			int sourceIndex = timingRows[i].SourceIndex;
+			if (sourceIndex >= 0) {
+				imageIndex = sourceIndex;
+			}
+		}
 
-        string channel = parts.Length > 1 ? parts[1].Trim() : string.Empty;
-        int sourceIndex = -1;
+		return Math.Clamp(imageIndex, 0, frames.Length - 1);
+	}
 
-        if (channel.StartsWith("test", StringComparison.OrdinalIgnoreCase) &&
-            int.TryParse(channel[4..], out int parsedIndex))
-        {
-            sourceIndex = parsedIndex;
-        }
+	private void DrawFuzz(Rectangle destination) {
+		if (fuzzTexture.Id == 0) {
+			return;
+		}
 
-        return new TimingRow(frame, sourceIndex);
-    }
+		float tileWidth = fuzzTexture.Width / (float)FuzzTileColumns;
+		float tileHeight = fuzzTexture.Height / (float)FuzzTileRows;
+		float tileX = (fuzzIndex % FuzzTileColumns) * tileWidth;
+		float tileY = (fuzzIndex / FuzzTileColumns) * tileHeight;
+		Rectangle source = new(tileX, tileY, tileWidth, tileHeight);
 
-    private static string? FindAssetRoot()
-    {
-        string[] candidates =
-        [
-            Path.Combine(AppContext.BaseDirectory, "web-vfx-player"),
-            Path.Combine(Environment.CurrentDirectory, "web-vfx-player"),
-            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "web-vfx-player"),
-            Path.Combine(Environment.CurrentDirectory, "..", "web-vfx-player")
-        ];
+		Raylib.BeginBlendMode(BlendMode.Additive);
+		Raylib.DrawTexturePro(fuzzTexture, source, destination, Vector2.Zero, 0.0f, Color.White);
+		Raylib.EndBlendMode();
+	}
 
-        foreach (string candidate in candidates)
-        {
-            string fullPath = Path.GetFullPath(candidate);
-            if (Directory.Exists(fullPath))
-            {
-                return fullPath;
-            }
-        }
+	private void ApplyFuzzFrame(int fuzzFrame) {
+		if (fuzzFrame == lastFuzzFrame) {
+			return;
+		}
 
-        return null;
-    }
+		lastFuzzFrame = fuzzFrame;
+		fuzzIndex = fuzzFrame % (FuzzTileColumns * FuzzTileRows);
+	}
 
-    private readonly record struct AtlasFrame(int Index, float X, float Y, float Width, float Height);
+	private void DrawBorder(Rectangle destination, Color tint) {
+		if (borderAtlas.Id == 0 || borderFrames.Length == 0) {
+			return;
+		}
 
-    private readonly record struct TimingRow(int Frame, int SourceIndex);
+		AtlasFrame borderFrame = borderFrames[0];
+		Rectangle source = new(borderFrame.X, borderFrame.Y, borderFrame.Width, borderFrame.Height);
+		float scaleX = destination.Width / LegacyPortraitWidth;
+		float scaleY = destination.Height / LegacyPortraitHeight;
+		Rectangle borderDestination = new(
+			destination.X - (BorderLeftInset * scaleX),
+			destination.Y - (BorderTopInset * scaleY),
+			destination.Width + ((BorderLeftInset + BorderRightInset) * scaleX),
+			destination.Height + ((BorderTopInset + BorderBottomInset) * scaleY));
+
+		Raylib.DrawTexturePro(borderAtlas, source, borderDestination, Vector2.Zero, 0.0f, tint);
+	}
+
+	private static AtlasFrame[] LoadFrames(string jsonPath) {
+		using JsonDocument document = JsonDocument.Parse(File.ReadAllText(jsonPath));
+		JsonElement framesElement = document.RootElement.GetProperty("frames");
+		List<AtlasFrame> frames = [];
+
+		foreach (JsonElement frame in framesElement.EnumerateArray()) {
+			frames.Add(new AtlasFrame(
+				frame.GetProperty("index").GetInt32(),
+				frame.GetProperty("x").GetSingle(),
+				frame.GetProperty("y").GetSingle(),
+				frame.GetProperty("width").GetSingle(),
+				frame.GetProperty("height").GetSingle()));
+		}
+
+		return frames
+			.OrderBy(frame => frame.Index)
+			.ToArray();
+	}
+
+	private static AtlasFrame[] LoadOptionalFrames(string? jsonPath) {
+		return jsonPath is not null && File.Exists(jsonPath)
+			? LoadFrames(jsonPath)
+			: [];
+	}
+
+	private static TimingRow[] LoadTimingRows(string timingPath) {
+		return File.ReadLines(timingPath)
+			.Skip(1)
+			.Select(ParseTimingRow)
+			.Where(row => row is not null)
+			.Select(row => row!.Value)
+			.ToArray();
+	}
+
+	private static TimingRow? ParseTimingRow(string line) {
+		string[] parts = line.Split(',', 2);
+		if (parts.Length == 0 || !int.TryParse(parts[0], out int frame)) {
+			return null;
+		}
+
+		string channel = parts.Length > 1 ? parts[1].Trim() : string.Empty;
+		int sourceIndex = -1;
+
+		if (channel.StartsWith("test", StringComparison.OrdinalIgnoreCase) &&
+		    int.TryParse(channel[4..], out int parsedIndex)) {
+			sourceIndex = parsedIndex;
+		}
+
+		return new TimingRow(frame, sourceIndex);
+	}
+
+	private static Texture2D LoadOptionalTexture(string? texturePath) {
+		return texturePath is not null && File.Exists(texturePath)
+			? Raylib.LoadTexture(texturePath)
+			: default;
+	}
+
+	private static string? FindOptionalAssetPath(string folder, string fileName) {
+		string[] candidates = [
+			Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "assets", folder, fileName)),
+			Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "assets", folder, fileName)),
+			Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "assets", folder,
+				fileName)),
+			Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "..", "..", "assets", folder, fileName)),
+			Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "..",
+				"ConquestFrontierWarsRay", "assets", folder, fileName)),
+			Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "ConquestFrontierWarsRay", "assets", folder,
+				fileName))
+		];
+
+		return candidates.FirstOrDefault(File.Exists);
+	}
+
+	private readonly record struct AtlasFrame(int Index, float X, float Y, float Width, float Height);
+
+	private readonly record struct TimingRow(int Frame, int SourceIndex);
 }
