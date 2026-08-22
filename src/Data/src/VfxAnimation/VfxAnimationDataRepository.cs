@@ -43,6 +43,29 @@ public sealed class VfxAnimationDataRepository {
 		return data;
 	}
 
+	public bool TryGetAtlasByShapeFile(string shapeFile, out KeyValuePair<string, AtlasData> match) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(shapeFile);
+
+		var normalized = Path.GetFileNameWithoutExtension(shapeFile);
+		if (string.IsNullOrWhiteSpace(normalized)) {
+			match = default;
+			return false;
+		}
+
+		var data = Load();
+
+		foreach (var entry in data.Atlas) {
+			if (string.Equals(entry.Key, normalized, StringComparison.OrdinalIgnoreCase) ||
+				string.Equals(entry.Value.VfxShapeId, normalized, StringComparison.OrdinalIgnoreCase)) {
+				match = entry;
+				return true;
+			}
+		}
+
+		match = default;
+		return false;
+	}
+
 	public string GetInterfaceAssetPath(ImageData imageData) {
 		ArgumentNullException.ThrowIfNull(imageData);
 		return Path.Combine(_interfaceAssetsPath, imageData.Filename);
