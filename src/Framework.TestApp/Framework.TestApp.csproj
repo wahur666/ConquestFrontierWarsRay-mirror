@@ -49,4 +49,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\assets\DB\DB-XML-README.md">
+      <Link>Assets\DB\DB-XML-README.md</Link>
+    </Content>
+  </ItemGroup>
 </Project>

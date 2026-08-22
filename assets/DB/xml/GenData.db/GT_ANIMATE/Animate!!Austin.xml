@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<GT_ANIMATE id="Animate!!Austin">
-  <baseType type="GENBASE_TYPE" value="gbt_animate">17</baseType>
-  <vfxType type="string">VFXShape!!Austin</vfxType>
-</GT_ANIMATE>

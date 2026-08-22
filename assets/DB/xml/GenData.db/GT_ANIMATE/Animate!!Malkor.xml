@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<GT_ANIMATE id="Animate!!Malkor">
-  <baseType type="GENBASE_TYPE" value="gbt_animate">17</baseType>
-  <vfxType type="string">VFXShape!!AnimateMalkor</vfxType>
-</GT_ANIMATE>

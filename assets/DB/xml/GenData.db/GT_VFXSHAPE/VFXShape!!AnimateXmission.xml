@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<GT_VFXSHAPE id="VFXShape!!AnimateXmission">
-  <baseType type="GENBASE_TYPE" value="gbt_vfxshape">7</baseType>
-  <filename type="string">Xmission.shp</filename>
-  <bHiRes type="bool">false</bHiRes>
-</GT_VFXSHAPE>
