@@ -18,6 +18,70 @@ def typed_text(parent: ET.Element, child_name: str) -> str:
     return child.text.strip()
 
 
+def collect_untracked_interface_assets(interface_dir: Path, referenced_filenames: set[str]) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]]]:
+    actual_filenames_by_lower = {
+        path.name.lower(): path.name for path in interface_dir.iterdir() if path.is_file()
+    }
+    referenced_filenames_lower = {filename.lower() for filename in referenced_filenames}
+    untracked_filenames = sorted(
+        (
+            actual_filenames_by_lower[lower_filename]
+            for lower_filename in actual_filenames_by_lower.keys() - referenced_filenames_lower
+        ),
+        key=str.lower,
+    )
+
+    image: dict[str, dict[str, str]] = {}
+    atlas_candidates: dict[str, dict[str, str]] = {}
+
+    for filename in untracked_filenames:
+        path = Path(filename)
+        extension = path.suffix.lower()
+
+        if extension == ".tga":
+            image_id = path.stem
+            image[image_id] = {
+                "vfxShapeId": image_id,
+                "filename": filename,
+            }
+            continue
+
+        if extension in {".png", ".json"} and path.stem.lower().endswith("_atlas"):
+            atlas_entry = atlas_candidates.setdefault(path.stem, {})
+            if extension == ".png":
+                atlas_entry["filename"] = filename
+            else:
+                atlas_entry["metaJson"] = filename
+            continue
+
+    atlas: dict[str, dict[str, str]] = {}
+    for atlas_key in sorted(atlas_candidates, key=str.lower):
+        atlas_entry = atlas_candidates[atlas_key]
+        atlas_id = atlas_key[:-6] if atlas_key.lower().endswith("_atlas") else atlas_key
+        atlas[atlas_id] = {
+            "vfxShapeId": atlas_id,
+            "filename": atlas_entry.get("filename", ""),
+            "metaJson": atlas_entry.get("metaJson", ""),
+        }
+
+    return (
+        dict(sorted(image.items(), key=lambda item: item[0].lower())),
+        atlas,
+    )
+
+
+def load_atlas_png_from_meta(interface_dir: Path, meta_json: str) -> str:
+    atlas_json_path = interface_dir / meta_json
+    if not atlas_json_path.exists():
+        raise FileNotFoundError(f"Missing atlas JSON: {atlas_json_path}")
+
+    atlas_document = json.loads(atlas_json_path.read_text(encoding="utf-8"))
+    atlas_png = atlas_document.get("meta", {}).get("atlas")
+    if not atlas_png or not isinstance(atlas_png, str):
+        raise ValueError(f"Atlas JSON does not contain meta.atlas: {atlas_json_path}")
+    return atlas_png
+
+
 def main() -> int:
     repo_root = repo_root_from_script()
     assets_root = repo_root / "assets"
@@ -28,6 +92,7 @@ def main() -> int:
 
     image: dict[str, dict[str, str]] = {}
     atlas: dict[str, dict[str, str]] = {}
+    referenced_filenames: set[str] = set()
 
     for animate_path in sorted(animate_dir.glob("*.xml"), key=lambda path: path.name.lower()):
         animate_root = ET.fromstring(animate_path.read_text(encoding="utf-8"))
@@ -44,6 +109,7 @@ def main() -> int:
         extension = Path(filename).suffix.lower()
 
         if extension == ".tga":
+            referenced_filenames.add(filename)
             image[animate_id] = {
                 "vfxShapeId": vfx_shape_id,
                 "filename": filename,
@@ -52,19 +118,10 @@ def main() -> int:
 
         if extension == ".shp":
             meta_json = f"{Path(filename).stem}_atlas.json"
-            atlas_json_path = interface_dir / meta_json
-            if not atlas_json_path.exists():
-                raise FileNotFoundError(
-                    f"Missing atlas JSON for '{animate_id}' derived from '{filename}': {atlas_json_path}"
-                )
+            atlas_png = load_atlas_png_from_meta(interface_dir, meta_json)
 
-            atlas_document = json.loads(atlas_json_path.read_text(encoding="utf-8"))
-            atlas_png = atlas_document.get("meta", {}).get("atlas")
-            if not atlas_png or not isinstance(atlas_png, str):
-                raise ValueError(
-                    f"Atlas JSON for '{animate_id}' does not contain meta.atlas: {atlas_json_path}"
-                )
-
+            referenced_filenames.add(meta_json)
+            referenced_filenames.add(atlas_png)
             atlas[animate_id] = {
                 "vfxShapeId": vfx_shape_id,
                 "filename": atlas_png,
@@ -73,6 +130,10 @@ def main() -> int:
             continue
 
         raise ValueError(f"Unsupported GT_VFXSHAPE filename extension for '{animate_id}': {filename}")
+
+    untracked_image, untracked_atlas = collect_untracked_interface_assets(interface_dir, referenced_filenames)
+    image.update(untracked_image)
+    atlas.update(untracked_atlas)
 
     output = {
         "image": dict(sorted(image.items(), key=lambda item: item[0].lower())),

@@ -47,6 +47,50 @@
     "Animate!!TNR": {
       "vfxShapeId": "VFXShape!!TNRLogo",
       "filename": "TNR.tga"
+    },
+    "Bensononscreen": {
+      "vfxShapeId": "Bensononscreen",
+      "filename": "Bensononscreen.tga"
+    },
+    "BlackwellonScreen": {
+      "vfxShapeId": "BlackwellonScreen",
+      "filename": "BlackwellonScreen.tga"
+    },
+    "briefingMenu": {
+      "vfxShapeId": "briefingMenu",
+      "filename": "briefingMenu.tga"
+    },
+    "CREDITS": {
+      "vfxShapeId": "CREDITS",
+      "filename": "CREDITS.tga"
+    },
+    "Halseyonscreen": {
+      "vfxShapeId": "Halseyonscreen",
+      "filename": "Halseyonscreen.tga"
+    },
+    "missionMap": {
+      "vfxShapeId": "missionMap",
+      "filename": "missionMap.tga"
+    },
+    "registry": {
+      "vfxShapeId": "registry",
+      "filename": "registry.tga"
+    },
+    "SmirnoffonScreen": {
+      "vfxShapeId": "SmirnoffonScreen",
+      "filename": "SmirnoffonScreen.tga"
+    },
+    "Steeleonscreen": {
+      "vfxShapeId": "Steeleonscreen",
+      "filename": "Steeleonscreen.tga"
+    },
+    "Takeionscreen": {
+      "vfxShapeId": "Takeionscreen",
+      "filename": "Takeionscreen.tga"
+    },
+    "Xmissionlogo": {
+      "vfxShapeId": "Xmissionlogo",
+      "filename": "Xmissionlogo.tga"
     }
   },
   "atlas": {
@@ -300,15 +344,600 @@
       "filename": "Xmission_atlas.png",
       "metaJson": "Xmission_atlas.json"
     },
+    "animFuzzOLD": {
+      "vfxShapeId": "animFuzzOLD",
+      "filename": "animFuzzOLD_atlas.png",
+      "metaJson": "animFuzzOLD_atlas.json"
+    },
     "Animte!!Xmission": {
       "vfxShapeId": "VFXShape!!AnimateXmission",
       "filename": "Xmission_atlas.png",
       "metaJson": "Xmission_atlas.json"
     },
-  	"talkingHeadBorder": {
-			"vfxShapeId": "talkingHeadBorder",
-			"filename": "talkingHeadBorder_atlas.png",
-			"metaJson": "talkingHeadBorder_atlas.json"
-		}
+    "armor": {
+      "vfxShapeId": "armor",
+      "filename": "armor_atlas.png",
+      "metaJson": "armor_atlas.json"
+    },
+    "Back_button": {
+      "vfxShapeId": "Back_button",
+      "filename": "Back_button_atlas.png",
+      "metaJson": "Back_button_atlas.json"
+    },
+    "bens~316": {
+      "vfxShapeId": "bens~316",
+      "filename": "bens~316_atlas.png",
+      "metaJson": "bens~316_atlas.json"
+    },
+    "blackbig": {
+      "vfxShapeId": "blackbig",
+      "filename": "blackbig_atlas.png",
+      "metaJson": "blackbig_atlas.json"
+    },
+    "Button-down": {
+      "vfxShapeId": "Button-down",
+      "filename": "Button-down_atlas.png",
+      "metaJson": "Button-down_atlas.json"
+    },
+    "Button-med": {
+      "vfxShapeId": "Button-med",
+      "filename": "Button-med_atlas.png",
+      "metaJson": "Button-med_atlas.json"
+    },
+    "Button-up": {
+      "vfxShapeId": "Button-up",
+      "filename": "Button-up_atlas.png",
+      "metaJson": "Button-up_atlas.json"
+    },
+    "buttonBattleMap": {
+      "vfxShapeId": "buttonBattleMap",
+      "filename": "buttonBattleMap_atlas.png",
+      "metaJson": "buttonBattleMap_atlas.json"
+    },
+    "buttonDown": {
+      "vfxShapeId": "buttonDown",
+      "filename": "buttonDown_atlas.png",
+      "metaJson": "buttonDown_atlas.json"
+    },
+    "buttonDropColor": {
+      "vfxShapeId": "buttonDropColor",
+      "filename": "buttonDropColor_atlas.png",
+      "metaJson": "buttonDropColor_atlas.json"
+    },
+    "buttonDropGraphics": {
+      "vfxShapeId": "buttonDropGraphics",
+      "filename": "buttonDropGraphics_atlas.png",
+      "metaJson": "buttonDropGraphics_atlas.json"
+    },
+    "buttonDropRace": {
+      "vfxShapeId": "buttonDropRace",
+      "filename": "buttonDropRace_atlas.png",
+      "metaJson": "buttonDropRace_atlas.json"
+    },
+    "buttonDropSlot": {
+      "vfxShapeId": "buttonDropSlot",
+      "filename": "buttonDropSlot_atlas.png",
+      "metaJson": "buttonDropSlot_atlas.json"
+    },
+    "buttonDropTeam": {
+      "vfxShapeId": "buttonDropTeam",
+      "filename": "buttonDropTeam_atlas.png",
+      "metaJson": "buttonDropTeam_atlas.json"
+    },
+    "buttonMission": {
+      "vfxShapeId": "buttonMission",
+      "filename": "buttonMission_atlas.png",
+      "metaJson": "buttonMission_atlas.json"
+    },
+    "buttonMovie": {
+      "vfxShapeId": "buttonMovie",
+      "filename": "buttonMovie_atlas.png",
+      "metaJson": "buttonMovie_atlas.json"
+    },
+    "buttonOk": {
+      "vfxShapeId": "buttonOk",
+      "filename": "buttonOk_atlas.png",
+      "metaJson": "buttonOk_atlas.json"
+    },
+    "buttonUp": {
+      "vfxShapeId": "buttonUp",
+      "filename": "buttonUp_atlas.png",
+      "metaJson": "buttonUp_atlas.json"
+    },
+    "chat_bg": {
+      "vfxShapeId": "chat_bg",
+      "filename": "chat_bg_atlas.png",
+      "metaJson": "chat_bg_atlas.json"
+    },
+    "checkboxSmall": {
+      "vfxShapeId": "checkboxSmall",
+      "filename": "checkboxSmall_atlas.png",
+      "metaJson": "checkboxSmall_atlas.json"
+    },
+    "checkObjectives": {
+      "vfxShapeId": "checkObjectives",
+      "filename": "checkObjectives_atlas.png",
+      "metaJson": "checkObjectives_atlas.json"
+    },
+    "custom_button_media": {
+      "vfxShapeId": "custom_button_media",
+      "filename": "custom_button_media_atlas.png",
+      "metaJson": "custom_button_media_atlas.json"
+    },
+    "custom_button_multi": {
+      "vfxShapeId": "custom_button_multi",
+      "filename": "custom_button_multi_atlas.png",
+      "metaJson": "custom_button_multi_atlas.json"
+    },
+    "custom_button_options": {
+      "vfxShapeId": "custom_button_options",
+      "filename": "custom_button_options_atlas.png",
+      "metaJson": "custom_button_options_atlas.json"
+    },
+    "custom_button_quit": {
+      "vfxShapeId": "custom_button_quit",
+      "filename": "custom_button_quit_atlas.png",
+      "metaJson": "custom_button_quit_atlas.json"
+    },
+    "custom_button_quit_killme": {
+      "vfxShapeId": "custom_button_quit_killme",
+      "filename": "custom_button_quit_killme_atlas.png",
+      "metaJson": "custom_button_quit_killme_atlas.json"
+    },
+    "custom_button_single": {
+      "vfxShapeId": "custom_button_single",
+      "filename": "custom_button_single_atlas.png",
+      "metaJson": "custom_button_single_atlas.json"
+    },
+    "demoIntro": {
+      "vfxShapeId": "demoIntro",
+      "filename": "demoIntro_atlas.png",
+      "metaJson": "demoIntro_atlas.json"
+    },
+    "diplomacyButton": {
+      "vfxShapeId": "diplomacyButton",
+      "filename": "diplomacyButton_atlas.png",
+      "metaJson": "diplomacyButton_atlas.json"
+    },
+    "Drop-med": {
+      "vfxShapeId": "Drop-med",
+      "filename": "Drop-med_atlas.png",
+      "metaJson": "Drop-med_atlas.json"
+    },
+    "Drop-small": {
+      "vfxShapeId": "Drop-small",
+      "filename": "Drop-small_atlas.png",
+      "metaJson": "Drop-small_atlas.json"
+    },
+    "edit-large": {
+      "vfxShapeId": "edit-large",
+      "filename": "edit-large_atlas.png",
+      "metaJson": "edit-large_atlas.json"
+    },
+    "edit-nam": {
+      "vfxShapeId": "edit-nam",
+      "filename": "edit-nam_atlas.png",
+      "metaJson": "edit-nam_atlas.json"
+    },
+    "editChatMShell": {
+      "vfxShapeId": "editChatMShell",
+      "filename": "editChatMShell_atlas.png",
+      "metaJson": "editChatMShell_atlas.json"
+    },
+    "editIP": {
+      "vfxShapeId": "editIP",
+      "filename": "editIP_atlas.png",
+      "metaJson": "editIP_atlas.json"
+    },
+    "editName": {
+      "vfxShapeId": "editName",
+      "filename": "editName_atlas.png",
+      "metaJson": "editName_atlas.json"
+    },
+    "engine": {
+      "vfxShapeId": "engine",
+      "filename": "engine_atlas.png",
+      "metaJson": "engine_atlas.json"
+    },
+    "fleetofficer": {
+      "vfxShapeId": "fleetofficer",
+      "filename": "fleetofficer_atlas.png",
+      "metaJson": "fleetofficer_atlas.json"
+    },
+    "hal~8396": {
+      "vfxShapeId": "hal~8396",
+      "filename": "hal~8396_atlas.png",
+      "metaJson": "hal~8396_atlas.json"
+    },
+    "Hawkes": {
+      "vfxShapeId": "Hawkes",
+      "filename": "Hawkes_atlas.png",
+      "metaJson": "Hawkes_atlas.json"
+    },
+    "haw~855a": {
+      "vfxShapeId": "haw~855a",
+      "filename": "haw~855a_atlas.png",
+      "metaJson": "haw~855a_atlas.json"
+    },
+    "intro": {
+      "vfxShapeId": "intro",
+      "filename": "intro_atlas.png",
+      "metaJson": "intro_atlas.json"
+    },
+    "IP_arrow": {
+      "vfxShapeId": "IP_arrow",
+      "filename": "IP_arrow_atlas.png",
+      "metaJson": "IP_arrow_atlas.json"
+    },
+    "IP_drop": {
+      "vfxShapeId": "IP_drop",
+      "filename": "IP_drop_atlas.png",
+      "metaJson": "IP_drop_atlas.json"
+    },
+    "IP_txt": {
+      "vfxShapeId": "IP_txt",
+      "filename": "IP_txt_atlas.png",
+      "metaJson": "IP_txt_atlas.json"
+    },
+    "Kills": {
+      "vfxShapeId": "Kills",
+      "filename": "Kills_atlas.png",
+      "metaJson": "Kills_atlas.json"
+    },
+    "listDropColor": {
+      "vfxShapeId": "listDropColor",
+      "filename": "listDropColor_atlas.png",
+      "metaJson": "listDropColor_atlas.json"
+    },
+    "listDropRace": {
+      "vfxShapeId": "listDropRace",
+      "filename": "listDropRace_atlas.png",
+      "metaJson": "listDropRace_atlas.json"
+    },
+    "listDropSlot": {
+      "vfxShapeId": "listDropSlot",
+      "filename": "listDropSlot_atlas.png",
+      "metaJson": "listDropSlot_atlas.json"
+    },
+    "listDropSlot_old": {
+      "vfxShapeId": "listDropSlot_old",
+      "filename": "listDropSlot_old_atlas.png",
+      "metaJson": "listDropSlot_old_atlas.json"
+    },
+    "listDropSystems": {
+      "vfxShapeId": "listDropSystems",
+      "filename": "listDropSystems_atlas.png",
+      "metaJson": "listDropSystems_atlas.json"
+    },
+    "listDropTeam": {
+      "vfxShapeId": "listDropTeam",
+      "filename": "listDropTeam_atlas.png",
+      "metaJson": "listDropTeam_atlas.json"
+    },
+    "m_toolbar": {
+      "vfxShapeId": "m_toolbar",
+      "filename": "m_toolbar_atlas.png",
+      "metaJson": "m_toolbar_atlas.json"
+    },
+    "mainscreen": {
+      "vfxShapeId": "mainscreen",
+      "filename": "mainscreen_atlas.png",
+      "metaJson": "mainscreen_atlas.json"
+    },
+    "maintoolbar": {
+      "vfxShapeId": "maintoolbar",
+      "filename": "maintoolbar_atlas.png",
+      "metaJson": "maintoolbar_atlas.json"
+    },
+    "maintoolbar_old": {
+      "vfxShapeId": "maintoolbar_old",
+      "filename": "maintoolbar_old_atlas.png",
+      "metaJson": "maintoolbar_old_atlas.json"
+    },
+    "mapSelect": {
+      "vfxShapeId": "mapSelect",
+      "filename": "mapSelect_atlas.png",
+      "metaJson": "mapSelect_atlas.json"
+    },
+    "menuBriefing": {
+      "vfxShapeId": "menuBriefing",
+      "filename": "menuBriefing_atlas.png",
+      "metaJson": "menuBriefing_atlas.json"
+    },
+    "menuDiplomacy": {
+      "vfxShapeId": "menuDiplomacy",
+      "filename": "menuDiplomacy_atlas.png",
+      "metaJson": "menuDiplomacy_atlas.json"
+    },
+    "menuEndGame": {
+      "vfxShapeId": "menuEndGame",
+      "filename": "menuEndGame_atlas.png",
+      "metaJson": "menuEndGame_atlas.json"
+    },
+    "menuObjectives": {
+      "vfxShapeId": "menuObjectives",
+      "filename": "menuObjectives_atlas.png",
+      "metaJson": "menuObjectives_atlas.json"
+    },
+    "menuSaveLoad": {
+      "vfxShapeId": "menuSaveLoad",
+      "filename": "menuSaveLoad_atlas.png",
+      "metaJson": "menuSaveLoad_atlas.json"
+    },
+    "menuSaveLoad2": {
+      "vfxShapeId": "menuSaveLoad2",
+      "filename": "menuSaveLoad2_atlas.png",
+      "metaJson": "menuSaveLoad2_atlas.json"
+    },
+    "missionDesc": {
+      "vfxShapeId": "missionDesc",
+      "filename": "missionDesc_atlas.png",
+      "metaJson": "missionDesc_atlas.json"
+    },
+    "movieDesc": {
+      "vfxShapeId": "movieDesc",
+      "filename": "movieDesc_atlas.png",
+      "metaJson": "movieDesc_atlas.json"
+    },
+    "mshellMenu": {
+      "vfxShapeId": "mshellMenu",
+      "filename": "mshellMenu_atlas.png",
+      "metaJson": "mshellMenu_atlas.json"
+    },
+    "mshellMenu2": {
+      "vfxShapeId": "mshellMenu2",
+      "filename": "mshellMenu2_atlas.png",
+      "metaJson": "mshellMenu2_atlas.json"
+    },
+    "name_dlg": {
+      "vfxShapeId": "name_dlg",
+      "filename": "name_dlg_atlas.png",
+      "metaJson": "name_dlg_atlas.json"
+    },
+    "options": {
+      "vfxShapeId": "options",
+      "filename": "options_atlas.png",
+      "metaJson": "options_atlas.json"
+    },
+    "planetbar3": {
+      "vfxShapeId": "planetbar3",
+      "filename": "planetbar3_atlas.png",
+      "metaJson": "planetbar3_atlas.json"
+    },
+    "playerchat": {
+      "vfxShapeId": "playerchat",
+      "filename": "playerchat_atlas.png",
+      "metaJson": "playerchat_atlas.json"
+    },
+    "progress": {
+      "vfxShapeId": "progress",
+      "filename": "progress_atlas.png",
+      "metaJson": "progress_atlas.json"
+    },
+    "Radio-med": {
+      "vfxShapeId": "Radio-med",
+      "filename": "Radio-med_atlas.png",
+      "metaJson": "Radio-med_atlas.json"
+    },
+    "s_toolbar": {
+      "vfxShapeId": "s_toolbar",
+      "filename": "s_toolbar_atlas.png",
+      "metaJson": "s_toolbar_atlas.json"
+    },
+    "s_toolbar_Moveme": {
+      "vfxShapeId": "s_toolbar_Moveme",
+      "filename": "s_toolbar_Moveme_atlas.png",
+      "metaJson": "s_toolbar_Moveme_atlas.json"
+    },
+    "scrollbar": {
+      "vfxShapeId": "scrollbar",
+      "filename": "scrollbar_atlas.png",
+      "metaJson": "scrollbar_atlas.json"
+    },
+    "scrollbarBig": {
+      "vfxShapeId": "scrollbarBig",
+      "filename": "scrollbarBig_atlas.png",
+      "metaJson": "scrollbarBig_atlas.json"
+    },
+    "scrollbarNC": {
+      "vfxShapeId": "scrollbarNC",
+      "filename": "scrollbarNC_atlas.png",
+      "metaJson": "scrollbarNC_atlas.json"
+    },
+    "shield": {
+      "vfxShapeId": "shield",
+      "filename": "shield_atlas.png",
+      "metaJson": "shield_atlas.json"
+    },
+    "slider": {
+      "vfxShapeId": "slider",
+      "filename": "slider_atlas.png",
+      "metaJson": "slider_atlas.json"
+    },
+    "slider_kill": {
+      "vfxShapeId": "slider_kill",
+      "filename": "slider_kill_atlas.png",
+      "metaJson": "slider_kill_atlas.json"
+    },
+    "slides": {
+      "vfxShapeId": "slides",
+      "filename": "slides_atlas.png",
+      "metaJson": "slides_atlas.json"
+    },
+    "smallMenu": {
+      "vfxShapeId": "smallMenu",
+      "filename": "smallMenu_atlas.png",
+      "metaJson": "smallMenu_atlas.json"
+    },
+    "smi~e2d7": {
+      "vfxShapeId": "smi~e2d7",
+      "filename": "smi~e2d7_atlas.png",
+      "metaJson": "smi~e2d7_atlas.json"
+    },
+    "splash": {
+      "vfxShapeId": "splash",
+      "filename": "splash_atlas.png",
+      "metaJson": "splash_atlas.json"
+    },
+    "staticDevices": {
+      "vfxShapeId": "staticDevices",
+      "filename": "staticDevices_atlas.png",
+      "metaJson": "staticDevices_atlas.json"
+    },
+    "staticJoinCreate": {
+      "vfxShapeId": "staticJoinCreate",
+      "filename": "staticJoinCreate_atlas.png",
+      "metaJson": "staticJoinCreate_atlas.json"
+    },
+    "staticNetConnect": {
+      "vfxShapeId": "staticNetConnect",
+      "filename": "staticNetConnect_atlas.png",
+      "metaJson": "staticNetConnect_atlas.json"
+    },
+    "staticProgress": {
+      "vfxShapeId": "staticProgress",
+      "filename": "staticProgress_atlas.png",
+      "metaJson": "staticProgress_atlas.json"
+    },
+    "staticSelectGame": {
+      "vfxShapeId": "staticSelectGame",
+      "filename": "staticSelectGame_atlas.png",
+      "metaJson": "staticSelectGame_atlas.json"
+    },
+    "staticSlotName": {
+      "vfxShapeId": "staticSlotName",
+      "filename": "staticSlotName_atlas.png",
+      "metaJson": "staticSlotName_atlas.json"
+    },
+    "staticSlotNumber": {
+      "vfxShapeId": "staticSlotNumber",
+      "filename": "staticSlotNumber_atlas.png",
+      "metaJson": "staticSlotNumber_atlas.json"
+    },
+    "ste~21dd": {
+      "vfxShapeId": "ste~21dd",
+      "filename": "ste~21dd_atlas.png",
+      "metaJson": "ste~21dd_atlas.json"
+    },
+    "t_toolbar": {
+      "vfxShapeId": "t_toolbar",
+      "filename": "t_toolbar_atlas.png",
+      "metaJson": "t_toolbar_atlas.json"
+    },
+    "tabEndGame": {
+      "vfxShapeId": "tabEndGame",
+      "filename": "tabEndGame_atlas.png",
+      "metaJson": "tabEndGame_atlas.json"
+    },
+    "tabOptions": {
+      "vfxShapeId": "tabOptions",
+      "filename": "tabOptions_atlas.png",
+      "metaJson": "tabOptions_atlas.json"
+    },
+    "tabs": {
+      "vfxShapeId": "tabs",
+      "filename": "tabs_atlas.png",
+      "metaJson": "tabs_atlas.json"
+    },
+    "takeibig": {
+      "vfxShapeId": "takeibig",
+      "filename": "takeibig_atlas.png",
+      "metaJson": "takeibig_atlas.json"
+    },
+    "talkHawkes2_old": {
+      "vfxShapeId": "talkHawkes2_old",
+      "filename": "talkHawkes2_old_atlas.png",
+      "metaJson": "talkHawkes2_old_atlas.json"
+    },
+    "talkHawkes_old": {
+      "vfxShapeId": "talkHawkes_old",
+      "filename": "talkHawkes_old_atlas.png",
+      "metaJson": "talkHawkes_old_atlas.json"
+    },
+    "talkingHeadBorder": {
+      "vfxShapeId": "talkingHeadBorder",
+      "filename": "talkingHeadBorder_atlas.png",
+      "metaJson": "talkingHeadBorder_atlas.json"
+    },
+    "talkman1": {
+      "vfxShapeId": "talkman1",
+      "filename": "talkman1_atlas.png",
+      "metaJson": "talkman1_atlas.json"
+    },
+    "talkman2": {
+      "vfxShapeId": "talkman2",
+      "filename": "talkman2_atlas.png",
+      "metaJson": "talkman2_atlas.json"
+    },
+    "talkman3": {
+      "vfxShapeId": "talkman3",
+      "filename": "talkman3_atlas.png",
+      "metaJson": "talkman3_atlas.json"
+    },
+    "talkman4": {
+      "vfxShapeId": "talkman4",
+      "filename": "talkman4_atlas.png",
+      "metaJson": "talkman4_atlas.json"
+    },
+    "talkman5": {
+      "vfxShapeId": "talkman5",
+      "filename": "talkman5_atlas.png",
+      "metaJson": "talkman5_atlas.json"
+    },
+    "talkman6": {
+      "vfxShapeId": "talkman6",
+      "filename": "talkman6_atlas.png",
+      "metaJson": "talkman6_atlas.json"
+    },
+    "talkMantis1": {
+      "vfxShapeId": "talkMantis1",
+      "filename": "talkMantis1_atlas.png",
+      "metaJson": "talkMantis1_atlas.json"
+    },
+    "talksol1": {
+      "vfxShapeId": "talksol1",
+      "filename": "talksol1_atlas.png",
+      "metaJson": "talksol1_atlas.json"
+    },
+    "talksol2": {
+      "vfxShapeId": "talksol2",
+      "filename": "talksol2_atlas.png",
+      "metaJson": "talksol2_atlas.json"
+    },
+    "talksol3": {
+      "vfxShapeId": "talksol3",
+      "filename": "talksol3_atlas.png",
+      "metaJson": "talksol3_atlas.json"
+    },
+    "talksol4": {
+      "vfxShapeId": "talksol4",
+      "filename": "talksol4_atlas.png",
+      "metaJson": "talksol4_atlas.json"
+    },
+    "talksol5": {
+      "vfxShapeId": "talksol5",
+      "filename": "talksol5_atlas.png",
+      "metaJson": "talksol5_atlas.json"
+    },
+    "talksol6": {
+      "vfxShapeId": "talksol6",
+      "filename": "talksol6_atlas.png",
+      "metaJson": "talksol6_atlas.json"
+    },
+    "tallkblackwell": {
+      "vfxShapeId": "tallkblackwell",
+      "filename": "tallkblackwell_atlas.png",
+      "metaJson": "tallkblackwell_atlas.json"
+    },
+    "title-background": {
+      "vfxShapeId": "title-background",
+      "filename": "title-background_atlas.png",
+      "metaJson": "title-background_atlas.json"
+    },
+    "weapon": {
+      "vfxShapeId": "weapon",
+      "filename": "weapon_atlas.png",
+      "metaJson": "weapon_atlas.json"
+    }
   }
 }
