@@ -33,6 +33,7 @@ internal sealed class ShowcaseShellNode : Node {
 		_scenes.AddRange([
 			new SceneDefinition("Hierarchy / 2D", "Node, CanvasItem, and Node2D composition with transform chaining and draw ordering.", () => new HierarchyScene()),
 			new SceneDefinition("Controls", "Control, PanelNode, TextNode, and ButtonNode wired into live interactions.", () => new ControlsScene()),
+			new SceneDefinition("UiText Animation", "UiText as a real Control with measured bounds, sine-wave scaling, circular motion, and pivot rotation.", () => new UiTextAnimationScene()),
 			new SceneDefinition("Hot Rect Events", "Core.UI spike: UiEventSource dispatches raw pointer input into HotRectNode targets and bubbles events upward through parent nodes.", () => new HotRectEventScene()),
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
 			new SceneDefinition("Legacy ListBox", "Core.UI legacy listbox seam with authored GT geometry, imperative item payloads, caret/selection behavior, and shape-backed or primitive drawing.", () => new LegacyListBoxScene()),

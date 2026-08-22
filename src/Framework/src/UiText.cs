@@ -4,9 +4,9 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
-/// Shared text helpers for lightweight framework UI nodes.
+/// Text control with measured bounds, pivot-aware drawing, and transform support.
 /// </summary>
-public static class UiText {
+public class UiText : Control {
 	private const int DefaultFontResolution = 64;
 	private static Font _bodyFont;
 	private static Font _titleFont;
@@ -15,6 +15,59 @@ public static class UiText {
 	private static bool _bodyFontLoaded;
 	private static bool _titleFontLoaded;
 	private static bool _monoFontLoaded;
+	private string _text = string.Empty;
+	private float _fontSize = 20f;
+	private UiTextStyle _textStyle = UiTextStyle.Body;
+	private Vector2 _measuredSize;
+
+	public UiText(string? name = null) : base(name) {
+		RefreshSize();
+	}
+
+	public string Text {
+		get => _text;
+		set {
+			if (_text == value) {
+				return;
+			}
+
+			_text = value ?? string.Empty;
+			RefreshSize();
+		}
+	}
+
+	public float FontSize {
+		get => _fontSize;
+		set {
+			if (MathF.Abs(_fontSize - value) <= float.Epsilon) {
+				return;
+			}
+
+			_fontSize = value;
+			RefreshSize();
+		}
+	}
+
+	public Color Tint { get; set; } = Color.RayWhite;
+
+	public UiTextStyle TextStyle {
+		get => _textStyle;
+		set {
+			if (_textStyle == value) {
+				return;
+			}
+
+			_textStyle = value;
+			RefreshSize();
+		}
+	}
+
+	public Vector2 MeasuredSize {
+		get {
+			RefreshSize();
+			return _measuredSize;
+		}
+	}
 
 	public static float MeasureWidth(string text, float fontSize, UiTextStyle style = UiTextStyle.Body) {
 		return Raylib.MeasureTextEx(GetFont(style), text, fontSize, 0f).X;
@@ -25,18 +78,59 @@ public static class UiText {
 	}
 
 	public static void Draw(string text, float x, float y, float fontSize, Color color, UiTextStyle style = UiTextStyle.Body) {
-		Raylib.DrawTextEx(
-			GetFont(style),
-			text,
-			new Vector2(MathF.Round(x), MathF.Round(y)),
-			fontSize,
-			0f,
-			color);
+		DrawTransformed(text, new Vector2(x, y), fontSize, color, style, 0f, Vector2.One, Vector2.Zero);
 	}
 
 	public static void DrawCentered(string text, float centerX, float y, float fontSize, Color color, UiTextStyle style = UiTextStyle.Body) {
 		var size = MeasureSize(text, fontSize, style);
 		Draw(text, centerX - (size.X * 0.5f), y, fontSize, color, style);
+	}
+
+	protected override void Draw() {
+		if (string.IsNullOrEmpty(Text) || FontSize <= 0f) {
+			return;
+		}
+
+		RefreshSize();
+		DrawTransformed(Text, GlobalPosition, FontSize, Tint, TextStyle, GlobalRotation, GlobalScale, Pivot);
+	}
+
+	private void RefreshSize() {
+		_measuredSize = FontSize > 0f ? MeasureSize(Text, FontSize, TextStyle) : Vector2.Zero;
+		Size = _measuredSize;
+	}
+
+	private static void DrawTransformed(
+		string text,
+		Vector2 position,
+		float fontSize,
+		Color color,
+		UiTextStyle style,
+		float rotationRadians,
+		Vector2 scale,
+		Vector2 pivot) {
+		if (string.IsNullOrEmpty(text) || fontSize <= 0f) {
+			return;
+		}
+
+		var localSize = MeasureSize(text, fontSize, style);
+		var uniformScale = (MathF.Abs(scale.X) + MathF.Abs(scale.Y)) * 0.5f;
+		if (uniformScale <= 0f) {
+			return;
+		}
+
+		var scaledFontSize = fontSize * uniformScale;
+		var origin = localSize * pivot * uniformScale;
+
+		Raylib.DrawTextPro(
+			GetFont(style),
+			text,
+			new Vector2(MathF.Round(position.X), MathF.Round(position.Y)),
+			origin,
+			rotationRadians * Raylib.RAD2DEG,
+			scaledFontSize,
+			0f,
+			color);
 	}
 
 	private static Font GetFont(UiTextStyle style) {
