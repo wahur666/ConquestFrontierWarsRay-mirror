@@ -1,8 +1,10 @@
 using System.Numerics;
 using ConquestFrontierWarsRay.Core.UI;
+using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.Slider;
+using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using Raylib_cs;
 
@@ -42,7 +44,18 @@ internal sealed class SpriteScene : ShowcaseScene {
 		FontSize = 18f,
 		Tint = new Color(210, 220, 236, 255)
 	};
+	private readonly TextNode _dropdownLabel = new("LegacyDropdownLabel") {
+		Position = new Vector2(402f, 545f),
+		FontSize = 18f,
+		Tint = new Color(210, 220, 236, 255)
+	};
+	private readonly TextNode _dropdownStatusLabel = new("LegacyDropdownStatus") {
+		Position = new Vector2(402f, 575f),
+		FontSize = 17f,
+		Tint = new Color(188, 200, 218, 255)
+	};
 	private readonly LegacySliderNode _fpsSlider = new("LegacyFpsSlider");
+	private readonly LegacyDropdownNode _legacyDropdown = new("LegacyDropdownDemo");
 	private readonly LegacySliderNode _disabledPreviewSlider = new("DisabledPreviewSlider") { Enabled = false };
 	private readonly LegacySliderNode _normalPreviewSlider = new("NormalPreviewSlider");
 	private readonly LegacySliderNode _highlightPreviewSlider = new("HighlightPreviewSlider");
@@ -63,12 +76,14 @@ internal sealed class SpriteScene : ShowcaseScene {
 	private readonly Sprite _test2Sprite;
 	private readonly SliderDataCatalog _sliderCatalog;
 	private readonly SliderDataRepository _sliderRepository;
+	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private int _animationFps = 15;
 
 	public SpriteScene() : base("SpriteScene", "Sprites") {
 		_sliderRepository = SliderDataRepository.LocateFromRepo();
 		_sliderCatalog = _sliderRepository.Load();
+		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		var vfxData = _vfxRepository.Load();
 		if (!vfxData.TryGetAtlasByVfxShapeId(DemoVfxShapeId, out var entry)) {
@@ -116,6 +131,7 @@ internal sealed class SpriteScene : ShowcaseScene {
 		_fpsSlider.SetRange(0, (MaxAnimationFps - MinAnimationFps) / FpsStep);
 		_fpsSlider.SetSliderPosition((_animationFps - MinAnimationFps) / FpsStep, emitEvent: false);
 		_fpsSlider.ValueChanged += HandleSliderValueChanged;
+		ConfigureLegacyDropdown();
 
 		var sliderContainer = new Node2D("Slider container") {
 			Position = new Vector2(402f, 400f)
@@ -142,7 +158,10 @@ internal sealed class SpriteScene : ShowcaseScene {
 		AddChild(_frameLabel);
 		AddChild(_speedLabel);
 		AddChild(_stateGalleryLabel);
+		AddChild(_dropdownLabel);
+		AddChild(_dropdownStatusLabel);
 		AddChild(_fpsSlider);
+		AddChild(_legacyDropdown);
 		sliderContainer.AddChild(_disabledPreviewSlider);
 		sliderContainer.AddChild(_normalPreviewSlider);
 		sliderContainer.AddChild(_highlightPreviewSlider);
@@ -163,6 +182,8 @@ internal sealed class SpriteScene : ShowcaseScene {
 		_frameLabel.Text = $"Atlas frame: {_animatedSprite.Frame + 1:00} / {_animatedSprite.Frames.Count}    Source: {EntryFileNames()}";
 		_speedLabel.Text = $"Animation speed: {_animationFps} FPS    Slider step: {_fpsSlider.SliderPosition + 1} / {((MaxAnimationFps - MinAnimationFps) / FpsStep) + 1}";
 		_stateGalleryLabel.Text = "Legacy slider state gallery: horizontal art-backed and primitive, plus vertical primitive states";
+		_dropdownLabel.Text = "Legacy dropdown: authored GT geometry plus screen-owned item population";
+		_dropdownStatusLabel.Text = $"ControlId: {_legacyDropdown.ControlId}    SelectedIndex: {_legacyDropdown.GetCurrentSelection()}    DataValue: {_legacyDropdown.GetDataValue(Math.Max(0, _legacyDropdown.GetCurrentSelection()))}    Label: {_legacyDropdown.SelectedLabel}";
 	}
 
 	protected override void OnDraw() {
@@ -179,6 +200,7 @@ internal sealed class SpriteScene : ShowcaseScene {
 		UiText.Draw("Normal", 684f, 448f, 14f, new Color(188, 200, 218, 255));
 		UiText.Draw("Highlight", 721f, 448f, 14f, new Color(188, 200, 218, 255));
 		UiText.Draw("Alert", 777f, 448f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("The dropdown rows are not loaded from Dropdown!!Medium.xml. Menu code injects them later through AddString/SetDataValue.", 402f, 610f, 16f, new Color(188, 200, 218, 255));
 		Raylib.DrawRectangleLinesEx(new Rectangle(955f, 170f, 250f, 250f), 2f, Color.Gold);
 		UiText.Draw("Active atlas frame", 986f, 432f, 18f, Color.Gold);
 	}
@@ -215,5 +237,54 @@ internal sealed class SpriteScene : ShowcaseScene {
 		slider.SetRange(0, (MaxAnimationFps - MinAnimationFps) / FpsStep);
 		slider.SetSliderPosition(position, emitEvent: false);
 		slider.VisualStateOverride = visualState;
+	}
+
+	private void ConfigureLegacyDropdown() {
+		var buttonArchetype = ReadTypedEntry<GT_BUTTON>("GT_BUTTON", "Button!!DropRace");
+		var listboxArchetype = ReadTypedEntry<GT_LISTBOX>("GT_LISTBOX", "ListBox!!DropRace");
+
+		_legacyDropdown.ApplyLegacyDefinition(
+			buttonArchetype,
+			listboxArchetype,
+			new DROPDOWN_DATA {
+				DropdownType = "Dropdown!!Medium",
+				ScreenRect = new RECT {
+					Left = 402,
+					Top = 640,
+					Right = 510,
+					Bottom = 675
+				},
+				ButtonData = new BUTTON_DATA {
+					ButtonType = "Button!!DropRace",
+					XOrigin = 0,
+					YOrigin = 0
+				},
+				ListboxData = new LISTBOX_DATA {
+					ListboxType = "ListBox!!DropRace",
+					XOrigin = 0,
+					YOrigin = 18,
+					TextArea = new RECT {
+						Left = 6,
+						Top = 6,
+						Right = 104,
+						Bottom = 48
+					},
+					LeadingHeight = 18
+				}
+			});
+		_legacyDropdown.ControlId = 0x2001;
+		var killUnits = _legacyDropdown.AddString("Kill units");
+		_legacyDropdown.SetDataValue(killUnits, 0);
+		var killHq = _legacyDropdown.AddString("Kill HQ plats");
+		_legacyDropdown.SetDataValue(killHq, 1);
+		var killPlatfab = _legacyDropdown.AddString("Kill platfab");
+		_legacyDropdown.SetDataValue(killPlatfab, 2);
+		_legacyDropdown.SetCurrentSelection(killUnits);
+	}
+
+	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
+		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		return details.TypedValue as T
+			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
 	}
 }

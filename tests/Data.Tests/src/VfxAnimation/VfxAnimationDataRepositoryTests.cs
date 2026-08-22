@@ -21,4 +21,16 @@ public sealed class VfxAnimationDataRepositoryTests {
 		Assert.Equal("animFuzz_atlas.png", fuzz.Filename);
 		Assert.Equal("animFuzz_atlas.json", fuzz.MetaJson);
 	}
+
+	[Fact]
+	public void TryGetAtlasByShapeId_AcceptsLegacyShpShapeFileName() {
+		var repository = VfxAnimationDataRepository.LocateFromRepo();
+
+		var found = repository.TryGetAtlasByShapeId("listDropColor.shp", out var atlas);
+
+		Assert.True(found);
+		Assert.Equal("listDropColor", atlas.Key);
+		Assert.Equal("listDropColor", atlas.Value.VfxShapeId);
+		Assert.Equal("listDropColor_atlas.png", atlas.Value.Filename);
+	}
 }

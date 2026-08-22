@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core.UI\Core.UI.csproj" />
     <ProjectReference Include="..\..\src\Framework\Framework.csproj" />
     <ProjectReference Include="..\..\src\Windowing\Windowing.csproj" />
   </ItemGroup>

@@ -51,11 +51,12 @@ public sealed class VfxAnimationDataRepository {
 			return false;
 		}
 
+		var normalizedShapeId = NormalizeShapeId(shapeId);
 		var data = Load();
 
 		foreach (var entry in data.Atlas) {
-			if (string.Equals(entry.Key, shapeId, StringComparison.OrdinalIgnoreCase) ||
-				string.Equals(entry.Value.VfxShapeId, shapeId, StringComparison.OrdinalIgnoreCase)) {
+			if (string.Equals(entry.Key, normalizedShapeId, StringComparison.OrdinalIgnoreCase) ||
+				string.Equals(entry.Value.VfxShapeId, normalizedShapeId, StringComparison.OrdinalIgnoreCase)) {
 				match = entry;
 				return true;
 			}
@@ -73,5 +74,18 @@ public sealed class VfxAnimationDataRepository {
 	public string GetInterfaceAssetPath(AtlasData atlasData, bool metaJson) {
 		ArgumentNullException.ThrowIfNull(atlasData);
 		return Path.Combine(_interfaceAssetsPath, metaJson ? atlasData.MetaJson : atlasData.Filename);
+	}
+
+	private static string NormalizeShapeId(string shapeId) {
+		var trimmed = shapeId.Trim();
+		var filename = Path.GetFileName(trimmed);
+		if (string.IsNullOrEmpty(filename)) {
+			return trimmed;
+		}
+
+		var extension = Path.GetExtension(filename);
+		return string.Equals(extension, ".shp", StringComparison.OrdinalIgnoreCase)
+			? Path.GetFileNameWithoutExtension(filename)
+			: filename;
 	}
 }
