@@ -18,7 +18,28 @@ public class Control : Node2D {
 
 	public Vector2 Size { get; set; }
 
-	public Rectangle GlobalBounds => new(GlobalPosition.X, GlobalPosition.Y, Size.X, Size.Y);
+	/// <summary>
+	/// Normalized anchor used when converting position plus size into screen bounds.
+	/// </summary>
+	public Vector2 Pivot { get; set; } = Vector2.Zero;
+
+	/// <summary>
+	/// Final bounds after world position, scale, and pivot are applied.
+	/// </summary>
+	public Rectangle GlobalBounds {
+		get {
+			var globalScale = GlobalScale;
+			var scaledSize = new Vector2(
+				MathF.Abs(Size.X * globalScale.X),
+				MathF.Abs(Size.Y * globalScale.Y));
+
+			return new Rectangle(
+				GlobalPosition.X - (scaledSize.X * Pivot.X),
+				GlobalPosition.Y - (scaledSize.Y * Pivot.Y),
+				scaledSize.X,
+				scaledSize.Y);
+		}
+	}
 
 	public bool ContainsPoint(Vector2 point) {
 		return Raylib.CheckCollisionPointRec(point, GlobalBounds);

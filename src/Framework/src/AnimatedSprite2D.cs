@@ -74,6 +74,11 @@ public sealed class AnimatedSprite2D : Node2D {
 	public bool Loop { get; set; } = true;
 
 	/// <summary>
+	/// Raised when non-looping playback reaches the final frame and stops.
+	/// </summary>
+	public event Action<AnimatedSprite2D>? PlaybackCompleted;
+
+	/// <summary>
 	/// Starts or resumes playback.
 	/// </summary>
 	public void Play() {
@@ -94,6 +99,15 @@ public sealed class AnimatedSprite2D : Node2D {
 		Playing = false;
 		_frameTimeAccumulator = 0f;
 		SetFrame(0);
+	}
+
+	/// <summary>
+	/// Returns to the first frame and starts playback immediately.
+	/// </summary>
+	public void Restart() {
+		_frameTimeAccumulator = 0f;
+		SetFrame(0);
+		Playing = true;
 	}
 
 	/// <summary>
@@ -129,6 +143,7 @@ public sealed class AnimatedSprite2D : Node2D {
 			SetFrame(_frames.Count - 1);
 			Playing = false;
 			_frameTimeAccumulator = 0f;
+			PlaybackCompleted?.Invoke(this);
 			break;
 		}
 	}

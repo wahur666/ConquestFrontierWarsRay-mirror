@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="src/Conquest/ConquestFrontierWars.csproj" />
+  <Project Path="src/Core.UI/Core.UI.csproj" />
   <Project Path="src/Data/Data.csproj" />
   <Project Path="src/Framework/Framework.csproj" />
   <Project Path="src/Framework.TestApp/Framework.TestApp.csproj" />
