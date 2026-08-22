@@ -1,13 +1,15 @@
+using System.Drawing;
+
 namespace ConquestFrontierWarsRay.Data.Models.GT;
 
 public sealed class GT_SLIDER : GENBASE_DATA {
-	public GT_COLOR DisabledColor { get; init; } = new();
+	public Color DisabledColor { get; init; } = Color.Empty;
 
-	public GT_COLOR NormalColor { get; init; } = new();
+	public Color NormalColor { get; init; } = Color.Empty;
 
-	public GT_COLOR HighlightColor { get; init; } = new();
+	public Color HighlightColor { get; init; } = Color.Empty;
 
-	public GT_COLOR AlertColor { get; init; } = new();
+	public Color AlertColor { get; init; } = Color.Empty;
 
 	public bool Vertical { get; init; }
 

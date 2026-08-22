@@ -27,6 +27,10 @@ public static class RepoPaths {
 		return Path.Combine(LocateAssetsRoot(), "DB", "vfx-animation-data.json");
 	}
 
+	public static string LocateSliderDataPath() {
+		return Path.Combine(LocateAssetsRoot(), "DB", "slider-data.json");
+	}
+
 	public static (string DatabasePath, string XmlRootPath, string RepoRoot) LocateStringPackPaths() {
 		var repoRoot = LocateRepoRoot();
 		var dbRoot = Path.Combine(repoRoot, "assets", "DB");

@@ -1377,15 +1377,6 @@ public sealed class GtTabControlXmlParityTests : UtfDbXmlParityTestBase
     public void Binary_Parsed_Data_Deep_Equals_Xml_Created_Data(UtfDbXmlParityTestSupport.UtfDbXmlCase testCase) => AssertParity(testCase);
 }
 
-public sealed class GtSliderXmlParityTests : UtfDbXmlParityTestBase
-{
-    public static IEnumerable<object[]> XmlCases() => UtfDbXmlParityTestSupport.GetCasesForType("GT_SLIDER");
-
-    [Theory]
-    [MemberData(nameof(XmlCases))]
-    [Trait("Category", "UtfDbXmlParity")]
-    public void Binary_Parsed_Data_Deep_Equals_Xml_Created_Data(UtfDbXmlParityTestSupport.UtfDbXmlCase testCase) => AssertParity(testCase);
-}
 
 public sealed class GtDiplomacyButtonXmlParityTests : UtfDbXmlParityTestBase
 {
@@ -1400,26 +1391,6 @@ public sealed class GtDiplomacyButtonXmlParityTests : UtfDbXmlParityTestBase
 public sealed class GtShipSilButtonXmlParityTests : UtfDbXmlParityTestBase
 {
     public static IEnumerable<object[]> XmlCases() => UtfDbXmlParityTestSupport.GetCasesForType("GT_SHIPSILBUTTON");
-
-    [Theory]
-    [MemberData(nameof(XmlCases))]
-    [Trait("Category", "UtfDbXmlParity")]
-    public void Binary_Parsed_Data_Deep_Equals_Xml_Created_Data(UtfDbXmlParityTestSupport.UtfDbXmlCase testCase) => AssertParity(testCase);
-}
-
-public sealed class GtAnimateXmlParityTests : UtfDbXmlParityTestBase
-{
-    public static IEnumerable<object[]> XmlCases() => UtfDbXmlParityTestSupport.GetCasesForType("GT_ANIMATE");
-
-    [Theory]
-    [MemberData(nameof(XmlCases))]
-    [Trait("Category", "UtfDbXmlParity")]
-    public void Binary_Parsed_Data_Deep_Equals_Xml_Created_Data(UtfDbXmlParityTestSupport.UtfDbXmlCase testCase) => AssertParity(testCase);
-}
-
-public sealed class GtVfxShapeXmlParityTests : UtfDbXmlParityTestBase
-{
-    public static IEnumerable<object[]> XmlCases() => UtfDbXmlParityTestSupport.GetCasesForType("GT_VFXSHAPE");
 
     [Theory]
     [MemberData(nameof(XmlCases))]

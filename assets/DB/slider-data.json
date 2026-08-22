@@ -1,0 +1,29 @@
+{
+  "Slider!!Default": {
+    "disabledColor": "#646464",
+    "normalColor": "#FF0000",
+    "highlightColor": "#FFFF00",
+    "alertColor": "#0000FF",
+    "vertical": false,
+    "indent": 0,
+    "shapeFile": ""
+  },
+  "Slider!!PrimVertical": {
+    "disabledColor": "#646464",
+    "normalColor": "#FF0000",
+    "highlightColor": "#FFFF00",
+    "alertColor": "#0000FF",
+    "vertical": true,
+    "indent": 0,
+    "shapeFile": ""
+  },
+  "Slider!!Rounded": {
+    "disabledColor": "#646464",
+    "normalColor": "#FF0000",
+    "highlightColor": "#FFFF00",
+    "alertColor": "#0000FF",
+    "vertical": false,
+    "indent": 6,
+    "shapeFile": "slider"
+  }
+}

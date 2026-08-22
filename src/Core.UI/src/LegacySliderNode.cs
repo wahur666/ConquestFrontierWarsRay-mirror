@@ -4,6 +4,7 @@ using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
+using DrawingColor = System.Drawing.Color;
 
 namespace ConquestFrontierWarsRay.Core.UI;
 
@@ -148,8 +149,8 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 
 		Size = new Vector2(localWidth, localHeight);
 		Position = new Vector2(
-			data.ScreenRect.Left + data.XOrigin,
-			data.ScreenRect.Top + data.YOrigin);
+			data.ScreenRect.Left + data.Origin.X,
+			data.ScreenRect.Top + data.Origin.Y);
 
 		_tabWidth = ResolveTabWidth();
 		SetSliderPosition(_sliderPosition, emitEvent: false);
@@ -362,21 +363,34 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 	}
 
 	private void DrawPrimitive(Rectangle bounds, Rectangle thumb, Color color) {
-		Raylib.DrawRectangleRec(bounds, Color.Black);
-		Raylib.DrawRectangleLinesEx(bounds, 1f, color);
-		DrawHatchFill(thumb, color);
-		Raylib.DrawRectangleLinesEx(thumb, 1f, color);
+		DrawPrimitiveModern(bounds, thumb, color, IsVertical);
 	}
 
-	private static void DrawHatchFill(Rectangle bounds, Color color) {
-		var x0 = (int)MathF.Round(bounds.X);
-		var y0 = (int)MathF.Round(bounds.Y);
-		var x1 = (int)MathF.Round(bounds.X + bounds.Width);
-		var y1 = (int)MathF.Round(bounds.Y + bounds.Height);
+	private void DrawPrimitiveModern(Rectangle bounds, Rectangle thumb, Color stateColor, bool vertical) {
+		var track = vertical
+			? new Rectangle(
+				bounds.X + 5f,
+				bounds.Y,
+				MathF.Max(8f, bounds.Width - 10f),
+				bounds.Height)
+			: new Rectangle(
+				bounds.X,
+				bounds.Y + 5f,
+				bounds.Width,
+				MathF.Max(8f, bounds.Height - 10f));
+		var thumbVisual = vertical
+			? new Rectangle(track.X, thumb.Y, track.Width, thumb.Height)
+			: new Rectangle(thumb.X, track.Y, thumb.Width, track.Height);
+		var trackFill = new Color(84, 90, 100, 255);
+		var activeFill = Blend(trackFill, stateColor, 0.24f);
+		var thumbBase = Blend(new Color(208, 214, 222, 255), stateColor, 0.18f);
+		var thumbHover = Blend(new Color(224, 230, 236, 255), stateColor, 0.24f);
+		var thumbDisabled = Blend(new Color(146, 150, 156, 255), stateColor, 0.10f);
+		var thumbColor = ResolveStateIndex() == 0 ? thumbDisabled : (_hovered || _hasKeyboardFocus ? thumbHover : thumbBase);
 
-		for (var x = x0 - (y1 - y0); x < x1; x += 4) {
-			Raylib.DrawLine(x, y1, x + (y1 - y0), y0, color);
-		}
+		Raylib.DrawRectangleRec(track, trackFill);
+		Raylib.DrawRectangleRec(thumbVisual, activeFill);
+		Raylib.DrawRectangleRec(thumbVisual, thumbColor);
 	}
 
 	private float GetConfiguredHeight(RECT screenRect) {
@@ -407,7 +421,7 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 		var halfTab = GetThumbHalfExtent();
 
 		return IsVertical
-			? bounds.Y + halfTab + Indent
+			? bounds.Y + bounds.Height - halfTab - Indent
 			: bounds.X + bounds.Width - halfTab - Indent;
 	}
 
@@ -416,7 +430,7 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 		var halfTab = GetThumbHalfExtent();
 
 		return IsVertical
-			? bounds.Y + bounds.Height - halfTab - Indent
+			? bounds.Y + halfTab + Indent
 			: bounds.X + halfTab + Indent;
 	}
 
@@ -485,8 +499,8 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 		return _tabWidth * 0.5f;
 	}
 
-	private void LoadArt(VfxAnimationDataRepository repository, string legacyShapeFile) {
-		if (!repository.TryGetAtlasByShapeFile(legacyShapeFile, out var atlasEntry)) {
+	private void LoadArt(VfxAnimationDataRepository repository, string shapeId) {
+		if (!repository.TryGetAtlasByShapeId(shapeId, out var atlasEntry)) {
 			return;
 		}
 
@@ -533,7 +547,21 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 		return IsVertical ? thumbFrame.Height : thumbFrame.Width;
 	}
 
-	private static Color ToColor(GT_COLOR color) {
-		return new Color((int)color.Red, (int)color.Green, (int)color.Blue, 255);
+	private static Color ToColor(DrawingColor color) {
+		return new Color(color.R, color.G, color.B, color.A);
+	}
+
+	private static Color ColorAlpha(Color color, float alpha) {
+		return new Color(color.R, color.G, color.B, (int)MathF.Round(255f * Math.Clamp(alpha, 0f, 1f)));
+	}
+
+	private static Color Blend(Color baseColor, Color tint, float tintAmount) {
+		tintAmount = Math.Clamp(tintAmount, 0f, 1f);
+		var baseAmount = 1f - tintAmount;
+		return new Color(
+			(int)MathF.Round((baseColor.R * baseAmount) + (tint.R * tintAmount)),
+			(int)MathF.Round((baseColor.G * baseAmount) + (tint.G * tintAmount)),
+			(int)MathF.Round((baseColor.B * baseAmount) + (tint.B * tintAmount)),
+			(int)MathF.Round((baseColor.A * baseAmount) + (tint.A * tintAmount)));
 	}
 }

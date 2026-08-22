@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Xml.Linq;
 using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
@@ -58,10 +59,10 @@ internal sealed class GT_SLIDERTypeParser : IUtfDbTypeParser {
 
 		return new GT_SLIDER {
 			Type = type,
-			DisabledColor = disabledColor,
-			NormalColor = normalColor,
-			HighlightColor = highlightColor,
-			AlertColor = alertColor,
+			DisabledColor = Color.FromArgb(255, disabledColor.Red, disabledColor.Green, disabledColor.Blue),
+			NormalColor = Color.FromArgb(255, normalColor.Red, normalColor.Green, normalColor.Blue),
+			HighlightColor = Color.FromArgb(255, highlightColor.Red, highlightColor.Green, highlightColor.Blue),
+			AlertColor = Color.FromArgb(255, alertColor.Red, alertColor.Green, alertColor.Blue),
 			Vertical = vertical,
 			Indent = indent,
 			ShapeFile = shapeFile

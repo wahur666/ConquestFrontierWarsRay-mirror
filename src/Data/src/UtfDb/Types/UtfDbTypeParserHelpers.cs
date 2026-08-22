@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.Numerics;
 using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.BT;
 using ConquestFrontierWarsRay.Data.Models.GT;
@@ -529,8 +530,9 @@ internal static class UtfDbTypeParserHelpers {
 		return new SLIDER_DATA {
 			SliderType = ReadAscii32(rawData, ref offset),
 			ScreenRect = ParseRect(rawData, ref offset),
-			XOrigin = ReadInt32(rawData, ref offset),
-			YOrigin = ReadInt32(rawData, ref offset)
+			Origin = new Vector2(
+				ReadInt32(rawData, ref offset),
+				ReadInt32(rawData, ref offset))
 		};
 	}
 

@@ -1,3 +1,4 @@
+using System.Numerics;
 using ConquestFrontierWarsRay.Data.Models;
 
 namespace ConquestFrontierWarsRay.Data.Models.GT;
@@ -55,8 +56,7 @@ public sealed class DIPLOMACYBUTTON_DATA {
 public sealed class SLIDER_DATA {
 	public string SliderType { get; init; } = string.Empty;
 	public RECT ScreenRect { get; init; } = new();
-	public int XOrigin { get; init; }
-	public int YOrigin { get; init; }
+	public Vector2 Origin { get; init; } = Vector2.Zero;
 }
 
 public sealed class DROPDOWN_DATA {
