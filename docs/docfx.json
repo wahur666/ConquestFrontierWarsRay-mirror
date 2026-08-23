@@ -5,7 +5,14 @@
         {
           "src": "..",
           "files": [
-            "src/Framework/Framework.csproj"
+            "src/**/*.csproj"
+          ],
+          "exclude": [
+            "src/Framework.TestApp/**",
+            "src/Conquest/**",
+            "src/Legacy.RaySharp/**",
+            "src/MiniLayout.Demo/**",
+            "src/Runtime.MapGen.Tool/**"
           ]
         }
       ],
@@ -21,12 +28,7 @@
     "content": [
       {
         "files": [
-          "index.md",
-          "framework.md",
-          "plan.md",
-          "framework-pain-points.md",
-          "ui-event-consumption-proposal.md",
-          "basic-layout-containers-proposal.md",
+          "*.md",
           "toc.yml",
           "api/**.yml"
         ]

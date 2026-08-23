@@ -5,16 +5,22 @@
 - name: Frontend of Conquest
   href: Frontend-of-Conquest.md
   items:
+    - name: Overview
+      href: Frontend-of-Conquest.md
     - name: Menu1 Opening Migration Checklist
       href: menu1-opening-migration-checklist.md
 - name: Plan
   href: plan.md
   topicHref: plan.md
   items:
+    - name: Overview
+      href: plan.md
     - name: Framework Pain Points
       href: framework-pain-points.md
       topicHref: framework-pain-points.md
       items:
+        - name: Overview
+          href: framework-pain-points.md
         - name: UI Event Consumption Proposal
           href: ui-event-consumption-proposal.md
         - name: Basic Layout Containers Proposal
