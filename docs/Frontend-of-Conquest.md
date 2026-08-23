@@ -15,6 +15,28 @@ Goals:
    black side bars
 4. keep the port simple enough that later `MiniLayout` work stays optional
 
+## Current Delivery Scope
+
+The current migration target is intentionally narrow:
+
+1. render the `Menu1.xml` `opening` screen
+2. render it as one legacy-authored `800x600` surface inside the current
+   raylib framework
+3. support only the controls needed by that opening screen
+4. stop before modal flow, submenu flow, launcher flow, profile flow, and
+   network flow
+
+Out of scope for this slice:
+
+- `DoMenu_*` transitions
+- modal dialogs
+- submenus such as single-player, options, help, campaign, or network screens
+- lobby/bootstrap behavior from `Menu1.cpp`
+- player-name validation, registry defaults, or render-device probing
+
+This document therefore describes the long-term frontend shape, while the
+first implementation milestone is only the visible `opening` screen.
+
 ## Core Decision
 
 Start with a **fixed-position legacy composer**, not a dynamic layout engine.
@@ -293,6 +315,7 @@ Smallest credible slice:
    - `ANIMATE_DATA`
 4. drive `ANIMATE_DATA` from atlas-based frame playback
 5. render at `1920x1080` using centered pillarboxing
+6. do not yet open modals or submenus when buttons are pressed
 
 This proves:
 
@@ -300,16 +323,19 @@ This proves:
 - viewport transform
 - asset replacement via atlas
 - 1:1 record-to-control materialization
+- a clean separation between display migration and later frontend behavior
 
 ## Follow-Up Slice
 
-After that:
+After the opening screen renders reliably:
 
-1. add `DROPDOWN_DATA`
-2. add `LISTBOX_DATA`
-3. add `SLIDER_DATA`
-4. formalize archetype-resolver interfaces
-5. evaluate whether legacy wrapper names improve code clarity enough to keep
+1. add button interaction wiring for screen-local focus and hover state
+2. choose the next visible `Menu1` section to compose
+3. add `DROPDOWN_DATA`
+4. add `LISTBOX_DATA`
+5. add `SLIDER_DATA`
+6. formalize archetype-resolver interfaces
+7. evaluate whether legacy wrapper names improve code clarity enough to keep
    them permanently
 
 ## Trim UI Node Inventory

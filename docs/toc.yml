@@ -2,6 +2,11 @@
   href: index.md
 - name: Framework Status
   href: framework.md
+- name: Frontend of Conquest
+  href: Frontend-of-Conquest.md
+  items:
+    - name: Menu1 Opening Migration Checklist
+      href: menu1-opening-migration-checklist.md
 - name: Plan
   href: plan.md
   topicHref: plan.md

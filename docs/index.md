@@ -5,6 +5,8 @@ This site combines hand-written framework notes with API reference generated fro
 ## Docs
 
 - [Framework Status](framework.md)
+- [Frontend of Conquest](Frontend-of-Conquest.md)
+- [Menu1 Opening Migration Checklist](menu1-opening-migration-checklist.md)
 - [Framework Pain Points](framework-pain-points.md)
 - [Plan](plan.md)
 - [API Reference](api/ConquestFrontierWarsRay.Framework.yml)
