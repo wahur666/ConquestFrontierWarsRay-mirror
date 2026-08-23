@@ -37,6 +37,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("Hot Rect Events", "Core.UI spike: UiEventSource dispatches raw pointer input into HotRectNode targets and bubbles events upward through parent nodes.", () => new HotRectEventScene()),
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
 			new SceneDefinition("Legacy ListBox", "Core.UI legacy listbox seam with authored GT geometry, imperative item payloads, caret/selection behavior, and shape-backed or primitive drawing.", () => new LegacyListBoxScene()),
+			new SceneDefinition("Legacy Static", "Core.UI legacy static seam with real GT_STATIC archetypes covering shape-only image panels, fill/hash backgrounds, shadowed text, and buddy-button forwarding.", () => new LegacyStaticScene()),
 			new SceneDefinition("Talking Head", "Game-level TalkingHeadPlayer composite built from Sprite nodes, AudioPlayer transport, txt timing data, additive fuzz, and legacy border layout rules.", () => new TalkingHeadScene()),
 			new SceneDefinition("Video Player", "VideoPlayer extracted from the legacy runtime into the framework as a standalone Control node with Media Foundation decoding.", () => new VideoPlayerScene()),
 			new SceneDefinition("Sprites", "CompressedTexture2D, AtlasDefinitionResource, AtlasTexture, and Sprite in one resource-driven scene.", () => new SpriteScene()),
