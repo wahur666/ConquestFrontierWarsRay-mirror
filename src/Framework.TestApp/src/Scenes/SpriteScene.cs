@@ -56,6 +56,12 @@ internal sealed class SpriteScene : ShowcaseScene {
 	};
 	private readonly LegacySliderNode _fpsSlider = new("LegacyFpsSlider");
 	private readonly LegacyDropdownNode _legacyDropdown = new("LegacyDropdownDemo");
+	private readonly LegacyDropdownNode _dropdownNormal = new("LegacyDropdownNormal");
+	private readonly LegacyDropdownNode _dropdownHover = new("LegacyDropdownHover");
+	private readonly LegacyDropdownNode _dropdownDepressed = new("LegacyDropdownDepressed");
+	private readonly LegacyDropdownNode _dropdownFocus = new("LegacyDropdownFocus");
+	private readonly LegacyDropdownNode _dropdownDisabled = new("LegacyDropdownDisabled");
+	private readonly LegacyDropdownNode _dropdownExpanded = new("LegacyDropdownExpanded");
 	private readonly LegacySliderNode _disabledPreviewSlider = new("DisabledPreviewSlider") { Enabled = false };
 	private readonly LegacySliderNode _normalPreviewSlider = new("NormalPreviewSlider");
 	private readonly LegacySliderNode _highlightPreviewSlider = new("HighlightPreviewSlider");
@@ -162,6 +168,12 @@ internal sealed class SpriteScene : ShowcaseScene {
 		AddChild(_dropdownStatusLabel);
 		AddChild(_fpsSlider);
 		AddChild(_legacyDropdown);
+		AddChild(_dropdownNormal);
+		AddChild(_dropdownHover);
+		AddChild(_dropdownDepressed);
+		AddChild(_dropdownFocus);
+		AddChild(_dropdownDisabled);
+		AddChild(_dropdownExpanded);
 		sliderContainer.AddChild(_disabledPreviewSlider);
 		sliderContainer.AddChild(_normalPreviewSlider);
 		sliderContainer.AddChild(_highlightPreviewSlider);
@@ -200,7 +212,14 @@ internal sealed class SpriteScene : ShowcaseScene {
 		UiText.Draw("Normal", 684f, 448f, 14f, new Color(188, 200, 218, 255));
 		UiText.Draw("Highlight", 721f, 448f, 14f, new Color(188, 200, 218, 255));
 		UiText.Draw("Alert", 777f, 448f, 14f, new Color(188, 200, 218, 255));
-		UiText.Draw("The dropdown rows are not loaded from Dropdown!!Medium.xml. Menu code injects them later through AddString/SetDataValue.", 402f, 610f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Dropdown variants: automatic, normal, hover, pressed, focus, disabled, and expanded popup.", 388f, 610f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("Auto", 388f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Normal", 496f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Hover", 604f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Pressed", 712f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Focus", 820f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Disabled", 928f, 640f, 14f, new Color(188, 200, 218, 255));
+		UiText.Draw("Expanded", 1036f, 640f, 14f, new Color(188, 200, 218, 255));
 		Raylib.DrawRectangleLinesEx(new Rectangle(955f, 170f, 250f, 250f), 2f, Color.Gold);
 		UiText.Draw("Active atlas frame", 986f, 432f, 18f, Color.Gold);
 	}
@@ -242,17 +261,44 @@ internal sealed class SpriteScene : ShowcaseScene {
 	private void ConfigureLegacyDropdown() {
 		var buttonArchetype = ReadTypedEntry<GT_BUTTON>("GT_BUTTON", "Button!!DropRace");
 		var listboxArchetype = ReadTypedEntry<GT_LISTBOX>("GT_LISTBOX", "ListBox!!DropRace");
+		var dropdowns = new[] {
+			(_legacyDropdown, 388f, LegacyButtonNode.LegacyButtonVisualState.Automatic),
+			(_dropdownNormal, 496f, LegacyButtonNode.LegacyButtonVisualState.Normal),
+			(_dropdownHover, 604f, LegacyButtonNode.LegacyButtonVisualState.Hovered),
+			(_dropdownDepressed, 712f, LegacyButtonNode.LegacyButtonVisualState.Depressed),
+			(_dropdownFocus, 820f, LegacyButtonNode.LegacyButtonVisualState.KeyboardFocus),
+			(_dropdownDisabled, 928f, LegacyButtonNode.LegacyButtonVisualState.Disabled),
+			(_dropdownExpanded, 1036f, LegacyButtonNode.LegacyButtonVisualState.Depressed)
+		};
 
-		_legacyDropdown.ApplyLegacyDefinition(
+		foreach (var (dropdown, x, visualState) in dropdowns) {
+			ConfigureDropdownVariant(dropdown, buttonArchetype, listboxArchetype, x, 658f, visualState);
+		}
+
+		_legacyDropdown.ControlId = 0x2001;
+		_dropdownFocus.SetKeyboardFocus(true);
+		_dropdownDisabled.EnableDropdown(false);
+		_dropdownExpanded.SetExpandedState(true);
+		_dropdownExpanded.SetKeyboardFocus(true);
+	}
+
+	private void ConfigureDropdownVariant(
+		LegacyDropdownNode dropdown,
+		GT_BUTTON buttonArchetype,
+		GT_LISTBOX listboxArchetype,
+		float x,
+		float y,
+		LegacyButtonNode.LegacyButtonVisualState visualState) {
+		dropdown.ApplyLegacyDefinition(
 			buttonArchetype,
 			listboxArchetype,
 			new DROPDOWN_DATA {
 				DropdownType = "Dropdown!!Medium",
 				ScreenRect = new RECT {
-					Left = 402,
-					Top = 640,
-					Right = 510,
-					Bottom = 675
+					Left = (int)x,
+					Top = (int)y,
+					Right = (int)x + 108,
+					Bottom = (int)y + 25
 				},
 				ButtonData = new BUTTON_DATA {
 					ButtonType = "Button!!DropRace",
@@ -261,8 +307,8 @@ internal sealed class SpriteScene : ShowcaseScene {
 				},
 				ListboxData = new LISTBOX_DATA {
 					ListboxType = "ListBox!!DropRace",
-					XOrigin = 0,
-					YOrigin = 13,
+					XOrigin = (int)x,
+					YOrigin = (int)y + 13,
 					TextArea = new RECT {
 						Left = 6,
 						Top = 6,
@@ -274,15 +320,15 @@ internal sealed class SpriteScene : ShowcaseScene {
 			},
 			_vfxRepository,
 			_utfDbRepository);
-		_legacyDropdown.PopupOffset = new Vector2(0f, _legacyDropdown.Size.Y);
-		_legacyDropdown.ControlId = 0x2001;
-		var killUnits = _legacyDropdown.AddString("Kill units");
-		_legacyDropdown.SetDataValue(killUnits, 0);
-		var killHq = _legacyDropdown.AddString("Kill HQ plats");
-		_legacyDropdown.SetDataValue(killHq, 1);
-		var killPlatfab = _legacyDropdown.AddString("Kill platfab");
-		_legacyDropdown.SetDataValue(killPlatfab, 2);
-		_legacyDropdown.SetCurrentSelection(killUnits);
+		dropdown.ButtonVisualStateOverride = visualState;
+		dropdown.ControlId = 0x2001;
+		var killUnits = dropdown.AddString("Kill units");
+		dropdown.SetDataValue(killUnits, 0);
+		var killHq = dropdown.AddString("Kill HQ plats");
+		dropdown.SetDataValue(killHq, 1);
+		var killPlatfab = dropdown.AddString("Kill platfab");
+		dropdown.SetDataValue(killPlatfab, 2);
+		dropdown.SetCurrentSelection(killUnits);
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {

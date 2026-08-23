@@ -17,17 +17,15 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	private const float MinimumThumbSize = 6f;
 	private const float RepeatIntervalSeconds = 0.2f;
 	private const float ScrollBreakoffDistance = 40f;
+	private readonly LegacyButtonNode _upButton;
+	private readonly LegacyButtonNode _downButton;
 
 	private AtlasFramesResource? _trackArt;
-	private AtlasFramesResource? _upButtonArt;
-	private AtlasFramesResource? _downButtonArt;
 	private bool _dragging;
 	private bool _enabled = true;
 	private bool _horizontal;
-	private bool _hoveredDownButton;
 	private bool _hoveredThumb;
 	private bool _hoveredTrack;
-	private bool _hoveredUpButton;
 	private bool _paging;
 	private bool _pagingActive;
 	private RepeatAction _repeatAction = RepeatAction.None;
@@ -40,6 +38,10 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	private bool _visible;
 
 	public LegacyScrollBarNode(string? name = null) : base(name) {
+		_upButton = AddChild(new LegacyButtonNode($"{Name ?? "LegacyScrollBar"}UpButton"));
+		_upButton.Activated += _ => LineUpRequested?.Invoke(this);
+		_downButton = AddChild(new LegacyButtonNode($"{Name ?? "LegacyScrollBar"}DownButton"));
+		_downButton.Activated += _ => LineDownRequested?.Invoke(this);
 	}
 
 	public event Action<LegacyScrollBarNode, int>? ScrollPositionChanged;
@@ -74,22 +76,24 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 			if (!string.IsNullOrWhiteSpace(archetype.ShapeFile)) {
 				_trackArt = LoadArt(repository, archetype.ShapeFile);
 			}
-
-			if (!string.IsNullOrWhiteSpace(upButtonArchetype.ShapeFile)) {
-				_upButtonArt = LoadArt(repository, upButtonArchetype.ShapeFile);
-			}
-
-			if (!string.IsNullOrWhiteSpace(downButtonArchetype.ShapeFile)) {
-				_downButtonArt = LoadArt(repository, downButtonArchetype.ShapeFile);
-			}
 		}
+
+		_upButton.ApplyLegacyDefinition(upButtonArchetype, repository: repository);
+		_downButton.ApplyLegacyDefinition(downButtonArchetype, repository: repository);
+		_upButton.EnableButton(_enabled);
+		_downButton.EnableButton(_enabled);
+		_upButton.SetVisible(_visible);
+		_downButton.SetVisible(_visible);
 
 		ButtonWidth = ResolveButtonWidth();
 		ButtonHeight = ResolveButtonHeight();
+		UpdateButtonLayout();
 	}
 
 	public void EnableScrollBar(bool enabled) {
 		_enabled = enabled;
+		_upButton.EnableButton(enabled);
+		_downButton.EnableButton(enabled);
 		if (!enabled) {
 			_dragging = false;
 			_paging = false;
@@ -100,6 +104,8 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 
 	public void SetVisible(bool visible) {
 		_visible = visible;
+		_upButton.SetVisible(visible);
+		_downButton.SetVisible(visible);
 		if (!visible) {
 			_dragging = false;
 			_paging = false;
@@ -185,6 +191,7 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 
 	protected override void OnUpdate(float deltaTime) {
 		base.OnUpdate(deltaTime);
+		UpdateButtonLayout();
 
 		if (!_visible || !_enabled || !IsActive || _repeatAction == RepeatAction.None) {
 			return;
@@ -225,9 +232,6 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 				DrawPrimitiveThumb(thumbBounds);
 			}
 		}
-
-		DrawButton(_upButtonArt, GetTopLeftButtonBounds(), _hoveredUpButton, _repeatAction == RepeatAction.LineUp);
-		DrawButton(_downButtonArt, GetBottomRightButtonBounds(), _hoveredDownButton, _repeatAction == RepeatAction.LineDown);
 	}
 
 	protected override void OnDispose() {
@@ -268,8 +272,6 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	}
 
 	private void ClearHover() {
-		_hoveredUpButton = false;
-		_hoveredDownButton = false;
 		_hoveredTrack = false;
 		_hoveredThumb = false;
 	}
@@ -281,11 +283,7 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 
 	private void DisposeArt() {
 		_trackArt?.Dispose();
-		_upButtonArt?.Dispose();
-		_downButtonArt?.Dispose();
 		_trackArt = null;
-		_upButtonArt = null;
-		_downButtonArt = null;
 	}
 
 	private static void DrawFrame(AtlasFramesResource resource, int frameIndex, Rectangle destination) {
@@ -293,21 +291,6 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 		var safeIndex = Math.Clamp(frameIndex, 0, Math.Max(0, resource.Frames.Count - 1));
 		var source = resource.Frames.GetFrameRegion(safeIndex);
 		Raylib.DrawTexturePro(slice.Texture, source, destination, Vector2.Zero, 0f, Color.White);
-	}
-
-	private void DrawButton(AtlasFramesResource? art, Rectangle bounds, bool hovered, bool pressed) {
-		if (bounds.Width <= 0f || bounds.Height <= 0f) {
-			return;
-		}
-
-		if (art is not null) {
-			DrawFrame(art, ResolveButtonFrameIndex(art.Frames.Count, hovered, pressed), bounds);
-			return;
-		}
-
-		var fill = !_enabled ? DisabledColor : pressed ? Darken(BackgroundColor, 0.2f) : hovered ? Lighten(BackgroundColor, 0.12f) : BackgroundColor;
-		Raylib.DrawRectangleRec(bounds, fill);
-		Raylib.DrawRectangleLinesEx(bounds, 1f, _enabled ? Lighten(fill, 0.2f) : DisabledColor);
 	}
 
 	private void DrawPrimitiveThumb(Rectangle thumbBounds) {
@@ -393,26 +376,6 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 		}
 
 		var position = pointerEvent.Position;
-		if (Raylib.CheckCollisionPointRec(position, GetTopLeftButtonBounds())) {
-			UpdateHover(position);
-			_repeatAction = RepeatAction.LineUp;
-			_repeatAccumulator = 0f;
-			InvokeRepeatAction(_repeatAction);
-			pointerEvent.RequestPointerCapture();
-			pointerEvent.MarkHandled();
-			return;
-		}
-
-		if (Raylib.CheckCollisionPointRec(position, GetBottomRightButtonBounds())) {
-			UpdateHover(position);
-			_repeatAction = RepeatAction.LineDown;
-			_repeatAccumulator = 0f;
-			InvokeRepeatAction(_repeatAction);
-			pointerEvent.RequestPointerCapture();
-			pointerEvent.MarkHandled();
-			return;
-		}
-
 		if (!GetThumbActive()) {
 			return;
 		}
@@ -456,12 +419,6 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 
 	private void InvokeRepeatAction(RepeatAction action) {
 		switch (action) {
-			case RepeatAction.LineUp:
-				LineUpRequested?.Invoke(this);
-				break;
-			case RepeatAction.LineDown:
-				LineDownRequested?.Invoke(this);
-				break;
 			case RepeatAction.PageUp:
 				PageUpRequested?.Invoke(this);
 				break;
@@ -471,31 +428,15 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 		}
 	}
 
-	private int ResolveButtonFrameIndex(int frameCount, bool hovered, bool pressed) {
-		if (!_enabled) {
-			return 0;
-		}
-
-		if (pressed) {
-			return Math.Min(frameCount - 1, 3);
-		}
-
-		if (hovered) {
-			return Math.Min(frameCount - 1, 2);
-		}
-
-		return Math.Min(frameCount - 1, 1);
-	}
-
 	private int ResolveButtonHeight() {
-		var upHeight = _upButtonArt?.Frames.GetFrameRegion(0).Height ?? ButtonHeight;
-		var downHeight = _downButtonArt?.Frames.GetFrameRegion(0).Height ?? ButtonHeight;
+		var upHeight = _upButton.Size.Y > 0f ? _upButton.Size.Y : ButtonHeight;
+		var downHeight = _downButton.Size.Y > 0f ? _downButton.Size.Y : ButtonHeight;
 		return (int)MathF.Max(upHeight, downHeight);
 	}
 
 	private int ResolveButtonWidth() {
-		var upWidth = _upButtonArt?.Frames.GetFrameRegion(0).Width ?? ButtonWidth;
-		var downWidth = _downButtonArt?.Frames.GetFrameRegion(0).Width ?? ButtonWidth;
+		var upWidth = _upButton.Size.X > 0f ? _upButton.Size.X : ButtonWidth;
+		var downWidth = _downButton.Size.X > 0f ? _downButton.Size.X : ButtonWidth;
 		var trackWidth = _trackArt is not null && _trackArt.Frames.Count > 1 ? _trackArt.Frames.GetFrameRegion(1).Width : 0f;
 		return (int)MathF.Max(trackWidth, MathF.Max(upWidth, downWidth));
 	}
@@ -515,30 +456,23 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	private void UpdateHover(Vector2 position) {
 		var trackBounds = GetTrackBounds();
 		var thumbBounds = GetThumbBounds();
-		_hoveredUpButton = Raylib.CheckCollisionPointRec(position, GetTopLeftButtonBounds());
-		_hoveredDownButton = Raylib.CheckCollisionPointRec(position, GetBottomRightButtonBounds());
 		_hoveredTrack = Raylib.CheckCollisionPointRec(position, trackBounds);
 		_hoveredThumb = thumbBounds.Width > 0f && thumbBounds.Height > 0f && Raylib.CheckCollisionPointRec(position, thumbBounds);
 		_pagingActive = !_dragging && _paging && _hoveredTrack;
 	}
 
-	private static Color Darken(Color color, float amount) {
-		return Lighten(color, -amount);
-	}
+	private void UpdateButtonLayout() {
+		_upButton.Position = _horizontal ? Vector2.Zero : Vector2.Zero;
+		_downButton.Position = _horizontal
+			? new Vector2(Math.Max(0f, Size.X - ButtonWidth), 0f)
+			: new Vector2(0f, Math.Max(0f, Size.Y - ButtonHeight));
 
-	private static Color Lighten(Color color, float amount) {
-		amount = Math.Clamp(amount, -1f, 1f);
-		return new Color(
-			(int)Math.Clamp(MathF.Round(color.R + (255f * amount)), 0, 255),
-			(int)Math.Clamp(MathF.Round(color.G + (255f * amount)), 0, 255),
-			(int)Math.Clamp(MathF.Round(color.B + (255f * amount)), 0, 255),
-			color.A);
+		_upButton.Size = _horizontal ? new Vector2(ButtonWidth, Size.Y) : new Vector2(Size.X, ButtonHeight);
+		_downButton.Size = _horizontal ? new Vector2(ButtonWidth, Size.Y) : new Vector2(Size.X, ButtonHeight);
 	}
 
 	private enum RepeatAction {
 		None,
-		LineUp,
-		LineDown,
 		PageUp,
 		PageDown
 	}

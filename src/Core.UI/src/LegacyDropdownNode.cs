@@ -1,5 +1,4 @@
 using System.Numerics;
-using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
@@ -18,18 +17,19 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// </remarks>
 public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 	private const float DefaultFontSize = 16f;
-	private const float DefaultTextInset = 8f;
-	private const float DefaultArrowInset = 16f;
+	private readonly LegacyButtonNode _button;
 	private readonly LegacyListBoxNode _listBox;
+	private Vector2 _authoredPopupOffset = Vector2.Zero;
 	private bool _enabled = true;
 	private bool _hasKeyboardFocus;
-	private bool _hoveredButton;
-	private float _buttonTextInset = DefaultTextInset;
 	private float _fontSize = DefaultFontSize;
-	private Vector2 _popupOffset = Vector2.Zero;
+	private Vector2? _popupOffsetOverride;
 	private bool _visible = true;
 
 	public LegacyDropdownNode(string? name = null) : base(name) {
+		_button = AddChild(new LegacyButtonNode($"{Name ?? "LegacyDropdown"}Button"));
+		_button.Activated += _ => ToggleExpanded();
+		_button.ForceDropdownIndicator = true;
 		_listBox = AddChild(new LegacyListBoxNode($"{Name ?? "LegacyDropdown"}ListBox"));
 		_listBox.SelectionCommitted += HandleListBoxSelectionCommitted;
 		_listBox.SetVisible(false);
@@ -43,6 +43,10 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 	}
 
 	public bool IsExpanded { get; private set; }
+	public LegacyButtonNode.LegacyButtonVisualState ButtonVisualStateOverride {
+		get => _button.VisualStateOverride;
+		set => _button.VisualStateOverride = value;
+	}
 
 	public int SelectedIndex => _listBox.GetCurrentSelection();
 
@@ -53,9 +57,9 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 	public IReadOnlyList<string> Items => _listBox.Items;
 
 	public Vector2 PopupOffset {
-		get => _popupOffset;
+		get => _popupOffsetOverride ?? _authoredPopupOffset;
 		set {
-			_popupOffset = value;
+			_popupOffsetOverride = value;
 			ApplyPopupOffset();
 		}
 	}
@@ -69,6 +73,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		get => _fontSize;
 		set {
 			_fontSize = Math.Max(8f, value);
+			_button.TextStyle = TextStyle;
 			_listBox.FontSize = _fontSize;
 		}
 	}
@@ -86,13 +91,19 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		DisabledTextColor = ToColor(buttonArchetype.DisabledText);
 		NormalTextColor = ToColor(buttonArchetype.NormalText);
 		HighlightTextColor = ToColor(buttonArchetype.HighlightText);
-		_buttonTextInset = Math.Max(DefaultTextInset, buttonArchetype.LeftMargin > 0 ? buttonArchetype.LeftMargin : DefaultTextInset);
 
 		var width = Math.Max(0f, data.ScreenRect.Right - data.ScreenRect.Left);
 		var height = Math.Max(0f, data.ScreenRect.Bottom - data.ScreenRect.Top);
 		Size = new Vector2(width, height);
 		Position = new Vector2(data.ScreenRect.Left, data.ScreenRect.Top);
-		_popupOffset = new Vector2(data.ListboxData.XOrigin, data.ListboxData.YOrigin);
+		_button.ApplyLegacyDefinition(buttonArchetype, repository: repository);
+		_button.Size = Size;
+		_button.EnableButton(_enabled);
+		_button.SetVisible(_visible);
+		_button.TextStyle = TextStyle;
+		_button.Position = Vector2.Zero;
+		_authoredPopupOffset = ResolvePopupOffset(data);
+		_popupOffsetOverride = null;
 
 		_listBox.ApplyLegacyDefinition(listboxArchetype, data.ListboxData, repository, utfDbRepository);
 		ApplyPopupOffset();
@@ -106,18 +117,18 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 
 	public void EnableDropdown(bool enabled) {
 		_enabled = enabled;
+		_button.EnableButton(enabled);
 		_listBox.EnableListbox(enabled);
 		if (!_enabled) {
 			_hasKeyboardFocus = false;
-			_hoveredButton = false;
 			SetExpanded(false);
 		}
 	}
 
 	public void SetVisible(bool visible) {
 		_visible = visible;
+		_button.SetVisible(visible);
 		if (!visible) {
-			_hoveredButton = false;
 			SetExpanded(false);
 		} else {
 			UpdateExpandedState();
@@ -126,6 +137,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 
 	public void SetKeyboardFocus(bool enabled) {
 		_hasKeyboardFocus = enabled && _enabled && _visible && Visible;
+		_button.SetKeyboardFocus(_hasKeyboardFocus);
 		UpdateChildFocus();
 		if (!_hasKeyboardFocus) {
 			SetExpanded(false);
@@ -134,6 +146,10 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 
 	public void SetSelectionColor(Color color) {
 		NormalTextColor = color;
+	}
+
+	public void SetExpandedState(bool expanded) {
+		SetExpanded(expanded);
 	}
 
 	public int AddStringToHead(string label) {
@@ -282,22 +298,10 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		}
 
 		switch (pointerEvent.Kind) {
-			case UiPointerEventKind.Enter:
-			case UiPointerEventKind.Move:
-				_hoveredButton = ContainsPoint(pointerEvent.Position);
-				break;
-			case UiPointerEventKind.Leave:
-				_hoveredButton = false;
-				break;
 			case UiPointerEventKind.Down:
 				if (pointerEvent.Button == MouseButton.Left) {
 					HandleLeftPointerDown(pointerEvent);
 				}
-				break;
-			case UiPointerEventKind.Up:
-			case UiPointerEventKind.Click:
-			case UiPointerEventKind.Wheel:
-				_hoveredButton = ContainsPoint(pointerEvent.Position);
 				break;
 		}
 	}
@@ -324,23 +328,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 	}
 
 	protected override void Draw() {
-		if (!_visible || !Visible || Size.X <= 0f || Size.Y <= 0f) {
-			return;
-		}
-
-		var buttonBounds = GlobalBounds;
-		var buttonFill = !_enabled
-			? Blend(new Color(42, 48, 58, 255), Color.Black, 0.25f)
-			: IsExpanded || _hoveredButton ? new Color(52, 58, 70, 255) : new Color(42, 48, 58, 255);
-
-		Raylib.DrawRectangleRec(buttonBounds, buttonFill);
-		Raylib.DrawRectangleLinesEx(buttonBounds, 1f, new Color(132, 146, 168, 220));
-
-		var label = string.IsNullOrEmpty(SelectedLabel) ? Placeholder : SelectedLabel;
-		var buttonTextColor = ResolveButtonTextColor();
-		var buttonTextY = buttonBounds.Y + ((buttonBounds.Height - FontSize) * 0.5f) - 1f;
-		UiText.Draw(label, buttonBounds.X + _buttonTextInset, buttonTextY, FontSize, buttonTextColor, TextStyle);
-		UiText.Draw(IsExpanded ? "^" : "v", buttonBounds.X + buttonBounds.Width - DefaultArrowInset, buttonTextY, FontSize, buttonTextColor, TextStyle);
+		_button.Text = string.IsNullOrEmpty(SelectedLabel) ? Placeholder : SelectedLabel;
 	}
 
 	private void HandleLeftPointerDown(UiPointerEvent pointerEvent) {
@@ -350,15 +338,8 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 
 		_hasKeyboardFocus = true;
 		var position = pointerEvent.Position;
-		var buttonBounds = GlobalBounds;
 
 		if (IsExpanded) {
-			if (Raylib.CheckCollisionPointRec(position, buttonBounds)) {
-				SetExpanded(false);
-				pointerEvent.MarkHandled();
-				return;
-			}
-
 			if (_listBox.HitTest(position)) {
 				if (_listBox.GetCurrentSelection() >= 0) {
 					HandleListBoxSelectionCommitted(_listBox);
@@ -369,13 +350,6 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 			}
 
 			SetExpanded(false);
-			_hoveredButton = false;
-			pointerEvent.MarkHandled();
-			return;
-		}
-
-		if (Raylib.CheckCollisionPointRec(position, buttonBounds)) {
-			SetExpanded(true);
 			pointerEvent.MarkHandled();
 		}
 	}
@@ -392,6 +366,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 
 	private void SetExpanded(bool expanded) {
 		IsExpanded = expanded && _enabled && _visible && Visible && _listBox.GetNumberOfItems() > 0;
+		_button.PushState = IsExpanded;
 		if (IsExpanded) {
 			_listBox.EnsureVisible(_listBox.GetCurrentSelection() >= 0 ? _listBox.GetCurrentSelection() : 0);
 		}
@@ -405,10 +380,11 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 	}
 
 	private void ApplyPopupOffset() {
-		_listBox.Position = _popupOffset;
+		_listBox.Position = _popupOffsetOverride ?? _authoredPopupOffset;
 	}
 
 	private void UpdateChildFocus() {
+		_button.SetKeyboardFocus(_hasKeyboardFocus && !IsExpanded);
 		if (!_hasKeyboardFocus) {
 			_listBox.SetKeyboardFocus(false);
 			return;
@@ -417,29 +393,30 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		_listBox.SetKeyboardFocus(IsExpanded);
 	}
 
-	private Color ResolveButtonTextColor() {
+	private void ToggleExpanded() {
 		if (!_enabled) {
-			return DisabledTextColor;
+			return;
 		}
 
-		if (_hoveredButton || IsExpanded || _hasKeyboardFocus) {
-			return HighlightTextColor;
-		}
-
-		return NormalTextColor;
-	}
-
-	private static Color Blend(Color baseColor, Color tint, float tintAmount) {
-		tintAmount = Math.Clamp(tintAmount, 0f, 1f);
-		var baseAmount = 1f - tintAmount;
-		return new Color(
-			(int)MathF.Round((baseColor.R * baseAmount) + (tint.R * tintAmount)),
-			(int)MathF.Round((baseColor.G * baseAmount) + (tint.G * tintAmount)),
-			(int)MathF.Round((baseColor.B * baseAmount) + (tint.B * tintAmount)),
-			(int)MathF.Round((baseColor.A * baseAmount) + (tint.A * tintAmount)));
+		SetExpanded(!IsExpanded);
 	}
 
 	private static Color ToColor(GT_COLOR color) {
 		return new Color(color.Red, color.Green, color.Blue, (byte)255);
+	}
+
+	private static Vector2 ResolvePopupOffset(DROPDOWN_DATA data) {
+		var x = data.ListboxData.XOrigin;
+		var y = data.ListboxData.YOrigin;
+
+		if (x >= data.ScreenRect.Left) {
+			x -= data.ScreenRect.Left;
+		}
+
+		if (y >= data.ScreenRect.Top) {
+			y -= data.ScreenRect.Top;
+		}
+
+		return new Vector2(x, y);
 	}
 }
