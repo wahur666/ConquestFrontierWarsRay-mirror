@@ -102,16 +102,16 @@ public sealed class SceneTree : IDisposable {
 			previousRoot.ExitTreeRecursive();
 		}
 
+		if (disposeCurrentRoot) {
+			previousRoot.Dispose();
+		}
+
 		_root = newRoot;
 		_root.AttachContextRecursive(_context);
 		_root.InitializeRecursive();
 
 		if (wasRunning) {
 			_root.EnterTreeRecursive();
-		}
-
-		if (disposeCurrentRoot) {
-			previousRoot.Dispose();
 		}
 	}
 

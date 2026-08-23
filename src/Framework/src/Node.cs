@@ -233,10 +233,18 @@ public class Node : IDisposable {
 	/// Runs per-frame update traversal for this node and its descendants.
 	/// </summary>
 	public void UpdateRecursive(float deltaTime) {
+		if (_disposed) {
+			return;
+		}
+
 		OnUpdate(deltaTime);
 
-		foreach (var child in _children) {
-			child.UpdateRecursive(deltaTime);
+		for (var i = 0; i < _children.Count; i++) {
+			if (_disposed) {
+				return;
+			}
+
+			_children[i].UpdateRecursive(deltaTime);
 		}
 	}
 
@@ -244,10 +252,18 @@ public class Node : IDisposable {
 	/// Runs per-frame draw traversal for this node and its descendants.
 	/// </summary>
 	public virtual void DrawRecursive() {
+		if (_disposed) {
+			return;
+		}
+
 		OnDraw();
 
-		foreach (var child in _children) {
-			child.DrawRecursive();
+		for (var i = 0; i < _children.Count; i++) {
+			if (_disposed) {
+				return;
+			}
+
+			_children[i].DrawRecursive();
 		}
 	}
 

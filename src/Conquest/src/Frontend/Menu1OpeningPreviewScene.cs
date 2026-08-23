@@ -20,7 +20,9 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 		_eventSource.ScopeRoot = this;
 		AddChild(_eventSource);
 		AddChild(_legacyMenuRoot);
+	}
 
+	protected override void OnInitialize() {
 		try {
 			var opening = new Menu1OpeningDataReader().ReadOpening();
 			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(opening));
@@ -38,50 +40,67 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
 	private readonly List<AtlasFramesResource> _atlasResources = [];
+	private readonly Menu1OpeningData _opening;
 	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
+	private AudioPlayer? _musicPlayer;
 
 	public Menu1OpeningPreviewSurface(Menu1OpeningData opening) : base("Menu1OpeningPreviewSurface") {
 		ArgumentNullException.ThrowIfNull(opening);
+		_opening = opening;
 		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
+	}
 
-		AddStaticNode("Background", opening.Background);
-		var btnSingle = AddButtonNode("Single", opening.Single);
-		var btnMulti = AddButtonNode("Multi", opening.Multi);
-		var btnIntro = AddButtonNode("Intro", opening.Intro);
-		var btnOptions = AddButtonNode("Options", opening.Options);
-		var btnHelp = AddButtonNode("Help", opening.Help);
-		var btnQuit = AddButtonNode("Quit", opening.Quit);
-		AddStaticNode("StaticSingle", opening.StaticSingle);
-		AddStaticNode("StaticMulti", opening.StaticMulti);
-		AddStaticNode("StaticIntro", opening.StaticIntro);
-		AddStaticNode("StaticOptions", opening.StaticOptions);
-		AddStaticNode("StaticHelp", opening.StaticHelp);
-		var animMedia = AddAnimationNode("AnimMedia", opening.AnimMedia);
-		var animSingle = AddAnimationNode("AnimSingle", opening.AnimSingle);
-		var animMulti = AddAnimationNode("AnimMulti", opening.AnimMulti);
-		var animOptions = AddAnimationNode("AnimOptions", opening.AnimOptions);
-		var animQuestion = AddAnimationNode("AnimQuestion", opening.AnimQuestion);
+	protected override void OnInitialize() {
+		AddStaticNode("Background", _opening.Background);
+		var btnSingle = AddButtonNode("Single", _opening.Single);
+		var btnMulti = AddButtonNode("Multi", _opening.Multi);
+		var btnIntro = AddButtonNode("Intro", _opening.Intro);
+		var btnOptions = AddButtonNode("Options", _opening.Options);
+		var btnHelp = AddButtonNode("Help", _opening.Help);
+		var btnQuit = AddButtonNode("Quit", _opening.Quit);
+		AddStaticNode("StaticSingle", _opening.StaticSingle);
+		AddStaticNode("StaticMulti", _opening.StaticMulti);
+		AddStaticNode("StaticIntro", _opening.StaticIntro);
+		AddStaticNode("StaticOptions", _opening.StaticOptions);
+		AddStaticNode("StaticHelp", _opening.StaticHelp);
+		var animMedia = AddAnimationNode("AnimMedia", _opening.AnimMedia);
+		var animSingle = AddAnimationNode("AnimSingle", _opening.AnimSingle);
+		var animMulti = AddAnimationNode("AnimMulti", _opening.AnimMulti);
+		var animOptions = AddAnimationNode("AnimOptions", _opening.AnimOptions);
+		var animQuestion = AddAnimationNode("AnimQuestion", _opening.AnimQuestion);
 		ConnectButtonHover(btnSingle, animSingle);
 		ConnectButtonHover(btnMulti, animMulti);
 		ConnectButtonHover(btnIntro, animMedia);
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
+		btnIntro.Activated += _ => OpenMovie("Assets\\Movies\\cq_intro.mp4");
 		btnQuit.Activated += _ => RequestQuit();
-		AddStaticNode("StaticLegal", opening.StaticLegal);
-		AddMusic();
+		AddStaticNode("StaticLegal", _opening.StaticLegal);
+		_musicPlayer = AddMusicPlayer();
 	}
 
-	private void AddMusic() {
-		var audioPlayer = new AudioPlayer("AudioPlayer") {
+	protected override void OnExitTree() {
+		_musicPlayer?.Stop();
+		base.OnExitTree();
+	}
+
+	private void OpenMovie(string moviePath) {
+		_musicPlayer?.Stop();
+		Tree.ChangeRoot(new MovieScene(moviePath, () => new Menu1OpeningPreviewScene()));
+	}
+
+	private AudioPlayer AddMusicPlayer() {
+		var audioPlayer = AddChild(new AudioPlayer("AudioPlayer") {
 			Looping = true
-		};
+		});
 		var music = new NAudioStreamResource(Path.GetFullPath(Path.Join(RepoPaths.LocateAssetsRoot(), "conquest_frontier_wars_ost", "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3")));
 		audioPlayer.SetAudio(music, true, true);
 		audioPlayer.Play();
+		return audioPlayer;
 	}
 
 	private static void ConnectButtonHover(LegacyButtonNode button, AnimatedSprite2D? animation) {
