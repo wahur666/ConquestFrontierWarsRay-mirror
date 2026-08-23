@@ -19,9 +19,11 @@ internal static class Program {
 
 		using var app = new RaylibApplication(options);
 		app.Bootstrap();
+		app.Shared.Set(options);
+		app.Shared.Set("startup.args", args);
 
 		var root = CreateStartupRoot(args);
-		var tree = new SceneTree(root, new InputManager());
+		var tree = new SceneTree(root, new InputManager(), app.Shared);
 		app.Run(tree);
 	}
 

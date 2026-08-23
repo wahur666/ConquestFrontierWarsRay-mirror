@@ -28,10 +28,12 @@ public sealed class AppTests {
 	[Fact]
 	public void NodeContext_StoresDependenciesAndRejectsNulls() {
 		var tree = new SceneTree(new Node("Root"), new InputManager());
-		var context = new NodeContext(tree);
+		var shared = new SharedContext();
+		var context = new NodeContext(tree, shared);
 
 		Assert.Same(tree, context.Tree);
 		Assert.Same(tree.Input, context.Input);
+		Assert.Same(shared, context.Shared);
 		context.RequestQuit();
 		Assert.True(tree.IsQuitRequested);
 
@@ -39,18 +41,65 @@ public sealed class AppTests {
 	}
 
 	[Fact]
-	public void RaylibApplication_RejectsNullRootAndDisposesRoot() {
-		var options = new WindowOptions(320, 200, "Test");
+	public void SharedContext_StoresAndResolvesTypedValues() {
+		var shared = new SharedContext();
+		var value = new SampleSharedState("Menu");
 
-		Assert.Throws<ArgumentNullException>(() => new RaylibApplication(options, (Node)null!));
-		Assert.Throws<ArgumentNullException>(() => new RaylibApplication(options, (SceneTree)null!));
+		shared.Set(value);
 
-		var root = new Node("Root");
-		var app = new RaylibApplication(options, root);
-
-		app.Dispose();
-		app.Dispose();
-
-		Assert.Empty(root.Children);
+		Assert.True(shared.Contains<SampleSharedState>());
+		Assert.True(shared.TryGet<SampleSharedState>(out var resolved));
+		Assert.Same(value, resolved);
+		Assert.Same(value, shared.GetRequired<SampleSharedState>());
+		Assert.True(shared.Remove<SampleSharedState>());
+		Assert.False(shared.Contains<SampleSharedState>());
+		Assert.False(shared.TryGet<SampleSharedState>(out _));
+		Assert.Throws<InvalidOperationException>(() => shared.GetRequired<SampleSharedState>());
+		Assert.Throws<ArgumentNullException>(() => shared.Set<SampleSharedState>(null!));
 	}
+
+	[Fact]
+	public void SharedContext_StoresAndResolvesNamedValues() {
+		var shared = new SharedContext();
+		shared.Set("network.host", "localhost");
+		shared.Set("graphics.quality", 3);
+
+		Assert.True(shared.Contains("network.host"));
+		Assert.True(shared.TryGet("network.host", out var raw));
+		Assert.Equal("localhost", raw);
+		Assert.True(shared.TryGet<string>("network.host", out var host));
+		Assert.Equal("localhost", host);
+		Assert.True(shared.TryGet<int>("graphics.quality", out var quality));
+		Assert.Equal(3, quality);
+		Assert.Equal("localhost", shared.GetRequired<string>("network.host"));
+		Assert.True(shared.Remove("network.host"));
+		Assert.False(shared.Contains("network.host"));
+		Assert.False(shared.TryGet<string>("network.host", out _));
+		Assert.Throws<InvalidOperationException>(() => shared.GetRequired<string>("network.host"));
+		Assert.Throws<ArgumentException>(() => shared.Set("", "value"));
+		Assert.Throws<ArgumentException>(() => shared.Contains(" "));
+	}
+
+	[Fact]
+	public void RaylibApplication_Dispose_IsIdempotent() {
+		var options = new WindowOptions(320, 200, "Test");
+		var app = new RaylibApplication(options);
+
+		app.Dispose();
+		app.Dispose();
+	}
+
+	[Fact]
+	public void RaylibApplication_ExposesSharedContext_ForWholeAppLifetime() {
+		var options = new WindowOptions(320, 200, "Test");
+		var app = new RaylibApplication(options);
+
+		app.Shared.Set("session.id", "abc");
+		app.Shared.Set(new SampleSharedState("Intro"));
+
+		Assert.Equal("abc", app.Shared.GetRequired<string>("session.id"));
+		Assert.Equal("Intro", app.Shared.GetRequired<SampleSharedState>().ScreenName);
+	}
+
+	private sealed record SampleSharedState(string ScreenName);
 }

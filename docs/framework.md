@@ -37,8 +37,10 @@ concept.
   - quit flow
   - root switching
   - whole-tree update/draw orchestration
+  - access to the shared app-lifetime context exposed through `SceneTree.Shared`
 - The main loop lives in `Windowing`:
   - `RaylibApplication` owns the raylib window lifecycle and frame loop
+  - `RaylibApplication.Shared` owns the app-lifetime shared state bag
   - `WindowOptions` configures window setup
 - The application exits when:
   - the active `SceneTree` receives a quit request
@@ -69,6 +71,10 @@ concept.
   - `VideoPlayer`
 - Lifecycle, composition, transform behavior, and node-specific usage notes
   should now be maintained on those classes instead of here.
+- Every node attached to a running tree can access the same shared app-lifetime
+  data bag through the protected `Node.Shared` property.
+- Use named keys for loose state such as options, flags, or cached values, and
+  typed entries for long-lived services such as network clients or repositories.
 - The current 2D sprite split is:
   1. `Sprite` for drawing one resolved texture or one indexed frame from a
      shared frame collection

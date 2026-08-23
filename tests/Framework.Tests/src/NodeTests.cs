@@ -92,9 +92,12 @@ public sealed class NodeTests {
 		var root = new TestNode("Root");
 		var child = root.AddChild(new TestNode("Child"));
 		var grandChild = child.AddChild(new TestNode("GrandChild"));
-		var tree = new SceneTree(root, new InputManager());
+		var shared = new SharedContext();
+		var state = new SharedNodeState("Ready");
+		shared.Set(state);
+		var tree = new SceneTree(root, new InputManager(), shared);
 
-		root.AttachContextRecursive(new NodeContext(tree));
+		root.AttachContextRecursive(new NodeContext(tree, shared));
 		root.InitializeRecursive();
 		root.EnterTreeRecursive();
 		root.UpdateRecursive(0.25f);
@@ -104,6 +107,8 @@ public sealed class NodeTests {
 
 		Assert.Same(tree, grandChild.ExposedTree);
 		Assert.Same(tree.Input, grandChild.ExposedInput);
+		Assert.Same(shared, grandChild.ExposedShared);
+		Assert.Same(state, grandChild.ExposedShared.GetRequired<SharedNodeState>());
 		Assert.True(tree.IsQuitRequested);
 		Assert.Equal(["Root:Initialize", "Root:EnterTree", "Root:ExitTree"], root.LifecycleEvents);
 		Assert.Equal(["Child:Initialize", "Child:EnterTree", "Child:ExitTree"], child.LifecycleEvents);
@@ -121,6 +126,7 @@ public sealed class NodeTests {
 		var node = new TestNode("Node");
 
 		Assert.Throws<InvalidOperationException>(() => _ = node.ExposedInput);
+		Assert.Throws<InvalidOperationException>(() => _ = node.ExposedShared);
 		Assert.Throws<InvalidOperationException>(() => node.ExposedRequestQuit());
 	}
 
@@ -136,4 +142,6 @@ public sealed class NodeTests {
 		Assert.Null(child.Parent);
 		Assert.Empty(root.Children);
 	}
+
+	private sealed record SharedNodeState(string Status);
 }

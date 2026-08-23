@@ -11,16 +11,21 @@ public sealed class SceneTree : IDisposable {
 	/// <summary>
 	/// Creates a scene tree with one active root node.
 	/// </summary>
-	public SceneTree(Node root, InputManager input) {
+	public SceneTree(Node root, InputManager input, SharedContext? shared = null) {
 		_root = root ?? throw new ArgumentNullException(nameof(root));
 		Input = input ?? throw new ArgumentNullException(nameof(input));
-		_context = new NodeContext(this);
+		_context = new NodeContext(this, shared);
 	}
 
 	/// <summary>
 	/// Shared input manager for the whole tree.
 	/// </summary>
 	public InputManager Input { get; }
+
+	/// <summary>
+	/// Shared data bag visible to every node attached to this tree.
+	/// </summary>
+	public SharedContext Shared => _context.Shared;
 
 	/// <summary>
 	/// Current active root node.

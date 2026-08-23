@@ -78,6 +78,19 @@ public class Node : IDisposable {
 	}
 
 	/// <summary>
+	/// Shared per-tree data bag available to every attached node.
+	/// </summary>
+	protected SharedContext Shared {
+		get {
+			if (_context is null) {
+				throw new InvalidOperationException($"Node '{Name}' is not attached to a runtime context.");
+			}
+
+			return _context.Shared;
+		}
+	}
+
+	/// <summary>
 	/// Removes the node from the tree and disposes its children.
 	/// </summary>
 	public void Dispose() {

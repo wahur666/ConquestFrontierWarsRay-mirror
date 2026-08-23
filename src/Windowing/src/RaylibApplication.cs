@@ -25,6 +25,11 @@ public sealed class RaylibApplication : IDisposable {
 	}
 
 	/// <summary>
+	/// Shared application state that can outlive individual scene roots and trees.
+	/// </summary>
+	public SharedContext Shared { get; } = new();
+
+	/// <summary>
 	/// Releases the root node and closes the window.
 	/// </summary>
 	public void Dispose() {

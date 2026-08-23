@@ -15,6 +15,8 @@ internal sealed class TestNode : Node {
 
 	public SceneTree ExposedTree => Tree;
 
+	public SharedContext ExposedShared => Shared;
+
 	public void ExposedRequestQuit() {
 		RequestQuit();
 	}
