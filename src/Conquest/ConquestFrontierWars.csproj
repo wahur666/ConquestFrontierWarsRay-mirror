@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.UI\Core.UI.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
     <ProjectReference Include="..\Gloabls\Gloabls.csproj" />
     <ProjectReference Include="..\Math3D\Math3D.csproj" />
     <ProjectReference Include="..\Runtime.Collision\Runtime.Collision.csproj" />
