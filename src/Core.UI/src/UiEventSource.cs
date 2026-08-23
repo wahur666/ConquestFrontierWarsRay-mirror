@@ -106,12 +106,12 @@ public sealed class UiEventSource : Node {
 	}
 
 	private static void CollectTargets(Node node, List<PointerTarget> targets) {
-		foreach (var child in node.Children) {
-			CollectTargets(child, targets);
-		}
-
 		if (node is IUiPointerEventHandler handler) {
 			targets.Add(new PointerTarget(node, handler));
+		}
+
+		foreach (var child in node.Children) {
+			CollectTargets(child, targets);
 		}
 	}
 

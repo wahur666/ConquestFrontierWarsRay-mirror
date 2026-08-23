@@ -191,6 +191,7 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 			CreateListBoxData("ListBox!!DropColor", 604, 238, 6, 6, 36, 120, includeScrollbar: true),
 			repository: null,
 			utfDbRepository: _utfDbRepository);
+		_primitiveListBox.SetKeyboardFocus(true);
 
 		PopulateList(_artListBox);
 		PopulateList(_primitiveListBox);

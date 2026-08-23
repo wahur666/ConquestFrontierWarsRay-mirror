@@ -21,7 +21,6 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	private const float DefaultHorizontalPadding = 6f;
 	private const float DefaultVerticalPadding = 1f;
 	private const float ScrollBarHorizontalScale = 0.55f;
-	private const float ScrollBarInset = -5f;
 	private readonly List<ItemEntry> _items = [];
 	private AtlasFramesResource? _art;
 	private bool _enabled = true;
@@ -80,7 +79,12 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	public Color SelectedTextGrayedColor { get; private set; } = new(80, 80, 80, 255);
 	public Color PrimitiveBackgroundFill { get; set; } = Color.Black;
 	public Color PrimitiveOutline { get; set; } = new(140, 140, 160, 255);
+	public float ArtScrollBarOffsetX { get; set; } = 0f;
+	public float PrimitiveScrollBarOffsetX { get; set; } = 0f;
 	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
+
+	private bool IsPrimitive => _art is null;
+	private float ScrollBarOffset => IsPrimitive ? PrimitiveScrollBarOffsetX : ArtScrollBarOffsetX;
 
 	public IReadOnlyList<string> Items => _items.Select(static item => item.Label).ToArray();
 
@@ -113,11 +117,12 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		}
 
 		Position = new Vector2(data.XOrigin, data.YOrigin);
+		ConfigureScrollBar(utfDbRepository, repository);
 		var width = ResolveConfiguredWidth();
 		var height = ResolveConfiguredHeight();
 		Size = new Vector2(width, height);
 		RecalculateTextMetrics();
-		ConfigureScrollBar(utfDbRepository, repository);
+		ConfigureScrollBarLayout();
 		EnsureVisible(SelectedIndex >= 0 ? SelectedIndex : 0);
 		UpdateScrollBarState();
 	}
@@ -649,13 +654,13 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		}
 
 		if (SolidBackground && !NoBorder) {
-			Raylib.DrawRectangleRec(GetGlobalTextBounds(bounds), PrimitiveBackgroundFill);
-			Raylib.DrawRectangleLinesEx(GetGlobalTextBounds(bounds), 1f, PrimitiveOutline);
+			Raylib.DrawRectangleRec(bounds, PrimitiveBackgroundFill);
+			Raylib.DrawRectangleLinesEx(bounds, 1f, PrimitiveOutline);
 			return;
 		}
 
 		if (!NoBorder) {
-			Raylib.DrawRectangleLinesEx(GetGlobalTextBounds(bounds), 1f, PrimitiveOutline);
+			Raylib.DrawRectangleLinesEx(bounds, 1f, PrimitiveOutline);
 		}
 	}
 
@@ -667,20 +672,25 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	}
 
 	private Rectangle GetGlobalTextBounds(Rectangle bounds) {
-		var right = _textArea.Right > 0 ? _textArea.Right : (int)bounds.Width;
+		var right = _textArea.Right > 0 ? _textArea.Right + 1f : bounds.Width;
 		var bottom = _textArea.Bottom > 0 ? _textArea.Bottom : (int)bounds.Height;
-		var reservedWidth = GetScrollBarReservedWidth();
 		return new Rectangle(
 			bounds.X + _textArea.Left,
 			bounds.Y + _textArea.Top,
-			Math.Max(0f, right - _textArea.Left + 1 - reservedWidth),
+			Math.Max(0f, right - _textArea.Left),
 			Math.Max(0f, bottom - _textArea.Top + 1));
 	}
 
-	private float GetScrollBarReservedWidth() {
-		return _scrollBar is not null && _scrollBarRequested && _scrollBar.IsActive && !_scrollBar.IsHorizontal
-			? (_scrollBar.ButtonWidth * ScrollBarHorizontalScale) + ScrollBarInset
-			: 0f;
+	private float GetScrollBarOffsetWidth() {
+		if (_scrollBar is null) {
+			return 0f;
+		}
+
+		return _scrollBar.ButtonWidth * ScrollBarHorizontalScale;
+	}
+
+	private float GetScrollBarRightPadding() {
+		return Math.Max(0f, ScrollBarOffset);
 	}
 
 	private int GetHoveredIndex() {
@@ -788,21 +798,23 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	}
 
 	private float ResolveConfiguredHeight() {
-		if (_art is not null) {
-			return _art.Frames.GetFrameRegion(0).Height;
-		}
-
-		var bottom = _textArea.Bottom > 0 ? _textArea.Bottom : _textArea.Top;
-		return Math.Max(0f, bottom - _textArea.Top + 1);
+		return GetBaseConfiguredHeight();
 	}
 
 	private float ResolveConfiguredWidth() {
-		if (_art is not null) {
-			return _art.Frames.GetFrameRegion(0).Width;
-		}
+		return GetBaseConfiguredWidth() + GetScrollBarLaneWidth();
+	}
 
-		var right = _textArea.Right > 0 ? _textArea.Right : _textArea.Left;
-		return Math.Max(0f, right - _textArea.Left + 1);
+	private float GetBaseConfiguredHeight() {
+		return _art is not null
+			? _art.Frames.GetFrameRegion(0).Height
+			: Math.Max(0f, (_textArea.Bottom > 0 ? _textArea.Bottom : _textArea.Top) + 1f);
+	}
+
+	private float GetBaseConfiguredWidth() {
+		return _art is not null
+			? _art.Frames.GetFrameRegion(0).Width
+			: Math.Max(0f, (_textArea.Right > 0 ? _textArea.Right : _textArea.Left) + 1f);
 	}
 
 	private Color ResolveItemTextColor(ItemEntry item, bool hovered) {
@@ -877,7 +889,20 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 
 		_scrollBar.Scale = new Vector2(ScrollBarHorizontalScale, 1f);
 		_scrollBar.Size = new Vector2(_scrollBar.ButtonWidth, Size.Y);
-		_scrollBar.Position = new Vector2(Size.X, 0f);
+		var basePosition = new Vector2(GetScrollBarLaneStartX(), 0f);
+		_scrollBar.Position = basePosition + new Vector2(ScrollBarOffset, 0f);
+	}
+
+	private float GetScrollBarLaneStartX() {
+		return Math.Max(0f, GetBaseConfiguredWidth());
+	}
+
+	private float GetScrollBarLaneWidth() {
+		if (!_scrollBarRequested) {
+			return 0f;
+		}
+
+		return GetScrollBarOffsetWidth() + GetScrollBarRightPadding();
 	}
 
 	private static T ReadTypedEntry<T>(UtfDbRepository repository, string typeName, string fileName) where T : class {

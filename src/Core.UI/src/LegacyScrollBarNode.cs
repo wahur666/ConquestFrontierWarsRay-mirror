@@ -167,6 +167,19 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 			case UiPointerEventKind.Click:
 				UpdateHover(pointerEvent.Position);
 				break;
+			case UiPointerEventKind.Wheel:
+				if (!_enabled || !_visible || !IsActive) {
+					break;
+				}
+
+				if (pointerEvent.WheelDelta >= 0f) {
+					LineUpRequested?.Invoke(this);
+				} else {
+					LineDownRequested?.Invoke(this);
+				}
+
+				pointerEvent.MarkHandled();
+				break;
 		}
 	}
 
