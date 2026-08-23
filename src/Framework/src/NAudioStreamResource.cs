@@ -1,12 +1,11 @@
-using ConquestFrontierWarsRay.Framework;
 using NAudio.Wave;
 
-namespace ConquestFrontierWarsRay.Framework.TestApp;
+namespace ConquestFrontierWarsRay.Framework;
 
 /// <summary>
 /// Windows-only test-app audio resource backed by NAudio.
 /// </summary>
-internal sealed class NAudioStreamResource : AudioStreamResource {
+public sealed class NAudioStreamResource : AudioStreamResource {
 	private AudioFileReader? _reader;
 	private WaveChannel32? _channel;
 	private WaveOutEvent? _output;

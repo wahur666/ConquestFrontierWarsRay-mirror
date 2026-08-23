@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
-using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
@@ -12,9 +13,12 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay;
 
 internal sealed class Menu1OpeningPreviewScene : Node2D {
+	private readonly UiEventSource _eventSource = new("Menu1OpeningEventSource");
 	private readonly LegacyMenuRoot _legacyMenuRoot = new("LegacyMenuRoot");
 
 	public Menu1OpeningPreviewScene() : base("Menu1OpeningPreviewScene") {
+		_eventSource.ScopeRoot = this;
+		AddChild(_eventSource);
 		AddChild(_legacyMenuRoot);
 
 		try {
@@ -32,8 +36,8 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 }
 
 internal sealed class Menu1OpeningPreviewSurface : Node2D {
-	private static readonly Color ButtonMarker = new(102, 208, 142, 255);
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
+	private readonly List<AtlasFramesResource> _atlasResources = [];
 	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
@@ -45,29 +49,67 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_strings = LegacyRcStringResolver.LoadFromRepo();
 
 		AddStaticNode("Background", opening.Background);
-		AddButtonMarker("Single", opening.Single);
-		AddButtonMarker("Multi", opening.Multi);
-		AddButtonMarker("Intro", opening.Intro);
-		AddButtonMarker("Options", opening.Options);
-		AddButtonMarker("Help", opening.Help);
-		AddButtonMarker("Quit", opening.Quit);
+		var btnSingle = AddButtonNode("Single", opening.Single);
+		var btnMulti = AddButtonNode("Multi", opening.Multi);
+		var btnIntro = AddButtonNode("Intro", opening.Intro);
+		var btnOptions = AddButtonNode("Options", opening.Options);
+		var btnHelp = AddButtonNode("Help", opening.Help);
+		var btnQuit = AddButtonNode("Quit", opening.Quit);
 		AddStaticNode("StaticSingle", opening.StaticSingle);
 		AddStaticNode("StaticMulti", opening.StaticMulti);
 		AddStaticNode("StaticIntro", opening.StaticIntro);
 		AddStaticNode("StaticOptions", opening.StaticOptions);
 		AddStaticNode("StaticHelp", opening.StaticHelp);
-		AddAnimationMarker("AnimMedia", opening.AnimMedia);
-		AddAnimationMarker("AnimSingle", opening.AnimSingle);
-		AddAnimationMarker("AnimMulti", opening.AnimMulti);
-		AddAnimationMarker("AnimOptions", opening.AnimOptions);
-		AddAnimationMarker("AnimQuestion", opening.AnimQuestion);
+		var animMedia = AddAnimationNode("AnimMedia", opening.AnimMedia);
+		var animSingle = AddAnimationNode("AnimSingle", opening.AnimSingle);
+		var animMulti = AddAnimationNode("AnimMulti", opening.AnimMulti);
+		var animOptions = AddAnimationNode("AnimOptions", opening.AnimOptions);
+		var animQuestion = AddAnimationNode("AnimQuestion", opening.AnimQuestion);
+		ConnectButtonHover(btnSingle, animSingle);
+		ConnectButtonHover(btnMulti, animMulti);
+		ConnectButtonHover(btnIntro, animMedia);
+		ConnectButtonHover(btnOptions, animOptions);
+		ConnectButtonHover(btnHelp, animQuestion);
+		btnQuit.Activated += _ => RequestQuit();
 		AddStaticNode("StaticLegal", opening.StaticLegal);
+		AddMusic();
 	}
 
-	private void AddButtonMarker(string label, BUTTON_DATA button) {
-		var width = Math.Max(36f, button.ButtonArea.Right - button.ButtonArea.Left);
-		var height = Math.Max(18f, button.ButtonArea.Bottom - button.ButtonArea.Top);
-		AddMarker(label, new Vector2(button.XOrigin, button.YOrigin), new Vector2(width, height), ButtonMarker);
+	private void AddMusic() {
+		var audioPlayer = new AudioPlayer("AudioPlayer") {
+			Looping = true
+		};
+		var music = new NAudioStreamResource(Path.GetFullPath(Path.Join(RepoPaths.LocateAssetsRoot(), "conquest_frontier_wars_ost", "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3")));
+		audioPlayer.SetAudio(music, true, true);
+		audioPlayer.Play();
+	}
+
+	private static void ConnectButtonHover(LegacyButtonNode button, AnimatedSprite2D? animation) {
+		if (animation is null) {
+			return;
+		}
+
+		button.Entered += _ => {
+			animation.Visible = true;
+			animation.Play();
+		};
+		button.Exited += _ => {
+			animation.Visible = false;
+			animation.Pause();
+		};
+	}
+
+	private LegacyButtonNode AddButtonNode(string label, BUTTON_DATA data) {
+		var archetype = ReadTypedEntry<GT_BUTTON>("GT_BUTTON", data.ButtonType);
+		var node = new LegacyButtonNode(label);
+
+		node.ApplyLegacyDefinition(archetype, data, _vfxRepository);
+		if (_strings.TryResolve(data.ButtonText, out var text) && !string.IsNullOrWhiteSpace(text)) {
+			node.Text = text;
+		}
+
+		AddChild(node);
+		return node;
 	}
 
 	private void AddStaticNode(string label, STATIC_DATA data) {
@@ -81,8 +123,28 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		AddChild(node);
 	}
 
-	private void AddAnimationMarker(string label, ANIMATE_DATA animation) {
-		AddMarker(label, new Vector2(animation.XOrigin, animation.YOrigin), new Vector2(34f, 34f), AnimationMarker);
+	private AnimatedSprite2D? AddAnimationNode(string label, ANIMATE_DATA data) {
+		var archetype = ReadTypedEntry<GT_ANIMATE>("GT_ANIMATE", data.AnimateType);
+		var vfxData = _vfxRepository.Load();
+		if (!vfxData.TryGetAtlasByVfxShapeId(archetype.VfxType, out var atlasEntry)) {
+			AddMarker(label, new Vector2(data.XOrigin, data.YOrigin), new Vector2(34f, 34f), AnimationMarker);
+			return null;
+		}
+
+		var atlas = new AtlasFramesResource(
+			_vfxRepository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: false),
+			_vfxRepository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: true));
+		_atlasResources.Add(atlas);
+
+		var node = new AnimatedSprite2D(atlas.Frames, label) {
+			Position = new Vector2(data.XOrigin, data.YOrigin),
+			Pivot = Vector2.Zero,
+			Loop = true,
+			SpeedFps = 15,
+			Visible = false
+		};
+		AddChild(node);
+		return node;
 	}
 
 	private void AddMarker(string label, Vector2 position, Vector2 size, Color color) {
@@ -98,7 +160,17 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
 		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
-			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
+		       ?? throw new InvalidOperationException(
+			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
+	}
+
+	protected override void OnDispose() {
+		for (var index = _atlasResources.Count - 1; index >= 0; index--) {
+			_atlasResources[index].Dispose();
+		}
+
+		_atlasResources.Clear();
+		base.OnDispose();
 	}
 }
 

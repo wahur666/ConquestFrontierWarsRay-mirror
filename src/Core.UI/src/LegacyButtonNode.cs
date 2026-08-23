@@ -29,6 +29,7 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 	private GT_BUTTON_TYPE _buttonType;
 	private bool _enabled = true;
 	private bool _hovered;
+	private bool _lastHovered;
 	private bool _keyboardFocus;
 	private bool _keyboardPressed;
 	private bool _pointerPressed;
@@ -41,6 +42,9 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 
 	public event Action<LegacyButtonNode>? Activated;
 	public event Action<LegacyButtonNode>? RepeatActivated;
+
+	public event Action<LegacyButtonNode>? Entered;
+	public event Action<LegacyButtonNode>? Exited;
 
 	public uint ControlId { get; set; }
 	public string Text { get; set; } = string.Empty;
@@ -96,6 +100,7 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 		_enabled = enabled;
 		if (!_enabled) {
 			_hovered = false;
+			_lastHovered = _hovered;
 			_keyboardFocus = false;
 			_keyboardPressed = false;
 			_pointerPressed = false;
@@ -107,6 +112,7 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 		_visible = visible;
 		if (!visible) {
 			_hovered = false;
+			_lastHovered = _hovered;
 			_keyboardPressed = false;
 			_pointerPressed = false;
 			_repeatAccumulator = 0f;
@@ -140,9 +146,18 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 			case UiPointerEventKind.Enter:
 			case UiPointerEventKind.Move:
 				_hovered = HitTest(pointerEvent.Position);
+				if (!_lastHovered && _hovered) {
+					EmitEntered();
+				}
+				_lastHovered = _hovered;
 				break;
 			case UiPointerEventKind.Leave:
 				_hovered = false;
+				if (_lastHovered) {
+					EmitExited();
+				}
+
+				_lastHovered = _hovered;
 				if (!_pointerPressed) {
 					_repeatAccumulator = 0f;
 				}
@@ -256,6 +271,14 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
 
 	private void EmitActivated() {
 		Activated?.Invoke(this);
+	}
+
+	private void EmitEntered() {
+		Entered?.Invoke(this);
+	}
+
+	private void EmitExited() {
+		Exited?.Invoke(this);
 	}
 
 	private void DrawArt(Rectangle bounds, VisualState state) {

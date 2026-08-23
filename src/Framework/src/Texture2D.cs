@@ -7,7 +7,7 @@ namespace ConquestFrontierWarsRay.Framework;
 /// Base resource for things that can provide a 2D texture slice.
 /// </summary>
 public abstract class Texture2D : Resource {
-	private TextureFilter? _filter;
+	private TextureFilter? _filter = TextureFilter.Bilinear;
 
 	/// <summary>
 	/// Creates a texture resource.
