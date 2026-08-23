@@ -153,13 +153,13 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 
 	protected override void OnDraw() {
 		UiText.Draw("Legacy ListBox", 402f, 50f, 26f, Color.RayWhite, UiTextStyle.Title);
-		UiText.Draw("Left: art-backed ListBox!!DropColor using the exported listDropColor atlas. Right: the same authored ListBox!!DropColor geometry rendered through the primitive fallback. Click rows, use the mouse wheel over the left list, and drive caret/scroll with the buttons.", 402f, 178f, 17f, new Color(188, 200, 218, 255));
+		UiText.Draw("Left: art-backed ListBox!!DropColor with ScrollBar!!Default composed in. Right: the same authored ListBox!!DropColor geometry through the primitive fallback. Click rows, use the mouse wheel over the left list, and drive caret/scroll with the buttons.", 402f, 178f, 17f, new Color(188, 200, 218, 255));
 		UiText.Draw("ListBox!!DropColor / atlas", 402f, 208f, 18f, new Color(230, 236, 246, 255));
 		UiText.Draw("ListBox!!DropColor / primitive", 604f, 208f, 18f, new Color(230, 236, 246, 255));
 		UiText.Draw("ListBox!!DropSlot", 402f, 430f, 18f, new Color(230, 236, 246, 255));
 		UiText.Draw("ListBox!!DropRace", 534f, 430f, 18f, new Color(230, 236, 246, 255));
 		UiText.Draw("ListBox!!DropSystems", 686f, 430f, 18f, new Color(230, 236, 246, 255));
-		UiText.Draw("This pass keeps the old event contract and swaps the visuals over to the authored dropdown shell. The remaining gap is scrollbar composition, not listbox behavior.", 824f, 470f, 16f, new Color(188, 200, 218, 255));
+		UiText.Draw("This pass composes the default legacy scrollbar into the listbox. The remaining gaps are fidelity details, not the basic listbox/scrollbar contract.", 824f, 470f, 16f, new Color(188, 200, 218, 255));
 	}
 
 	private void CommitCurrentSelection() {
@@ -181,14 +181,16 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 
 		_artListBox.ApplyLegacyDefinition(
 			dropColorArchetype,
-			CreateListBoxData("ListBox!!DropColor", 402, 238, 6, 6, 36, 120),
-			_vfxRepository);
+			CreateListBoxData("ListBox!!DropColor", 402, 238, 6, 6, 36, 120, includeScrollbar: true),
+			_vfxRepository,
+			_utfDbRepository);
 		_artListBox.SetKeyboardFocus(true);
 
 		_primitiveListBox.ApplyLegacyDefinition(
 			dropColorArchetype,
-			CreateListBoxData("ListBox!!DropColor", 604, 238, 6, 6, 36, 120),
-			repository: null);
+			CreateListBoxData("ListBox!!DropColor", 604, 238, 6, 6, 36, 120, includeScrollbar: true),
+			repository: null,
+			utfDbRepository: _utfDbRepository);
 
 		PopulateList(_artListBox);
 		PopulateList(_primitiveListBox);
@@ -207,7 +209,11 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 			"Grn",
 			"Org",
 			"Pur",
-			"Aqa"
+			"Aqa",
+			"Wht",
+			"Blk",
+			"Tan",
+			"Slv"
 		};
 
 		var colors = new[] {
@@ -218,7 +224,11 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 			new Color(88, 214, 119, 255),
 			new Color(255, 167, 76, 255),
 			new Color(180, 104, 255, 255),
-			new Color(77, 230, 224, 255)
+			new Color(77, 230, 224, 255),
+			new Color(242, 242, 242, 255),
+			new Color(90, 90, 98, 255),
+			new Color(210, 188, 144, 255),
+			new Color(188, 196, 204, 255)
 		};
 
 		for (var i = 0; i < labels.Length; i++) {
@@ -246,7 +256,7 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 		return selection >= 0 ? _artListBox.GetDataValue(selection) : 0u;
 	}
 
-	private static LISTBOX_DATA CreateListBoxData(string typeId, int x, int y, int left, int top, int right, int bottom) {
+	private static LISTBOX_DATA CreateListBoxData(string typeId, int x, int y, int left, int top, int right, int bottom, bool includeScrollbar = false) {
 		return new LISTBOX_DATA {
 			ListboxType = typeId,
 			XOrigin = x,
@@ -258,7 +268,7 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 				Bottom = bottom
 			},
 			LeadingHeight = 0,
-			Flags = (uint)(LegacyListBoxFlags.SingleClick | LegacyListBoxFlags.SolidBackground)
+			Flags = (uint)(LegacyListBoxFlags.SingleClick | LegacyListBoxFlags.SolidBackground | (includeScrollbar ? LegacyListBoxFlags.Scrollbar : 0))
 		};
 	}
 
@@ -271,6 +281,7 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 	[Flags]
 	private enum LegacyListBoxFlags : uint {
 		SingleClick = 1 << 1,
+		Scrollbar = 1 << 2,
 		SolidBackground = 1 << 3
 	}
 }

@@ -1,6 +1,7 @@
 using System.Numerics;
 using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
+using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
@@ -19,6 +20,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	private const float DefaultFontSize = 14f;
 	private const float DefaultHorizontalPadding = 6f;
 	private const float DefaultVerticalPadding = 1f;
+	private const float ScrollBarHorizontalScale = 0.55f;
+	private const float ScrollBarInset = -5f;
 	private readonly List<ItemEntry> _items = [];
 	private AtlasFramesResource? _art;
 	private bool _enabled = true;
@@ -27,6 +30,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	private bool _isHovered;
 	private bool _isStatic;
 	private int _pageLines;
+	private LegacyScrollBarNode? _scrollBar;
+	private bool _scrollBarRequested;
 	private RECT _textArea = new();
 	private int _topLine;
 	private bool _visible = true;
@@ -81,7 +86,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 
 	public bool IsPointerInputEnabled => Visible && _visible && _enabled && Size.X > 0f && Size.Y > 0f;
 
-	public void ApplyLegacyDefinition(GT_LISTBOX archetype, LISTBOX_DATA data, VfxAnimationDataRepository? repository = null) {
+	public void ApplyLegacyDefinition(GT_LISTBOX archetype, LISTBOX_DATA data, VfxAnimationDataRepository? repository = null,
+		UtfDbRepository? utfDbRepository = null) {
 		ArgumentNullException.ThrowIfNull(archetype);
 		ArgumentNullException.ThrowIfNull(data);
 
@@ -100,6 +106,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		SolidBackground = HasFlag(data.Flags, ListboxFlags.SolidBackground);
 		NoBorder = HasFlag(data.Flags, ListboxFlags.NoBorder);
 		DisableMouseSelect = HasFlag(data.Flags, ListboxFlags.DisableMouseSelect);
+		_scrollBarRequested = HasFlag(data.Flags, ListboxFlags.Scrollbar);
 
 		if (!string.IsNullOrWhiteSpace(archetype.ShapeFile) && repository is not null) {
 			LoadArt(repository, archetype.ShapeFile);
@@ -110,7 +117,9 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		var height = ResolveConfiguredHeight();
 		Size = new Vector2(width, height);
 		RecalculateTextMetrics();
+		ConfigureScrollBar(utfDbRepository, repository);
 		EnsureVisible(SelectedIndex >= 0 ? SelectedIndex : 0);
+		UpdateScrollBarState();
 	}
 
 	public void EnableListbox(bool enabled) {
@@ -120,6 +129,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 			_hoveredVisibleRow = -1;
 			_isHovered = false;
 		}
+
+		_scrollBar?.EnableScrollBar(enabled);
 	}
 
 	public void SetVisible(bool visible) {
@@ -128,6 +139,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 			_hoveredVisibleRow = -1;
 			_isHovered = false;
 		}
+
+		_scrollBar?.SetVisible(visible);
 	}
 
 	public bool SetKeyboardFocus(bool enabled) {
@@ -147,11 +160,13 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		}
 
 		EnsureVisible(_topLine);
+		UpdateScrollBarState();
 		return 0;
 	}
 
 	public int AddString(string label) {
 		_items.Add(CreateItem(label));
+		UpdateScrollBarState();
 		return _items.Count - 1;
 	}
 
@@ -199,6 +214,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		if (_topLine > Math.Max(0, _items.Count - TextLines)) {
 			_topLine = Math.Max(0, _items.Count - TextLines);
 		}
+
+		UpdateScrollBarState();
 	}
 
 	public int GetString(int index, Span<char> buffer) {
@@ -257,6 +274,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		var old = SelectedIndex;
 		if (_items.Count == 0) {
 			SelectedIndex = -1;
+			UpdateScrollBarState();
 			return old;
 		}
 
@@ -274,6 +292,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		SelectedIndex = newIndex;
 		NotifyCaretMoved();
 		EnsureVisible(SelectedIndex);
+		UpdateScrollBarState();
 		return old;
 	}
 
@@ -291,6 +310,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		_topLine = 0;
 		_hoveredVisibleRow = -1;
 		NotifyCaretMoved();
+		UpdateScrollBarState();
 	}
 
 	public int GetNumberOfItems() {
@@ -317,6 +337,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		index = Math.Clamp(index, 0, _items.Count - 1);
 		if (index <= _topLine) {
 			_topLine = index;
+			UpdateScrollBarState();
 			return;
 		}
 
@@ -324,33 +345,40 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		if (index > bottomVisible) {
 			var limit = Math.Max(0, _items.Count - TextLines);
 			_topLine = Math.Min(limit, Math.Max(0, index - TextLines + 1));
+			UpdateScrollBarState();
 		}
 	}
 
 	public void ScrollPageUp() {
 		_topLine = Math.Max(0, _topLine - _pageLines);
+		UpdateScrollBarState();
 	}
 
 	public void ScrollPageDown() {
 		var limit = Math.Max(0, _items.Count - TextLines + 1);
 		_topLine = Math.Min(limit, _topLine + _pageLines);
+		UpdateScrollBarState();
 	}
 
 	public void ScrollLineUp() {
 		_topLine = Math.Max(0, _topLine - 1);
+		UpdateScrollBarState();
 	}
 
 	public void ScrollLineDown() {
 		var limit = Math.Max(0, _items.Count - TextLines + 1);
 		_topLine = Math.Min(limit, _topLine + 1);
+		UpdateScrollBarState();
 	}
 
 	public void ScrollHome() {
 		_topLine = 0;
+		UpdateScrollBarState();
 	}
 
 	public void ScrollEnd() {
 		_topLine = Math.Max(0, _items.Count - TextLines + 1);
+		UpdateScrollBarState();
 	}
 
 	public void CaretPageUp() {
@@ -581,6 +609,37 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		_art = null;
 	}
 
+	private void ConfigureScrollBar(UtfDbRepository? utfDbRepository, VfxAnimationDataRepository? repository) {
+		if (!_scrollBarRequested || string.IsNullOrWhiteSpace(ScrollBarTypeId) || utfDbRepository is null) {
+			if (_scrollBar is not null) {
+				_scrollBar.SetVisible(false);
+			}
+
+			return;
+		}
+
+		var scrollBarArchetype = ReadTypedEntry<GT_SCROLLBAR>(utfDbRepository, "GT_SCROLLBAR", ScrollBarTypeId);
+		var upButtonArchetype = ReadTypedEntry<GT_BUTTON>(utfDbRepository, "GT_BUTTON", scrollBarArchetype.UpButtonType);
+		var downButtonArchetype = ReadTypedEntry<GT_BUTTON>(utfDbRepository, "GT_BUTTON", scrollBarArchetype.DownButtonType);
+
+		if (_scrollBar is null) {
+			_scrollBar = AddChild(new LegacyScrollBarNode($"{Name}ScrollBar"));
+			_scrollBar.ScrollPositionChanged += (_, position) => {
+				_topLine = position;
+				UpdateScrollBarState();
+			};
+			_scrollBar.LineUpRequested += _ => ScrollLineUp();
+			_scrollBar.LineDownRequested += _ => ScrollLineDown();
+			_scrollBar.PageUpRequested += _ => ScrollPageUp();
+			_scrollBar.PageDownRequested += _ => ScrollPageDown();
+		}
+
+		_scrollBar.ApplyLegacyDefinition(scrollBarArchetype, upButtonArchetype, downButtonArchetype, repository);
+		ConfigureScrollBarLayout();
+		_scrollBar.SetVisible(_visible && Visible);
+		_scrollBar.EnableScrollBar(_enabled);
+	}
+
 	private void DrawBackground(Rectangle bounds) {
 		if (_art is not null) {
 			var slice = _art.Texture.GetSlice();
@@ -610,11 +669,18 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	private Rectangle GetGlobalTextBounds(Rectangle bounds) {
 		var right = _textArea.Right > 0 ? _textArea.Right : (int)bounds.Width;
 		var bottom = _textArea.Bottom > 0 ? _textArea.Bottom : (int)bounds.Height;
+		var reservedWidth = GetScrollBarReservedWidth();
 		return new Rectangle(
 			bounds.X + _textArea.Left,
 			bounds.Y + _textArea.Top,
-			Math.Max(0f, right - _textArea.Left + 1),
+			Math.Max(0f, right - _textArea.Left + 1 - reservedWidth),
 			Math.Max(0f, bottom - _textArea.Top + 1));
+	}
+
+	private float GetScrollBarReservedWidth() {
+		return _scrollBar is not null && _scrollBarRequested && _scrollBar.IsActive && !_scrollBar.IsHorizontal
+			? (_scrollBar.ButtonWidth * ScrollBarHorizontalScale) + ScrollBarInset
+			: 0f;
 	}
 
 	private int GetHoveredIndex() {
@@ -788,6 +854,36 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		if (hoveredIndex >= _topLine) {
 			_hoveredVisibleRow = hoveredIndex - _topLine;
 		}
+	}
+
+	private void UpdateScrollBarState() {
+		if (_scrollBar is null) {
+			return;
+		}
+
+		var limit = Math.Max(0, _items.Count - TextLines);
+		_topLine = Math.Clamp(_topLine, 0, limit);
+		_scrollBar.SetScrollRange(_items.Count);
+		_scrollBar.SetViewRange(TextLines);
+		_scrollBar.SetScrollPosition(_topLine);
+		ConfigureScrollBarLayout();
+		_scrollBar.SetVisible(_visible && Visible);
+	}
+
+	private void ConfigureScrollBarLayout() {
+		if (_scrollBar is null) {
+			return;
+		}
+
+		_scrollBar.Scale = new Vector2(ScrollBarHorizontalScale, 1f);
+		_scrollBar.Size = new Vector2(_scrollBar.ButtonWidth, Size.Y);
+		_scrollBar.Position = new Vector2(Size.X, 0f);
+	}
+
+	private static T ReadTypedEntry<T>(UtfDbRepository repository, string typeName, string fileName) where T : class {
+		var details = repository.ReadEntryDetails("GenData.db", typeName, fileName);
+		return details.TypedValue as T
+			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
 	}
 
 	[Flags]
