@@ -9,26 +9,19 @@ namespace ConquestFrontierWarsRay.Windowing;
 /// Owns the Raylib window and runs the main loop.
 /// </summary>
 public sealed class RaylibApplication : IDisposable {
-	private readonly SceneTree _sceneTree;
 	private readonly WindowOptions _windowOptions;
 	private readonly Stopwatch _frameClock = new();
+	private SceneTree? _sceneTree;
+	private bool _bootstrapped;
 	private bool _disposed;
 	private bool _isRunningFrame;
 	private long _lastFrameTicks;
 
 	/// <summary>
-	/// Creates the app runner with one root node.
+	/// Creates the app runner with one set of window options.
 	/// </summary>
-	public RaylibApplication(WindowOptions windowOptions, Node root)
-		: this(windowOptions, new SceneTree(root, new InputManager())) {
-	}
-
-	/// <summary>
-	/// Creates the app runner with an existing scene tree.
-	/// </summary>
-	public RaylibApplication(WindowOptions windowOptions, SceneTree sceneTree) {
+	public RaylibApplication(WindowOptions windowOptions) {
 		_windowOptions = windowOptions;
-		_sceneTree = sceneTree ?? throw new ArgumentNullException(nameof(sceneTree));
 	}
 
 	/// <summary>
@@ -39,7 +32,8 @@ public sealed class RaylibApplication : IDisposable {
 			return;
 		}
 
-		_sceneTree.Dispose();
+		_sceneTree?.Dispose();
+		_sceneTree = null;
 
 		if (Raylib.IsAudioDeviceReady()) {
 			Raylib.CloseAudioDevice();
@@ -53,10 +47,14 @@ public sealed class RaylibApplication : IDisposable {
 	}
 
 	/// <summary>
-	/// Starts the window, enters the node tree, and runs frames until quit.
+	/// Initializes the Raylib window, audio device, and process-wide input state.
 	/// </summary>
-	public void Run() {
+	public void Bootstrap() {
 		ThrowIfDisposed();
+
+		if (_bootstrapped) {
+			return;
+		}
 
 		Raylib.SetConfigFlags(_windowOptions.StartupFlags);
 		Raylib.InitWindow(_windowOptions.Width, _windowOptions.Height, _windowOptions.Title);
@@ -67,6 +65,23 @@ public sealed class RaylibApplication : IDisposable {
 
 		Raylib.SetTargetFPS(_windowOptions.TargetFps);
 		Raylib.SetExitKey(KeyboardKey.Null);
+		_bootstrapped = true;
+	}
+
+	/// <summary>
+	/// Starts the supplied scene tree and runs frames until quit.
+	/// </summary>
+	public void Run(SceneTree sceneTree) {
+		ThrowIfDisposed();
+		ArgumentNullException.ThrowIfNull(sceneTree);
+
+		Bootstrap();
+
+		if (_sceneTree is not null) {
+			throw new InvalidOperationException("RaylibApplication already has an active scene tree.");
+		}
+
+		_sceneTree = sceneTree;
 		_sceneTree.Input.SetupHotkeys();
 		_sceneTree.Start();
 		_frameClock.Restart();
@@ -83,6 +98,8 @@ public sealed class RaylibApplication : IDisposable {
 			}
 		} finally {
 			_sceneTree.Stop();
+			_sceneTree.Dispose();
+			_sceneTree = null;
 		}
 	}
 
@@ -98,7 +115,7 @@ public sealed class RaylibApplication : IDisposable {
 	}
 
 	private void RunFrame(float deltaTime) {
-		if (_isRunningFrame || _sceneTree.IsQuitRequested || Raylib.WindowShouldClose()) {
+		if (_sceneTree is null || _isRunningFrame || _sceneTree.IsQuitRequested || Raylib.WindowShouldClose()) {
 			return;
 		}
 

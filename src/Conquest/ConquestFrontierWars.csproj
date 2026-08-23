@@ -24,15 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Fonts\**\*">
+    <Content Include="..\..\assets\Fonts\**\*">
       <Link>Fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\conquest_frontier_wars_ost\**\*">
+    </Content>
+    <Content Include="..\..\conquest_frontier_wars_ost\**\*">
       <Link>conquest_frontier_wars_ost\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Remove="..\..\conquest_frontier_wars_ost\**" />
-    <None Remove="..\..\Fonts\**" />
+    </Content>
   </ItemGroup>
 </Project>

@@ -7,8 +7,6 @@ namespace ConquestFrontierWarsRay.Framework.TestApp;
 
 internal static class Program {
 	private static void Main() {
-		var root = new ShowcaseShellNode();
-		var tree = new SceneTree(root, new InputManager());
 		var options = new WindowOptions(
 			1280,
 			720,
@@ -16,7 +14,11 @@ internal static class Program {
 			60,
 			ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
 
-		using var app = new RaylibApplication(options, tree);
-		app.Run();
+		using var app = new RaylibApplication(options);
+		app.Bootstrap();
+
+		var root = new ShowcaseShellNode();
+		var tree = new SceneTree(root, new InputManager());
+		app.Run(tree);
 	}
 }
