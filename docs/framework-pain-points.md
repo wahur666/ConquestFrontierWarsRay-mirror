@@ -11,6 +11,7 @@ Related: [Plan](./plan.md)
 
 - [UI Event Consumption Proposal](./ui-event-consumption-proposal.md)
 - [Basic Layout Containers Proposal](./basic-layout-containers-proposal.md)
+- [Resource Management Proposal](./resource-management-proposal.md)
 
 ## Current Assessment
 
@@ -142,7 +143,8 @@ conventions in app code.
 
 - `Resource` provides lazy load and disposal.
 - Scenes manually create and dispose resources.
-- There is no cache, asset root, preload queue, or shared ownership model.
+- Path resolution has now started moving into a shared `ResourceLocator`, but
+  there is still no cache, preload queue, or shared ownership model.
 
 ### Why This Hurts Reuse
 
@@ -153,20 +155,23 @@ paths.
 
 ### Missing Framework Pieces
 
-- Asset root abstraction.
 - Resource cache.
 - Shared resource handles or reference counting.
 - Preload API.
 - Async or staged loading, if needed later.
-- Consistent path resolution for app assets.
+- Consistent path resolution for app assets across the remaining resource
+  call sites.
 
 ### Suggested Work Items
 
-1. Add an asset path resolver or asset root service.
+1. Finish moving remaining asset path resolution onto the shared
+   `ResourceLocator`.
 2. Add a minimal resource cache keyed by type and path.
 3. Define ownership rules for resources passed into nodes.
 4. Convert one sprite/audio/video scene to use the cache.
 5. Add tests for cache reuse and disposal behavior.
+
+Related proposal: [Resource Management Proposal](./resource-management-proposal.md)
 
 ## 5. Scene and UI Composition Still Lives Mostly in the Test App
 

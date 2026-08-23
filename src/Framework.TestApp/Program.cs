@@ -1,3 +1,4 @@
+using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Framework;
 using ConquestFrontierWarsRay.Framework.App;
 using ConquestFrontierWarsRay.Windowing;
@@ -16,9 +17,10 @@ internal static class Program {
 
 		using var app = new RaylibApplication(options);
 		app.Bootstrap();
+		app.Shared.ResourceLocator = new RepoResourceLocator();
 
 		var root = new ShowcaseShellNode();
-		var tree = new SceneTree(root, new InputManager());
+		var tree = new SceneTree(root, new InputManager(), app.Shared);
 		app.Run(tree);
 	}
 }

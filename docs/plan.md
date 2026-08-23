@@ -23,6 +23,7 @@ Supporting design notes for the first two pain points:
 
 - [UI Event Consumption Proposal](./ui-event-consumption-proposal.md)
 - [Basic Layout Containers Proposal](./basic-layout-containers-proposal.md)
+- [Resource Management Proposal](./resource-management-proposal.md)
 
 1. [x] `SceneTree`:
    add a Godot-style owner for the active tree, quit flow, root switching, and global update/draw orchestration instead of keeping all runtime control inside `RaylibApplication`.
@@ -43,7 +44,7 @@ Supporting design notes for the first two pain points:
    build the next obvious 2D primitive on top of atlas textures and frame metadata, instead of leaving atlas handling to higher-level scenes.
 
 7. [ ] `ResourceCache`:
-   add a simple shared loader/cache layer for textures and atlas definitions so scenes stop manually owning duplicate resources and disposal rules become less error-prone.
+   start from the now-added shared `ResourceLocator`, then add a simple shared loader/cache layer for textures and atlas definitions so scenes stop manually owning duplicate resources and disposal rules become less error-prone.
 
 8. [ ] Framework UI tests:
    add direct coverage for `MenuNavigation`, `MenuList`, and `PauseDialog`, since these were harvested after the original donor framework test suite.

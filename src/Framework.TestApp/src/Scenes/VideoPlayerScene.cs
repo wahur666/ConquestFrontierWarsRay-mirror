@@ -88,7 +88,7 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 	}
 
 	protected override void OnInitialize() {
-		var path = Path.Combine(AppContext.BaseDirectory, "Assets", "Movies", "cq_intro.mp4");
+		var path = Shared.ResourceLocator.ResolveMoviePath("cq_intro.mp4");
 		if (File.Exists(path)) {
 			_video.SetSourceFile(path, autoPlay: true);
 			_video.Volume = _volumeSlider.Value;

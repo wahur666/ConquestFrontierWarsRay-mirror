@@ -118,15 +118,12 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 	private bool _wasPositionDragging;
 
 	public AudioPlayerScene() : base("AudioPlayerScene", "Audio Player") {
-		var ostRoot = Path.Combine(AppContext.BaseDirectory, "Assets", "conquest_frontier_wars_ost");
-		var speechRoot = Path.Combine(AppContext.BaseDirectory, "Assets", "mspeech");
-
 		_tracks = [
-			new TrackEntry("Main Menu Screen Music", Path.Combine(ostRoot, "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3")),
-			new TrackEntry("Terran Game Music", Path.Combine(ostRoot, "Conquest Frontier Wars soundtrack - Terran Game Music.mp3")),
-			new TrackEntry("Danger Music", Path.Combine(ostRoot, "Conquest Frontier Wars soundtrack - Danger Music.mp3")),
-			new TrackEntry("Broadcast 01", Path.Combine(speechRoot, "bcast_01.wav")),
-			new TrackEntry("Blackwell 01", Path.Combine(speechRoot, "comm_blackwell_01.wav"))
+			new TrackEntry("Main Menu Screen Music", AudioTrackKind.Music, "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3"),
+			new TrackEntry("Terran Game Music", AudioTrackKind.Music, "Conquest Frontier Wars soundtrack - Terran Game Music.mp3"),
+			new TrackEntry("Danger Music", AudioTrackKind.Music, "Conquest Frontier Wars soundtrack - Danger Music.mp3"),
+			new TrackEntry("Broadcast 01", AudioTrackKind.Speech, "bcast_01.wav"),
+			new TrackEntry("Blackwell 01", AudioTrackKind.Speech, "comm_blackwell_01.wav")
 		];
 
 		_eventSource.ScopeRoot = this;
@@ -201,8 +198,9 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		}
 
 		var selectedTrack = _tracks[_selectedTrackIndex];
+		var resolvedTrackPath = ResolveTrackPath(selectedTrack);
 		_trackTitle.Text = selectedTrack.Label;
-		_trackMeta.Text = $"{Path.GetExtension(selectedTrack.Path).TrimStart('.').ToUpperInvariant()}    {selectedTrack.Path}";
+		_trackMeta.Text = $"{Path.GetExtension(resolvedTrackPath).TrimStart('.').ToUpperInvariant()}    {resolvedTrackPath}";
 		_stateLabel.Text = $"State: {GetPlaybackState()}";
 		_positionLabel.Text = $"Position: {FormatSeconds(_player.PlaybackPosition)} / {FormatSeconds(_player.PlaybackLength)}    slider={_positionSlider.Value:0.00}";
 		_volumeLabel.Text = $"Volume: {_player.Volume:0.00}";
@@ -234,13 +232,14 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		_trackList.SetSelectedIndex(_selectedTrackIndex);
 
 		var selectedTrack = _tracks[_selectedTrackIndex];
-		if (!File.Exists(selectedTrack.Path)) {
+		var path = ResolveTrackPath(selectedTrack);
+		if (!File.Exists(path)) {
 			_player.DisposeAudio();
 			return;
 		}
 
 		var resumePlayback = _player.IsPlaying;
-		_player.SetAudio(CreateAudioResource(selectedTrack.Path), disposeCurrent: true, takeOwnership: true);
+		_player.SetAudio(CreateAudioResource(path), disposeCurrent: true, takeOwnership: true);
 		_player.Volume = _volumeSlider.Value;
 		_player.Pan = _panSlider.Value;
 		_positionSlider.Value = 0f;
@@ -270,6 +269,13 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		? (PlaybackBackend)_backendDropdown.SelectedIndex
 		: PlaybackBackend.NAudio;
 
+	private string ResolveTrackPath(TrackEntry track) {
+		return track.Kind switch {
+			AudioTrackKind.Music => Shared.ResourceLocator.ResolveMusicPath(track.RelativePath),
+			_ => Shared.ResourceLocator.ResolveSpeechPath(track.RelativePath)
+		};
+	}
+
 	private AudioStreamResource CreateAudioResource(string path) {
 		return CurrentBackend switch {
 			PlaybackBackend.NAudio => new NAudioStreamResource(path),
@@ -291,5 +297,10 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		Raylib
 	}
 
-	private sealed record TrackEntry(string Label, string Path);
+	private enum AudioTrackKind {
+		Music,
+		Speech
+	}
+
+	private sealed record TrackEntry(string Label, AudioTrackKind Kind, string RelativePath);
 }

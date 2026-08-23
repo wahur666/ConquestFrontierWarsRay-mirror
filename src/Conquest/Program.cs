@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using ConquestFrontierWarsRay.Core.UI;
+using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Framework;
 using ConquestFrontierWarsRay.Framework.App;
 using ConquestFrontierWarsRay.Windowing;
@@ -19,6 +20,7 @@ internal static class Program {
 
 		using var app = new RaylibApplication(options);
 		app.Bootstrap();
+		app.Shared.ResourceLocator = new RepoResourceLocator();
 		app.Shared.Set(options);
 		app.Shared.Set("startup.args", args);
 

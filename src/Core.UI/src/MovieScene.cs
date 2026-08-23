@@ -73,16 +73,11 @@ public sealed class MovieScene : Node2D {
 		Raylib.ClearBackground(Color.Black);
 	}
 
-	private static string ResolveMoviePath(string moviePath) {
+	private string ResolveMoviePath(string moviePath) {
 		if (Path.IsPathRooted(moviePath)) {
-			return moviePath;
+			return Path.GetFullPath(moviePath);
 		}
 
-		var outputPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, moviePath));
-		if (File.Exists(outputPath)) {
-			return outputPath;
-		}
-
-		return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", moviePath));
+		return Shared.ResourceLocator.ResolveMoviePath(moviePath);
 	}
 }

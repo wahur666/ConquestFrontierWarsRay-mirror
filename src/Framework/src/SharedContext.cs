@@ -8,6 +8,12 @@ public sealed class SharedContext {
 	private readonly Dictionary<Type, object> _services = [];
 
 	/// <summary>
+	/// Shared locator for application asset files such as audio and video.
+	/// </summary>
+	public IResourceLocator ResourceLocator { get; set; } = new AssetRootResourceLocator(
+		Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Assets")));
+
+	/// <summary>
 	/// Stores or replaces one named value.
 	/// </summary>
 	public void Set(string key, object? value) {
