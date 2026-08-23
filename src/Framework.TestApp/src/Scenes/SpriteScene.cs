@@ -262,16 +262,19 @@ internal sealed class SpriteScene : ShowcaseScene {
 				ListboxData = new LISTBOX_DATA {
 					ListboxType = "ListBox!!DropRace",
 					XOrigin = 0,
-					YOrigin = 18,
+					YOrigin = 13,
 					TextArea = new RECT {
 						Left = 6,
 						Top = 6,
 						Right = 104,
-						Bottom = 48
+						Bottom = 64
 					},
-					LeadingHeight = 18
+					LeadingHeight = 0
 				}
-			});
+			},
+			_vfxRepository,
+			_utfDbRepository);
+		_legacyDropdown.PopupOffset = new Vector2(0f, _legacyDropdown.Size.Y);
 		_legacyDropdown.ControlId = 0x2001;
 		var killUnits = _legacyDropdown.AddString("Kill units");
 		_legacyDropdown.SetDataValue(killUnits, 0);

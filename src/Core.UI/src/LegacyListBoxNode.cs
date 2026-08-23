@@ -70,6 +70,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 
 	public bool DisableMouseSelect { get; private set; }
 
+	public bool CommitOnSingleClickPointerDown { get; set; }
+
 	public float FontSize { get; set; } = DefaultFontSize;
 
 	public Color DisabledTextColor { get; private set; } = new(100, 100, 100, 255);
@@ -750,6 +752,10 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		}
 
 		UpdateHover(pointerEvent.Position);
+		if (CommitOnSingleClickPointerDown) {
+			CommitSelection();
+		}
+
 		pointerEvent.MarkHandled();
 	}
 

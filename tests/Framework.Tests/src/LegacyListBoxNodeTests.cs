@@ -1,4 +1,8 @@
 using ConquestFrontierWarsRay.Core.UI;
+using ConquestFrontierWarsRay.Data.Models;
+using ConquestFrontierWarsRay.Data.Models.GT;
+using ConquestFrontierWarsRay.Framework;
+using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Framework.Tests;
 
@@ -71,5 +75,42 @@ public sealed class LegacyListBoxNodeTests {
 		Assert.True(listbox.TopLine > 0);
 		Assert.True(listbox.GetTopVisibleString() <= 5);
 		Assert.True(listbox.GetBottomVisibleString() >= 5);
+	}
+
+	[Fact]
+	public void CommitOnSingleClickPointerDown_CommitsWithoutSingleClickFlag() {
+		var listbox = new LegacyListBoxNode {
+			FontSize = 12f,
+			CommitOnSingleClickPointerDown = true
+		};
+		listbox.ApplyLegacyDefinition(
+			new GT_LISTBOX(),
+			new LISTBOX_DATA {
+				XOrigin = 0,
+				YOrigin = 0,
+				TextArea = new RECT {
+					Left = 0,
+					Top = 0,
+					Right = 100,
+					Bottom = 39
+				},
+				LeadingHeight = 0
+			});
+		listbox.AddString("A");
+		listbox.AddString("B");
+		listbox.SetVisible(true);
+		listbox.SetKeyboardFocus(true);
+		var committed = false;
+		listbox.SelectionCommitted += _ => committed = true;
+
+		listbox.OnPointerEvent(new UiPointerEvent(
+			UiPointerEventKind.Down,
+			new System.Numerics.Vector2(4f, 4f),
+			MouseButton.Left,
+			0f,
+			listbox));
+
+		Assert.True(committed);
+		Assert.Equal(0, listbox.GetCurrentSelection());
 	}
 }
