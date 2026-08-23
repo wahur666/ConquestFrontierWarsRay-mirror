@@ -36,7 +36,7 @@ Explicitly out of scope:
 - registry/defaults migration
 - render-device probing
 - DirectPlay/lobby/network startup
-- music/movie/bootstrap parity from the original app shell
+- original-app-shell music/movie/bootstrap parity decisions
 
 ## Target Data Surface
 
@@ -82,9 +82,9 @@ Completed foundation already present in the repo:
 Missing pieces for the opening-screen milestone:
 
 - [x] `LegacyMenuRoot`
-- [ ] `Menu1` opening-screen composer
-- [ ] `ANIMATE_DATA` to runtime animation adapter
-- [ ] menu-opening scene boot path in the app
+- [x] `Menu1` opening-screen composer
+- [x] `ANIMATE_DATA` to runtime animation adapter
+- [x] menu-opening scene boot path in the app
 - [ ] opening-screen verification pass
 
 ## Work Checklist
@@ -113,60 +113,99 @@ Notes:
 
 - Current preview path reads `assets/DB/xml/GenData.db/GT_MENU1/Menu1.xml` directly.
 - `Menu1OpeningData` keeps XML-traceable field names like `Single`, `StaticSingle`, and `AnimMedia`.
+- The current pass still uses `Menu1OpeningDataReader` as the XML boundary for the opening slice rather than the binary `GT_MENU1` parser output.
 
 ### 3. Archetype Resolution
 
-- [ ] Resolve opening `STATIC_DATA.StaticType` references
-- [ ] Resolve opening `BUTTON_DATA.ButtonType` references
-- [ ] Resolve opening `ANIMATE_DATA` type references
-- [ ] Reuse existing atlas/image lookup paths where possible
-- [ ] Keep legacy archetype loading out of framework core
-
-### 4. Opening Composer
-
-- [ ] Create one screen node/composer for `GT_MENU1.Opening`
-- [ ] Materialize the background static
-- [ ] Materialize all opening buttons
-- [ ] Materialize all opening static labels
-- [ ] Materialize all opening animations
-- [ ] Preserve authored positions directly from GT data
-- [ ] Preserve authored draw order intentionally
-
-### 5. Animation Adapter
-
-- [ ] Add a lightweight legacy animation wrapper for `ANIMATE_DATA`
-- [ ] Resolve atlas/image frames from the referenced animate archetype
-- [ ] Drive playback from legacy timer data
-- [ ] Support looping where the opening data requires it
-- [ ] Keep fuzz/talking-head behavior out of this milestone
-
-### 6. Interaction Limits
-
-- [ ] Allow hover/focus/pressed visuals only as needed for display correctness
-- [ ] Do not open submenus when buttons activate
-- [ ] Do not open modal dialogs
-- [ ] Keep button actions stubbed, logged, or no-op for now
-
-### 7. App Wiring
-
-- [ ] Add a simple Conquest frontend scene entrypoint
-- [ ] Boot directly into the `Menu1` opening composition
-- [ ] Keep the startup path isolated from later screen-routing work
+- [x] Resolve opening `STATIC_DATA.StaticType` references
+- [x] Resolve opening `BUTTON_DATA.ButtonType` references
+- [x] Resolve opening `ANIMATE_DATA` type references
+- [x] Reuse existing atlas/image lookup paths where possible
+- [x] Keep legacy archetype loading out of framework core
 
 Notes:
 
-- `src/Conquest/Program.cs` now boots a dedicated `Menu1OpeningPreviewScene` for manual verification.
-- Leave these items unchecked until the real opening composer replaces the current data-preview surface.
+- `STATIC_DATA` resolves through `GT_STATIC` into `LegacyStaticNode`.
+- `BUTTON_DATA` resolves through `GT_BUTTON` into `LegacyButtonNode`.
+- `ANIMATE_DATA` resolves through `GT_ANIMATE.VfxType` into atlas-backed `AnimatedSprite2D`.
+- The scene owns the resolved atlas resources and disposes them with the preview surface.
+
+### 4. Opening Composer
+
+- [x] Create one screen node/composer for `GT_MENU1.Opening`
+- [x] Materialize the background static
+- [x] Materialize all opening buttons
+- [x] Materialize all opening static labels
+- [x] Materialize all opening animations
+- [x] Preserve authored positions directly from GT data
+- [x] Preserve authored draw order intentionally
+
+Notes:
+
+- Buttons, statics, and animations are now composed as real runtime nodes instead of placeholder markers.
+- Button labels and static text ids resolve through the generated RC string data.
+- Button hover is routed through `UiEventSource` and now drives the paired opening animations.
+
+### 5. Animation Adapter
+
+- [x] Add a lightweight legacy animation wrapper for `ANIMATE_DATA`
+- [x] Resolve atlas/image frames from the referenced animate archetype
+- [ ] Drive playback from legacy timer data
+- [x] Support looping where the opening data requires it
+- [x] Keep fuzz/talking-head behavior out of this milestone
+
+Notes:
+
+- The current adapter uses `AnimatedSprite2D` directly rather than introducing a separate `LegacyAnimate` wrapper yet.
+- Opening animations are atlas-backed and hover-driven.
+- Playback speed is currently hardcoded in the preview scene rather than derived from the authored `dwTimer`; this remains one of the visible fidelity gaps.
+
+### 6. Interaction Limits
+
+- [x] Allow hover/focus/pressed visuals only as needed for display correctness
+- [x] Do not open submenus when buttons activate
+- [x] Do not open modal dialogs
+- [x] Keep button actions stubbed, logged, or no-op for now
+
+Notes:
+
+- `UiEventSource` is now connected to the opening scene.
+- `Single`, `Multi`, `Intro`, `Options`, and `Help` currently use hover-only behavior to drive associated preview animations.
+- `Quit` currently exits through the app quit path.
+
+### 7. App Wiring
+
+- [x] Add a simple Conquest frontend scene entrypoint
+- [x] Boot directly into the `Menu1` opening composition
+- [x] Keep the startup path isolated from later screen-routing work
+
+Notes:
+
+- `src/Conquest/Program.cs` now bootstraps `RaylibApplication`, constructs a `SceneTree`, and enters `Menu1OpeningPreviewScene` directly.
+- The opening scene is no longer a pure marker surface; it is a real preview composition pass over legacy-authored data.
+- Audio is now connected in the preview scene as a background resource.
+- Current intent is to ignore any question of whether the original shell would have loaded this exact music here, because a different background OST approach is planned.
 
 ### 8. Verification
 
-- [ ] Verify the screen is centered and scaled correctly
-- [ ] Verify black side bars are present outside content
+- [x] Verify the screen is centered and scaled correctly
+- [x] Verify black side bars are present outside content
 - [ ] Verify all opening controls appear in authored relative positions
-- [ ] Verify static text/image surfaces render
-- [ ] Verify opening animations advance visibly
-- [ ] Verify button hit areas align with visuals closely enough for this slice
-- [ ] Capture at least one screenshot/reference image for comparison
+- [x] Verify static text/image surfaces render
+- [x] Verify opening animations advance visibly
+- [x] Verify button hit areas align with visuals closely enough for this slice
+- [x] Capture at least one screenshot/reference image for comparison
+
+Current practical state:
+
+- legacy viewport composition is working
+- static surfaces are rendering from `GT_STATIC`
+- buttons are rendering from `GT_BUTTON`
+- animated elements are rendering from `GT_ANIMATE`
+- routed pointer events are connected
+- hover-driven animation playback is connected
+- background audio playback is connected
+- remaining work is fidelity validation and any final authored-behavior adjustments
 
 ## Exit Criteria
 
@@ -176,6 +215,7 @@ This milestone is done when all of the following are true:
 - the screen is composed from typed `GT_MENU1.Opening` data
 - the result is presented as a scaled, centered `800x600` legacy surface
 - buttons, statics, and animations render in the correct places
+- routed interaction is connected closely enough to validate hover behavior
 - no modal or submenu flow is required to demonstrate the result
 
 ## Deferred Work
