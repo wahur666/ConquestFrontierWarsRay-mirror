@@ -4,54 +4,39 @@ Date: 2026-08-20
 
 ## Purpose
 
-This document defines the practical frontend direction for porting the original
+This document defines the first frontend architecture for porting the original
 Conquest: Frontier Wars menu/UI into the current raylib-based framework.
 
-The goal is not to redesign the frontend first. The goal is to:
+Goals:
 
-1. reproduce the original authored frontend faithfully
+1. reproduce the authored frontend faithfully
 2. render it through the current framework
-3. scale the authored `800x600` composition into a centered `1080p`-class
-   presentation with black side bars
-4. keep the implementation simple enough that later `MiniLayout` experiments
-   can happen without blocking the legacy port
+3. scale the original `800x600` screen into a centered modern viewport with
+   black side bars
+4. keep the port simple enough that later `MiniLayout` work stays optional
 
 ## Core Decision
 
-The frontend should start with a **fixed-position legacy composer**, not with a
-general dynamic layout engine.
+Start with a **fixed-position legacy composer**, not a dynamic layout engine.
 
-That means:
+Implications:
 
 - `Menu1.xml` and similar data remain the source of truth
 - controls are materialized at authored coordinates
 - the whole menu subtree is scaled and centered as one composed surface
-- component naming may align with original data types where that reduces
-  translation friction
+- legacy-facing names are acceptable where they improve traceability
 
-`MiniLayout` remains useful later for new framework-native screens. It is not
-the first tool for the legacy frontend import.
+`MiniLayout` stays relevant for later framework-native screens. It is not the
+import path for the legacy menus.
 
 ## Base Presentation Model
 
-### Authored space
+The original frontend is authored in `800x600`. Records such as
+`BUTTON_DATA`, `STATIC_DATA`, `ANIMATE_DATA`, `DROPDOWN_DATA`,
+`LISTBOX_DATA`, and `SLIDER_DATA` already store positions and sizes in that
+space.
 
-The original frontend data is authored in an `800x600` coordinate space.
-
-Legacy records such as:
-
-- `BUTTON_DATA`
-- `STATIC_DATA`
-- `ANIMATE_DATA`
-- `DROPDOWN_DATA`
-- `LISTBOX_DATA`
-- `SLIDER_DATA`
-
-all encode local positions and dimensions in that base coordinate system.
-
-### Display rule
-
-The runtime should compose the frontend in authored coordinates, then apply one
+The runtime should compose the menu in authored coordinates, then apply one
 uniform viewport transform.
 
 For `1920x1080`:
@@ -69,14 +54,11 @@ So the rendering model is:
 3. offset the tree by `(240, 0)`
 4. clear the outside region to black
 
-This is the correct first implementation because it preserves the authored
-screen exactly.
-
 ## Framework Shape
 
-## `LegacyMenuRoot`
+### `LegacyMenuRoot`
 
-Introduce a dedicated root for legacy-composed frontend screens.
+Use a dedicated root for legacy-composed screens.
 
 Responsibilities:
 
@@ -96,22 +78,22 @@ public sealed class LegacyMenuRoot : Node2D {
 }
 ```
 
-The important rule is that child menu controls keep authored coordinates.
-`LegacyMenuRoot` owns the viewport transform.
+Children keep authored coordinates. `LegacyMenuRoot` owns the viewport
+transform.
 
 ## Composition Model
 
-A legacy menu screen should be materialized as:
+A legacy screen should be materialized as:
 
 - one screen root node
 - child controls created from typed GT data
 - local positions copied directly from source XML/model values
 
-That is a composition/materialization pass, not a layout pass.
+This is a composition pass, not a layout pass.
 
 ## Data Path
 
-The repo already contains the useful typed boundaries:
+The repo already has the right typed boundaries:
 
 - GT shared structs define:
   - `BUTTON_DATA`
@@ -127,17 +109,14 @@ Relevant files:
 - [GT_SHARED_STRUCTS.cs](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestSharp/Common/Models/GT/GT_SHARED_STRUCTS.cs)
 - [Menu1.xml](/D:/git2/Conquest-Frontier-Wars-Source2/DB/xml/GenData.db/GT_MENU1/Menu1.xml)
 
-That means the frontend port should not start by inventing a new schema.
-It should consume the existing typed records directly.
+Do not invent a new schema for the port. Consume these records directly.
 
 ## Naming Policy
 
-The naming policy should optimize for **traceability back to original frontend
-data**, not for idealized framework purity.
+Optimize naming for **traceability back to the original frontend data**.
 
-If a legacy record is a simple 1:1 mapping onto an existing framework control,
-it is acceptable to introduce a thin legacy-facing type that inherits the
-existing control only to align names.
+If a legacy record maps cleanly onto an existing framework control, a thin
+legacy-facing wrapper is acceptable.
 
 Example:
 
@@ -145,79 +124,36 @@ Example:
 - `STATIC_DATA` can map to a thin `LegacyStatic` over `TextNode`, `PanelNode`,
   or image/static surfaces depending on archetype
 
-This wrapper should:
+Wrapper rules:
 
 - preserve the legacy-facing name
 - avoid adding unrelated behavior
 - only adapt construction or data binding if needed
 
-This is explicitly acceptable because it reduces translation overhead when
-moving from old data and old code into the new frontend runtime.
-
 ## Record Mapping Strategy
 
-The first pass should map legacy records to framework nodes as directly as
-possible.
+Map legacy records to framework nodes as directly as possible.
 
 ### `BUTTON_DATA`
-
-Source meaning:
-
-- button archetype id
-- text id
-- origin
-- optional button area
-
-First-pass replacement:
 
 - simple framework button node
 - positioned directly from `XOrigin` / `YOrigin`
 - size taken from archetype or explicit area when present
 
-Recommendation:
-
-- treat this as 1:1 equatable to a simple button
-- do not over-generalize on the first pass
-
 ### `STATIC_DATA`
-
-Source meaning:
-
-- static archetype id
-- text id
-- tooltip/hint ids
-- alignment
-- origin
-- width/height
-
-First-pass replacement:
 
 - static text node
 - image/static panel node
 - or combined image+text static surface depending on archetype
 
-Important note:
-
-In the original codebase, `Static` was broader than a pure label. Some static
-records are effectively image panels or framed surfaces with optional text.
-
-So `STATIC_DATA` should not be collapsed too early into "just a label."
+Do not reduce `STATIC_DATA` to "just a label." Some records are effectively
+image panels with optional text.
 
 ### `ANIMATE_DATA`
 
-Source meaning:
-
-- animation archetype id
-- origin
-- timer
-- optional fuzz effect
-
-Typed model:
+Relevant references:
 
 - [GT_SHARED_STRUCTS.cs](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestSharp/Common/Models/GT/GT_SHARED_STRUCTS.cs)
-
-Legacy evidence:
-
 - [Animate.cpp](/D:/git2/Conquest-Frontier-Wars-Source2/src/Conquest/Animate.cpp) shows the old control:
   - derives from a rectangular UI base
   - resolves an animation archetype
@@ -226,23 +162,10 @@ Legacy evidence:
   - supports looping/pause
   - optionally uses a fuzz effect
 
-Archetype mapping:
-
 - [Animate!!Multi.xml](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/assets/DB/xml/GenData.db/GT_ANIMATE/Animate!!Multi.xml)
   maps `Animate!!Multi` to `VFXShape!!AnimateMulti`
-
-Replacement asset evidence:
-
 - [animMulti_atlas.json](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/assets/interface/animMulti_atlas.json)
 - [animMulti_atlas.png](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/assets/interface/animMulti_atlas.png)
-
-The atlas metadata shows:
-
-- source file `animMulti.SHP`
-- 30 frames
-- frame rectangles already extracted
-
-Framework seam already available:
 
 - [AtlasDefinitionResource.cs](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Framework/src/AtlasDefinitionResource.cs)
 - [AtlasTexture.cs](/D:/git2/Conquest-Frontier-Wars-Source2/ConquestFrontierWarsRay/src/Framework/src/AtlasTexture.cs)
@@ -257,8 +180,8 @@ Recommended replacement:
   - current frame index
   - per-frame timing from `ANIMATE_DATA.Timer`
   - looping flag
-- it draws one atlas frame through `Sprite` or the same underlying
-  `Texture2D`/`AtlasTexture` path
+- it draws one atlas frame through `Sprite` or the same `Texture2D` /
+  `AtlasTexture` path
 
 Do not port:
 
@@ -270,12 +193,9 @@ Fuzz can stay app-specific and optional.
 
 ### `LISTBOX_DATA`
 
-First-pass replacement:
-
 - list surface with fixed authored bounds
-- explicit scroll/selection behavior later
-
-The important thing now is preserving authored placement and visible area.
+- preserve authored placement and visible area
+- add scroll/selection behavior as needed
 
 ### `DROPDOWN_DATA`
 
@@ -285,28 +205,17 @@ The source data already models dropdowns as a composite:
 - button data
 - listbox data
 
-So the first port should keep that composition model.
-
-Recommendation:
-
 - `LegacyDropdown` owns one button node and one listbox node
 - preserve source-local offsets exactly
 
-This is a case where the data shape already tells us the right runtime shape.
-
 ### `SLIDER_DATA`
-
-First-pass replacement:
 
 - fixed-position slider node
 - preserve authored bounds/origin
 
-No layout abstraction is needed to get this working.
-
 ## Archetype Resolution
 
-A legacy frontend control is not defined by the data record alone. It is also
-defined by its referenced archetype:
+A legacy control is defined by both its record and its referenced archetype:
 
 - `Button!!...`
 - `Static!!...`
@@ -315,54 +224,24 @@ defined by its referenced archetype:
 - `Slider!!...`
 - `Animate!!...`
 
-The composer should therefore have two distinct responsibilities:
+The composer should therefore:
 
 1. materialize control placement from the GT record
 2. resolve visual/behavioral archetype data from the referenced type id
 
-That is a better split than mixing XML parsing, resource lookup, and control
-construction into one step.
-
 ## Recommended Runtime Layers
 
-### Layer 1: Legacy Data Reader
-
-Consumes:
-
-- typed GT model data already parsed from XML/binary sources
-
-Produces:
-
-- plain in-memory record objects for one menu screen
-
-### Layer 2: Legacy Archetype Resolver
-
-Consumes:
-
-- type ids like `Animate!!Multi` or `Button!!Back2D`
-
-Produces:
-
-- resolved visual metadata
-- atlas/image/frame data
-- default dimensions when source data omits them
-
-### Layer 3: Legacy Menu Composer
-
-Consumes:
-
-- parsed screen records
-- resolved archetype metadata
-
-Produces:
-
-- framework node subtree under `LegacyMenuRoot`
-
-This is the key new runtime layer.
+1. `LegacyDataReader`: consumes parsed GT data and produces in-memory records
+   for one menu screen
+2. `LegacyArchetypeResolver`: consumes type ids like `Animate!!Multi` or
+   `Button!!Back2D` and produces visual metadata, atlas/image/frame data, and
+   default dimensions
+3. `LegacyMenuComposer`: consumes records plus archetype metadata and produces
+   a framework node subtree under `LegacyMenuRoot`
 
 ## What Should Reuse Existing Framework Nodes
 
-Reuse existing framework nodes where behavior already matches:
+Reuse framework nodes where behavior already matches:
 
 - `ButtonNode`
 - `TextNode`
@@ -371,20 +250,13 @@ Reuse existing framework nodes where behavior already matches:
 - `SliderNode`
 - `Sprite`
 
-But do not force reuse when the semantic gap is large.
-
-It is acceptable to add:
+Add thin legacy types when the semantic gap is otherwise awkward:
 
 - `LegacyButton`
 - `LegacyStatic`
 - `LegacyAnimate`
 - `LegacyListBox`
 - `LegacyDropdown`
-
-as thin frontend-specific types if that keeps the mapping explicit.
-
-The standard component remains the real implementation. The legacy type is
-there to preserve 1:1 source correspondence and construction semantics.
 
 ## What Should Not Be Framework-Core
 
@@ -396,12 +268,9 @@ Keep these out of framework core on the first pass:
 - legacy modal runtime behavior copied literally
 - launcher/network/profile workflow logic
 
-Those belong in frontend/app composition layers, not in the base UI nodes.
-
 ## Relationship To MiniLayout
 
-`MiniLayout` still has a place, but not as the importer for the legacy
-frontend.
+`MiniLayout` still has a place, but not as the legacy importer.
 
 Recommended order:
 
@@ -412,11 +281,9 @@ Recommended order:
 4. only use dynamic layout where it clearly improves maintainability without
    breaking fidelity
 
-This keeps frontend reproduction and layout modernization separate.
-
 ## Initial Implementation Slice
 
-The smallest credible implementation slice is:
+Smallest credible slice:
 
 1. add `LegacyMenuRoot`
 2. add one legacy screen composer for the `opening` section of `Menu1.xml`
@@ -427,7 +294,7 @@ The smallest credible implementation slice is:
 4. drive `ANIMATE_DATA` from atlas-based frame playback
 5. render at `1920x1080` using centered pillarboxing
 
-That slice proves:
+This proves:
 
 - fixed authored coordinates
 - viewport transform
@@ -436,7 +303,7 @@ That slice proves:
 
 ## Follow-Up Slice
 
-After the first slice works:
+After that:
 
 1. add `DROPDOWN_DATA`
 2. add `LISTBOX_DATA`
@@ -454,7 +321,7 @@ UI-facing controls, overlays, and screen shells. This is the working
 ### Primitive And Reusable Controls
 
 - [x] `Animate.cpp`: archetype-backed animated UI/hud control that derives from `BaseHotRect`, loads frame shapes through `IShapeLoader`, advances cells on `CQE_UPDATE`, supports indexed sequences, looping, pause, deferred destruction, and optional talking-head fuzz/frame effects. Main types: `ANIMATETYPE`, `Animate`, `AnimateFactory`. Key deps: `BaseHotRect`, `DAnimate`, `GenData`, `DrawAgent`, `IShapeLoader`, `TManager`. Replacement: framework/app `AnimatedImageControl` or `SpriteAnimationPlayer` with frame-list resources and optional overlay effects; keep archetype/factory plumbing out of framework core. Port Priority: Medium. Notes: this is a real reusable control, but the talking-head fuzz path is app-specific. Confidence: `Observed`.
-  - The main functionality is created, the AnimatedSprite2D will take the rendering, and the `BaseHotRect` is now a new Entity to capture mouse events. 
+  - Implementation: [HotRectNode.cs](../src/Core.UI/src/HotRectNode.cs) [AnimatedSprite2D.cs](../src/Framework/src/AnimatedSprite2D.cs)
 - [ ] `Button2.cpp`: core general-purpose button control with keyboard focus (`IKeyboardFocus`), mouse/keyboard press handling, repeater-button mode, optional dropdown-arrow rendering, text or string overrides, and two render paths: shape-file skinned or primitive-drawn. It posts `CQE_BUTTON`, including a high-bit variant for toggle/release cases, and repeats while held for repeater buttons. Main types: `BUTTONTYPE`, `Button2`, `ButtonFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `HOTKEY`, archetype data in `DButton`. Replacement: framework `ButtonControl` with focus/pressed/disabled/toggle/repeater policies and skin/style separation; dropdown-arrow behavior should be a style flag, not a separate control family. Port Priority: High. Notes: this is the primary reusable button baseline for many menu screens. Confidence: `Observed`.
 - [ ] `HotButton.cpp`: lightweight hot-rect button used heavily by gameplay UI; loads image states via `IShapeLoader`, supports left/right/double-click dispatch, optional hotkey posting, push/highlight/context-menu behavior, and hover-owned cursor/status/hint resources. Main types: `HotButton`, `HotButtonFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `IShapeLoader`, `HOTKEY`, `EVENTSYS`, `STATUS`, `SFXMANAGER`, `IInterfaceManager`. Replacement: framework `ImageButtonControl` plus shared hover-resource/status-help plumbing; left/right/double-click command routing should come from generic pointer events. Port Priority: High. Notes: this is a second major reusable button base alongside `Button2.cpp`, biased toward image buttons and gameplay HUD interactions. Confidence: `Observed`.
 - [ ] `Icon.cpp`: simple image/icon display with optional tooltip ownership; draws one `IDrawAgent`, updates status text on hover, and otherwise has no command behavior. Main types: `ICONTYPE`, `Icon`. Key deps: `BaseHotRect`, `GenData`, `IShapeLoader`, `DrawAgent`, `STATUS`. Replacement: framework `IconControl` / `ImageControl` with optional tooltip text and hit-target support. Port Priority: Medium. Confidence: `Observed`.
@@ -462,15 +329,16 @@ UI-facing controls, overlays, and screen shells. This is the working
 - [ ] `ProgressStatic.cpp`: progress-text display that combines optional background fill/hash drawing, text alignment, animated numeric roll-up, and a true progress-meter fill based on `current/max`. It also changes text colors on focus. Main types: `PROGRESS_STATICTYPE`, `ProgressStatic`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `IFontDrawAgent`, `SFXMANAGER`, archetype data in `DProgressStatic`. Replacement: framework `ProgressBarControl` plus optional overlaid label/counter behavior; numeric roll-up should be a reusable text animation policy, not baked into every progress bar. Port Priority: Medium. Notes: more capable than a plain label, but still largely reusable framework UI. Confidence: `Observed`.
 - [ ] `Edit2.cpp`: single-line text input control with selection, caret blink, mouse drag selection, double-click word selection, insert/overwrite mode, simple copy/paste scratch buffer via Shift/Ctrl+Insert/Delete, optional toolbar/chat/locked-text behaviors, IME composition placement, and per-frame draw/update handling. Main types: `EDITTYPE`, `Edit2`, `EditFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, font resources via `IFontDrawAgent`, `HKEvent`/`HOTKEY`, toolbar/chat focus handoff from Batch 03 services. Replacement: framework `TextInputControl` with caret/selection model, key-text separation, IME support, optional behavior flags split into clearer policy/config hooks, and style resources separate from control logic. Port Priority: High. Notes: this is richer than a basic text field and carries legacy toolbar/chat-specific behavior that should not live in the core widget API unchanged. Confidence: `Observed`.
 - [x] `Listbox.cpp`: scrollable selectable text list built on a linked-list item store; supports add/remove/update, per-item user data and color, keyboard caret movement, mouse hover selection, optional single-click activation, word-wrap break calculation, and optional owned scrollbar integration through `IScrollBarOwner`. Main types: `LISTBOXTYPE`, `LISTITEM`, `Listbox`, `ListboxFactory`. Key deps: `ScrollBar.cpp`, `BaseHotRect`, `GenData`, `DrawAgent`, font resources via `IFontDrawAgent`. Replacement: framework `ListView`/`SelectionListControl` with item model, selection state, optional activation-on-single-click, scroll viewport, and a separate scrollbar/scroll model instead of embedding linked-list storage in the widget. Port Priority: High. Notes: this is a core dependency for comboboxes, dropdowns, and several menu screens. Confidence: `Observed`.
-  - The functionality is create with the LegacyListBoxNode, some fine tuning needed, but the functioanly is in place
-- [ ] `ScrollBar.cpp`: owner-driven scrollbar with two arrow buttons, proportional thumb sizing from `scrollRange`/`viewRange`, thumb dragging with cancel-on-breakoff behavior, repeated page scrolling while held, optional horizontal mode, and draw paths for either art-driven or primitive skins. Main types: `SCROLLBARTYPE`, `ScrollBar`, `ScrollBarFactory`. Key deps: primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`, owner callbacks from `Listbox.cpp` through `IScrollBarOwner`. Replacement: framework `ScrollBarControl` backed by a shared scroll model, with arrow buttons and track/thumb input split cleanly from view ownership. Port Priority: High. Notes: the key contract is the owner callback model and thumb math, not the legacy connection-point plumbing. Confidence: `Observed`.
+  - Implementation: [LegacyListBoxNode.cs](../src/Core.UI/src/LegacyListBoxNode.cs) fine tuning needed
+- [x] `ScrollBar.cpp`: owner-driven scrollbar with two arrow buttons, proportional thumb sizing from `scrollRange`/`viewRange`, thumb dragging with cancel-on-breakoff behavior, repeated page scrolling while held, optional horizontal mode, and draw paths for either art-driven or primitive skins. Main types: `SCROLLBARTYPE`, `ScrollBar`, `ScrollBarFactory`. Key deps: primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`, owner callbacks from `Listbox.cpp` through `IScrollBarOwner`. Replacement: framework `ScrollBarControl` backed by a shared scroll model, with arrow buttons and track/thumb input split cleanly from view ownership. Port Priority: High. Notes: the key contract is the owner callback model and thumb math, not the legacy connection-point plumbing. Confidence: `Observed`.
+  - Implementation:  [LegacyScrollBarNode.cs](../src/Core.UI/src/LegacyScrollBarNode.cs)
 - [x] `Slider.cpp`: discrete slider control with keyboard arrow support, drag-to-step behavior, optional deferred event emission until mouse release, vertical or horizontal orientation, and art-driven or primitive rendering for track and thumb. Main types: `SLIDERTYPE`, `Slider`, `SliderFactory`. Key deps: `BaseHotRect`, `GenData`, `DrawAgent`, `HKEvent`. Replacement: framework `SliderControl` with value range, orientation, immediate-vs-commit change policy, and styleable thumb/track visuals. Port Priority: Medium. Notes: current tracker summary was broadly correct; the important detail is that this slider snaps by integer step rather than tracking a continuous float. Confidence: `Observed`.
-  - The functionality is created and LegacySliderNode is the new node 
+  - Implementation: [LegacySliderNode.cs](../src/Core.UI/src/LegacySliderNode.cs)
 - [ ] `TabButton.cpp`: tab header control plus per-tab focus router; draws tab states, forwards child control events upward, owns selected/highlight state, optionally cycles tabs on `Tab`, moves focus among registered `IKeyboardFocus` children with arrow keys, and hides child interaction when the tab is inactive. Main types: `TABBUTTONTYPE`, `TabButton`, `TabButtonFactory`. Key deps: `TabControl.cpp`, `BaseHotRect`, `GenData`, `DrawAgent`, `SFX`, `Frame`, child controls implementing `IKeyboardFocus`. Replacement: tab-header item plus tab-page focus scope in framework `TabContainer`, with page-local focus traversal handled by generic focus navigation instead of button-owned child lists. Port Priority: High. Notes: this file does more than paint a tab button; it partly owns tab-page focus behavior. Confidence: `Observed`.
 - [ ] `TabControl.cpp`: tab-strip container that instantiates `ITabButton` children from image resources, tracks selected tab, toggles each tab button's selected state, exposes per-tab child menu surfaces through `GetTabMenu`, forwards child control events upward, and supports per-tab default focus targets. Main types: `TABTYPE`, `TabControl`, `TabControlFactory`. Key deps: `TabButton.cpp`, `BaseHotRect`, `GenData`, `IShapeLoader`, `IImageReader`. Replacement: framework `TabContainer` with tab headers, selected page state, page content nodes, and default-focus-per-page support. Port Priority: High. Notes: this is the actual tab-page coordinator; `TabButton.cpp` is only half of the behavior. Confidence: `Observed`.
 - [ ] `Combobox.cpp`: composite edit-plus-list selector; creates `IButton2`, `IListbox`, and `IEdit2` children from archetype data, forwards most list/edit APIs, auto-completes typed prefixes, toggles drop state, and swaps keyboard focus between edit field and dropped list. Main types: `Combobox`, `ComboboxFactory`. Key deps: `Edit2.cpp`, `Listbox.cpp`, primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`. Replacement: framework `ComboBoxControl` composed from `TextInput`, popup `ListView`, and trigger button, with explicit popup ownership, focus transfer, and selection/change events. Port Priority: High. Notes: current tracker summary was correct but understated the editable/autocomplete behavior. Confidence: `Observed`.
 - [ ] `Dropdown.cpp`: non-editable dropdown selector; creates button and list child controls, mirrors the listbox API, owns open/close state, updates button text from selected list entry, and manually treats either button or list hover as alert state while dropped. Main types: `Dropdown`, `DropdownFactory`. Key deps: `Listbox.cpp`, primitive button control via `IButton2`, `BaseHotRect`, `GenData`, `DrawAgent`. Replacement: framework `DropdownControl` with read-only display button plus popup `ListView`, sharing most popup/focus mechanics with combobox but without text entry. Port Priority: High. Notes: sibling of `Combobox.cpp`, not a separate screen shell. Confidence: `Observed`.
-
+  - Implementation:  [LegacyDropdownNode.cs](../src/Core.UI/src/LegacyDropdownNode.cs)
 ### App-Level And HUD Widgets
 
 - [ ] `BuildButton.cpp`: specialized production/build command button implementing both `IHotButton` and `IActiveButton`; tracks tech gating, queue count, build cost, build-mode highlight, no-money overlay, and percent/stall progress, then posts `CQE_LHOTBUTTON` / `CQE_RHOTBUTTON` to its parent and writes detailed cost/status text into `STATUS`. Main types: `BuildButton`, `BBUTTONSTATE::STATE`. Key deps: `BaseHotRect`, `IShapeLoader`, `DrawAgent`, `IActiveButton`, `DSpaceship` / `DPlatform` mission data, `ObjList`, `HOTKEY`, `STATUS`, `SFXMANAGER`. Replacement: app-level `BuildCommandButton` on top of a reusable framework button/image primitive plus explicit command/state view model for availability, queue, costs, and progress. Port Priority: High. Notes: not just a skinned button; it already mixes command semantics, tooltip composition, and progress rendering. Confidence: `Observed`.
@@ -522,10 +390,10 @@ UI-facing controls, overlays, and screen shells. This is the working
 
 ## Final Recommendation
 
-The frontend should begin as a **legacy-authored fixed-position renderer** over
-the current framework.
+Begin with a **legacy-authored fixed-position renderer** over the current
+framework.
 
-The correct near-term architecture is:
+Near-term architecture:
 
 1. `LegacyMenuRoot` for authored-space scaling and centering
 2. typed GT-record to framework-node composition
@@ -533,5 +401,5 @@ The correct near-term architecture is:
 4. atlas-backed animation replacement for `ANIMATE_DATA`
 5. thin legacy-named wrappers where they improve traceability
 
-Then, after the frontend is reliably recreated, `MiniLayout` can be used to
-explore dynamic layout for new screens or selective refactors.
+After the frontend is reproduced reliably, use `MiniLayout` only for new
+screens or selective refactors.
