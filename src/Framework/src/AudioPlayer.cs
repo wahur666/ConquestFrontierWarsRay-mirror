@@ -38,11 +38,6 @@ public sealed class AudioPlayer : Node {
 	public bool HasAudio => _audio is not null;
 
 	/// <summary>
-	/// True when the assigned audio resource is owned and will be disposed by this node.
-	/// </summary>
-	public bool OwnsAudio => _ownsAudio;
-
-	/// <summary>
 	/// Playback volume in the range [0, 1].
 	/// </summary>
 	public float Volume {
@@ -114,35 +109,24 @@ public sealed class AudioPlayer : Node {
 	public float PlaybackLength => _audio?.TimeLength ?? 0f;
 
 	/// <summary>
-	/// Replaces the assigned audio resource.
+	/// Replaces the assigned borrowed audio resource.
 	/// </summary>
-	public void SetAudio(AudioStreamResource? audio, bool disposeCurrent = false, bool takeOwnership = false) {
-		if (ReferenceEquals(_audio, audio)) {
-			_ownsAudio = takeOwnership || _ownsAudio;
+	public void SetAudio(AudioStreamResource? audio) {
+		AssignAudio(audio, takeOwnership: false);
+	}
 
-			if (_audio is not null) {
-				ApplyPlaybackSettings(_audio);
-			}
-
-			return;
-		}
-
-		ReleaseAudio(disposeCurrent);
-		_audio = audio;
-		_ownsAudio = takeOwnership;
-		_resumeOnEnter = false;
-
-		if (_audio is not null) {
-			ApplyPlaybackSettings(_audio);
-		}
+	/// <summary>
+	/// Replaces the assigned audio resource and transfers disposal responsibility to this node.
+	/// </summary>
+	public void SetOwnedAudio(AudioStreamResource? audio) {
+		AssignAudio(audio, takeOwnership: true);
 	}
 
 	/// <summary>
 	/// Creates and assigns a file-backed streamed audio resource.
 	/// </summary>
-	public void SetAudioFile(string path, bool disposeCurrent = true) {
-		var audio = new MusicAudioResource(path);
-		SetAudio(audio, disposeCurrent, takeOwnership: true);
+	public void SetAudioFile(string path) {
+		SetOwnedAudio(new MusicAudioResource(path));
 	}
 
 	/// <summary>
@@ -204,11 +188,39 @@ public sealed class AudioPlayer : Node {
 		ReleaseAudio(disposeAssigned: _ownsAudio);
 	}
 
+	/// <summary>
+	/// Clears the current assignment without disposing a borrowed resource.
+	/// </summary>
+	public void ClearAudio() {
+		ReleaseAudio(disposeAssigned: false);
+	}
+
 	private void ApplyPlaybackSettings(AudioStreamResource audio) {
 		audio.Looping = Looping;
 		audio.Volume = _volume;
 		audio.Pitch = _pitch;
 		audio.Pan = _pan;
+	}
+
+	private void AssignAudio(AudioStreamResource? audio, bool takeOwnership) {
+		if (ReferenceEquals(_audio, audio)) {
+			_ownsAudio = takeOwnership || _ownsAudio;
+
+			if (_audio is not null) {
+				ApplyPlaybackSettings(_audio);
+			}
+
+			return;
+		}
+
+		ReleaseAudio(disposeAssigned: _ownsAudio);
+		_audio = audio;
+		_ownsAudio = takeOwnership;
+		_resumeOnEnter = false;
+
+		if (_audio is not null) {
+			ApplyPlaybackSettings(_audio);
+		}
 	}
 
 	private void ReleaseAudio(bool disposeAssigned) {

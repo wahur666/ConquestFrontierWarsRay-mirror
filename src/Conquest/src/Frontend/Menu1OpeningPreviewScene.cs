@@ -109,9 +109,10 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			Looping = true,
 			Volume = 0f
 		});
-		var music = new NAudioStreamResource(
-			Shared.ResourceLocator.ResolveMusicPath("Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3"));
-		audioPlayer.SetAudio(music, true, true);
+		var music = Shared.ResourceManager.Audio.OpenMusic(
+			"Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3",
+			AudioPlaybackBackend.NAudio);
+		audioPlayer.SetOwnedAudio(music);
 		audioPlayer.Play();
 		return audioPlayer;
 	}

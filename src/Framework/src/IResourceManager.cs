@@ -5,6 +5,11 @@ namespace ConquestFrontierWarsRay.Framework;
 /// </summary>
 public interface IResourceManager {
 	/// <summary>
+	/// Audio file acquisition service.
+	/// </summary>
+	IAudioResourceManager Audio { get; }
+
+	/// <summary>
 	/// Video file acquisition service.
 	/// </summary>
 	IVideoResourceManager Videos { get; }

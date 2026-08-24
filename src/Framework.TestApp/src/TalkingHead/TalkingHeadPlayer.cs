@@ -40,7 +40,7 @@ internal sealed class TalkingHeadPlayer : Node2D {
 		_currentFaceFrame = 0;
 
 		if (_clip is null) {
-			_voiceAudio.SetAudio(null, disposeCurrent: true);
+			_voiceAudio.ClearAudio();
 			if (_face is not null) {
 				_face.Visible = false;
 			}
@@ -57,7 +57,7 @@ internal sealed class TalkingHeadPlayer : Node2D {
 		}
 
 		EnsureVisualChildren();
-		_voiceAudio.SetAudio(_clip.VoiceAudio, disposeCurrent: false, takeOwnership: false);
+		_voiceAudio.SetAudio(_clip.VoiceAudio);
 		_face!.SetFrame(_clip.FaceFrames, 0);
 		_face.Visible = true;
 

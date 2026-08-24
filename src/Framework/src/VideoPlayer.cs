@@ -294,7 +294,7 @@ public sealed unsafe class VideoPlayer : Control {
 		ReleasePlayback();
 		try {
 			_source = source;
-			_audioPlayer.SetAudio(source.EmbeddedAudio, disposeCurrent: true, takeOwnership: false);
+			_audioPlayer.SetAudio(source.EmbeddedAudio);
 			_audioPlayer.Volume = _volume;
 			VideoWidth = source.Width;
 			VideoHeight = source.Height;
@@ -346,7 +346,7 @@ public sealed unsafe class VideoPlayer : Control {
 			_texture = default;
 		}
 
-		_audioPlayer.SetAudio(null, disposeCurrent: false);
+		_audioPlayer.ClearAudio();
 		_source?.Dispose();
 		_source = null;
 

@@ -9,8 +9,12 @@ public sealed class ResourceManager : IResourceManager {
 	/// </summary>
 	public ResourceManager(IResourceLocator locator) {
 		ArgumentNullException.ThrowIfNull(locator);
+		Audio = new AudioResourceManager(locator);
 		Videos = new VideoResourceManager(locator);
 	}
+
+	/// <inheritdoc />
+	public IAudioResourceManager Audio { get; }
 
 	/// <inheritdoc />
 	public IVideoResourceManager Videos { get; }

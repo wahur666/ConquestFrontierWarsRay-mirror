@@ -27,7 +27,22 @@ public sealed class ResourceManagerTests {
 	}
 
 	private sealed class StubResourceManager : IResourceManager {
+		public IAudioResourceManager Audio { get; } = new StubAudioResourceManager();
 		public IVideoResourceManager Videos { get; } = new StubVideoResourceManager();
+	}
+
+	private sealed class StubAudioResourceManager : IAudioResourceManager {
+		public AudioStreamResource OpenFile(string path, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
+
+		public AudioStreamResource OpenMusic(string musicPath, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
+
+		public AudioStreamResource OpenSpeech(string speechPath, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
 	}
 
 	private sealed class StubVideoResourceManager : IVideoResourceManager {

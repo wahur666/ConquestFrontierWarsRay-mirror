@@ -20,7 +20,6 @@ public sealed class AudioPlayerTests {
 		Assert.Equal(1.5f, audio.Pitch);
 		Assert.Equal(0.75f, audio.Pan);
 		Assert.True(audio.Looping);
-		Assert.False(player.OwnsAudio);
 	}
 
 	[Fact]
@@ -77,11 +76,11 @@ public sealed class AudioPlayerTests {
 	}
 
 	[Fact]
-	public void DisposeAudio_DisposesAssignedResourceAndClearsNode() {
+	public void DisposeAudio_DisposesAssignedOwnedResourceAndClearsNode() {
 		var player = new AudioPlayer();
 		var audio = new FakeAudioStreamResource("clip.wav");
 
-		player.SetAudio(audio, takeOwnership: true);
+		player.SetOwnedAudio(audio);
 		player.DisposeAudio();
 
 		Assert.Null(player.Audio);
@@ -91,13 +90,40 @@ public sealed class AudioPlayerTests {
 	}
 
 	[Fact]
-	public void Dispose_DoesNotDisposeExternalResource() {
+	public void Dispose_DoesNotDisposeBorrowedResource() {
 		var player = new AudioPlayer();
 		var audio = new FakeAudioStreamResource("clip.wav");
 
-		player.SetAudio(audio, takeOwnership: false);
+		player.SetAudio(audio);
 		player.Dispose();
 
 		Assert.False(audio.IsDisposed);
+	}
+
+	[Fact]
+	public void ClearAudio_ReleasesBorrowedResourceWithoutDisposingIt() {
+		var player = new AudioPlayer();
+		var audio = new FakeAudioStreamResource("clip.wav");
+
+		player.SetAudio(audio);
+		player.ClearAudio();
+
+		Assert.Null(player.Audio);
+		Assert.False(player.HasAudio);
+		Assert.False(audio.IsDisposed);
+	}
+
+	[Fact]
+	public void ReplacingOwnedAudio_DisposesPreviousOwnedResource() {
+		var player = new AudioPlayer();
+		var first = new FakeAudioStreamResource("first.wav");
+		var second = new FakeAudioStreamResource("second.wav");
+
+		player.SetOwnedAudio(first);
+		player.SetOwnedAudio(second);
+
+		Assert.True(first.IsDisposed);
+		Assert.Same(second, player.Audio);
+		Assert.False(second.IsDisposed);
 	}
 }

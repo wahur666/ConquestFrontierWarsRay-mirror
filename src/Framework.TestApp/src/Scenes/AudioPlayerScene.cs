@@ -152,7 +152,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 	}
 
 	protected override void OnInitialize() {
-		_backendDropdown.SetItems(Enum.GetNames<PlaybackBackend>(), (int)PlaybackBackend.NAudio);
+		_backendDropdown.SetItems(Enum.GetNames<AudioPlaybackBackend>(), (int)AudioPlaybackBackend.NAudio);
 		_trackList.SetItems(_tracks.Select(static track => track.Label), _selectedTrackIndex);
 		_player.Volume = _volumeSlider.Value;
 		_player.Pan = _panSlider.Value;
@@ -239,7 +239,7 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		}
 
 		var resumePlayback = _player.IsPlaying;
-		_player.SetAudio(CreateAudioResource(path), disposeCurrent: true, takeOwnership: true);
+		_player.SetOwnedAudio(CreateAudioResource(selectedTrack));
 		_player.Volume = _volumeSlider.Value;
 		_player.Pan = _panSlider.Value;
 		_positionSlider.Value = 0f;
@@ -265,9 +265,9 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		return _player.IsPlaying ? "Playing" : "Paused / Stopped";
 	}
 
-	private PlaybackBackend CurrentBackend => _backendDropdown.SelectedIndex >= 0
-		? (PlaybackBackend)_backendDropdown.SelectedIndex
-		: PlaybackBackend.NAudio;
+	private AudioPlaybackBackend CurrentBackend => _backendDropdown.SelectedIndex >= 0
+		? (AudioPlaybackBackend)_backendDropdown.SelectedIndex
+		: AudioPlaybackBackend.NAudio;
 
 	private string ResolveTrackPath(TrackEntry track) {
 		return track.Kind switch {
@@ -276,10 +276,10 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 		};
 	}
 
-	private AudioStreamResource CreateAudioResource(string path) {
-		return CurrentBackend switch {
-			PlaybackBackend.NAudio => new NAudioStreamResource(path),
-			_ => new MusicAudioResource(path)
+	private AudioStreamResource CreateAudioResource(TrackEntry track) {
+		return track.Kind switch {
+			AudioTrackKind.Music => Shared.ResourceManager.Audio.OpenMusic(track.RelativePath, CurrentBackend),
+			_ => Shared.ResourceManager.Audio.OpenSpeech(track.RelativePath, CurrentBackend)
 		};
 	}
 
@@ -290,11 +290,6 @@ internal sealed class AudioPlayerScene : ShowcaseScene {
 
 		var time = TimeSpan.FromSeconds(seconds);
 		return $"{(int)time.TotalMinutes:00}:{time.Seconds:00}";
-	}
-
-	private enum PlaybackBackend {
-		NAudio,
-		Raylib
 	}
 
 	private enum AudioTrackKind {
