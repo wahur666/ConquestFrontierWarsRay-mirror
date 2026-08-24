@@ -1,8 +1,6 @@
 using System;
 using System.Numerics;
-using System.Reflection;
 using ConquestFrontierWarsRay.Core.UI;
-using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
@@ -10,52 +8,73 @@ using ConquestFrontierWarsRay.Framework;
 
 namespace ConquestFrontierWarsRay.Frontend;
 
-internal sealed class Menu1HelpModalOverlay : LegacyModalNode {
-	private readonly Func<Node> _creditsSceneFactory;
-	private readonly Menu1HelpMenuData _helpMenu;
+internal enum LegacyMessageBoxButtons {
+	Ok,
+	OkCancel
+}
+
+internal sealed class LegacyMessageBoxModal : LegacyModalNode {
+	private readonly Action<bool> _completed;
+	private readonly GT_MESSAGEBOX _messageBox;
+	private readonly string _messageText;
+	private readonly string _titleText;
 	private readonly LegacyRcStringResolver _strings;
 	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
+	private readonly LegacyMessageBoxButtons _buttonMode;
+	private bool _awaitingEscapeRelease = true;
 
-	public Menu1HelpModalOverlay(
-		Menu1HelpMenuData helpMenu,
+	public LegacyMessageBoxModal(
+		GT_MESSAGEBOX messageBox,
 		UtfDbRepository utfDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
-		Func<Node> creditsSceneFactory,
-		Action closeRequested) : base("Menu1HelpModalOverlay", closeRequested) {
-		_creditsSceneFactory = creditsSceneFactory;
-		_helpMenu = helpMenu;
+		string titleText,
+		string messageText,
+		LegacyMessageBoxButtons buttonMode,
+		Action<bool> completed) : base("LegacyMessageBoxModal") {
+		CloseOnEscape = false;
+		_messageBox = messageBox;
 		_utfDbRepository = utfDbRepository;
 		_vfxRepository = vfxRepository;
 		_strings = strings;
+		_titleText = titleText;
+		_messageText = messageText;
+		_buttonMode = buttonMode;
+		_completed = completed;
 	}
 
 	protected override void OnInitialize() {
 		base.OnInitialize();
+		ContentRoot.Position = new Vector2(92f, 145f);
 
-		ContentRoot.Position = new Vector2(_helpMenu.ScreenRect.Left, _helpMenu.ScreenRect.Top);
+		AddStaticNode("Background", _messageBox.Background);
+		var title = AddStaticNode("Title", _messageBox.Title);
+		var message = AddStaticNode("Message", _messageBox.Message);
+		title.SetText(_titleText);
+		message.SetText(_messageText);
 
-		AddStaticNode("Background", _helpMenu.Background);
-		AddStaticNode("Title", _helpMenu.Title);
-		AddStaticNode("StaticConquest", _helpMenu.StaticConquest);
-		AddStaticNode("StaticVersion", _helpMenu.StaticVersion);
+		var ok = AddButtonNode("Ok", _buttonMode == LegacyMessageBoxButtons.Ok ? _messageBox.OkAlone : _messageBox.Ok);
+		ok.Activated += _ => _completed(true);
+		ok.SetKeyboardFocus(true);
 
-		var staticNumber = AddStaticNode("StaticNumber", _helpMenu.StaticNumber);
-		staticNumber.SetText(ResolveVersionText());
+		if (_buttonMode == LegacyMessageBoxButtons.OkCancel) {
+			var cancel = AddButtonNode("Cancel", _messageBox.Cancel);
+			cancel.Activated += _ => _completed(false);
+		}
+	}
 
-		var buttonOk = AddButtonNode("ButtonOk", _helpMenu.ButtonOk);
-		var buttonCredits = AddButtonNode("ButtonCredits", _helpMenu.ButtonCredits);
-		buttonOk.Activated += _ => RequestClose();
-		buttonOk.SetKeyboardFocus(true);
-		buttonCredits.Activated += _ => Tree.ChangeRoot(_creditsSceneFactory());
+	protected override void OnUpdate(float deltaTime) {
+		base.OnUpdate(deltaTime);
 
-		var staticProductId = AddStaticNode("StaticProductId", _helpMenu.StaticProductId);
-		var staticProductNumber = AddStaticNode("StaticProductNumber", _helpMenu.StaticProductNumber);
-		staticProductId.SetVisible(false);
-		staticProductNumber.SetVisible(false);
+		if (_awaitingEscapeRelease) {
+			_awaitingEscapeRelease = Input.IsActionPressed(InputManager.UiEscapeAction);
+			return;
+		}
 
-		AddStaticNode("StaticLegal", _helpMenu.StaticLegal);
+		if (Input.IsActionJustPressed(InputManager.UiEscapeAction)) {
+			_completed(false);
+		}
 	}
 
 	private LegacyButtonNode AddButtonNode(string label, BUTTON_DATA data) {
@@ -87,16 +106,5 @@ internal sealed class Menu1HelpModalOverlay : LegacyModalNode {
 		return details.TypedValue as T
 		       ?? throw new InvalidOperationException(
 			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
-	}
-
-	private static string ResolveVersionText() {
-		var version = Assembly.GetEntryAssembly()?.GetName().Version;
-		if (version is null) {
-			return "Unknown";
-		}
-
-		return version.Build >= 0
-			? $"{version.Major}.{version.Minor}.{version.Build}"
-			: $"{version.Major}.{version.Minor}";
 	}
 }

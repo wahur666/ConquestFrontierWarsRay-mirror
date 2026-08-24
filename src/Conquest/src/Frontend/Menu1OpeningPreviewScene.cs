@@ -14,8 +14,10 @@ namespace ConquestFrontierWarsRay.Frontend;
 internal sealed class Menu1OpeningPreviewScene : Node2D {
 	private readonly UiEventSource _eventSource = new("Menu1OpeningEventSource");
 	private readonly LegacyMenuRoot _legacyMenuRoot = new("LegacyMenuRoot");
+	private readonly bool _showAboutOnInitialize;
 
-	public Menu1OpeningPreviewScene() : base("Menu1OpeningPreviewScene") {
+	public Menu1OpeningPreviewScene(bool showAboutOnInitialize = false) : base("Menu1OpeningPreviewScene") {
+		_showAboutOnInitialize = showAboutOnInitialize;
 		_eventSource.ScopeRoot = this;
 		AddChild(_eventSource);
 		AddChild(_legacyMenuRoot);
@@ -24,7 +26,7 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 	protected override void OnInitialize() {
 		try {
 			var opening = new Menu1OpeningDataReader().ReadOpening();
-			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(opening));
+			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(opening, _showAboutOnInitialize));
 		} catch (Exception ex) {
 			AppLog.Error("Menu1OpeningPreviewScene", "Failed to initialize menu opening preview.", ex);
 			_legacyMenuRoot.SetContentRoot(new Menu1OpeningErrorSurface(ex));
@@ -37,6 +39,8 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 }
 
 internal sealed class Menu1OpeningPreviewSurface : Node2D {
+	private const uint ConfirmTitleTextId = 1345;
+	private const uint ConfirmQuitMessageTextId = 1406;
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
 	private const float MusicFadeInDurationSeconds = 2f;
 	private readonly List<AtlasFramesResource> _atlasResources = [];
@@ -44,19 +48,24 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly List<AnimatedSprite2D?> _animatedSprite2Ds = [];
 	private readonly Menu1HelpMenuData _helpMenu;
 	private readonly Menu1OpeningData _opening;
+	private readonly bool _showAboutOnInitialize;
+	private readonly GT_MESSAGEBOX _quitMessageBox;
 	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
 	private Menu1HelpModalOverlay? _aboutModal;
+	private LegacyMessageBoxModal? _exitModal;
 	private AudioPlayer? _musicPlayer;
 
-	public Menu1OpeningPreviewSurface(Menu1OpeningData opening) : base("Menu1OpeningPreviewSurface") {
+	public Menu1OpeningPreviewSurface(Menu1OpeningData opening, bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
 		ArgumentNullException.ThrowIfNull(opening);
 		_opening = opening;
-		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
+		_showAboutOnInitialize = showAboutOnInitialize;
 		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
+		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
+		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
 	}
 
 	protected override void OnInitialize() {
@@ -88,6 +97,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		btnQuit.Activated += _ => RequestQuit();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
 		_musicPlayer = AddMusicPlayer();
+		if (_showAboutOnInitialize) {
+			OpenAboutModal();
+		}
 	}
 
 	protected override void OnExitTree() {
@@ -102,6 +114,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
+		if (_aboutModal is null && _exitModal is null && Input.UiEsc) {
+			OpenExitModal();
+		}
 	}
 
 	private void FadeInMusic(float deltaTime) {
@@ -198,7 +213,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenAboutModal() {
-		if (_aboutModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null) {
 			return;
 		}
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
@@ -208,6 +223,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_utfDbRepository,
 			_vfxRepository,
 			_strings,
+			() => new MenuCreditsScene(() => new Menu1OpeningPreviewScene(showAboutOnInitialize: true)),
 			CloseAboutModal));
 	}
 
@@ -224,11 +240,47 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetOpeningButtonsEnabled(true);
 	}
 
+	private void OpenExitModal() {
+		if (_aboutModal is not null || _exitModal is not null) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_exitModal = AddChild(new LegacyMessageBoxModal(
+			_quitMessageBox,
+			_utfDbRepository,
+			_vfxRepository,
+			_strings,
+			ResolveString(ConfirmTitleTextId, "Confirm Choice"),
+			ResolveString(ConfirmQuitMessageTextId, "Do you really want to quit?"),
+			LegacyMessageBoxButtons.OkCancel,
+			OnExitModalCompleted));
+	}
+
+	private void OnExitModalCompleted(bool confirmed) {
+		if (_exitModal is not null && RemoveChild(_exitModal)) {
+			_exitModal.Dispose();
+		}
+
+		_exitModal = null;
+		SetOpeningButtonsEnabled(true);
+		if (confirmed) {
+			RequestQuit();
+		}
+	}
+
 	private void SetOpeningButtonsEnabled(bool enabled) {
 		foreach (var button in _openingButtons) {
 			button.EnableButton(enabled);
 			button.SetKeyboardFocus(false);
 		}
+	}
+
+	private string ResolveString(uint id, string fallback) {
+		return _strings.TryResolve(id, out var text) && !string.IsNullOrWhiteSpace(text)
+			? text
+			: fallback;
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
