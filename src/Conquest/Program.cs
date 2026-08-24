@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
@@ -9,7 +10,12 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay;
 
 internal static class Program {
+	[STAThread]
 	private static void Main(string[] args) {
+		using NativeSplash? splash = HasArgument(args, "--splash")
+			? NativeSplash.TryShow(GetSplashImagePath())
+			: null;
+
 		var options = new WindowOptions(
 			1280,
 			720,
@@ -26,6 +32,7 @@ internal static class Program {
 
 		var root = CreateStartupRoot(args);
 		var tree = new SceneTree(root, new InputManager(), app.Shared);
+		splash?.Dispose();
 		app.Run(tree);
 	}
 
@@ -45,5 +52,9 @@ internal static class Program {
 
 	private static bool HasArgument(string[] args, string argument) {
 		return args.Any(arg => string.Equals(arg, argument, StringComparison.OrdinalIgnoreCase));
+	}
+
+	private static string GetSplashImagePath() {
+		return Path.Combine(RepoPaths.LocateInterfaceAssetsPath(), "00000409.256.bmp");
 	}
 }
