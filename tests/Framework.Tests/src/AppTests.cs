@@ -1,4 +1,3 @@
-using ConquestFrontierWarsRay.Framework.App;
 using ConquestFrontierWarsRay.Windowing;
 using Raylib_cs;
 

@@ -3,7 +3,6 @@ using System.Linq;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Framework;
-using ConquestFrontierWarsRay.Framework.App;
 using ConquestFrontierWarsRay.Windowing;
 using Raylib_cs;
 
@@ -16,7 +15,8 @@ internal static class Program {
 			720,
 			"Conquest Frontier Wars - Menu1 Opening Preview",
 			60,
-			ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
+			ConfigFlags.VSyncHint | ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow,
+			true);
 
 		using var app = new RaylibApplication(options);
 		app.Bootstrap();

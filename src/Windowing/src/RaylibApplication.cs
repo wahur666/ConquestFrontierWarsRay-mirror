@@ -1,7 +1,6 @@
 using Raylib_cs;
 using System.Diagnostics;
 using ConquestFrontierWarsRay.Framework;
-using ConquestFrontierWarsRay.Framework.App;
 
 namespace ConquestFrontierWarsRay.Windowing;
 
@@ -131,6 +130,9 @@ public sealed class RaylibApplication : IDisposable {
 			_sceneTree.Update(deltaTime);
 			Raylib.BeginDrawing();
 			_sceneTree.Draw();
+			if (_windowOptions.DrawFps) {
+				Raylib.DrawFPS(10, 10);
+			}
 			Raylib.EndDrawing();
 		} finally {
 			_isRunningFrame = false;
