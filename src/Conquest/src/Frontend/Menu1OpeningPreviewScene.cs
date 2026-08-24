@@ -40,15 +40,20 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
 	private const float MusicFadeInDurationSeconds = 2f;
 	private readonly List<AtlasFramesResource> _atlasResources = [];
+	private readonly List<LegacyButtonNode> _openingButtons = [];
+	private readonly List<AnimatedSprite2D?> _animatedSprite2Ds = [];
+	private readonly Menu1HelpMenuData _helpMenu;
 	private readonly Menu1OpeningData _opening;
 	private readonly UtfDbRepository _utfDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
+	private Menu1HelpModalOverlay? _aboutModal;
 	private AudioPlayer? _musicPlayer;
 
 	public Menu1OpeningPreviewSurface(Menu1OpeningData opening) : base("Menu1OpeningPreviewSurface") {
 		ArgumentNullException.ThrowIfNull(opening);
 		_opening = opening;
+		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
 		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
@@ -72,12 +77,14 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		var animMulti = AddAnimationNode("AnimMulti", _opening.AnimMulti);
 		var animOptions = AddAnimationNode("AnimOptions", _opening.AnimOptions);
 		var animQuestion = AddAnimationNode("AnimQuestion", _opening.AnimQuestion);
+		_animatedSprite2Ds.AddRange(animSingle, animMulti, animOptions, animQuestion);
 		ConnectButtonHover(btnSingle, animSingle);
 		ConnectButtonHover(btnMulti, animMulti);
 		ConnectButtonHover(btnIntro, animMedia);
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnIntro.Activated += _ => OpenMovie("Assets\\Movies\\cq_intro.mp4");
+		btnHelp.Activated += _ => OpenAboutModal();
 		btnQuit.Activated += _ => RequestQuit();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
 		_musicPlayer = AddMusicPlayer();
@@ -141,6 +148,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		}
 
 		AddChild(node);
+		_openingButtons.Add(node);
 		return node;
 	}
 
@@ -187,6 +195,40 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			Outline = color,
 			OutlineThickness = 1f
 		});
+	}
+
+	private void OpenAboutModal() {
+		if (_aboutModal is not null) {
+			return;
+		}
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_aboutModal = AddChild(new Menu1HelpModalOverlay(
+			_helpMenu,
+			_utfDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseAboutModal));
+	}
+
+	private void CloseAboutModal() {
+		if (_aboutModal is null) {
+			return;
+		}
+
+		if (RemoveChild(_aboutModal)) {
+			_aboutModal.Dispose();
+		}
+
+		_aboutModal = null;
+		SetOpeningButtonsEnabled(true);
+	}
+
+	private void SetOpeningButtonsEnabled(bool enabled) {
+		foreach (var button in _openingButtons) {
+			button.EnableButton(enabled);
+			button.SetKeyboardFocus(false);
+		}
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {

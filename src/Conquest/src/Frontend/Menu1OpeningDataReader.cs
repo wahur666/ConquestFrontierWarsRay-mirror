@@ -12,23 +12,9 @@ internal sealed class Menu1OpeningDataReader {
 	private static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
 
 	public Menu1OpeningData ReadOpening() {
-		var xmlPath = Path.Combine(
-			RepoPaths.LocateRepoRoot(),
-			"assets",
-			"DB",
-			"xml",
-			"GenData.db",
-			"GT_MENU1",
-			"Menu1.xml");
-
-		if (!File.Exists(xmlPath)) {
-			throw new FileNotFoundException($"Could not locate Menu1 XML at '{xmlPath}'.", xmlPath);
-		}
-
-		var document = XDocument.Load(xmlPath);
-		var opening = document.Root?.Element("opening");
+		var opening = LoadMenu1Root().Element("opening");
 		if (opening is null) {
-			throw new InvalidDataException($"Could not find <opening> in '{xmlPath}'.");
+			throw new InvalidDataException($"Could not find <opening> in '{GetMenu1XmlPath()}'.");
 		}
 
 		return new Menu1OpeningData(
@@ -51,6 +37,49 @@ internal sealed class Menu1OpeningDataReader {
 			ParseAnimateData(GetRequiredElement(opening, "animOptions")),
 			ParseAnimateData(GetRequiredElement(opening, "animQuestion")),
 			ParseStaticData(GetRequiredElement(opening, "staticLegal")));
+	}
+
+	public Menu1HelpMenuData ReadHelpMenu() {
+		var helpMenu = LoadMenu1Root().Element("helpMenu");
+		if (helpMenu is null) {
+			throw new InvalidDataException($"Could not find <helpMenu> in '{GetMenu1XmlPath()}'.");
+		}
+
+		return new Menu1HelpMenuData(
+			ParseRect(GetRequiredElement(helpMenu, "screenRect")),
+			ParseStaticData(GetRequiredElement(helpMenu, "background")),
+			ParseStaticData(GetRequiredElement(helpMenu, "title")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticConquest")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticVersion")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticNumber")),
+			ParseButtonData(GetRequiredElement(helpMenu, "buttonOk")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticProductID")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticProductNumber")),
+			ParseStaticData(GetRequiredElement(helpMenu, "staticLegal")),
+			ParseButtonData(GetRequiredElement(helpMenu, "buttonCredits")));
+	}
+
+	private static XElement LoadMenu1Root() {
+		var xmlPath = GetMenu1XmlPath();
+		if (!File.Exists(xmlPath)) {
+			throw new FileNotFoundException($"Could not locate Menu1 XML at '{xmlPath}'.", xmlPath);
+		}
+
+		var document = XDocument.Load(xmlPath);
+		return document.Root
+		       ?? throw new InvalidDataException($"Could not find root element in '{xmlPath}'.");
+	}
+
+	private static string GetMenu1XmlPath() {
+		var xmlPath = Path.Combine(
+			RepoPaths.LocateRepoRoot(),
+			"assets",
+			"DB",
+			"xml",
+			"GenData.db",
+			"GT_MENU1",
+			"Menu1.xml");
+		return xmlPath;
 	}
 
 	private static RECT ParseRect(XElement element) {
@@ -157,3 +186,16 @@ internal sealed record Menu1OpeningData(
 	public IReadOnlyList<ANIMATE_DATA> Animations =>
 		[AnimMedia, AnimSingle, AnimMulti, AnimOptions, AnimQuestion];
 }
+
+internal sealed record Menu1HelpMenuData(
+	RECT ScreenRect,
+	STATIC_DATA Background,
+	STATIC_DATA Title,
+	STATIC_DATA StaticConquest,
+	STATIC_DATA StaticVersion,
+	STATIC_DATA StaticNumber,
+	BUTTON_DATA ButtonOk,
+	STATIC_DATA StaticProductId,
+	STATIC_DATA StaticProductNumber,
+	STATIC_DATA StaticLegal,
+	BUTTON_DATA ButtonCredits);
