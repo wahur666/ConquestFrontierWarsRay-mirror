@@ -29,8 +29,8 @@ public sealed class NAudioStreamResource : AudioStreamResource {
 		set {
 			_volume = Math.Clamp(value, 0f, 1f);
 
-			if (_reader is not null) {
-				_reader.Volume = _volume;
+			if (_channel is not null) {
+				_channel.Volume = _volume;
 			}
 		}
 	}

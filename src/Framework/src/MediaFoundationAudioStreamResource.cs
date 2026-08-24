@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using Raylib_cs;
-using SharpGen.Runtime;
 using Vortice.MediaFoundation;
 
 namespace ConquestFrontierWarsRay.Framework;

@@ -39,6 +39,7 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 
 internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
+	private const float MusicFadeInDurationSeconds = 2f;
 	private readonly List<AtlasFramesResource> _atlasResources = [];
 	private readonly Menu1OpeningData _opening;
 	private readonly UtfDbRepository _utfDbRepository;
@@ -93,9 +94,20 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		Tree.ChangeRoot(new MovieScene(moviePath, () => new Menu1OpeningPreviewScene()));
 	}
 
+	protected override void OnUpdate(float deltaTime) {
+		FadeInMusic(deltaTime);
+	}
+
+	private void FadeInMusic(float deltaTime) {
+		if (_musicPlayer is not null && _musicPlayer.Volume < 1f) {
+			_musicPlayer.Volume = MathF.Min(1f, _musicPlayer.Volume + (deltaTime / MusicFadeInDurationSeconds));
+		}
+	}
+
 	private AudioPlayer AddMusicPlayer() {
 		var audioPlayer = AddChild(new AudioPlayer("AudioPlayer") {
-			Looping = true
+			Looping = true,
+			Volume = 0f
 		});
 		var music = new NAudioStreamResource(
 			Shared.ResourceLocator.ResolveMusicPath("Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3"));
