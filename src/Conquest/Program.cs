@@ -42,6 +42,7 @@ internal static class Program {
 
 			var root = CreateStartupRoot(args);
 			var tree = new SceneTree(root, new InputManager(), app.Shared);
+			splash?.Dispose();
 			app.Run(tree);
 		} catch (Exception ex) {
 			AppLog.Error("Program", "Unhandled fatal exception.", ex);
