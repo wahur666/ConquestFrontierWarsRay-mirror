@@ -87,6 +87,13 @@ Missing pieces for the opening-screen milestone:
 - [x] menu-opening scene boot path in the app
 - [ ] opening-screen verification pass
 
+Post-slice work now implemented beyond the original narrow opening-only scope:
+
+- [x] `helpMenu` authored about modal is wired from the opening screen
+- [x] `GT_CREDITS` full-screen credits scene is wired from the about modal
+- [x] `Esc` on the opening screen opens an authored exit-confirm modal
+- [x] `Quit` on the opening screen exits directly
+
 ## Work Checklist
 
 ### 1. Viewport Root
@@ -171,7 +178,10 @@ Notes:
 
 - `UiEventSource` is now connected to the opening scene.
 - `Single`, `Multi`, `Intro`, `Options`, and `Help` currently use hover-only behavior to drive associated preview animations.
-- `Quit` currently exits through the app quit path.
+- `Help` now opens a real authored `helpMenu` modal instead of a stub.
+- `helpMenu` `Credits` now opens a dedicated credits scene and returns back into `Menu1` with the about modal restored.
+- `Esc` now opens an authored `GT_MESSAGEBOX`-driven quit confirm modal.
+- `Quit` currently exits through the app quit path without confirmation.
 
 ### 7. App Wiring
 
@@ -205,6 +215,9 @@ Current practical state:
 - routed pointer events are connected
 - hover-driven animation playback is connected
 - background audio playback is connected
+- authored about/help modal flow is connected
+- authored credits background plus `Credits.txt` scroller flow is connected
+- authored quit-confirm message box flow is connected for `Esc`
 - remaining work is fidelity validation and any final authored-behavior adjustments
 
 ## Exit Criteria
@@ -231,7 +244,11 @@ Do not mix these into the opening milestone:
 - `map`
 - `slots`
 - `final`
-- `helpMenu`
 - `deviceMenu`
 - profile and launcher behavior from `Menu1.cpp`
 - network/lobby behavior from `Menu1.cpp`
+
+Notes:
+
+- `helpMenu` is no longer deferred in the current runtime; it is implemented as an authored modal overlay.
+- `Menu_Credits` is also no longer deferred in practice; it is implemented as a dedicated full-screen scene sourced from `Credits.txt`.
