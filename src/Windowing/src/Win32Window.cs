@@ -9,10 +9,19 @@ namespace ConquestFrontierWarsRay.Windowing;
 /// window does not flood the UI thread with nested draw calls.
 /// </summary>
 public sealed class Win32Window : IDisposable {
+	private const uint WM_SETICON = 0x0080;
 	private const int WM_ENTERSIZEMOVE = 0x0231;
 	private const int WM_EXITSIZEMOVE = 0x0232;
 	private const int WM_TIMER = 0x0113;
 	private const int GWLP_WNDPROC = -4;
+	private const int ICON_SMALL = 0;
+	private const int ICON_BIG = 1;
+	private const uint IMAGE_ICON = 1;
+	private const uint LR_LOADFROMFILE = 0x0010;
+	private const int SM_CXSMICON = 49;
+	private const int SM_CYSMICON = 50;
+	private const int SM_CXICON = 11;
+	private const int SM_CYICON = 12;
 	private const int TimerId = 1;
 	private const uint TimerIntervalMs = 16;
 
@@ -54,6 +63,47 @@ public sealed class Win32Window : IDisposable {
 			}
 
 			return new Win32Window(hwnd, onTick);
+		}
+	}
+
+	/// <summary>
+	/// Loads a Windows .ico file and applies it to the current raylib window.
+	/// </summary>
+	public static void TrySetWindowIcon(string iconPath) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(iconPath);
+
+		if (!OperatingSystem.IsWindows() || !File.Exists(iconPath)) {
+			return;
+		}
+
+		unsafe {
+			var hwnd = (nint)Raylib.GetWindowHandle();
+			if (hwnd == nint.Zero) {
+				return;
+			}
+
+			var smallIcon = LoadImage(
+				nint.Zero,
+				iconPath,
+				IMAGE_ICON,
+				GetSystemMetrics(SM_CXSMICON),
+				GetSystemMetrics(SM_CYSMICON),
+				LR_LOADFROMFILE);
+			var largeIcon = LoadImage(
+				nint.Zero,
+				iconPath,
+				IMAGE_ICON,
+				GetSystemMetrics(SM_CXICON),
+				GetSystemMetrics(SM_CYICON),
+				LR_LOADFROMFILE);
+
+			if (smallIcon != nint.Zero) {
+				SendMessage(hwnd, WM_SETICON, ICON_SMALL, smallIcon);
+			}
+
+			if (largeIcon != nint.Zero) {
+				SendMessage(hwnd, WM_SETICON, ICON_BIG, largeIcon);
+			}
 		}
 	}
 
@@ -115,4 +165,13 @@ public sealed class Win32Window : IDisposable {
 
 	[DllImport("user32.dll")]
 	private static extern bool KillTimer(nint hWnd, nint uIDEvent);
+
+	[DllImport("user32.dll", EntryPoint = "LoadImageW", CharSet = CharSet.Unicode)]
+	private static extern nint LoadImage(nint hInst, string name, uint type, int cx, int cy, uint fuLoad);
+
+	[DllImport("user32.dll")]
+	private static extern int GetSystemMetrics(int nIndex);
+
+	[DllImport("user32.dll", EntryPoint = "SendMessageW")]
+	private static extern nint SendMessage(nint hWnd, uint msg, nint wParam, nint lParam);
 }

@@ -7,6 +7,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <UseWindowsForms>true</UseWindowsForms>
     <PackageId>ConquestFrontierWars</PackageId>
+    <ApplicationIcon>..\..\assets\cur\Icon1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\..\assets\cur\Icon1.ico">
+      <Link>Assets\cur\Icon1.ico</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\..\assets\Fonts\**\*">
       <Link>Fonts\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

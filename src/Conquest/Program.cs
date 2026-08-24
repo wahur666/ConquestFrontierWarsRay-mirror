@@ -36,6 +36,7 @@ internal static class Program {
 
 			using var app = new RaylibApplication(options);
 			app.Bootstrap();
+			Win32Window.TrySetWindowIcon(Path.Combine(AppContext.BaseDirectory, "Assets", "cur", "Icon1.ico"));
 			app.Shared.ResourceLocator = new RepoResourceLocator();
 			app.Shared.Set(options);
 			app.Shared.Set("startup.args", args);
