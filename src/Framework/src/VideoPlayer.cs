@@ -23,6 +23,7 @@ public sealed unsafe class VideoPlayer : Control {
 
 	private readonly AudioPlayer _audioPlayer;
 	private VideoSource? _source;
+	private bool _ownsSource;
 	private byte[]? _rgbaFrame;
 	private Raylib_cs.Texture2D _texture;
 	private int _stride;
@@ -127,7 +128,7 @@ public sealed unsafe class VideoPlayer : Control {
 	/// </summary>
 	public void SetSourceFile(string path, bool autoPlay = false) {
 		ArgumentException.ThrowIfNullOrWhiteSpace(path);
-		SetSource(new VideoResourceManager(new AssetRootResourceLocator(Path.GetDirectoryName(Path.GetFullPath(path)) ?? AppContext.BaseDirectory)).OpenFile(path), autoPlay);
+		SetOwnedSource(new VideoResourceManager(new AssetRootResourceLocator(Path.GetDirectoryName(Path.GetFullPath(path)) ?? AppContext.BaseDirectory)).OpenFile(path), autoPlay);
 	}
 
 	/// <summary>
@@ -135,14 +136,29 @@ public sealed unsafe class VideoPlayer : Control {
 	/// </summary>
 	public void SetSource(VideoSource source, bool autoPlay = false) {
 		ArgumentNullException.ThrowIfNull(source);
-		LoadSource(source, autoPlay);
+		LoadSource(source, autoPlay, takeOwnership: false);
+	}
+
+	/// <summary>
+	/// Loads one already-opened disposable video source into this player and transfers disposal responsibility.
+	/// </summary>
+	public void SetOwnedSource(VideoSource source, bool autoPlay = false) {
+		ArgumentNullException.ThrowIfNull(source);
+		LoadSource(source, autoPlay, takeOwnership: true);
 	}
 
 	/// <summary>
 	/// Clears and disposes the current source.
 	/// </summary>
 	public void DisposeSource() {
-		ReleasePlayback();
+		ReleasePlayback(disposeAssigned: true);
+	}
+
+	/// <summary>
+	/// Clears the current source without disposing a borrowed assignment.
+	/// </summary>
+	public void ClearSource() {
+		ReleasePlayback(disposeAssigned: false);
 	}
 
 	/// <summary>
@@ -287,13 +303,15 @@ public sealed unsafe class VideoPlayer : Control {
 	}
 
 	protected override void OnDispose() {
-		ReleasePlayback();
+		ReleasePlayback(disposeAssigned: _ownsSource);
 	}
 
-	private void LoadSource(VideoSource source, bool autoPlay) {
-		ReleasePlayback();
+	private void LoadSource(VideoSource source, bool autoPlay, bool takeOwnership) {
+		ReleasePlayback(disposeAssigned: _ownsSource);
 		try {
 			_source = source;
+			_ownsSource = takeOwnership;
+			AppLog.Info("VideoPlayer", $"{Name}: loaded source '{source.SourcePath}' (owned={_ownsSource}, autoPlay={autoPlay || AutoPlay}).");
 			_audioPlayer.SetAudio(source.EmbeddedAudio);
 			_audioPlayer.Volume = _volume;
 			VideoWidth = source.Width;
@@ -321,7 +339,7 @@ public sealed unsafe class VideoPlayer : Control {
 				Play();
 			}
 		} catch {
-			ReleasePlayback();
+			ReleasePlayback(disposeAssigned: _ownsSource);
 			throw;
 		}
 	}
@@ -337,7 +355,7 @@ public sealed unsafe class VideoPlayer : Control {
 		Raylib.UnloadImage(image);
 	}
 
-	private void ReleasePlayback() {
+	private void ReleasePlayback(bool disposeAssigned) {
 		_resumeOnEnter = false;
 		_isPlaying = false;
 
@@ -347,8 +365,11 @@ public sealed unsafe class VideoPlayer : Control {
 		}
 
 		_audioPlayer.ClearAudio();
-		_source?.Dispose();
+		if (_source is not null && (disposeAssigned || _ownsSource)) {
+			_source.Dispose();
+		}
 		_source = null;
+		_ownsSource = false;
 
 		_rgbaFrame = null;
 		_stride = 0;

@@ -47,6 +47,7 @@ public sealed class RaylibApplication : IDisposable {
 			Raylib.CloseWindow();
 		}
 
+		Shared.Dispose();
 		_disposed = true;
 	}
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
@@ -10,7 +9,7 @@ using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
-namespace ConquestFrontierWarsRay;
+namespace ConquestFrontierWarsRay.Frontend;
 
 internal sealed class Menu1OpeningPreviewScene : Node2D {
 	private readonly UiEventSource _eventSource = new("Menu1OpeningEventSource");
@@ -27,7 +26,7 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 			var opening = new Menu1OpeningDataReader().ReadOpening();
 			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(opening));
 		} catch (Exception ex) {
-			Console.Error.WriteLine(ex);
+			AppLog.Error("Menu1OpeningPreviewScene", "Failed to initialize menu opening preview.", ex);
 			_legacyMenuRoot.SetContentRoot(new Menu1OpeningErrorSurface(ex));
 		}
 	}

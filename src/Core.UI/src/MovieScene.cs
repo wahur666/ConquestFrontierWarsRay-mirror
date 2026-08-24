@@ -36,11 +36,12 @@ public sealed class MovieScene : Node2D {
 		var resolvedPath = ResolveMoviePath(_moviePath);
 		if (!File.Exists(resolvedPath)) {
 			_statusText.Text = $"Missing movie: {resolvedPath}";
+			AppLog.Warning("MovieScene", $"Missing movie '{resolvedPath}'.");
 			_advanceRequested = true;
 			return;
 		}
 
-		_videoPlayer.SetSource(Shared.ResourceManager.Videos.OpenFile(resolvedPath), autoPlay: true);
+		_videoPlayer.SetOwnedSource(Shared.ResourceManager.Videos.OpenFile(resolvedPath), autoPlay: true);
 		_statusText.Text = string.Empty;
 	}
 

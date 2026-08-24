@@ -100,5 +100,63 @@ public sealed class AppTests {
 		Assert.Equal("Intro", app.Shared.GetRequired<SampleSharedState>().ScreenName);
 	}
 
+	[Fact]
+	public void SharedContext_Dispose_DisposesResourceManager() {
+		var shared = new SharedContext();
+		var manager = new StubResourceManager();
+		shared.ResourceManager = manager;
+
+		shared.Dispose();
+
+		Assert.True(manager.IsDisposed);
+	}
+
 	private sealed record SampleSharedState(string ScreenName);
+
+	private sealed class StubResourceManager : IResourceManager {
+		public IAudioResourceManager Audio { get; } = new StubAudioResourceManager();
+		public IVideoResourceManager Videos { get; } = new StubVideoResourceManager();
+		public bool IsDisposed { get; private set; }
+
+		public T Preload<T>(string name, Func<T> factory) where T : class, IDisposable {
+			throw new NotSupportedException();
+		}
+
+		public bool TryGetPreloaded<T>(string name, out T? resource) where T : class, IDisposable {
+			resource = null;
+			return false;
+		}
+
+		public bool ReleasePreloaded(string name) {
+			throw new NotSupportedException();
+		}
+
+		public void Dispose() {
+			IsDisposed = true;
+		}
+	}
+
+	private sealed class StubAudioResourceManager : IAudioResourceManager {
+		public AudioStreamResource OpenFile(string path, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
+
+		public AudioStreamResource OpenMusic(string musicPath, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
+
+		public AudioStreamResource OpenSpeech(string speechPath, AudioPlaybackBackend backend = AudioPlaybackBackend.RaylibMusic) {
+			throw new NotSupportedException();
+		}
+	}
+
+	private sealed class StubVideoResourceManager : IVideoResourceManager {
+		public VideoSource OpenFile(string path) {
+			throw new NotSupportedException();
+		}
+
+		public VideoSource OpenMovie(string moviePath) {
+			throw new NotSupportedException();
+		}
+	}
 }

@@ -90,7 +90,7 @@ internal sealed class VideoPlayerScene : ShowcaseScene {
 	protected override void OnInitialize() {
 		var path = Shared.ResourceLocator.ResolveMoviePath("cq_intro.mp4");
 		if (File.Exists(path)) {
-			_video.SetSource(Shared.ResourceManager.Videos.OpenFile(path), autoPlay: true);
+			_video.SetOwnedSource(Shared.ResourceManager.Videos.OpenFile(path), autoPlay: true);
 			_video.Volume = _volumeSlider.Value;
 		} else {
 			_status.Text = $"Missing video asset: {path}";

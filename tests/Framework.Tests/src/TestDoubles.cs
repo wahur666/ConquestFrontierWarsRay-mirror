@@ -53,10 +53,6 @@ internal sealed class TestResource : Resource {
 	public TestResource(string? resourcePath = null) : base(resourcePath) {
 	}
 
-	public void Load() {
-		EnsureLoaded();
-	}
-
 	protected override void LoadCore() {
 		LoadCount++;
 	}

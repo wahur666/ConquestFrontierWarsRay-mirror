@@ -57,6 +57,13 @@ public abstract class Resource : IDisposable {
 	/// <summary>
 	/// Loads the resource on first use.
 	/// </summary>
+	public void Load() {
+		EnsureLoaded();
+	}
+
+	/// <summary>
+	/// Loads the resource on first use.
+	/// </summary>
 	protected void EnsureLoaded() {
 		ObjectDisposedException.ThrowIf(_disposed, this);
 

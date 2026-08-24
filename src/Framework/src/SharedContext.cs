@@ -3,7 +3,7 @@ namespace ConquestFrontierWarsRay.Framework;
 /// <summary>
 /// Shared application state bag for named values and typed services.
 /// </summary>
-public sealed class SharedContext {
+public sealed class SharedContext : IDisposable {
 	private readonly Dictionary<string, object?> _items = new(StringComparer.Ordinal);
 	private readonly Dictionary<Type, object> _services = [];
 	private IResourceLocator _resourceLocator = new AssetRootResourceLocator(
@@ -18,7 +18,8 @@ public sealed class SharedContext {
 		set {
 			_resourceLocator = value ?? throw new ArgumentNullException(nameof(value));
 
-			if (_resourceManager is ResourceManager) {
+			if (_resourceManager is ResourceManager resourceManager) {
+				resourceManager.Dispose();
 				_resourceManager = null;
 			}
 		}
@@ -29,7 +30,24 @@ public sealed class SharedContext {
 	/// </summary>
 	public IResourceManager ResourceManager {
 		get => _resourceManager ??= new ResourceManager(ResourceLocator);
-		set => _resourceManager = value ?? throw new ArgumentNullException(nameof(value));
+		set {
+			ArgumentNullException.ThrowIfNull(value);
+
+			if (ReferenceEquals(_resourceManager, value)) {
+				return;
+			}
+
+			_resourceManager?.Dispose();
+			_resourceManager = value;
+		}
+	}
+
+	/// <summary>
+	/// Disposes disposable shared services owned by the context.
+	/// </summary>
+	public void Dispose() {
+		_resourceManager?.Dispose();
+		_resourceManager = null;
 	}
 
 	/// <summary>
