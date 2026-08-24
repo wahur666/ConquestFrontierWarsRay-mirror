@@ -40,7 +40,7 @@ public sealed class MovieScene : Node2D {
 			return;
 		}
 
-		_videoPlayer.SetSourceFile(resolvedPath, autoPlay: true);
+		_videoPlayer.SetSource(Shared.ResourceManager.Videos.OpenFile(resolvedPath), autoPlay: true);
 		_statusText.Text = string.Empty;
 	}
 

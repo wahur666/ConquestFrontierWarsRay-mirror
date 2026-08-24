@@ -6,12 +6,31 @@ namespace ConquestFrontierWarsRay.Framework;
 public sealed class SharedContext {
 	private readonly Dictionary<string, object?> _items = new(StringComparer.Ordinal);
 	private readonly Dictionary<Type, object> _services = [];
+	private IResourceLocator _resourceLocator = new AssetRootResourceLocator(
+		Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Assets")));
+	private IResourceManager? _resourceManager;
 
 	/// <summary>
 	/// Shared locator for application asset files such as audio and video.
 	/// </summary>
-	public IResourceLocator ResourceLocator { get; set; } = new AssetRootResourceLocator(
-		Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Assets")));
+	public IResourceLocator ResourceLocator {
+		get => _resourceLocator;
+		set {
+			_resourceLocator = value ?? throw new ArgumentNullException(nameof(value));
+
+			if (_resourceManager is ResourceManager) {
+				_resourceManager = null;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Shared framework resource manager for asset-oriented services.
+	/// </summary>
+	public IResourceManager ResourceManager {
+		get => _resourceManager ??= new ResourceManager(ResourceLocator);
+		set => _resourceManager = value ?? throw new ArgumentNullException(nameof(value));
+	}
 
 	/// <summary>
 	/// Stores or replaces one named value.

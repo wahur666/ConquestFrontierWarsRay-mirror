@@ -1,6 +1,5 @@
 using System.Numerics;
 using Raylib_cs;
-using SharpGen.Runtime;
 using Vortice.MediaFoundation;
 
 namespace ConquestFrontierWarsRay.Framework;
@@ -23,11 +22,9 @@ public sealed unsafe class VideoPlayer : Control {
 	private const long TicksPerSecond = 10_000_000;
 
 	private readonly AudioPlayer _audioPlayer;
-	private IMFSourceReader? _videoReader;
-	private MediaFoundationRuntime.Lease _mediaFoundationLease;
+	private VideoSource? _source;
 	private byte[]? _rgbaFrame;
 	private Raylib_cs.Texture2D _texture;
-	private string? _sourcePath;
 	private int _stride;
 	private bool _sourceIsTopDown;
 	private bool _hasPendingFrame;
@@ -47,7 +44,7 @@ public sealed unsafe class VideoPlayer : Control {
 	/// <summary>
 	/// Path of the currently loaded video file, if any.
 	/// </summary>
-	public string? SourcePath => _sourcePath;
+	public string? SourcePath => _source?.SourcePath;
 
 	/// <summary>
 	/// Video width in pixels.
@@ -67,7 +64,7 @@ public sealed unsafe class VideoPlayer : Control {
 	/// <summary>
 	/// True when a source has been loaded.
 	/// </summary>
-	public bool HasVideo => _videoReader is not null;
+	public bool HasVideo => _source is not null;
 
 	/// <summary>
 	/// True while playback is active.
@@ -123,14 +120,22 @@ public sealed unsafe class VideoPlayer : Control {
 	/// <summary>
 	/// File name of the current source, or an empty string when no source is loaded.
 	/// </summary>
-	public string FileName => _sourcePath is null ? string.Empty : Path.GetFileName(_sourcePath);
+	public string FileName => SourcePath is null ? string.Empty : Path.GetFileName(SourcePath);
 
 	/// <summary>
 	/// Loads a video file into this player.
 	/// </summary>
 	public void SetSourceFile(string path, bool autoPlay = false) {
 		ArgumentException.ThrowIfNullOrWhiteSpace(path);
-		LoadSource(path, autoPlay);
+		SetSource(new VideoResourceManager(new AssetRootResourceLocator(Path.GetDirectoryName(Path.GetFullPath(path)) ?? AppContext.BaseDirectory)).OpenFile(path), autoPlay);
+	}
+
+	/// <summary>
+	/// Loads one already-opened disposable video source into this player.
+	/// </summary>
+	public void SetSource(VideoSource source, bool autoPlay = false) {
+		ArgumentNullException.ThrowIfNull(source);
+		LoadSource(source, autoPlay);
 	}
 
 	/// <summary>
@@ -178,7 +183,7 @@ public sealed unsafe class VideoPlayer : Control {
 	/// Seeks to a playback position in seconds.
 	/// </summary>
 	public void Seek(double positionSeconds) {
-		if (_videoReader is null) {
+		if (_source is null) {
 			return;
 		}
 
@@ -186,7 +191,7 @@ public sealed unsafe class VideoPlayer : Control {
 		var targetTimestamp = SecondsToTicks(clampedPosition);
 		var wasPlaying = _isPlaying;
 
-		_videoReader.SetCurrentPosition(targetTimestamp);
+		_source.Reader.SetCurrentPosition(targetTimestamp);
 		_audioPlayer.Seek((float)clampedPosition);
 		_elapsedSeconds = clampedPosition;
 		_pendingFrameTimestamp = 0;
@@ -232,7 +237,7 @@ public sealed unsafe class VideoPlayer : Control {
 	}
 
 	protected override void OnUpdate(float deltaTime) {
-		if (!_isPlaying || _endOfStream || _videoReader is null) {
+		if (!_isPlaying || _endOfStream || _source is null) {
 			return;
 		}
 
@@ -285,53 +290,19 @@ public sealed unsafe class VideoPlayer : Control {
 		ReleasePlayback();
 	}
 
-	private void LoadSource(string path, bool autoPlay) {
-		var fullPath = Path.GetFullPath(path);
+	private void LoadSource(VideoSource source, bool autoPlay) {
 		ReleasePlayback();
-
-		_mediaFoundationLease = MediaFoundationRuntime.Acquire();
 		try {
-			var attributes = MediaFactory.MFCreateAttributes(1);
-			attributes.Set(SourceReaderAttributeKeys.EnableVideoProcessing, true).CheckError();
-
-			var reader = MediaFactory.MFCreateSourceReaderFromURL(fullPath, attributes);
-			reader.SetStreamSelection(SourceReaderIndex.AllStreams, false);
-			reader.SetStreamSelection(SourceReaderIndex.FirstVideoStream, true);
-
-			var outputType = MediaFactory.MFCreateMediaType();
-			outputType.Set(MediaTypeAttributeKeys.MajorType, MediaTypeGuids.Video).CheckError();
-			outputType.Set(MediaTypeAttributeKeys.Subtype, VideoFormatGuids.Rgb32).CheckError();
-			reader.SetCurrentMediaType(SourceReaderIndex.FirstVideoStream, outputType);
-
-			var currentType = reader.GetCurrentMediaType(SourceReaderIndex.FirstVideoStream);
-			var packedFrameSize = currentType.GetUInt64(MediaTypeAttributeKeys.FrameSize);
-			var width = (int)(packedFrameSize >> 32);
-			var height = (int)(packedFrameSize & 0xffffffff);
-			var stride = width * 4;
-			var frameRate = ReadPackedRatio(currentType, MediaTypeAttributeKeys.FrameRate);
-
-			var strideResult = currentType.GetUInt32(MediaTypeAttributeKeys.DefaultStride, out var mediaStride);
-			if (strideResult.Success) {
-				stride = unchecked((int)mediaStride);
-			}
-
-			if (width <= 0 || height <= 0) {
-				reader.Dispose();
-				throw new InvalidOperationException($"Could not read a valid video size from '{fullPath}'.");
-			}
-
-			_videoReader = reader;
-			var audio = TryCreateEmbeddedAudio(fullPath);
-			_audioPlayer.SetAudio(audio, disposeCurrent: true, takeOwnership: audio is not null);
+			_source = source;
+			_audioPlayer.SetAudio(source.EmbeddedAudio, disposeCurrent: true, takeOwnership: false);
 			_audioPlayer.Volume = _volume;
-			_sourcePath = fullPath;
-			VideoWidth = width;
-			VideoHeight = height;
-			FrameRate = frameRate;
-			_durationSeconds = ReadDurationSeconds(reader);
-			_stride = Math.Abs(stride);
-			_sourceIsTopDown = stride < 0;
-			_rgbaFrame = new byte[width * height * 4];
+			VideoWidth = source.Width;
+			VideoHeight = source.Height;
+			FrameRate = source.FrameRate;
+			_durationSeconds = source.DurationSeconds;
+			_stride = Math.Abs(source.Stride);
+			_sourceIsTopDown = source.SourceIsTopDown;
+			_rgbaFrame = new byte[source.Width * source.Height * 4];
 			_elapsedSeconds = 0d;
 			_pendingFrameTimestamp = 0;
 			_hasPendingFrame = false;
@@ -339,10 +310,10 @@ public sealed unsafe class VideoPlayer : Control {
 			_endOfStream = false;
 			_isPlaying = false;
 			_resumeOnEnter = false;
-			EnsureTexture(width, height);
+			EnsureTexture(source.Width, source.Height);
 
 			if (Size.X <= 0f || Size.Y <= 0f) {
-				Size = new Vector2(width, height);
+				Size = new Vector2(source.Width, source.Height);
 			}
 
 			Seek(0d);
@@ -375,16 +346,11 @@ public sealed unsafe class VideoPlayer : Control {
 			_texture = default;
 		}
 
-		_videoReader?.Dispose();
-		_videoReader = null;
-
-		_audioPlayer.SetAudio(null, disposeCurrent: true);
-
-		_mediaFoundationLease.Dispose();
-		_mediaFoundationLease = default;
+		_audioPlayer.SetAudio(null, disposeCurrent: false);
+		_source?.Dispose();
+		_source = null;
 
 		_rgbaFrame = null;
-		_sourcePath = null;
 		_stride = 0;
 		_sourceIsTopDown = false;
 		_pendingFrameTimestamp = 0;
@@ -399,11 +365,11 @@ public sealed unsafe class VideoPlayer : Control {
 	}
 
 	private bool ReadNextFrame() {
-		if (_videoReader is null) {
+		if (_source is null) {
 			return false;
 		}
 
-		var sample = _videoReader.ReadSample(SourceReaderIndex.FirstVideoStream, SourceReaderControlFlag.None, out _, out var flags, out var timestamp);
+		var sample = _source.Reader.ReadSample(SourceReaderIndex.FirstVideoStream, SourceReaderControlFlag.None, out _, out var flags, out var timestamp);
 
 		if ((flags & SourceReaderFlag.EndOfStream) != 0) {
 			_endOfStream = true;
@@ -412,7 +378,7 @@ public sealed unsafe class VideoPlayer : Control {
 		}
 
 		if ((flags & SourceReaderFlag.Error) != 0) {
-			throw new InvalidOperationException($"Media Foundation reported a read error for '{_sourcePath}'.");
+			throw new InvalidOperationException($"Media Foundation reported a read error for '{SourcePath}'.");
 		}
 
 		if (sample is null) {
@@ -423,27 +389,6 @@ public sealed unsafe class VideoPlayer : Control {
 		CopySampleToFrame(sample);
 		_hasPendingFrame = true;
 		return true;
-	}
-
-	private static double ReadPackedRatio(IMFAttributes attributes, Guid key) {
-		var result = attributes.GetUInt64(key, out var packedRatio);
-		if (result.Failure) {
-			return 0d;
-		}
-
-		var numerator = (uint)(packedRatio >> 32);
-		var denominator = (uint)(packedRatio & 0xffffffff);
-		return denominator == 0 ? 0d : (double)numerator / denominator;
-	}
-
-	private static double ReadDurationSeconds(IMFSourceReader reader) {
-		try {
-			var duration = reader.GetPresentationAttribute(SourceReaderIndex.MediaSource, PresentationDescriptionAttributeKeys.Duration);
-			var ticks = Convert.ToInt64(duration.Value);
-			return ticks <= 0 ? 0d : ticks / (double)TicksPerSecond;
-		} catch {
-			return 0d;
-		}
 	}
 
 	private static long SecondsToTicks(double seconds) {
@@ -522,16 +467,6 @@ public sealed unsafe class VideoPlayer : Control {
 					destinationPixel[3] = 255;
 				}
 			}
-		}
-	}
-
-	private static AudioStreamResource? TryCreateEmbeddedAudio(string path) {
-		try {
-			var audio = new MediaFoundationAudioStreamResource(path);
-			_ = audio.TimeLength;
-			return audio;
-		} catch {
-			return null;
 		}
 	}
 }
