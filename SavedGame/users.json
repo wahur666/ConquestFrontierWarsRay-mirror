@@ -1,8 +1,11 @@
 {
-  "currentUser": "ITest",
+  "currentUser": "Test",
   "users": [
     {
-      "name": "ITest"
+      "name": "Test"
+    },
+    {
+      "name": "Imre2"
     }
   ]
 }

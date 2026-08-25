@@ -26,6 +26,29 @@ public sealed class UiEventSourceTests {
 		Assert.Same(parent.Children[0], node);
 	}
 
+	[Fact]
+	public void ResolveTarget_IgnoresControlsUnderInvisibleCanvasParent() {
+		var root = new Node("Root");
+		var visible = root.AddChild(new HotRectNode("Visible") {
+			Size = new Vector2(200f, 200f)
+		});
+		var hiddenParent = root.AddChild(new Node2D("HiddenParent") {
+			Visible = false
+		});
+		hiddenParent.AddChild(new HotRectNode("HiddenChild") {
+			Size = new Vector2(200f, 200f)
+		});
+
+		var eventSource = new UiEventSource {
+			ScopeRoot = root
+		};
+
+		var target = ResolveTarget(eventSource, new Vector2(50f, 50f));
+		var node = GetPointerTargetNode(target);
+
+		Assert.Same(visible, node);
+	}
+
 	private static object? ResolveTarget(UiEventSource eventSource, Vector2 pointerPosition) {
 		var method = typeof(UiEventSource).GetMethod("ResolveTarget", BindingFlags.Instance | BindingFlags.NonPublic);
 		Assert.NotNull(method);

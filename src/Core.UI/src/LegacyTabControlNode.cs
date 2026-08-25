@@ -145,6 +145,10 @@ public sealed class LegacyTabControlNode : Control, ILegacyKeyboardFocusable {
 		return SetCurrentTab(tabIndex, emitEvent: true);
 	}
 
+	public int SetCurrentTabSilently(int tabIndex) {
+		return SetCurrentTab(tabIndex, emitEvent: false);
+	}
+
 	public void SetDefaultControlForTab(int tabIndex, ILegacyKeyboardFocusable? focusable) {
 		GetTab(tabIndex).SetDefaultFocusControl(focusable);
 	}

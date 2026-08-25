@@ -297,11 +297,12 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
-			OnNewUserCreated,
+			OnNewUserSaved,
+			string.Empty,
 			_requiresInitialUser ? RequestQuit : CloseNewUserModal));
 	}
 
-	private void OnNewUserCreated(UserProfilesData _) {
+	private void OnNewUserSaved(UserProfilesData _, string __) {
 		CloseNewUserModal();
 	}
 

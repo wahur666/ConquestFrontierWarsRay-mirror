@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Globalization;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
 
@@ -23,6 +24,8 @@ public sealed class UiEventSource : Node {
 	/// Optional subtree root to dispatch within. Defaults to the active scene root.
 	/// </summary>
 	public Node? ScopeRoot { get; set; }
+	public bool LogPointerDispatch { get; set; }
+	public bool LogPointerMoveDispatch { get; set; }
 
 	protected override void OnUpdate(float deltaTime) {
 		var inputSnapshot = Input.CaptureUiSnapshot();
@@ -47,19 +50,25 @@ public sealed class UiEventSource : Node {
 			_hasPointerPosition = true;
 
 			if (targetNode is not null) {
-				Dispatch(targetNode, UiPointerEventKind.Move, pointerPosition, null, 0f);
+				var moveEvent = Dispatch(targetNode, UiPointerEventKind.Move, pointerPosition, null, 0f);
+				if (ShouldLogMove(inputSnapshot)) {
+					LogPointerMoveSummary(moveEvent, "Move");
+				}
 			}
 
-			DispatchCapturedMoves(pointerPosition, targetNode);
+			DispatchCapturedMoves(pointerPosition, targetNode, inputSnapshot);
 		}
 
 		foreach (var button in RoutedButtons) {
 			if (IsPressed(inputSnapshot, button) && targetNode is not null) {
 				_pressedTargets[button] = targetNode;
 				var pointerEvent = Dispatch(targetNode, UiPointerEventKind.Down, pointerPosition, button, 0f);
+				LogPointerDispatchSummary(pointerEvent);
 				if (pointerEvent.CaptureRequested && pointerEvent.CaptureTarget is not null) {
 					_capturedTargets[button] = pointerEvent.CaptureTarget;
 				}
+			} else if (IsPressed(inputSnapshot, button)) {
+				LogPointerMiss(UiPointerEventKind.Down, pointerPosition, button);
 			}
 
 			if (!IsReleased(inputSnapshot, button)) {
@@ -68,12 +77,14 @@ public sealed class UiEventSource : Node {
 
 			var releaseTarget = ResolveReleaseTarget(button);
 			if (releaseTarget is not null) {
-				Dispatch(releaseTarget, UiPointerEventKind.Up, pointerPosition, button, 0f);
+				LogPointerDispatchSummary(Dispatch(releaseTarget, UiPointerEventKind.Up, pointerPosition, button, 0f));
+			} else {
+				LogPointerMiss(UiPointerEventKind.Up, pointerPosition, button);
 			}
 
 			if (_pressedTargets.TryGetValue(button, out var pressedTarget)) {
 				if (targetNode is not null && ReferenceEquals(targetNode, pressedTarget)) {
-					Dispatch(pressedTarget, UiPointerEventKind.Click, pointerPosition, button, 0f);
+					LogPointerDispatchSummary(Dispatch(pressedTarget, UiPointerEventKind.Click, pointerPosition, button, 0f));
 				}
 			}
 
@@ -105,6 +116,10 @@ public sealed class UiEventSource : Node {
 	}
 
 	private static void CollectTargets(Node node, List<PointerTarget> targets) {
+		if (node is CanvasItem { Visible: false }) {
+			return;
+		}
+
 		if (node is IUiPointerEventHandler handler) {
 			targets.Add(new PointerTarget(node, handler));
 		}
@@ -122,7 +137,7 @@ public sealed class UiEventSource : Node {
 			.Select(item => item.Target);
 	}
 
-	private void DispatchCapturedMoves(Vector2 pointerPosition, Node? hoverTarget) {
+	private void DispatchCapturedMoves(Vector2 pointerPosition, Node? hoverTarget, UiInputSnapshot inputSnapshot) {
 		var dispatchedTargets = new HashSet<Node>(ReferenceEqualityComparer.Instance);
 		if (hoverTarget is not null) {
 			dispatchedTargets.Add(hoverTarget);
@@ -133,7 +148,10 @@ public sealed class UiEventSource : Node {
 				continue;
 			}
 
-			Dispatch(capturedTarget, UiPointerEventKind.Move, pointerPosition, null, 0f);
+			var moveEvent = Dispatch(capturedTarget, UiPointerEventKind.Move, pointerPosition, null, 0f);
+			if (ShouldLogMove(inputSnapshot)) {
+				LogPointerMoveSummary(moveEvent, "CapturedMove");
+			}
 		}
 	}
 
@@ -166,6 +184,66 @@ public sealed class UiEventSource : Node {
 		}
 
 		return pointerEvent;
+	}
+
+	private void LogPointerDispatchSummary(UiPointerEvent pointerEvent) {
+		if (!LogPointerDispatch || pointerEvent.Button is null || !IsClickDiagnosticKind(pointerEvent.Kind)) {
+			return;
+		}
+
+		var capture = pointerEvent.CaptureTarget is null ? "<none>" : GetNodePath(pointerEvent.CaptureTarget);
+		AppLog.Info(
+			Name,
+			string.Create(
+				CultureInfo.InvariantCulture,
+				$"Pointer {pointerEvent.Kind} {pointerEvent.Button} at ({pointerEvent.Position.X:0.00},{pointerEvent.Position.Y:0.00}) "
+				+ $"target='{GetNodePath(pointerEvent.OriginalTarget)}' lastReceiver='{GetNodePath(pointerEvent.CurrentTarget)}' "
+				+ $"handled={pointerEvent.Handled} capture='{capture}'."));
+	}
+
+	private void LogPointerMoveSummary(UiPointerEvent pointerEvent, string label) {
+		if (!LogPointerDispatch || !LogPointerMoveDispatch) {
+			return;
+		}
+
+		AppLog.Info(
+			Name,
+			string.Create(
+				CultureInfo.InvariantCulture,
+				$"Pointer {label} at ({pointerEvent.Position.X:0.00},{pointerEvent.Position.Y:0.00}) "
+				+ $"target='{GetNodePath(pointerEvent.OriginalTarget)}' lastReceiver='{GetNodePath(pointerEvent.CurrentTarget)}' "
+				+ $"handled={pointerEvent.Handled}."));
+	}
+
+	private void LogPointerMiss(UiPointerEventKind kind, Vector2 pointerPosition, MouseButton button) {
+		if (!LogPointerDispatch || !IsClickDiagnosticKind(kind)) {
+			return;
+		}
+
+		AppLog.Info(
+			Name,
+			string.Create(
+				CultureInfo.InvariantCulture,
+				$"Pointer {kind} {button} at ({pointerPosition.X:0.00},{pointerPosition.Y:0.00}) target='<none>'."));
+	}
+
+	private static bool IsClickDiagnosticKind(UiPointerEventKind kind) {
+		return kind is UiPointerEventKind.Down or UiPointerEventKind.Up or UiPointerEventKind.Click;
+	}
+
+	private bool ShouldLogMove(UiInputSnapshot inputSnapshot) {
+		return LogPointerDispatch
+			&& LogPointerMoveDispatch
+			&& (inputSnapshot.LeftDown || inputSnapshot.MiddleDown || inputSnapshot.RightDown || _capturedTargets.Count > 0);
+	}
+
+	private static string GetNodePath(Node node) {
+		var names = new Stack<string>();
+		for (var current = node; current is not null; current = current.Parent) {
+			names.Push(current.Name);
+		}
+
+		return string.Join("/", names);
 	}
 
 	private sealed class ReferenceEqualityComparer : IEqualityComparer<Node> {

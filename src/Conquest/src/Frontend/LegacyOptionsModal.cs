@@ -80,10 +80,26 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		}
 	}
 
+	protected override void OnEnterTree() {
+		base.OnEnterTree();
+		WriteHitZoneSnapshot("enter-tree");
+	}
+
+	private void WriteHitZoneSnapshot(string reason) {
+		try {
+			var path = LegacyUiHitZoneSnapshot.WriteToArtifacts(this, Name, reason);
+			AppLog.Info(Name, $"Wrote legacy options hit-zone snapshot to '{path}'.");
+		} catch (Exception ex) {
+			AppLog.Warning(Name, $"Failed to write legacy options hit-zone snapshot: {ex.Message}");
+		}
+	}
+
 	private void BuildPlayerTab() {
 		_playerNameLabel = AddTabStatic(0, "StaticName", _options.StaticName);
 
 		_playerList = AddTabListBox(0, "PlayerList", _options.ListNames);
+		_playerList.SetPointerHitInsets(right: 13f);
+		_playerList.CommitOnDoubleClick = true;
 		_playerList.SelectionCommitted += list => {
 			_userProfilesRepository.SetCurrentUser(list.SelectedLabel);
 			UpdatePlayerNameLabel(list.SelectedLabel);
@@ -94,7 +110,7 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		var buttonChange = AddTabButton(0, "ButtonChange", _options.ButtonChange);
 		var buttonDelete = AddTabButton(0, "ButtonDelete", _options.ButtonDelete);
 		buttonNew.Activated += _ => OpenNewUserModal();
-		buttonChange.Activated += _ => { };
+		buttonChange.Activated += _ => OpenChangeUserModal();
 		buttonDelete.Activated += _ => DeleteSelectedUser();
 		AddCheckboxWithLabel(0, "PushDInput", _options.StaticDInput, _options.PushDInput, initialState: false);
 		_playerMouseSlider = AddLabeledSlider(0, "SliderMouse", _options.StaticMouse, _options.SliderMouse, 0, 10, 7);
@@ -150,7 +166,7 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		_tabControl!.SetDefaultControlForTab(2, soundSlider);
 	}
 
-	private void RefreshPlayerList() {
+	private void RefreshPlayerList(string? preferredSelectedUser = null) {
 		if (_playerList is null) {
 			return;
 		}
@@ -161,9 +177,12 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 			_playerList.AddString(user.Name);
 		}
 
+		var selectedUser = string.IsNullOrWhiteSpace(preferredSelectedUser)
+			? profiles.CurrentUser
+			: preferredSelectedUser;
 		var selectedIndex = profiles.Users
 			.Select((user, index) => (user, index))
-			.FirstOrDefault(tuple => string.Equals(tuple.user.Name, profiles.CurrentUser, StringComparison.OrdinalIgnoreCase))
+			.FirstOrDefault(tuple => string.Equals(tuple.user.Name, selectedUser, StringComparison.OrdinalIgnoreCase))
 			.index;
 		if (profiles.Users.Count > 0) {
 			_playerList.SetCurrentSelection(Math.Clamp(selectedIndex, 0, profiles.Users.Count - 1));
@@ -187,6 +206,18 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 	}
 
 	private void OpenNewUserModal() {
+		OpenUserModal(string.Empty);
+	}
+
+	private void OpenChangeUserModal() {
+		if (_playerList is null || string.IsNullOrWhiteSpace(_playerList.SelectedLabel)) {
+			return;
+		}
+
+		OpenUserModal(_playerList.SelectedLabel);
+	}
+
+	private void OpenUserModal(string existingName) {
 		if (_newUserModal is not null) {
 			return;
 		}
@@ -198,14 +229,15 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
-			OnUserCreated,
+			OnUserSaved,
+			existingName,
 			CloseNewUserModal));
 	}
 
-	private void OnUserCreated(UserProfilesData profiles) {
+	private void OnUserSaved(UserProfilesData profiles, string selectedUser) {
 		CloseNewUserModal();
-		RefreshPlayerList();
-		UpdatePlayerNameLabel(profiles.CurrentUser);
+		RefreshPlayerList(selectedUser);
+		UpdatePlayerNameLabel(selectedUser);
 	}
 
 	private void CloseNewUserModal() {
@@ -255,6 +287,7 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 			_options.Tab,
 			ResolveTabLabels(_options.Tab.TextIds),
 			_vfxRepository);
+		tab.SelectedTabChanged += (_, tabIndex) => WriteHitZoneSnapshot($"tab-{tabIndex}");
 		var centeredModalPosition = ResolveScreenPosition(_options.ScreenRect);
 		var authoredToCenteredOffsetX = centeredModalPosition.X - _options.ScreenRect.Left;
 

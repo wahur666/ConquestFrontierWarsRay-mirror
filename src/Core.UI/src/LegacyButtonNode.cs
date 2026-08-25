@@ -57,9 +57,20 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyK
 	public bool PushState { get; set; }
 	public LegacyButtonVisualState VisualStateOverride { get; set; }
 	public bool IsPointerInputEnabled => Visible && _visible && _enabled && Size.X > 0f && Size.Y > 0f;
+	public Vector4 PointerHitInsets { get; private set; }
 	public int LeftMargin { get; private set; }
 	public int RightMargin { get; private set; }
 	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
+
+	public Rectangle GlobalHitBounds => ApplyInsets(GlobalBounds, PointerHitInsets);
+
+	public void SetPointerHitInsets(float left = 0f, float top = 0f, float right = 0f, float bottom = 0f) {
+		PointerHitInsets = new Vector4(
+			Math.Max(0f, left),
+			Math.Max(0f, top),
+			Math.Max(0f, right),
+			Math.Max(0f, bottom));
+	}
 
 	public void ApplyLegacyDefinition(GT_BUTTON archetype, BUTTON_DATA? data = null, VfxAnimationDataRepository? repository = null) {
 		ArgumentNullException.ThrowIfNull(archetype);
@@ -138,7 +149,7 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyK
 	}
 
 	public bool HitTest(Vector2 screenPoint) {
-		return ContainsPoint(screenPoint);
+		return Raylib.CheckCollisionPointRec(screenPoint, GlobalHitBounds);
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
@@ -455,6 +466,14 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyK
 
 	private static Color ToColor(GT_COLOR color) {
 		return new Color(color.Red, color.Green, color.Blue, (byte)255);
+	}
+
+	private static Rectangle ApplyInsets(Rectangle bounds, Vector4 insets) {
+		var x = bounds.X + insets.X;
+		var y = bounds.Y + insets.Y;
+		var width = Math.Max(0f, bounds.Width - insets.X - insets.Z);
+		var height = Math.Max(0f, bounds.Height - insets.Y - insets.W);
+		return new Rectangle(x, y, width, height);
 	}
 
 	private enum VisualState {

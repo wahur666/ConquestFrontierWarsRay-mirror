@@ -11,7 +11,8 @@ namespace ConquestFrontierWarsRay.Frontend;
 
 internal sealed class LegacyNewUserModal : LegacyModalNode {
 	private readonly Action _cancelled;
-	private readonly Action<UserProfilesData> _created;
+	private readonly Action<UserProfilesData, string> _saved;
+	private readonly string _existingName;
 	private readonly GT_NEWPLAYER _newPlayer;
 	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly LegacyRcStringResolver _strings;
@@ -26,14 +27,16 @@ internal sealed class LegacyNewUserModal : LegacyModalNode {
 		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
-		Action<UserProfilesData> created,
+		Action<UserProfilesData, string> saved,
+		string existingName,
 		Action cancelled) : base("LegacyNewUserModal", cancelled) {
 		_newPlayer = newPlayer;
 		_userProfilesRepository = userProfilesRepository;
 		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
 		_strings = strings;
-		_created = created;
+		_saved = saved;
+		_existingName = existingName;
 		_cancelled = cancelled;
 	}
 
@@ -47,6 +50,7 @@ internal sealed class LegacyNewUserModal : LegacyModalNode {
 
 		_nameEdit = AddEditNode("NameEdit", _newPlayer.Edit);
 		_nameEdit.SetMaxChars(24);
+		_nameEdit.SetText(_existingName);
 		_nameEdit.Activated += _ => TrySubmit();
 		_nameEdit.RequestKeyboardFocus();
 
@@ -69,9 +73,12 @@ internal sealed class LegacyNewUserModal : LegacyModalNode {
 			return;
 		}
 
-		if (_userProfilesRepository.TryCreateUser(_nameEdit.Text, out var savedData, out var errorMessage)) {
+		var saved = string.IsNullOrWhiteSpace(_existingName)
+			? _userProfilesRepository.TryCreateUser(_nameEdit.Text, out var savedData, out var errorMessage)
+			: _userProfilesRepository.TryRenameUser(_existingName, _nameEdit.Text, out savedData, out errorMessage);
+		if (saved) {
 			_statusLabel.Text = string.Empty;
-			_created(savedData);
+			_saved(savedData, string.IsNullOrWhiteSpace(_existingName) ? savedData.CurrentUser : _nameEdit.Text.Trim());
 			return;
 		}
 

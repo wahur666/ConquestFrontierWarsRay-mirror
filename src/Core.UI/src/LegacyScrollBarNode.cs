@@ -58,6 +58,18 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	public int ButtonWidth { get; private set; } = 24;
 	public int ButtonHeight { get; private set; } = 18;
 	public bool IsPointerInputEnabled => Visible && _visible && IsActive && Size.X > 0f && Size.Y > 0f;
+	public Vector4 PointerHitInsets { get; private set; }
+	public Rectangle GlobalHitBounds => ApplyInsets(GlobalBounds, PointerHitInsets);
+
+	public void SetPointerHitInsets(float left = 0f, float top = 0f, float right = 0f, float bottom = 0f) {
+		PointerHitInsets = new Vector4(
+			Math.Max(0f, left),
+			Math.Max(0f, top),
+			Math.Max(0f, right),
+			Math.Max(0f, bottom));
+		_upButton.SetPointerHitInsets(left, top, right, bottom);
+		_downButton.SetPointerHitInsets(left, top, right, bottom);
+	}
 
 	public void ApplyLegacyDefinition(GT_SCROLLBAR archetype, GT_BUTTON upButtonArchetype, GT_BUTTON downButtonArchetype,
 		VfxAnimationDataRepository? repository = null) {
@@ -136,7 +148,7 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 	}
 
 	public bool HitTest(Vector2 screenPoint) {
-		return _visible && IsActive && ContainsPoint(screenPoint);
+		return _visible && IsActive && Raylib.CheckCollisionPointRec(screenPoint, GlobalHitBounds);
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
@@ -451,6 +463,14 @@ public sealed class LegacyScrollBarNode : Control, IUiPointerEventHandler {
 
 	private static Color ToColor(GT_COLOR color) {
 		return new Color((byte)color.Red, (byte)color.Green, (byte)color.Blue, (byte)255);
+	}
+
+	private static Rectangle ApplyInsets(Rectangle bounds, Vector4 insets) {
+		var x = bounds.X + insets.X;
+		var y = bounds.Y + insets.Y;
+		var width = Math.Max(0f, bounds.Width - insets.X - insets.Z);
+		var height = Math.Max(0f, bounds.Height - insets.Y - insets.W);
+		return new Rectangle(x, y, width, height);
 	}
 
 	private void UpdateHover(Vector2 position) {

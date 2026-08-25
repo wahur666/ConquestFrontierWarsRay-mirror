@@ -21,6 +21,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	private const float DefaultHorizontalPadding = 6f;
 	private const float DefaultVerticalPadding = 1f;
 	private const float ScrollBarHorizontalScale = 0.55f;
+	private const float DoubleClickSeconds = 0.35f;
 	private readonly List<ItemEntry> _items = [];
 	private AtlasFramesResource? _art;
 	private bool _enabled = true;
@@ -34,6 +35,9 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	private RECT _textArea = new();
 	private int _topLine;
 	private bool _visible = true;
+	private double _lastClickTime;
+	private int _lastClickedIndex = -1;
+	private Vector2 _lastClickPosition;
 
 	public LegacyListBoxNode(string? name = null) : base(name) {
 	}
@@ -71,8 +75,10 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	public bool DisableMouseSelect { get; private set; }
 
 	public bool CommitOnSingleClickPointerDown { get; set; }
+	public bool CommitOnDoubleClick { get; set; }
 
 	public float FontSize { get; set; } = DefaultFontSize;
+	public Vector4 PointerHitInsets { get; private set; }
 
 	public Color DisabledTextColor { get; private set; } = new(100, 100, 100, 255);
 	public Color NormalTextColor { get; private set; } = new(0, 138, 191, 255);
@@ -91,6 +97,18 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	public IReadOnlyList<string> Items => _items.Select(static item => item.Label).ToArray();
 
 	public bool IsPointerInputEnabled => Visible && _visible && _enabled && Size.X > 0f && Size.Y > 0f;
+	public Rectangle GlobalHitBounds => ApplyInsets(GlobalBounds, PointerHitInsets);
+
+	public void SetPointerHitInsets(float left = 0f, float top = 0f, float right = 0f, float bottom = 0f, bool includeScrollBar = true) {
+		PointerHitInsets = new Vector4(
+			Math.Max(0f, left),
+			Math.Max(0f, top),
+			Math.Max(0f, right),
+			Math.Max(0f, bottom));
+		if (includeScrollBar) {
+			_scrollBar?.SetPointerHitInsets(left, top, right, bottom);
+		}
+	}
 
 	public void ApplyLegacyDefinition(GT_LISTBOX archetype, LISTBOX_DATA data, VfxAnimationDataRepository? repository = null,
 		XmlDbRepository? xmlDbRepository = null) {
@@ -469,7 +487,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	}
 
 	public bool HitTest(Vector2 screenPoint) {
-		return !_visible || !Visible ? false : ContainsPoint(screenPoint);
+		return _visible && Visible && Raylib.CheckCollisionPointRec(screenPoint, GlobalHitBounds);
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
@@ -647,6 +665,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		}
 
 		_scrollBar.ApplyLegacyDefinition(scrollBarArchetype, upButtonArchetype, downButtonArchetype, repository);
+		_scrollBar.SetPointerHitInsets(PointerHitInsets.X, PointerHitInsets.Y, PointerHitInsets.Z, PointerHitInsets.W);
 		ConfigureScrollBarLayout();
 		_scrollBar.SetVisible(_visible && Visible);
 		_scrollBar.EnableScrollBar(_enabled);
@@ -747,6 +766,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 
 		var index = GetItemIndexAt(pointerEvent.Position);
 		if (index < 0) {
+			_lastClickedIndex = -1;
 			return;
 		}
 
@@ -760,6 +780,18 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		if (CommitOnSingleClickPointerDown) {
 			CommitSelection();
 		}
+
+		var now = Raylib.GetTime();
+		if (CommitOnDoubleClick &&
+		    index == _lastClickedIndex &&
+		    now - _lastClickTime <= DoubleClickSeconds &&
+		    Vector2.DistanceSquared(pointerEvent.Position, _lastClickPosition) <= 36f) {
+			CommitSelection();
+		}
+
+		_lastClickTime = now;
+		_lastClickedIndex = index;
+		_lastClickPosition = pointerEvent.Position;
 
 		pointerEvent.MarkHandled();
 	}
@@ -854,6 +886,14 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 
 	private static Color ToColor(GT_COLOR color) {
 		return new Color(color.Red, color.Green, color.Blue, (byte)255);
+	}
+
+	private static Rectangle ApplyInsets(Rectangle bounds, Vector4 insets) {
+		var x = bounds.X + insets.X;
+		var y = bounds.Y + insets.Y;
+		var width = Math.Max(0f, bounds.Width - insets.X - insets.Z);
+		var height = Math.Max(0f, bounds.Height - insets.Y - insets.W);
+		return new Rectangle(x, y, width, height);
 	}
 
 	private bool TryGetItem(int index, out ItemEntry item) {
