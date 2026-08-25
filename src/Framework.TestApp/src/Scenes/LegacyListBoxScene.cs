@@ -98,12 +98,12 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 		Text = "Rebuild",
 		FontSize = 16f
 	};
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private string _lastCommitted = "none";
 
 	public LegacyListBoxScene() : base("LegacyListBoxScene", "Legacy ListBox") {
-		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_eventSource.ScopeRoot = this;
 
@@ -183,14 +183,14 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 			dropColorArchetype,
 			CreateListBoxData("ListBox!!DropColor", 402, 238, 6, 6, 36, 120, includeScrollbar: true),
 			_vfxRepository,
-			_utfDbRepository);
+			_xmlDbRepository);
 		_artListBox.SetKeyboardFocus(true);
 
 		_primitiveListBox.ApplyLegacyDefinition(
 			dropColorArchetype,
 			CreateListBoxData("ListBox!!DropColor", 604, 238, 6, 6, 36, 120, includeScrollbar: true),
 			repository: null,
-			utfDbRepository: _utfDbRepository);
+			xmlDbRepository: _xmlDbRepository);
 		_primitiveListBox.SetKeyboardFocus(true);
 
 		PopulateList(_artListBox);
@@ -274,7 +274,7 @@ internal sealed class LegacyListBoxScene : ShowcaseScene {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
 	}

@@ -35,13 +35,13 @@ internal sealed class LegacyStaticScene : ShowcaseScene {
 	private readonly LegacyStaticNode _plainStatic = new("LegacyPlainStatic");
 	private readonly LegacyStaticNode _buddyStatic = new("LegacyBuddyStatic");
 	private readonly LegacyButtonNode _buddyButton = new("LegacyBuddyButton");
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 
 	private string _lastBuddyAction = "none";
 
 	public LegacyStaticScene() : base("LegacyStaticScene", "Legacy Static") {
-		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_eventSource.ScopeRoot = this;
 
@@ -190,7 +190,7 @@ internal sealed class LegacyStaticScene : ShowcaseScene {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
 	}

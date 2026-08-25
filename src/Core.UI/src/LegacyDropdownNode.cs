@@ -83,7 +83,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		GT_LISTBOX listboxArchetype,
 		DROPDOWN_DATA data,
 		VfxAnimationDataRepository? repository = null,
-		UtfDbRepository? utfDbRepository = null) {
+		XmlDbRepository? xmlDbRepository = null) {
 		ArgumentNullException.ThrowIfNull(buttonArchetype);
 		ArgumentNullException.ThrowIfNull(listboxArchetype);
 		ArgumentNullException.ThrowIfNull(data);
@@ -105,7 +105,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		_authoredPopupOffset = ResolvePopupOffset(data);
 		_popupOffsetOverride = null;
 
-		_listBox.ApplyLegacyDefinition(listboxArchetype, data.ListboxData, repository, utfDbRepository);
+		_listBox.ApplyLegacyDefinition(listboxArchetype, data.ListboxData, repository, xmlDbRepository);
 		ApplyPopupOffset();
 		_listBox.SetVisible(false);
 		_listBox.SetKeyboardFocus(false);

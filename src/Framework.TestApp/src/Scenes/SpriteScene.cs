@@ -82,14 +82,14 @@ internal sealed class SpriteScene : ShowcaseScene {
 	private readonly Sprite _test2Sprite;
 	private readonly SliderDataCatalog _sliderCatalog;
 	private readonly SliderDataRepository _sliderRepository;
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private int _animationFps = 15;
 
 	public SpriteScene() : base("SpriteScene", "Sprites") {
 		_sliderRepository = SliderDataRepository.LocateFromRepo();
 		_sliderCatalog = _sliderRepository.Load();
-		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		var vfxData = _vfxRepository.Load();
 		if (!vfxData.TryGetAtlasByVfxShapeId(DemoVfxShapeId, out var entry)) {
@@ -319,7 +319,7 @@ internal sealed class SpriteScene : ShowcaseScene {
 				}
 			},
 			_vfxRepository,
-			_utfDbRepository);
+			_xmlDbRepository);
 		dropdown.ButtonVisualStateOverride = visualState;
 		dropdown.ControlId = 0x2001;
 		var killUnits = dropdown.AddString("Kill units");
@@ -332,7 +332,7 @@ internal sealed class SpriteScene : ShowcaseScene {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
 	}

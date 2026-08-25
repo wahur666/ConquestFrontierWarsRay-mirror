@@ -14,19 +14,19 @@ internal sealed class Menu1HelpModalOverlay : LegacyModalNode {
 	private readonly Func<Node> _creditsSceneFactory;
 	private readonly Menu1HelpMenuData _helpMenu;
 	private readonly LegacyRcStringResolver _strings;
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 
 	public Menu1HelpModalOverlay(
 		Menu1HelpMenuData helpMenu,
-		UtfDbRepository utfDbRepository,
+		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
 		Func<Node> creditsSceneFactory,
 		Action closeRequested) : base("Menu1HelpModalOverlay", closeRequested) {
 		_creditsSceneFactory = creditsSceneFactory;
 		_helpMenu = helpMenu;
-		_utfDbRepository = utfDbRepository;
+		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
 		_strings = strings;
 	}
@@ -83,7 +83,7 @@ internal sealed class Menu1HelpModalOverlay : LegacyModalNode {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 		       ?? throw new InvalidOperationException(
 			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");

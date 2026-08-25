@@ -93,7 +93,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 	public bool IsPointerInputEnabled => Visible && _visible && _enabled && Size.X > 0f && Size.Y > 0f;
 
 	public void ApplyLegacyDefinition(GT_LISTBOX archetype, LISTBOX_DATA data, VfxAnimationDataRepository? repository = null,
-		UtfDbRepository? utfDbRepository = null) {
+		XmlDbRepository? xmlDbRepository = null) {
 		ArgumentNullException.ThrowIfNull(archetype);
 		ArgumentNullException.ThrowIfNull(data);
 
@@ -119,7 +119,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		}
 
 		Position = new Vector2(data.XOrigin, data.YOrigin);
-		ConfigureScrollBar(utfDbRepository, repository);
+		ConfigureScrollBar(xmlDbRepository, repository);
 		var width = ResolveConfiguredWidth();
 		var height = ResolveConfiguredHeight();
 		Size = new Vector2(width, height);
@@ -616,8 +616,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		_art = null;
 	}
 
-	private void ConfigureScrollBar(UtfDbRepository? utfDbRepository, VfxAnimationDataRepository? repository) {
-		if (!_scrollBarRequested || string.IsNullOrWhiteSpace(ScrollBarTypeId) || utfDbRepository is null) {
+	private void ConfigureScrollBar(XmlDbRepository? xmlDbRepository, VfxAnimationDataRepository? repository) {
+		if (!_scrollBarRequested || string.IsNullOrWhiteSpace(ScrollBarTypeId) || xmlDbRepository is null) {
 			if (_scrollBar is not null) {
 				_scrollBar.SetVisible(false);
 			}
@@ -625,9 +625,9 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 			return;
 		}
 
-		var scrollBarArchetype = ReadTypedEntry<GT_SCROLLBAR>(utfDbRepository, "GT_SCROLLBAR", ScrollBarTypeId);
-		var upButtonArchetype = ReadTypedEntry<GT_BUTTON>(utfDbRepository, "GT_BUTTON", scrollBarArchetype.UpButtonType);
-		var downButtonArchetype = ReadTypedEntry<GT_BUTTON>(utfDbRepository, "GT_BUTTON", scrollBarArchetype.DownButtonType);
+		var scrollBarArchetype = ReadTypedEntry<GT_SCROLLBAR>(xmlDbRepository, "GT_SCROLLBAR", ScrollBarTypeId);
+		var upButtonArchetype = ReadTypedEntry<GT_BUTTON>(xmlDbRepository, "GT_BUTTON", scrollBarArchetype.UpButtonType);
+		var downButtonArchetype = ReadTypedEntry<GT_BUTTON>(xmlDbRepository, "GT_BUTTON", scrollBarArchetype.DownButtonType);
 
 		if (_scrollBar is null) {
 			_scrollBar = AddChild(new LegacyScrollBarNode($"{Name}ScrollBar"));
@@ -911,7 +911,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
 		return GetScrollBarOffsetWidth() + GetScrollBarRightPadding();
 	}
 
-	private static T ReadTypedEntry<T>(UtfDbRepository repository, string typeName, string fileName) where T : class {
+	private static T ReadTypedEntry<T>(XmlDbRepository repository, string typeName, string fileName) where T : class {
 		var details = repository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 			?? throw new InvalidOperationException($"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");

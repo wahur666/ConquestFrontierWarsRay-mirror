@@ -40,12 +40,12 @@ internal sealed class MenuCreditsSurface : Node2D {
 	private readonly AudioPlayer _musicPlayer = new("CreditsAudioPlayer") {
 		Looping = true
 	};
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private CompressedTexture2D? _backgroundTexture;
 
 	public MenuCreditsSurface(Func<Node> returnSceneFactory) : base("MenuCreditsSurface") {
 		_returnSceneFactory = returnSceneFactory;
-		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		AddChild(_musicPlayer);
 	}
 
@@ -129,7 +129,7 @@ internal sealed class MenuCreditsSurface : Node2D {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 		       ?? throw new InvalidOperationException(
 			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");

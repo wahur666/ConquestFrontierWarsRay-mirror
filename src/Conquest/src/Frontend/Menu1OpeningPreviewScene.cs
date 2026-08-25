@@ -50,7 +50,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly Menu1OpeningData _opening;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
-	private readonly UtfDbRepository _utfDbRepository;
+	// private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
 	private Menu1HelpModalOverlay? _aboutModal;
@@ -61,7 +62,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ArgumentNullException.ThrowIfNull(opening);
 		_opening = opening;
 		_showAboutOnInitialize = showAboutOnInitialize;
-		_utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		// _utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
+		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
 		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
@@ -220,7 +222,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetOpeningButtonsEnabled(false);
 		_aboutModal = AddChild(new Menu1HelpModalOverlay(
 			_helpMenu,
-			_utfDbRepository,
+			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
 			() => new MenuCreditsScene(() => new Menu1OpeningPreviewScene(showAboutOnInitialize: true)),
@@ -249,7 +251,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetOpeningButtonsEnabled(false);
 		_exitModal = AddChild(new LegacyMessageBoxModal(
 			_quitMessageBox,
-			_utfDbRepository,
+			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
 			ResolveString(ConfirmTitleTextId, "Confirm Choice"),
@@ -284,7 +286,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 		       ?? throw new InvalidOperationException(
 			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");

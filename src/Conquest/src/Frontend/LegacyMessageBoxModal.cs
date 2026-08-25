@@ -19,14 +19,14 @@ internal sealed class LegacyMessageBoxModal : LegacyModalNode {
 	private readonly string _messageText;
 	private readonly string _titleText;
 	private readonly LegacyRcStringResolver _strings;
-	private readonly UtfDbRepository _utfDbRepository;
+	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyMessageBoxButtons _buttonMode;
 	private bool _awaitingEscapeRelease = true;
 
 	public LegacyMessageBoxModal(
 		GT_MESSAGEBOX messageBox,
-		UtfDbRepository utfDbRepository,
+		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
 		string titleText,
@@ -35,7 +35,7 @@ internal sealed class LegacyMessageBoxModal : LegacyModalNode {
 		Action<bool> completed) : base("LegacyMessageBoxModal") {
 		CloseOnEscape = false;
 		_messageBox = messageBox;
-		_utfDbRepository = utfDbRepository;
+		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
 		_strings = strings;
 		_titleText = titleText;
@@ -102,7 +102,7 @@ internal sealed class LegacyMessageBoxModal : LegacyModalNode {
 	}
 
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
-		var details = _utfDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
+		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
 		       ?? throw new InvalidOperationException(
 			       $"Entry '{typeName}/{fileName}' did not deserialize to {typeof(T).Name}.");
