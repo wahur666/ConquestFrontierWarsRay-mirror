@@ -3,7 +3,7 @@ using ConquestFrontierWarsRay.Data.Models;
 
 namespace ConquestFrontierWarsRay.Data.Models.GT;
 
-public sealed class BUTTON_DATA {
+public sealed record BUTTON_DATA {
 	public string ButtonType { get; init; } = string.Empty;
 	public uint ButtonText { get; init; }
 	public int XOrigin { get; init; }
@@ -11,7 +11,7 @@ public sealed class BUTTON_DATA {
 	public RECT ButtonArea { get; init; } = new();
 }
 
-public sealed class STATIC_DATA {
+public sealed record STATIC_DATA {
 	public string StaticType { get; init; } = string.Empty;
 	public uint StaticText { get; init; }
 	public uint StaticTooltip { get; init; }

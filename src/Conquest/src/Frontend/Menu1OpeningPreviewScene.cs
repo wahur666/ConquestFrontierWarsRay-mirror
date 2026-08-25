@@ -43,6 +43,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private const uint ConfirmQuitMessageTextId = 1406;
 	private const string MainMenuMusicTrack = "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3";
 	private const string SinglePlayerMusicTrack = "Conquest Frontier Wars soundtrack - Single Player Menu Music.mp3";
+	private const string MultiplayerMenuMusicTrack = "Conquest Frontier Wars soundtrack - Multiplayer MenuCredits Music.mp3";
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
 	private const float MusicFadeInDurationSeconds = 2f;
 	private readonly List<AtlasFramesResource> _atlasResources = [];
@@ -52,6 +53,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_OPENING _opening;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
+	private readonly GT_MENU1_MSHELL _mshellMenu;
+	private readonly GT_MENU1_MAP _mapMenu;
+	private readonly GT_MENU1_FINAL _finalMenu;
 	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
@@ -69,6 +73,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacyNewUserModal? _newUserModal;
 	private LegacyOptionsModal? _optionsModal;
 	private LegacySinglePlayerModal? _singlePlayerModal;
+	private LegacySkirmishModal? _skirmishModal;
 	private AudioPlayer? _musicPlayer;
 
 	public Menu1OpeningPreviewSurface(bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
@@ -82,6 +87,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_opening = menu1.Opening;
 		_singlePlayerMenu = menu1.SinglePlayerMenu;
 		_selectCampaignMenu = menu1.SelectCampaign;
+		_mshellMenu = menu1.MShell;
+		_mapMenu = menu1.Map;
+		_finalMenu = menu1.Final;
 		_helpMenuData = menu1.HelpMenu;
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
 		_newPlayer = ReadTypedEntry<GT_NEWPLAYER>("GT_NEWPLAYER", "MenuNewPlayer");
@@ -113,11 +121,11 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnSingle.Activated += _ => OpenSinglePlayerModal();
+		btnMulti.Activated += _ => OpenSkirmishModal(SkirmishMode.Multiplayer, MultiplayerNetworkKind.LocalAreaNetwork);
 		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
 		btnQuit.Activated += _ => RequestQuit();
-		btnMulti.Activated += async _ => await NetworkService.GetNetworkAddresses();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
 		_musicPlayer = AddMusicPlayer();
 		if (_showAboutOnInitialize) {
@@ -380,6 +388,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
+			OpenQuickBattleModal,
 			CloseSinglePlayerModal));
 	}
 
@@ -393,12 +402,55 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetMusicTrack(MainMenuMusicTrack);
 	}
 
+	private void OpenQuickBattleModal() {
+		OpenSkirmishModal(SkirmishMode.QuickBattle, MultiplayerNetworkKind.LocalAreaNetwork);
+	}
+
+	private void OpenSkirmishModal(SkirmishMode mode, MultiplayerNetworkKind networkKind) {
+		if (_skirmishModal is not null) {
+			return;
+		}
+
+		if (_singlePlayerModal is not null) {
+			if (RemoveChild(_singlePlayerModal)) {
+				_singlePlayerModal.Dispose();
+			}
+			_singlePlayerModal = null;
+		} else if (!HasBlockingModal()) {
+			_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+			SetOpeningButtonsEnabled(false);
+		}
+
+		SetMusicTrack(mode == SkirmishMode.Multiplayer ? MultiplayerMenuMusicTrack : SinglePlayerMusicTrack);
+		_skirmishModal = AddChild(new LegacySkirmishModal(
+			_mshellMenu,
+			_mapMenu,
+			_finalMenu,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			mode,
+			networkKind,
+			isHost: true,
+			CloseSkirmishModal));
+	}
+
+	private void CloseSkirmishModal() {
+		if (_skirmishModal is not null && RemoveChild(_skirmishModal)) {
+			_skirmishModal.Dispose();
+		}
+
+		_skirmishModal = null;
+		OpenSinglePlayerModal();
+	}
+
 	private bool HasBlockingModal() {
 		return _aboutModal is not null ||
 		       _exitModal is not null ||
 		       _newUserModal is not null ||
 		       _optionsModal is not null ||
-		       _singlePlayerModal is not null;
+		       _singlePlayerModal is not null ||
+		       _skirmishModal is not null;
 	}
 
 	private void SetOpeningButtonsEnabled(bool enabled) {

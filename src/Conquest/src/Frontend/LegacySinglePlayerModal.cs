@@ -18,6 +18,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 	private const float LegacyScreenWidth = 800f;
 	private const float LegacyScreenHeight = 600f;
 	private readonly Action _closed;
+	private readonly Action _openQuickBattle;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
 	private readonly LegacyRcStringResolver _strings;
@@ -39,6 +40,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
+		Action openQuickBattle,
 		Action closed) : base("LegacySinglePlayerModal", closed) {
 		_singlePlayerMenu = singlePlayerMenu;
 		_selectCampaignMenu = selectCampaignMenu;
@@ -46,6 +48,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
 		_strings = strings;
+		_openQuickBattle = openQuickBattle;
 		_closed = closed;
 	}
 
@@ -64,7 +67,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		_buttonBack = AddButtonNode("Back", GetButton(4));
 
 		_buttonCampaign.Activated += _ => OpenCampaignModal();
-		_buttonSkirmish.Activated += _ => ShowStatus("Skirmish flow is not ported yet.");
+		_buttonSkirmish.Activated += _ => _openQuickBattle();
 		_buttonLoad.Activated += _ => ShowStatus("Saved-game loading is not ported yet.");
 		_buttonQuickbattleLoad.Activated += _ => ShowStatus("Quickbattle loading is not ported yet.");
 		_buttonBack.Activated += _ => CloseModal();
