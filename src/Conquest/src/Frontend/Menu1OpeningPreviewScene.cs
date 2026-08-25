@@ -5,6 +5,7 @@ using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
+using ConquestFrontierWarsRay.Data.UserProfiles;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
@@ -50,12 +51,16 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly Menu1OpeningData _opening;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
+	private readonly GT_NEWPLAYER _newPlayer;
 	// private readonly UtfDbRepository _utfDbRepository;
+	private readonly UserProfilesRepository _userProfilesRepository;
+	private readonly bool _requiresInitialUser;
 	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly LegacyRcStringResolver _strings;
 	private Menu1HelpModalOverlay? _aboutModal;
 	private LegacyMessageBoxModal? _exitModal;
+	private LegacyNewUserModal? _newUserModal;
 	private AudioPlayer? _musicPlayer;
 
 	public Menu1OpeningPreviewSurface(Menu1OpeningData opening, bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
@@ -65,9 +70,12 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		// _utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
+		_userProfilesRepository = UserProfilesRepository.LocateFromRepo();
+		_requiresInitialUser = !_userProfilesRepository.HasUsers();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
 		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
+		_newPlayer = ReadTypedEntry<GT_NEWPLAYER>("GT_NEWPLAYER", "MenuNewPlayer");
 	}
 
 	protected override void OnInitialize() {
@@ -101,6 +109,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_musicPlayer = AddMusicPlayer();
 		if (_showAboutOnInitialize) {
 			OpenAboutModal();
+		} else if (_requiresInitialUser) {
+			OpenNewUserModal();
 		}
 	}
 
@@ -116,7 +126,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
-		if (_aboutModal is null && _exitModal is null && Input.UiEsc) {
+		if (_aboutModal is null && _exitModal is null && _newUserModal is null && Input.UiEsc) {
 			OpenExitModal();
 		}
 	}
@@ -215,7 +225,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenAboutModal() {
-		if (_aboutModal is not null || _exitModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
 			return;
 		}
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
@@ -243,7 +253,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenExitModal() {
-		if (_aboutModal is not null || _exitModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
 			return;
 		}
 
@@ -270,6 +280,40 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		if (confirmed) {
 			RequestQuit();
 		}
+	}
+
+	private void OpenNewUserModal() {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_newUserModal = AddChild(new LegacyNewUserModal(
+			_newPlayer,
+			_userProfilesRepository,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			OnNewUserCreated,
+			_requiresInitialUser ? RequestQuit : CloseNewUserModal));
+	}
+
+	private void OnNewUserCreated(UserProfilesData _) {
+		CloseNewUserModal();
+	}
+
+	private void CloseNewUserModal() {
+		if (_newUserModal is null) {
+			return;
+		}
+
+		if (RemoveChild(_newUserModal)) {
+			_newUserModal.Dispose();
+		}
+
+		_newUserModal = null;
+		SetOpeningButtonsEnabled(true);
 	}
 
 	private void SetOpeningButtonsEnabled(bool enabled) {

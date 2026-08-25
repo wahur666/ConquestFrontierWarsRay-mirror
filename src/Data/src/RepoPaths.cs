@@ -31,6 +31,10 @@ public static class RepoPaths {
 		return Path.Combine(LocateAssetsRoot(), "DB", "slider-data.json");
 	}
 
+	public static string LocateUserProfilesPath() {
+		return Path.Combine(LocateRepoRoot(), "SavedGame", "users.json");
+	}
+
 	public static (string DatabasePath, string XmlRootPath, string RepoRoot) LocateStringPackPaths() {
 		var repoRoot = LocateRepoRoot();
 		var dbRoot = Path.Combine(repoRoot, "assets", "DB");

@@ -13,7 +13,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// </summary>
 public sealed class LegacyEditNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	private const float DefaultFontSize = 14f;
-	private const float DefaultPaddingX = 2f;
+	private const float DefaultPaddingX = 6f;
 	private const float DefaultPaddingY = 2f;
 	private const float DoubleClickSeconds = 0.35f;
 	private static string s_scratchText = string.Empty;
@@ -606,7 +606,7 @@ public sealed class LegacyEditNode : Control, IUiPointerEventHandler, ILegacyKey
 			Raylib.DrawRectangleLinesEx(bounds, 1f, PrimitiveOutline);
 		}
 
-		if (_hasKeyboardFocus && !_transparent) {
+		if (_hasKeyboardFocus && _art is null && !_transparent) {
 			Raylib.DrawRectangleLinesEx(bounds, 1f, PrimitiveFocusOutline);
 		}
 	}
