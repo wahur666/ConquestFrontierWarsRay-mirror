@@ -147,6 +147,8 @@ public sealed class SliderNode : Control, IUiPointerEventHandler {
 		Raylib.DrawRectangleRoundedLinesEx(track, 0.5f, 8, 1.25f, Outline);
 		Raylib.DrawCircleV(new System.Numerics.Vector2(knob.X + (knob.Width * 0.5f), knob.Y + (knob.Height * 0.5f)), KnobRadius, hovered || _dragging ? Color.Gold : KnobFill);
 		Raylib.DrawCircleLinesV(new System.Numerics.Vector2(knob.X + (knob.Width * 0.5f), knob.Y + (knob.Height * 0.5f)), KnobRadius, KnobOutline);
+
+		UiDebugBounds.DrawInput(UiDebugBounds.Union(GlobalBounds, knob), Name);
 	}
 
 	private Rectangle GetTrackBounds() {

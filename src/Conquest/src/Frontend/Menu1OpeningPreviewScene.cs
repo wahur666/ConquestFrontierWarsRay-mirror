@@ -26,8 +26,7 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 
 	protected override void OnInitialize() {
 		try {
-			var opening = new Menu1OpeningDataReader().ReadOpening();
-			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(opening, _showAboutOnInitialize));
+			_legacyMenuRoot.SetContentRoot(new Menu1OpeningPreviewSurface(_showAboutOnInitialize));
 		} catch (Exception ex) {
 			AppLog.Error("Menu1OpeningPreviewScene", "Failed to initialize menu opening preview.", ex);
 			_legacyMenuRoot.SetContentRoot(new Menu1OpeningErrorSurface(ex));
@@ -47,8 +46,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly List<AtlasFramesResource> _atlasResources = [];
 	private readonly List<LegacyButtonNode> _openingButtons = [];
 	private readonly List<AnimatedSprite2D?> _animatedSprite2Ds = [];
-	private readonly Menu1HelpMenuData _helpMenu;
-	private readonly Menu1OpeningData _opening;
+	private readonly GT_MENU1_HELPMENU _helpMenuData;
+	private readonly GT_MENU1_OPENING _opening;
+	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
 	private readonly GT_NEWPLAYER _newPlayer;
@@ -61,41 +61,42 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private Menu1HelpModalOverlay? _aboutModal;
 	private LegacyMessageBoxModal? _exitModal;
 	private LegacyNewUserModal? _newUserModal;
+	private LegacyOptionsModal? _optionsModal;
 	private AudioPlayer? _musicPlayer;
 
-	public Menu1OpeningPreviewSurface(Menu1OpeningData opening, bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
-		ArgumentNullException.ThrowIfNull(opening);
-		_opening = opening;
+	public Menu1OpeningPreviewSurface(bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
 		_showAboutOnInitialize = showAboutOnInitialize;
-		// _utfDbRepository = new UtfDbRepository(RepoPaths.LocateUtfDbPaths());
 		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
 		_vfxRepository = VfxAnimationDataRepository.LocateFromRepo();
 		_userProfilesRepository = UserProfilesRepository.LocateFromRepo();
 		_requiresInitialUser = !_userProfilesRepository.HasUsers();
 		_strings = LegacyRcStringResolver.LoadFromRepo();
-		_helpMenu = new Menu1OpeningDataReader().ReadHelpMenu();
+		var menu1 = ReadTypedEntry<GT_MENU1>("GT_MENU1", "Menu1");
+		_opening = menu1.Opening;
+		_helpMenuData = menu1.HelpMenu;
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
 		_newPlayer = ReadTypedEntry<GT_NEWPLAYER>("GT_NEWPLAYER", "MenuNewPlayer");
+		_options = ReadTypedEntry<GT_OPTIONS>("GT_OPTIONS", "MenuOptions");
 	}
 
 	protected override void OnInitialize() {
 		AddStaticNode("Background", _opening.Background);
-		var btnSingle = AddButtonNode("Single", _opening.Single);
-		var btnMulti = AddButtonNode("Multi", _opening.Multi);
-		var btnIntro = AddButtonNode("Intro", _opening.Intro);
-		var btnOptions = AddButtonNode("Options", _opening.Options);
-		var btnHelp = AddButtonNode("Help", _opening.Help);
-		var btnQuit = AddButtonNode("Quit", _opening.Quit);
-		AddStaticNode("StaticSingle", _opening.StaticSingle);
-		AddStaticNode("StaticMulti", _opening.StaticMulti);
-		AddStaticNode("StaticIntro", _opening.StaticIntro);
-		AddStaticNode("StaticOptions", _opening.StaticOptions);
-		AddStaticNode("StaticHelp", _opening.StaticHelp);
-		var animMedia = AddAnimationNode("AnimMedia", _opening.AnimMedia);
-		var animSingle = AddAnimationNode("AnimSingle", _opening.AnimSingle);
-		var animMulti = AddAnimationNode("AnimMulti", _opening.AnimMulti);
-		var animOptions = AddAnimationNode("AnimOptions", _opening.AnimOptions);
-		var animQuestion = AddAnimationNode("AnimQuestion", _opening.AnimQuestion);
+		var btnSingle = AddButtonNode("Single", GetOpeningButton(0));
+		var btnMulti = AddButtonNode("Multi", GetOpeningButton(1));
+		var btnIntro = AddButtonNode("Intro", GetOpeningButton(2));
+		var btnOptions = AddButtonNode("Options", GetOpeningButton(3));
+		var btnHelp = AddButtonNode("Help", GetOpeningButton(4));
+		var btnQuit = AddButtonNode("Quit", GetOpeningButton(5));
+		AddStaticNode("StaticSingle", GetOpeningStaticLabel(0));
+		AddStaticNode("StaticMulti", GetOpeningStaticLabel(1));
+		AddStaticNode("StaticIntro", GetOpeningStaticLabel(2));
+		AddStaticNode("StaticOptions", GetOpeningStaticLabel(3));
+		AddStaticNode("StaticHelp", GetOpeningStaticLabel(4));
+		var animMedia = AddAnimationNode("AnimMedia", GetOpeningAnimation(0));
+		var animSingle = AddAnimationNode("AnimSingle", GetOpeningAnimation(1));
+		var animMulti = AddAnimationNode("AnimMulti", GetOpeningAnimation(2));
+		var animOptions = AddAnimationNode("AnimOptions", GetOpeningAnimation(3));
+		var animQuestion = AddAnimationNode("AnimQuestion", GetOpeningAnimation(4));
 		_animatedSprite2Ds.AddRange(animSingle, animMulti, animOptions, animQuestion);
 		ConnectButtonHover(btnSingle, animSingle);
 		ConnectButtonHover(btnMulti, animMulti);
@@ -103,6 +104,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnIntro.Activated += _ => OpenMovie("Assets\\Movies\\cq_intro.mp4");
+		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
 		btnQuit.Activated += _ => RequestQuit();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
@@ -126,7 +128,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
-		if (_aboutModal is null && _exitModal is null && _newUserModal is null && Input.UiEsc) {
+		if (_aboutModal is null && _exitModal is null && _newUserModal is null && _optionsModal is null && Input.UiEsc) {
 			OpenExitModal();
 		}
 	}
@@ -225,13 +227,13 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenAboutModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
 			return;
 		}
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
 		SetOpeningButtonsEnabled(false);
 		_aboutModal = AddChild(new Menu1HelpModalOverlay(
-			_helpMenu,
+			ToHelpMenuRecord(),
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
@@ -253,7 +255,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenExitModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
 			return;
 		}
 
@@ -283,7 +285,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenNewUserModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
 			return;
 		}
 
@@ -316,11 +318,58 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetOpeningButtonsEnabled(true);
 	}
 
+	private void OpenOptionsModal() {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_optionsModal = AddChild(new LegacyOptionsModal(
+			_options,
+			_newPlayer,
+			_userProfilesRepository,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseOptionsModal));
+	}
+
+	private void CloseOptionsModal() {
+		if (_optionsModal is not null && RemoveChild(_optionsModal)) {
+			_optionsModal.Dispose();
+		}
+
+		_optionsModal = null;
+		SetOpeningButtonsEnabled(true);
+	}
+
 	private void SetOpeningButtonsEnabled(bool enabled) {
 		foreach (var button in _openingButtons) {
 			button.EnableButton(enabled);
 			button.SetKeyboardFocus(false);
 		}
+	}
+
+	private BUTTON_DATA GetOpeningButton(int index) => _opening.Buttons[index];
+
+	private STATIC_DATA GetOpeningStaticLabel(int index) => _opening.StaticLabels[index];
+
+	private ANIMATE_DATA GetOpeningAnimation(int index) => _opening.Animations[index];
+
+	private Menu1HelpMenuData ToHelpMenuRecord() {
+		return new Menu1HelpMenuData(
+			_helpMenuData.ScreenRect,
+			_helpMenuData.Background,
+			_helpMenuData.Title,
+			_helpMenuData.StaticConquest,
+			_helpMenuData.StaticVersion,
+			_helpMenuData.StaticNumber,
+			_helpMenuData.ButtonOk,
+			_helpMenuData.StaticProductId,
+			_helpMenuData.StaticProductNumber,
+			_helpMenuData.StaticLegal,
+			_helpMenuData.ButtonCredits);
 	}
 
 	private string ResolveString(uint id, string fallback) {

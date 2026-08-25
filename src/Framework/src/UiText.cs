@@ -131,6 +131,13 @@ public class UiText : Control {
 			scaledFontSize,
 			0f,
 			color);
+
+		var drawBounds = new Rectangle(
+			position.X - origin.X,
+			position.Y - origin.Y,
+			localSize.X * uniformScale,
+			localSize.Y * uniformScale);
+		UiDebugBounds.DrawText(drawBounds);
 	}
 
 	private static Font GetFont(UiTextStyle style) {

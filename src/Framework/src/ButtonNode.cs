@@ -94,6 +94,7 @@ public sealed class ButtonNode : Control, IUiPointerEventHandler {
 		Raylib.DrawRectangleLinesEx(bounds, 1f, Outline);
 
 		if (string.IsNullOrEmpty(Text)) {
+			UiDebugBounds.DrawInput(bounds, Name);
 			return;
 		}
 
@@ -101,5 +102,6 @@ public sealed class ButtonNode : Control, IUiPointerEventHandler {
 		var textX = bounds.X + ((bounds.Width - textWidth) * 0.5f);
 		var textY = bounds.Y + ((bounds.Height - FontSize) * 0.5f) - 1f;
 		UiText.Draw(Text, textX, textY, FontSize, TextColor, TextStyle);
+		UiDebugBounds.DrawInput(bounds, Name);
 	}
 }

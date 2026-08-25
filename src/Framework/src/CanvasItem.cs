@@ -66,6 +66,10 @@ public abstract class CanvasItem : Node {
 			return;
 		}
 
+		if (IsInTree) {
+			UiDebugBounds.Enabled = Shared.UiDebugBoundsEnabled;
+		}
+
 		OnDraw();
 
 		foreach (var child in GetDrawOrderedChildren()) {

@@ -413,7 +413,13 @@ internal sealed class GT_OPTIONSTypeParser : IUtfDbTypeParser {
 		UtfDbTypeLayouts.StaticData("static_speed"),
 		UtfDbTypeLayouts.StaticData("static_scroll"),
 		UtfDbTypeLayouts.StaticData("static_mouse"),
-		new RepeatSpec(UtfDbTypeLayouts.SliderData("sliders"), 7),
+		UtfDbTypeLayouts.SliderData("slider_sound"),
+		UtfDbTypeLayouts.SliderData("slider_music"),
+		UtfDbTypeLayouts.SliderData("slider_comm"),
+		UtfDbTypeLayouts.SliderData("slider_chat"),
+		UtfDbTypeLayouts.SliderData("slider_speed"),
+		UtfDbTypeLayouts.SliderData("slider_scroll"),
+		UtfDbTypeLayouts.SliderData("slider_mouse"),
 		UtfDbTypeLayouts.ButtonData("push_sound"),
 		UtfDbTypeLayouts.ButtonData("push_music"),
 		UtfDbTypeLayouts.ButtonData("push_comm"),
@@ -467,24 +473,48 @@ internal sealed class GT_OPTIONSTypeParser : IUtfDbTypeParser {
 		var buttonNew = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
 		var buttonChange = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
 		var buttonDelete = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
-		var staticFields = new STATIC_DATA[13];
-		var sliders = new SLIDER_DATA[7];
-		var pushButtons = new BUTTON_DATA[10];
-		var graphicsStatics = new STATIC_DATA[5];
-		var graphicsPushButtons = new BUTTON_DATA[3];
-		for (var index = 0; index < 7; index++) staticFields[index] = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
-		for (var index = 0; index < sliders.Length; index++) sliders[index] = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
-		for (var index = 0; index < 4; index++) pushButtons[index] = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
-		staticFields[7] = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
-		pushButtons[4] = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
-		for (var index = 8; index < staticFields.Length; index++) staticFields[index] = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
-		for (var index = 5; index < pushButtons.Length; index++) pushButtons[index] = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var staticSound = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticMusic = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticComm = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticChat = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticSpeed = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticScroll = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticMouse = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var sliderSound = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderMusic = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderComm = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderChat = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderSpeed = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderScroll = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var sliderMouse = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
+		var pushSound = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushMusic = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushComm = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushChat = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var staticDInput = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var pushDInput = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var staticStatus = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticRollover = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticSectorMap = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticRightClick = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticSubtitles = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var pushStatus = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushRollover = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushSectorMap = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushRightClick = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushSubtitles = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
 		var staticGamma = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
 		var staticResolution = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
 		var dropResolution = UtfDbTypeParserHelpers.ParseDropdownData(rawData, ref offset);
 		var sliderGamma = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset);
-		for (var index = 0; index < graphicsStatics.Length; index++) graphicsStatics[index] = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
-		for (var index = 0; index < graphicsPushButtons.Length; index++) graphicsPushButtons[index] = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var staticShips3D = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticTrails = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticEmissive = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticDetail = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var staticDrawBack = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset);
+		var pushTrails = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushEmissive = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
+		var pushDetail = UtfDbTypeParserHelpers.ParseButtonData(rawData, ref offset);
 		return new GT_OPTIONS {
 			ScreenRect = screenRect,
 			Background = background,
@@ -494,15 +524,48 @@ internal sealed class GT_OPTIONSTypeParser : IUtfDbTypeParser {
 			ButtonNew = buttonNew,
 			ButtonChange = buttonChange,
 			ButtonDelete = buttonDelete,
-			StaticFields = staticFields,
-			Sliders = sliders,
-			PushButtons = pushButtons,
+			StaticSound = staticSound,
+			StaticMusic = staticMusic,
+			StaticComm = staticComm,
+			StaticChat = staticChat,
+			StaticSpeed = staticSpeed,
+			StaticScroll = staticScroll,
+			StaticMouse = staticMouse,
+			SliderSound = sliderSound,
+			SliderMusic = sliderMusic,
+			SliderComm = sliderComm,
+			SliderChat = sliderChat,
+			SliderSpeed = sliderSpeed,
+			SliderScroll = sliderScroll,
+			SliderMouse = sliderMouse,
+			PushSound = pushSound,
+			PushMusic = pushMusic,
+			PushComm = pushComm,
+			PushChat = pushChat,
+			StaticDInput = staticDInput,
+			PushDInput = pushDInput,
+			StaticStatus = staticStatus,
+			StaticRollover = staticRollover,
+			StaticSectorMap = staticSectorMap,
+			StaticRightClick = staticRightClick,
+			StaticSubtitles = staticSubtitles,
+			PushStatus = pushStatus,
+			PushRollover = pushRollover,
+			PushSectorMap = pushSectorMap,
+			PushRightClick = pushRightClick,
+			PushSubtitles = pushSubtitles,
 			StaticGamma = staticGamma,
 			StaticResolution = staticResolution,
 			DropResolution = dropResolution,
 			SliderGamma = sliderGamma,
-			GraphicsStatics = graphicsStatics,
-			GraphicsPushButtons = graphicsPushButtons,
+			StaticShips3D = staticShips3D,
+			StaticTrails = staticTrails,
+			StaticEmissive = staticEmissive,
+			StaticDetail = staticDetail,
+			StaticDrawBack = staticDrawBack,
+			PushTrails = pushTrails,
+			PushEmissive = pushEmissive,
+			PushDetail = pushDetail,
 			SlideDrawBack = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset),
 			SliderShips3D = UtfDbTypeParserHelpers.ParseSliderData(rawData, ref offset),
 			StaticDevice = UtfDbTypeParserHelpers.ParseStaticData(rawData, ref offset),

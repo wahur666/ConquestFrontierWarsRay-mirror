@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Numerics;
 using System.Reflection;
 using System.Xml.Linq;
 using ConquestFrontierWarsRay.Data.Models;
@@ -149,6 +150,12 @@ public sealed class XmlDbRepository {
 					continue;
 				}
 
+				var specialValue = TryCreateSpecialPropertyValue(element, property);
+				if (specialValue is not null) {
+					property.SetValue(instance, specialValue);
+					continue;
+				}
+
 				var child = FindPropertyElement(element, property);
 				if (child is null) {
 					continue;
@@ -165,6 +172,11 @@ public sealed class XmlDbRepository {
 		}
 
 		private static object? TryCreateArrayPropertyValue(XElement element, PropertyInfo property) {
+			var specialElements = GetSpecialArrayPropertyElements(element, property);
+			if (specialElements.Length > 0) {
+				return CreateArrayFromElements(specialElements, property.PropertyType, property.Name);
+			}
+
 			var repeatedSiblings = FindRepeatedPropertyElements(element, property);
 			if (repeatedSiblings.Length > 1) {
 				return CreateArrayFromElements(repeatedSiblings, property.PropertyType, property.Name);
@@ -277,6 +289,14 @@ public sealed class XmlDbRepository {
 				yield return "comboboxtype";
 			}
 
+			if (propertyName.Equals("TextIds", StringComparison.OrdinalIgnoreCase)) {
+				yield return "textid";
+			}
+
+			if (propertyName.Equals("Timer", StringComparison.OrdinalIgnoreCase)) {
+				yield return "dwtimer";
+			}
+
 			if (propertyName.Equals("FileMame", StringComparison.OrdinalIgnoreCase)) {
 				yield return "filename";
 			}
@@ -284,6 +304,97 @@ public sealed class XmlDbRepository {
 			if (propertyName.Equals("TerraParticle", StringComparison.OrdinalIgnoreCase)) {
 				yield return "teraparticle";
 			}
+		}
+
+		private static object? TryCreateSpecialPropertyValue(XElement element, PropertyInfo property) {
+			if (property.PropertyType == typeof(Vector2) && property.Name.Equals("Origin", StringComparison.OrdinalIgnoreCase)) {
+				var xOrigin = element.Elements().FirstOrDefault(candidate => NormalizeName(candidate.Name.LocalName) == "xorigin");
+				var yOrigin = element.Elements().FirstOrDefault(candidate => NormalizeName(candidate.Name.LocalName) == "yorigin");
+				if (xOrigin is null || yOrigin is null) {
+					return null;
+				}
+
+				return new Vector2(
+					int.Parse(xOrigin.Value.Trim(), CultureInfo.InvariantCulture),
+					int.Parse(yOrigin.Value.Trim(), CultureInfo.InvariantCulture));
+			}
+
+			if (property.PropertyType == typeof(uint) && property.Name.Equals("Flags", StringComparison.OrdinalIgnoreCase)) {
+				var children = element.Elements()
+					.ToDictionary(candidate => NormalizeName(candidate.Name.LocalName), candidate => candidate, StringComparer.OrdinalIgnoreCase);
+				if (!children.ContainsKey("static") &&
+				    !children.ContainsKey("singleclick") &&
+				    !children.ContainsKey("scrollbar") &&
+				    !children.ContainsKey("solidbackground") &&
+				    !children.ContainsKey("noborder") &&
+				    !children.ContainsKey("disablemouseselect")) {
+					return null;
+				}
+
+				uint flags = 0;
+				if (TryReadBoolean(children, "static")) {
+					flags |= 1u << 0;
+				}
+				if (TryReadBoolean(children, "singleclick")) {
+					flags |= 1u << 1;
+				}
+				if (TryReadBoolean(children, "scrollbar")) {
+					flags |= 1u << 2;
+				}
+				if (TryReadBoolean(children, "solidbackground")) {
+					flags |= 1u << 3;
+				}
+				if (TryReadBoolean(children, "noborder")) {
+					flags |= 1u << 4;
+				}
+				if (TryReadBoolean(children, "disablemouseselect")) {
+					flags |= 1u << 5;
+				}
+
+				return flags;
+			}
+
+			return null;
+		}
+
+		private static XElement[] GetSpecialArrayPropertyElements(XElement element, PropertyInfo property) {
+			string[]? orderedNames = null;
+			var parentName = NormalizeName(element.Name.LocalName);
+
+			switch (parentName) {
+				case "opening" when property.Name.Equals("Buttons", StringComparison.OrdinalIgnoreCase):
+					orderedNames = ["single", "multi", "intro", "options", "help", "quit"];
+					break;
+				case "opening" when property.Name.Equals("StaticLabels", StringComparison.OrdinalIgnoreCase):
+					orderedNames = ["staticsingle", "staticmulti", "staticintro", "staticoptions", "statichelp"];
+					break;
+				case "opening" when property.Name.Equals("Animations", StringComparison.OrdinalIgnoreCase):
+					orderedNames = ["animmedia", "animsingle", "animmulti", "animoptions", "animquestion"];
+					break;
+				case "singleplayermenu" when property.Name.Equals("Buttons", StringComparison.OrdinalIgnoreCase):
+					orderedNames = ["buttoncampaign", "buttonskirmish", "buttonload", "buttonqbload", "buttonback"];
+					break;
+				case "selectcampaign" when property.Name.Equals("Buttons", StringComparison.OrdinalIgnoreCase):
+					orderedNames = ["buttonterran", "buttonmantis", "buttonsolarian", "buttonback"];
+					break;
+			}
+
+			if (orderedNames is null) {
+				return [];
+			}
+
+			var children = element.Elements()
+				.GroupBy(candidate => NormalizeName(candidate.Name.LocalName), StringComparer.OrdinalIgnoreCase)
+				.ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
+
+			return orderedNames
+				.Where(children.ContainsKey)
+				.Select(name => children[name])
+				.ToArray();
+		}
+
+		private static bool TryReadBoolean(IReadOnlyDictionary<string, XElement> elements, string normalizedName) {
+			return elements.TryGetValue(normalizedName, out var element) && ParseBoolean(element.Value);
 		}
 
 		private static void PopulateDerivedEnumProperties(

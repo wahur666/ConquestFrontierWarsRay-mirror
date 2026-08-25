@@ -166,14 +166,10 @@ internal sealed class LegacyTabControlScene : ShowcaseScene {
 	}
 
 	private void BuildSoundsTab(GT_OPTIONS menuOptions) {
-		var soundSliderData = menuOptions.StaticFields.Length >= 4
-			? menuOptions.Sliders.FirstOrDefault()
-			: null;
-		_ = soundSliderData;
-		var sliderArchetype = ReadTypedEntry<GT_SLIDER>("GT_SLIDER", "Slider!!Rounded");
+		var sliderArchetype = ReadTypedEntry<GT_SLIDER>("GT_SLIDER", menuOptions.SliderSound.SliderType);
 
 		var sound = _tabControl.AddTabPageChild(2, new LegacySliderNode("SoundSlider"));
-		sound.ApplyLegacyDefinition(sliderArchetype, CreateSoundSliderData(300, 272), _vfxRepository);
+		sound.ApplyLegacyDefinition(sliderArchetype, Offset(menuOptions.SliderSound, 300, 520), _vfxRepository);
 		sound.SetRange(0, 10);
 		sound.SetSliderPosition(_soundValue, emitEvent: false);
 		sound.ValueChanged += slider => {
@@ -182,7 +178,7 @@ internal sealed class LegacyTabControlScene : ShowcaseScene {
 		};
 
 		var music = _tabControl.AddTabPageChild(2, new LegacySliderNode("MusicSlider"));
-		music.ApplyLegacyDefinition(sliderArchetype, CreateSoundSliderData(300, 322), _vfxRepository);
+		music.ApplyLegacyDefinition(sliderArchetype, Offset(menuOptions.SliderMusic, 300, 520), _vfxRepository);
 		music.SetRange(0, 10);
 		music.SetSliderPosition(_musicValue, emitEvent: false);
 		music.ValueChanged += slider => {
@@ -191,7 +187,7 @@ internal sealed class LegacyTabControlScene : ShowcaseScene {
 		};
 
 		var comm = _tabControl.AddTabPageChild(2, new LegacySliderNode("CommSlider"));
-		comm.ApplyLegacyDefinition(sliderArchetype, CreateSoundSliderData(300, 372), _vfxRepository);
+		comm.ApplyLegacyDefinition(sliderArchetype, Offset(menuOptions.SliderComm, 300, 520), _vfxRepository);
 		comm.SetRange(0, 10);
 		comm.SetSliderPosition(_commValue, emitEvent: false);
 		comm.ValueChanged += slider => {
@@ -258,16 +254,4 @@ internal sealed class LegacyTabControlScene : ShowcaseScene {
 		};
 	}
 
-	private static SLIDER_DATA CreateSoundSliderData(int xOrigin, int yOrigin) {
-		return new SLIDER_DATA {
-			SliderType = "Slider!!Rounded",
-			ScreenRect = new RECT {
-				Left = 0,
-				Top = 0,
-				Right = 120,
-				Bottom = 20
-			},
-			Origin = new Vector2(xOrigin, yOrigin)
-		};
-	}
 }

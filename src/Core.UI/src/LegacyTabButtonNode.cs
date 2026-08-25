@@ -248,6 +248,8 @@ public sealed class LegacyTabButtonNode : Control, IUiPointerEventHandler {
 		if (!string.IsNullOrWhiteSpace(Text)) {
 			DrawText(bounds);
 		}
+
+		UiDebugBounds.DrawInput(bounds, Name);
 	}
 
 	protected override void OnDispose() {

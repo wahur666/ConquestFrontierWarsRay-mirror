@@ -115,7 +115,7 @@ public sealed class DropdownNode : Control, IUiPointerEventHandler {
 			return ContainsPoint(screenPoint);
 		}
 
-		return true;
+		return ContainsPoint(screenPoint) || Raylib.CheckCollisionPointRec(screenPoint, GetExpandedBounds(GlobalBounds));
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
@@ -162,6 +162,7 @@ public sealed class DropdownNode : Control, IUiPointerEventHandler {
 		UiText.Draw(IsExpanded ? "^" : "v", bounds.X + bounds.Width - 18f, textY, FontSize, TextColor, TextStyle);
 
 		if (!IsExpanded || _items.Count == 0) {
+			UiDebugBounds.DrawInput(bounds, Name);
 			return;
 		}
 
@@ -180,6 +181,8 @@ public sealed class DropdownNode : Control, IUiPointerEventHandler {
 			Raylib.DrawRectangleLinesEx(itemBounds, 1f, Outline);
 			UiText.Draw(_items[i], itemBounds.X + 10f, itemBounds.Y + ((itemBounds.Height - FontSize) * 0.5f) - 1f, FontSize, TextColor, TextStyle);
 		}
+
+		UiDebugBounds.DrawInput(UiDebugBounds.Union(bounds, expandedBounds), Name);
 	}
 
 	private Rectangle GetExpandedBounds(Rectangle collapsedBounds) {

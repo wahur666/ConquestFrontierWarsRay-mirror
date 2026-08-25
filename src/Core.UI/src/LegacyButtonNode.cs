@@ -250,6 +250,8 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyK
 		if (!string.IsNullOrEmpty(Text)) {
 			DrawText(bounds, visualState);
 		}
+
+		UiDebugBounds.DrawInput(bounds, Name);
 	}
 
 	protected override void OnDispose() {

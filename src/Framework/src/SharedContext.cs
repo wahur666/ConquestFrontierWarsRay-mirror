@@ -10,6 +10,8 @@ public sealed class SharedContext : IDisposable {
 		Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Assets")));
 	private IResourceManager? _resourceManager;
 
+	public bool UiDebugBoundsEnabled { get; set; }
+
 	/// <summary>
 	/// Shared locator for application asset files such as audio and video.
 	/// </summary>

@@ -65,6 +65,93 @@ public sealed class UserProfilesRepository {
 		return true;
 	}
 
+	public bool TryRenameUser(string? existingName, string? newName, out UserProfilesData savedData, out string errorMessage) {
+		var current = Load();
+		var normalizedExisting = NormalizeName(existingName);
+		var normalizedNew = NormalizeName(newName);
+		if (string.IsNullOrWhiteSpace(normalizedExisting)) {
+			savedData = current;
+			errorMessage = "Select a user first.";
+			return false;
+		}
+
+		if (string.IsNullOrWhiteSpace(normalizedNew)) {
+			savedData = current;
+			errorMessage = "Enter a user name.";
+			return false;
+		}
+
+		var index = current.Users.ToList().FindIndex(user => string.Equals(user.Name, normalizedExisting, StringComparison.OrdinalIgnoreCase));
+		if (index < 0) {
+			savedData = current;
+			errorMessage = "That user no longer exists.";
+			return false;
+		}
+
+		if (current.Users.Any(user =>
+			    !string.Equals(user.Name, normalizedExisting, StringComparison.OrdinalIgnoreCase) &&
+			    string.Equals(user.Name, normalizedNew, StringComparison.OrdinalIgnoreCase))) {
+			savedData = current;
+			errorMessage = "That user already exists.";
+			return false;
+		}
+
+		var users = current.Users.ToList();
+		users[index] = new UserProfileData { Name = normalizedNew };
+		savedData = new UserProfilesData {
+			CurrentUser = string.Equals(current.CurrentUser, normalizedExisting, StringComparison.OrdinalIgnoreCase)
+				? normalizedNew
+				: current.CurrentUser,
+			Users = users
+		};
+		Save(savedData);
+		errorMessage = string.Empty;
+		return true;
+	}
+
+	public bool TryDeleteUser(string? name, out UserProfilesData savedData, out string errorMessage) {
+		var current = Load();
+		var normalizedName = NormalizeName(name);
+		if (string.IsNullOrWhiteSpace(normalizedName)) {
+			savedData = current;
+			errorMessage = "Select a user first.";
+			return false;
+		}
+
+		var users = current.Users
+			.Where(user => !string.Equals(user.Name, normalizedName, StringComparison.OrdinalIgnoreCase))
+			.ToList();
+		if (users.Count == current.Users.Count) {
+			savedData = current;
+			errorMessage = "That user no longer exists.";
+			return false;
+		}
+
+		var currentUser = string.Equals(current.CurrentUser, normalizedName, StringComparison.OrdinalIgnoreCase)
+			? users.FirstOrDefault()?.Name ?? string.Empty
+			: current.CurrentUser;
+		savedData = new UserProfilesData {
+			CurrentUser = currentUser,
+			Users = users
+		};
+		Save(savedData);
+		errorMessage = string.Empty;
+		return true;
+	}
+
+	public void SetCurrentUser(string? name) {
+		var normalizedName = NormalizeName(name);
+		var current = Load();
+		if (!current.Users.Any(user => string.Equals(user.Name, normalizedName, StringComparison.OrdinalIgnoreCase))) {
+			return;
+		}
+
+		Save(new UserProfilesData {
+			CurrentUser = normalizedName,
+			Users = current.Users
+		});
+	}
+
 	public void Save(UserProfilesData data) {
 		ArgumentNullException.ThrowIfNull(data);
 		EnsureDirectoryExists();

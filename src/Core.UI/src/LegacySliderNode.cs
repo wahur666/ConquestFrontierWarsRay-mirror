@@ -293,10 +293,11 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler, ILegacyK
 
 		if (_art is not null) {
 			DrawArt(bounds, thumb, stateIndex);
-			return;
+		} else {
+			DrawPrimitive(bounds, thumb, StateColors[stateIndex]);
 		}
 
-		DrawPrimitive(bounds, thumb, StateColors[stateIndex]);
+		UiDebugBounds.DrawInput(UiDebugBounds.Union(bounds, thumb), Name);
 	}
 
 	protected override void OnDispose() {

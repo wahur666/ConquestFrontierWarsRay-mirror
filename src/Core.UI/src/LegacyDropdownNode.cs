@@ -17,6 +17,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// </remarks>
 public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	private const float DefaultFontSize = 16f;
+	private const int ExpandedPopupZIndex = 100;
 	private readonly LegacyButtonNode _button;
 	private readonly LegacyListBoxNode _listBox;
 	private Vector2 _authoredPopupOffset = Vector2.Zero;
@@ -93,11 +94,11 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		HighlightTextColor = ToColor(buttonArchetype.HighlightText);
 
 		var width = Math.Max(0f, data.ScreenRect.Right - data.ScreenRect.Left);
-		var height = Math.Max(0f, data.ScreenRect.Bottom - data.ScreenRect.Top);
-		Size = new Vector2(width, height);
 		Position = new Vector2(data.ScreenRect.Left, data.ScreenRect.Top);
 		_button.ApplyLegacyDefinition(buttonArchetype, repository: repository);
-		_button.Size = Size;
+		var height = ResolveCollapsedHeight(data, _button.Size.Y);
+		Size = new Vector2(width, height);
+		_button.Size = new Vector2(Size.X, _button.Size.Y);
 		_button.EnableButton(_enabled);
 		_button.SetVisible(_visible);
 		_button.TextStyle = TextStyle;
@@ -293,10 +294,10 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 
 	public bool HitTest(Vector2 screenPoint) {
 		if (IsExpanded) {
-			return true;
+			return _button.HitTest(screenPoint) || _listBox.HitTest(screenPoint);
 		}
 
-		return ContainsPoint(screenPoint);
+		return _button.HitTest(screenPoint);
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
@@ -336,6 +337,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 
 	protected override void Draw() {
 		_button.Text = string.IsNullOrEmpty(SelectedLabel) ? Placeholder : SelectedLabel;
+		UiDebugBounds.DrawInput(GetHitBounds(), Name);
 	}
 
 	private void HandleLeftPointerDown(UiPointerEvent pointerEvent) {
@@ -373,6 +375,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 
 	private void SetExpanded(bool expanded) {
 		IsExpanded = expanded && _enabled && _visible && Visible && _listBox.GetNumberOfItems() > 0;
+		ZIndex = IsExpanded ? ExpandedPopupZIndex : 0;
 		_button.PushState = IsExpanded;
 		if (IsExpanded) {
 			_listBox.EnsureVisible(_listBox.GetCurrentSelection() >= 0 ? _listBox.GetCurrentSelection() : 0);
@@ -409,6 +412,14 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		SetExpanded(!IsExpanded);
 	}
 
+	private Rectangle GetHitBounds() {
+		if (!IsExpanded) {
+			return _button.GlobalBounds;
+		}
+
+		return UiDebugBounds.Union(_button.GlobalBounds, _listBox.GlobalBounds);
+	}
+
 	private static Color ToColor(GT_COLOR color) {
 		return new Color(color.Red, color.Green, color.Blue, (byte)255);
 	}
@@ -417,14 +428,28 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		var x = data.ListboxData.XOrigin;
 		var y = data.ListboxData.YOrigin;
 
-		if (x >= data.ScreenRect.Left) {
+		if (x >= data.ScreenRect.Left && x <= data.ScreenRect.Right) {
 			x -= data.ScreenRect.Left;
 		}
 
-		if (y >= data.ScreenRect.Top) {
+		if (y >= data.ScreenRect.Top && y <= data.ScreenRect.Bottom) {
 			y -= data.ScreenRect.Top;
 		}
 
 		return new Vector2(x, y);
+	}
+
+	private static float ResolveCollapsedHeight(DROPDOWN_DATA data, float fallbackButtonHeight) {
+		var popupTop = data.ListboxData.YOrigin;
+		if (popupTop > 0 && popupTop <= fallbackButtonHeight) {
+			return popupTop;
+		}
+
+		var authoredHeight = Math.Max(0f, data.ScreenRect.Bottom - data.ScreenRect.Top);
+		if (authoredHeight > 0f && authoredHeight <= fallbackButtonHeight) {
+			return authoredHeight;
+		}
+
+		return Math.Max(0f, fallbackButtonHeight);
 	}
 }

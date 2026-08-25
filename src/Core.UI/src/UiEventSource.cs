@@ -91,8 +91,7 @@ public sealed class UiEventSource : Node {
 		_targets.Clear();
 		CollectTargets(ResolveScopeRoot(), _targets);
 
-		for (var i = _targets.Count - 1; i >= 0; i--) {
-			var target = _targets[i];
+		foreach (var target in GetHitTestOrderedTargets()) {
 			if (target.Handler.IsPointerInputEnabled && target.Handler.HitTest(pointerPosition)) {
 				return target;
 			}
@@ -113,6 +112,14 @@ public sealed class UiEventSource : Node {
 		foreach (var child in node.Children) {
 			CollectTargets(child, targets);
 		}
+	}
+
+	private IEnumerable<PointerTarget> GetHitTestOrderedTargets() {
+		return _targets
+			.Select((target, index) => new OrderedPointerTarget(target, index))
+			.OrderByDescending(item => item.ZIndex)
+			.ThenByDescending(item => item.Index)
+			.Select(item => item.Target);
 	}
 
 	private void DispatchCapturedMoves(Vector2 pointerPosition, Node? hoverTarget) {
@@ -192,4 +199,7 @@ public sealed class UiEventSource : Node {
 	}
 
 	private readonly record struct PointerTarget(Node Node, IUiPointerEventHandler Handler);
+	private readonly record struct OrderedPointerTarget(PointerTarget Target, int Index) {
+		public int ZIndex => Target.Node is CanvasItem canvasItem ? canvasItem.GlobalZIndex : 0;
+	}
 }
