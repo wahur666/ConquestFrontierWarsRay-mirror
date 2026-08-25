@@ -38,6 +38,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("UiText Animation", "UiText as a real Control with measured bounds, sine-wave scaling, circular motion, and pivot rotation.", () => new UiTextAnimationScene()),
 			new SceneDefinition("Hot Rect Events", "Core.UI spike: UiEventSource dispatches raw pointer input into HotRectNode targets and bubbles events upward through parent nodes.", () => new HotRectEventScene()),
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
+			new SceneDefinition("Legacy Combobox", "Core.UI legacy combobox seam with editable text, prefix autocomplete, popup list selection, and real Menu1 GT data resolved through XmlDbRepository.", () => new LegacyComboboxScene()),
 			new SceneDefinition("Legacy ListBox", "Core.UI legacy listbox seam with authored GT geometry, imperative item payloads, caret/selection behavior, and shape-backed or primitive drawing.", () => new LegacyListBoxScene()),
 			new SceneDefinition("Legacy Static", "Core.UI legacy static seam with real GT_STATIC archetypes covering shape-only image panels, fill/hash backgrounds, shadowed text, and buddy-button forwarding.", () => new LegacyStaticScene()),
 			new SceneDefinition("Legacy TabControl", "Core.UI legacy tab strip seam with real GT_OPTIONS tab data, atlas-backed headers, per-tab page switching, and page-local keyboard focus across legacy controls.", () => new LegacyTabControlScene()),
@@ -143,7 +144,7 @@ internal sealed class ShowcaseShellNode : Node {
 		UiText.Draw("Enter        open scene", 42f, footerY + 58f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Escape       pause overlay", 42f, footerY + 82f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("F6           swap SceneTree root", 42f, footerY + 106f, 17f, new Color(214, 223, 236, 255));
-		UiText.Draw("Backspace    quit combo alias", 42f, footerY + 130f, 17f, new Color(214, 223, 236, 255));
+		UiText.Draw("F12          quit combo alias", 42f, footerY + 130f, 17f, new Color(214, 223, 236, 255));
 	}
 
 	private static IEnumerable<string> WrapText(string text, float maxWidth, float fontSize) {

@@ -404,7 +404,7 @@ public sealed class InputManager {
 		RegisterAction(UiEscapeAction, KeyboardKey.Escape);
 		RegisterAction(UiEscapeAction, GamepadButton.RightFaceRight);
 
-		RegisterAction(UiBackAction, KeyboardKey.Backspace);
+		RegisterAction(UiBackAction, KeyboardKey.F12);
 		RegisterAction(UiBackAction, GamepadButton.MiddleLeft);
 	}
 }
