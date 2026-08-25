@@ -41,6 +41,8 @@ internal sealed class Menu1OpeningPreviewScene : Node2D {
 internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private const uint ConfirmTitleTextId = 1345;
 	private const uint ConfirmQuitMessageTextId = 1406;
+	private const string MainMenuMusicTrack = "Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3";
+	private const string SinglePlayerMusicTrack = "Conquest Frontier Wars soundtrack - Single Player Menu Music.mp3";
 	private static readonly Color AnimationMarker = new(214, 120, 228, 255);
 	private const float MusicFadeInDurationSeconds = 2f;
 	private readonly List<AtlasFramesResource> _atlasResources = [];
@@ -48,6 +50,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly List<AnimatedSprite2D?> _animatedSprite2Ds = [];
 	private readonly GT_MENU1_HELPMENU _helpMenuData;
 	private readonly GT_MENU1_OPENING _opening;
+	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
@@ -64,6 +67,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacyMessageBoxModal? _exitModal;
 	private LegacyNewUserModal? _newUserModal;
 	private LegacyOptionsModal? _optionsModal;
+	private LegacySinglePlayerModal? _singlePlayerModal;
 	private AudioPlayer? _musicPlayer;
 
 	public Menu1OpeningPreviewSurface(bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
@@ -75,6 +79,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_strings = LegacyRcStringResolver.LoadFromRepo();
 		var menu1 = ReadTypedEntry<GT_MENU1>("GT_MENU1", "Menu1");
 		_opening = menu1.Opening;
+		_singlePlayerMenu = menu1.SinglePlayerMenu;
 		_helpMenuData = menu1.HelpMenu;
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
 		_newPlayer = ReadTypedEntry<GT_NEWPLAYER>("GT_NEWPLAYER", "MenuNewPlayer");
@@ -105,6 +110,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnIntro, animMedia);
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
+		btnSingle.Activated += _ => OpenSinglePlayerModal();
 		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
@@ -131,8 +137,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
-		if (_aboutModal is null && _exitModal is null && _newUserModal is null && _optionsModal is null &&
-		    Input.UiEsc) {
+		if (!HasBlockingModal() && Input.UiEsc) {
 			OpenExitModal();
 		}
 	}
@@ -148,12 +153,20 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			Looping = true,
 			Volume = 0f
 		});
-		var music = Shared.ResourceManager.Audio.OpenMusic(
-			"Conquest Frontier Wars soundtrack - Main Menu Screen Music.mp3",
-			AudioPlaybackBackend.NAudio);
+		var music = Shared.ResourceManager.Audio.OpenMusic(MainMenuMusicTrack, AudioPlaybackBackend.NAudio);
 		audioPlayer.SetOwnedAudio(music);
 		audioPlayer.Play();
 		return audioPlayer;
+	}
+
+	private void SetMusicTrack(string trackName) {
+		if (_musicPlayer is null) {
+			return;
+		}
+
+		var music = Shared.ResourceManager.Audio.OpenMusic(trackName, AudioPlaybackBackend.NAudio);
+		_musicPlayer.SetOwnedAudio(music);
+		_musicPlayer.Play();
 	}
 
 	private static void ConnectButtonHover(LegacyButtonNode button, AnimatedSprite2D? animation) {
@@ -231,8 +244,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenAboutModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
-		    _optionsModal is not null) {
+		if (HasBlockingModal()) {
 			return;
 		}
 
@@ -261,8 +273,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenExitModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
-		    _optionsModal is not null) {
+		if (HasBlockingModal()) {
 			return;
 		}
 
@@ -292,8 +303,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenNewUserModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
-		    _optionsModal is not null) {
+		if (HasBlockingModal()) {
 			return;
 		}
 
@@ -328,8 +338,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenOptionsModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
-		    _optionsModal is not null) {
+		if (HasBlockingModal()) {
 			return;
 		}
 
@@ -352,6 +361,41 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 		_optionsModal = null;
 		SetOpeningButtonsEnabled(true);
+	}
+
+	private void OpenSinglePlayerModal() {
+		if (HasBlockingModal()) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		SetMusicTrack(SinglePlayerMusicTrack);
+		_singlePlayerModal = AddChild(new LegacySinglePlayerModal(
+			_singlePlayerMenu,
+			_userProfilesRepository,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseSinglePlayerModal));
+	}
+
+	private void CloseSinglePlayerModal() {
+		if (_singlePlayerModal is not null && RemoveChild(_singlePlayerModal)) {
+			_singlePlayerModal.Dispose();
+		}
+
+		_singlePlayerModal = null;
+		SetOpeningButtonsEnabled(true);
+		SetMusicTrack(MainMenuMusicTrack);
+	}
+
+	private bool HasBlockingModal() {
+		return _aboutModal is not null ||
+		       _exitModal is not null ||
+		       _newUserModal is not null ||
+		       _optionsModal is not null ||
+		       _singlePlayerModal is not null;
 	}
 
 	private void SetOpeningButtonsEnabled(bool enabled) {
