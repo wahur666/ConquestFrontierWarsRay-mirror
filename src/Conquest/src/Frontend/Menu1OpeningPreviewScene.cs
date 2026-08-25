@@ -51,7 +51,9 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
+
 	private readonly GT_NEWPLAYER _newPlayer;
+
 	// private readonly UtfDbRepository _utfDbRepository;
 	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly bool _requiresInitialUser;
@@ -103,10 +105,11 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnIntro, animMedia);
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
-		btnIntro.Activated += _ => OpenMovie("Assets\\Movies\\cq_intro.mp4");
+		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
 		btnQuit.Activated += _ => RequestQuit();
+		btnMulti.Activated += async _ => await NetworkService.GetNetworkAddresses();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
 		_musicPlayer = AddMusicPlayer();
 		if (_showAboutOnInitialize) {
@@ -128,7 +131,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
-		if (_aboutModal is null && _exitModal is null && _newUserModal is null && _optionsModal is null && Input.UiEsc) {
+		if (_aboutModal is null && _exitModal is null && _newUserModal is null && _optionsModal is null &&
+		    Input.UiEsc) {
 			OpenExitModal();
 		}
 	}
@@ -227,9 +231,11 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenAboutModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
+		    _optionsModal is not null) {
 			return;
 		}
+
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
 		SetOpeningButtonsEnabled(false);
 		_aboutModal = AddChild(new Menu1HelpModalOverlay(
@@ -255,7 +261,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenExitModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
+		    _optionsModal is not null) {
 			return;
 		}
 
@@ -285,7 +292,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenNewUserModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
+		    _optionsModal is not null) {
 			return;
 		}
 
@@ -320,7 +328,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenOptionsModal() {
-		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null || _optionsModal is not null) {
+		if (_aboutModal is not null || _exitModal is not null || _newUserModal is not null ||
+		    _optionsModal is not null) {
 			return;
 		}
 

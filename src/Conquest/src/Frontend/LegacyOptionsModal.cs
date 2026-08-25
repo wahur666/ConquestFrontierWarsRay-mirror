@@ -9,7 +9,6 @@ using ConquestFrontierWarsRay.Data.UtfDb;
 using ConquestFrontierWarsRay.Data.UserProfiles;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
-using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Frontend;
 
@@ -24,6 +23,7 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly XmlDbRepository _xmlDbRepository;
 	private readonly List<LegacyButtonNode> _interactiveButtons = [];
+	private readonly List<LegacyCheckboxNode> _interactiveCheckboxes = [];
 	private LegacyDropdownNode? _deviceDropdown;
 	private LegacyListBoxNode? _playerList;
 	private LegacyStaticNode? _playerNameLabel;
@@ -78,11 +78,6 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		if (Input.IsActionJustPressed(InputManager.UiEscapeAction)) {
 			CloseModal();
 		}
-	}
-
-	protected override void OnEnterTree() {
-		base.OnEnterTree();
-		WriteHitZoneSnapshot("enter-tree");
 	}
 
 	private void WriteHitZoneSnapshot(string reason) {
@@ -254,6 +249,9 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		foreach (var button in _interactiveButtons) {
 			button.EnableButton(enabled);
 		}
+		foreach (var checkbox in _interactiveCheckboxes) {
+			checkbox.EnableButton(enabled);
+		}
 	}
 
 	private void UpdatePlayerNameLabel(string currentUser) {
@@ -287,7 +285,6 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 			_options.Tab,
 			ResolveTabLabels(_options.Tab.TextIds),
 			_vfxRepository);
-		tab.SelectedTabChanged += (_, tabIndex) => WriteHitZoneSnapshot($"tab-{tabIndex}");
 		var centeredModalPosition = ResolveScreenPosition(_options.ScreenRect);
 		var authoredToCenteredOffsetX = centeredModalPosition.X - _options.ScreenRect.Left;
 
@@ -368,16 +365,18 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 		return AddTabSlider(tabIndex, label, sliderData, min, max, value);
 	}
 
-	private LegacyButtonNode AddCheckboxWithLabel(
+	private LegacyCheckboxNode AddCheckboxWithLabel(
 		int tabIndex,
 		string label,
 		STATIC_DATA staticData,
 		BUTTON_DATA buttonData,
 		bool initialState) {
 		AddTabStatic(tabIndex, $"{label}Label", staticData);
-		var button = AddTabButton(tabIndex, label, buttonData);
-		button.PushState = initialState;
-		button.Activated += current => current.PushState = !current.PushState;
+		var button = CreateCheckboxNode(label, buttonData);
+		button.IsChecked = initialState;
+		button.Activated += current => current.IsChecked = !current.IsChecked;
+		_tabControl!.AddTabPageChild(tabIndex, button);
+		_interactiveCheckboxes.Add(button);
 		return button;
 	}
 
@@ -401,6 +400,13 @@ internal sealed class LegacyOptionsModal : LegacyModalNode {
 			node.Text = text;
 		}
 
+		return node;
+	}
+
+	private LegacyCheckboxNode CreateCheckboxNode(string label, BUTTON_DATA data) {
+		var archetype = ReadTypedEntry<GT_BUTTON>("GT_BUTTON", data.ButtonType);
+		var node = new LegacyCheckboxNode(label);
+		node.ApplyLegacyDefinition(archetype, data, _vfxRepository);
 		return node;
 	}
 
