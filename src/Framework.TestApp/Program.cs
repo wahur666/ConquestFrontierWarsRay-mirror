@@ -5,7 +5,7 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework.TestApp;
 
 internal static class Program {
-	private static void Main() {
+	private static void Main(string[] args) {
 		var options = new WindowOptions(
 			1280,
 			720,
@@ -17,8 +17,17 @@ internal static class Program {
 		app.Bootstrap();
 		app.Shared.ResourceLocator = new RepoResourceLocator();
 
-		var root = new ShowcaseShellNode();
+		var startupSceneIndex = TryParseSceneIndex(args);
+		var root = new ShowcaseShellNode(startupSceneIndex);
 		var tree = new SceneTree(root, new InputManager(), app.Shared);
 		app.Run(tree);
+	}
+
+	private static int? TryParseSceneIndex(string[] args) {
+		if (args.Length == 0) {
+			return null;
+		}
+
+		return int.TryParse(args[0], out var sceneIndex) ? sceneIndex : null;
 	}
 }

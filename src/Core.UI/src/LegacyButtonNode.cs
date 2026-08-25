@@ -9,7 +9,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// <summary>
 /// Legacy-authored button control that mirrors the Trim-era Button2 baseline closely enough for menu composition.
 /// </summary>
-public sealed class LegacyButtonNode : Control, IUiPointerEventHandler {
+public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	public enum LegacyButtonVisualState {
 		Automatic,
 		Disabled,

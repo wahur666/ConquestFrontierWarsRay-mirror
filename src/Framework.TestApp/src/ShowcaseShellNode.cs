@@ -6,6 +6,7 @@ using Raylib_cs;
 namespace ConquestFrontierWarsRay.Framework.TestApp;
 
 internal sealed class ShowcaseShellNode : Node {
+	private readonly int? _startupSceneIndex;
 	private readonly MenuNavigation _navigation = new();
 	private readonly MenuList _sceneMenu = new();
 	private readonly PauseDialog _pauseDialog = new("Framework Showcase");
@@ -22,7 +23,8 @@ internal sealed class ShowcaseShellNode : Node {
 	private ShowcaseScene? _currentScene;
 	private string[] _summaryLines = [];
 
-	public ShowcaseShellNode() : base("FrameworkShowcaseRoot") {
+	public ShowcaseShellNode(int? startupSceneIndex = null) : base("FrameworkShowcaseRoot") {
+		_startupSceneIndex = startupSceneIndex;
 		_sidebarOverlay = new SidebarOverlayNode(this);
 		AddChild(_sceneHost);
 		AddChild(_sidebarPanel);
@@ -38,6 +40,7 @@ internal sealed class ShowcaseShellNode : Node {
 			new SceneDefinition("Audio Player", "AudioPlayer with mp3 and wav resources, transport controls, and slider-driven seek, volume, and pan.", () => new AudioPlayerScene()),
 			new SceneDefinition("Legacy ListBox", "Core.UI legacy listbox seam with authored GT geometry, imperative item payloads, caret/selection behavior, and shape-backed or primitive drawing.", () => new LegacyListBoxScene()),
 			new SceneDefinition("Legacy Static", "Core.UI legacy static seam with real GT_STATIC archetypes covering shape-only image panels, fill/hash backgrounds, shadowed text, and buddy-button forwarding.", () => new LegacyStaticScene()),
+			new SceneDefinition("Legacy TabControl", "Core.UI legacy tab strip seam with real GT_OPTIONS tab data, atlas-backed headers, per-tab page switching, and page-local keyboard focus across legacy controls.", () => new LegacyTabControlScene()),
 			new SceneDefinition("Talking Head", "Game-level TalkingHeadPlayer composite built from Sprite nodes, AudioPlayer transport, txt timing data, additive fuzz, and legacy border layout rules.", () => new TalkingHeadScene()),
 			new SceneDefinition("Video Player", "VideoPlayer extracted from the legacy runtime into the framework as a standalone Control node with Media Foundation decoding.", () => new VideoPlayerScene()),
 			new SceneDefinition("Sprites", "CompressedTexture2D, AtlasDefinitionResource, AtlasTexture, and Sprite in one resource-driven scene.", () => new SpriteScene()),
@@ -55,7 +58,7 @@ internal sealed class ShowcaseShellNode : Node {
 		_pauseDialog.AddItem("Print tree", () => DebugTreeView.Print(this));
 		_pauseDialog.AddItem("Swap root", SwapRoot);
 		_pauseDialog.AddItem("Quit", RequestQuit);
-		SwitchScene(0);
+		SwitchScene(ClampSceneIndex(_startupSceneIndex ?? 0));
 	}
 
 	protected override void OnUpdate(float deltaTime) {
@@ -66,7 +69,7 @@ internal sealed class ShowcaseShellNode : Node {
 			return;
 		}
 
-		if (Raylib.IsKeyPressed(KeyboardKey.Tab)) {
+		if (Raylib.IsKeyPressed(KeyboardKey.F6)) {
 			SwapRoot();
 			return;
 		}
@@ -105,7 +108,16 @@ internal sealed class ShowcaseShellNode : Node {
 
 		_currentScene = _scenes[sceneIndex].Factory();
 		_sceneHost.AddChild(_currentScene);
+		_sceneMenu.SetSelectedIndex(sceneIndex);
 		_summaryLines = WrapText(_scenes[sceneIndex].Summary, 260f, 16f).ToArray();
+	}
+
+	private int ClampSceneIndex(int sceneIndex) {
+		if (_scenes.Count == 0) {
+			return 0;
+		}
+
+		return Math.Clamp(sceneIndex, 0, _scenes.Count - 1);
 	}
 
 	private void SwapRoot() {
@@ -130,7 +142,7 @@ internal sealed class ShowcaseShellNode : Node {
 		UiText.Draw("Arrow keys   navigate menu", 42f, footerY + 34f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Enter        open scene", 42f, footerY + 58f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Escape       pause overlay", 42f, footerY + 82f, 17f, new Color(214, 223, 236, 255));
-		UiText.Draw("Tab          swap SceneTree root", 42f, footerY + 106f, 17f, new Color(214, 223, 236, 255));
+		UiText.Draw("F6           swap SceneTree root", 42f, footerY + 106f, 17f, new Color(214, 223, 236, 255));
 		UiText.Draw("Backspace    quit combo alias", 42f, footerY + 130f, 17f, new Color(214, 223, 236, 255));
 	}
 

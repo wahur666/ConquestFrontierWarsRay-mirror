@@ -15,7 +15,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// <see cref="LegacyListBoxNode"/>, which owns the list visuals, scrolling,
 /// caret movement, and selection behavior.
 /// </remarks>
-public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
+public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	private const float DefaultFontSize = 16f;
 	private readonly LegacyButtonNode _button;
 	private readonly LegacyListBoxNode _listBox;
@@ -135,13 +135,15 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler {
 		}
 	}
 
-	public void SetKeyboardFocus(bool enabled) {
+	public bool SetKeyboardFocus(bool enabled) {
 		_hasKeyboardFocus = enabled && _enabled && _visible && Visible;
 		_button.SetKeyboardFocus(_hasKeyboardFocus);
 		UpdateChildFocus();
 		if (!_hasKeyboardFocus) {
 			SetExpanded(false);
 		}
+
+		return _hasKeyboardFocus;
 	}
 
 	public void SetSelectionColor(Color color) {

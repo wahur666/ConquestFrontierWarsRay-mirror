@@ -17,6 +17,15 @@ public sealed class MenuList {
 		_items.Add((label, onSelect));
 	}
 
+	public void SetSelectedIndex(int index) {
+		if (_items.Count == 0) {
+			SelectedIndex = 0;
+			return;
+		}
+
+		SelectedIndex = Math.Clamp(index, 0, _items.Count - 1);
+	}
+
 	public void HandleInput(MenuNavigation navigation) {
 		ArgumentNullException.ThrowIfNull(navigation);
 

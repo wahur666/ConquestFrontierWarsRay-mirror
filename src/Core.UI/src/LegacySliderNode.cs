@@ -23,7 +23,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// handled during update when this node has keyboard focus.
 /// </para>
 /// </remarks>
-public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
+public sealed class LegacySliderNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	public enum LegacySliderVisualState {
 		Automatic,
 		Disabled,
@@ -180,11 +180,13 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler {
 	/// <summary>
 	/// Grants or clears keyboard focus for arrow-key movement.
 	/// </summary>
-	public void SetKeyboardFocus(bool enabled) {
+	public bool SetKeyboardFocus(bool enabled) {
 		_hasKeyboardFocus = enabled && _enabled && _visible && Visible;
 		if (!_hasKeyboardFocus) {
 			_dragging = false;
 		}
+
+		return _hasKeyboardFocus;
 	}
 
 	public bool HitTest(Vector2 screenPoint) {

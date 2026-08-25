@@ -16,7 +16,7 @@ namespace ConquestFrontierWarsRay.Core.UI;
 /// caret-versus-activation event split, and scroll-window semantics. Visuals can
 /// be driven from one optional exported shape atlas plus primitive fallback.
 /// </remarks>
-public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler {
+public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	private const float DefaultFontSize = 14f;
 	private const float DefaultHorizontalPadding = 6f;
 	private const float DefaultVerticalPadding = 1f;
