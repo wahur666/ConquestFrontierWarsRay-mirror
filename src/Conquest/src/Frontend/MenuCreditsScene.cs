@@ -71,13 +71,8 @@ internal sealed class MenuCreditsSurface : Node2D {
 		}
 
 		var backgroundPath = staticRepo.GetInterfaceAssetPath(new ImageData {
-			Filename = archetype.ShapeFile.ToUpperInvariant()
+			Filename = archetype.ShapeFile
 		});
-		if (!File.Exists(backgroundPath)) {
-			backgroundPath = staticRepo.GetInterfaceAssetPath(new ImageData {
-				Filename = archetype.ShapeFile
-			});
-		}
 
 		_backgroundTexture = new CompressedTexture2D(backgroundPath);
 		var node = new Sprite(_backgroundTexture, "CreditsBackground") {
