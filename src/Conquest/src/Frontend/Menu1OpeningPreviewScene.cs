@@ -51,6 +51,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_HELPMENU _helpMenuData;
 	private readonly GT_MENU1_OPENING _opening;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
+	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
 	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
 	private readonly GT_MESSAGEBOX _quitMessageBox;
@@ -80,6 +81,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		var menu1 = ReadTypedEntry<GT_MENU1>("GT_MENU1", "Menu1");
 		_opening = menu1.Opening;
 		_singlePlayerMenu = menu1.SinglePlayerMenu;
+		_selectCampaignMenu = menu1.SelectCampaign;
 		_helpMenuData = menu1.HelpMenu;
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
 		_newPlayer = ReadTypedEntry<GT_NEWPLAYER>("GT_NEWPLAYER", "MenuNewPlayer");
@@ -373,6 +375,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetMusicTrack(SinglePlayerMusicTrack);
 		_singlePlayerModal = AddChild(new LegacySinglePlayerModal(
 			_singlePlayerMenu,
+			_selectCampaignMenu,
 			_userProfilesRepository,
 			_xmlDbRepository,
 			_vfxRepository,

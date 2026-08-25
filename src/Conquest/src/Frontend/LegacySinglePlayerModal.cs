@@ -19,6 +19,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 	private const float LegacyScreenHeight = 600f;
 	private readonly Action _closed;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
+	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
 	private readonly LegacyRcStringResolver _strings;
 	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
@@ -27,16 +28,20 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 	private LegacyButtonNode? _buttonSkirmish;
 	private LegacyButtonNode? _buttonLoad;
 	private LegacyButtonNode? _buttonQuickbattleLoad;
+	private LegacyButtonNode? _buttonBack;
+	private LegacyCampaignModal? _campaignModal;
 	private TextNode? _statusLabel;
 
 	public LegacySinglePlayerModal(
 		GT_MENU1_SINGLEPLAYER_MENU singlePlayerMenu,
+		GT_MENU1_SELECT_CAMPAIGN selectCampaignMenu,
 		UserProfilesRepository userProfilesRepository,
 		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
 		Action closed) : base("LegacySinglePlayerModal", closed) {
 		_singlePlayerMenu = singlePlayerMenu;
+		_selectCampaignMenu = selectCampaignMenu;
 		_userProfilesRepository = userProfilesRepository;
 		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
@@ -56,13 +61,13 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		_buttonSkirmish = AddButtonNode("Skirmish", GetButton(1));
 		_buttonLoad = AddButtonNode("LoadSaved", GetButton(2));
 		_buttonQuickbattleLoad = AddButtonNode("LoadQuickbattle", GetButton(3));
-		var back = AddButtonNode("Back", GetButton(4));
+		_buttonBack = AddButtonNode("Back", GetButton(4));
 
-		_buttonCampaign.Activated += _ => ShowStatus("Campaign flow is not ported yet.");
+		_buttonCampaign.Activated += _ => OpenCampaignModal();
 		_buttonSkirmish.Activated += _ => ShowStatus("Skirmish flow is not ported yet.");
 		_buttonLoad.Activated += _ => ShowStatus("Saved-game loading is not ported yet.");
 		_buttonQuickbattleLoad.Activated += _ => ShowStatus("Quickbattle loading is not ported yet.");
-		back.Activated += _ => CloseModal();
+		_buttonBack.Activated += _ => CloseModal();
 		_buttonCampaign.SetKeyboardFocus(true);
 
 		ApplySaveAvailability();
@@ -116,7 +121,51 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		}
 	}
 
+	private void OpenCampaignModal() {
+		if (_campaignModal is not null) {
+			return;
+		}
+
+		SetInteractiveState(false);
+		ShowStatus(string.Empty);
+		_campaignModal = AddChild(new LegacyCampaignModal(
+			_selectCampaignMenu,
+			_userProfilesRepository,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseCampaignModal));
+	}
+
+	private void CloseCampaignModal() {
+		if (_campaignModal is not null && RemoveChild(_campaignModal)) {
+			_campaignModal.Dispose();
+		}
+
+		_campaignModal = null;
+		SetInteractiveState(true);
+		_buttonCampaign?.SetKeyboardFocus(true);
+	}
+
+	private void SetInteractiveState(bool enabled) {
+		_buttonCampaign?.EnableButton(enabled);
+		_buttonSkirmish?.EnableButton(enabled);
+		_buttonBack?.EnableButton(enabled);
+
+		if (!enabled) {
+			_buttonLoad?.EnableButton(false);
+			_buttonQuickbattleLoad?.EnableButton(false);
+			return;
+		}
+
+		ApplySaveAvailability();
+	}
+
 	private void CloseModal() {
+		if (_campaignModal is not null) {
+			CloseCampaignModal();
+		}
+
 		_closed();
 	}
 
