@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using ConquestFrontierWarsRay.Core.UI;
@@ -21,12 +22,61 @@ internal enum MultiplayerNetworkKind {
 	Internet
 }
 
+internal enum SkirmishSlotState {
+	Open,
+	Closed,
+	Active,
+	Ready
+}
+
+internal enum SkirmishSlotType {
+	Human,
+	Computer
+}
+
+internal enum SkirmishComputerChallenge {
+	Easy,
+	Average,
+	Hard,
+	Impossible,
+	Nightmare
+}
+
+internal enum SkirmishRace {
+	Terran,
+	Mantis,
+	Solarian,
+	Vyrium
+}
+
+internal enum SkirmishColor {
+	Yellow,
+	Red,
+	Blue,
+	Pink,
+	Green,
+	Orange,
+	Purple,
+	Aqua
+}
+
+internal enum SkirmishTeam {
+	None,
+	Team1,
+	Team2,
+	Team3,
+	Team4
+}
+
 internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private const float LegacyScreenWidth = 800f;
 	private const float LegacyScreenHeight = 600f;
+	private const int MaxPlayers = 8;
+	private static readonly Vector2 SlotOriginOffset = new(87f, 93f);
 	private readonly Action _closed;
 	private readonly GT_MENU1_MSHELL _mshellMenu;
 	private readonly GT_MENU1_MAP _mapMenu;
+	private readonly GT_MENU1_SLOTS _slotsMenu;
 	private readonly GT_MENU1_FINAL _finalMenu;
 	private readonly LegacyRcStringResolver _strings;
 	private readonly VfxAnimationDataRepository _vfxRepository;
@@ -47,6 +97,13 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private LegacyDropdownNode? _systemsDropdown;
 	private LegacySliderNode? _speedSlider;
 	private LegacySliderNode? _commandPointsSlider;
+	private readonly LegacyDropdownNode?[] _slotStateDropdowns = new LegacyDropdownNode?[MaxPlayers];
+	private readonly LegacyDropdownNode?[] _slotRaceDropdowns = new LegacyDropdownNode?[MaxPlayers];
+	private readonly LegacyDropdownNode?[] _slotColorDropdowns = new LegacyDropdownNode?[MaxPlayers];
+	private readonly LegacyDropdownNode?[] _slotTeamDropdowns = new LegacyDropdownNode?[MaxPlayers];
+	private readonly LegacyStaticNode?[] _slotNameNodes = new LegacyStaticNode?[MaxPlayers];
+	private readonly LegacyStaticNode?[] _slotPingNodes = new LegacyStaticNode?[MaxPlayers];
+	private readonly SkirmishSlotPreview[] _slotPreview = new SkirmishSlotPreview[MaxPlayers];
 	private LegacyCheckboxNode? _spectatorCheckbox;
 	private LegacyCheckboxNode? _diplomacyCheckbox;
 	private LegacyCheckboxNode? _lockSettingsCheckbox;
@@ -72,6 +129,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	public LegacySkirmishModal(
 		GT_MENU1_MSHELL mshellMenu,
 		GT_MENU1_MAP mapMenu,
+		GT_MENU1_SLOTS slotsMenu,
 		GT_MENU1_FINAL finalMenu,
 		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
@@ -82,6 +140,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		Action closed) : base("LegacySkirmishModal", closed) {
 		_mshellMenu = mshellMenu;
 		_mapMenu = mapMenu;
+		_slotsMenu = slotsMenu;
 		_finalMenu = finalMenu;
 		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
@@ -109,6 +168,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		SeedChatPreview();
 		ApplyModeHeader();
 		BuildMapControls();
+		BuildSlotControls();
 
 		_staticStateNode = AddStaticNode("StaticState", _finalMenu.StaticState);
 		_staticNameNode = AddStaticNode("StaticName", _finalMenu.StaticName);
@@ -279,6 +339,340 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		_moonsCheckbox.Activated += checkbox => checkbox.IsChecked = !checkbox.IsChecked;
 	}
 
+	private void BuildSlotControls() {
+		for (var index = 0; index < MaxPlayers; index++) {
+			_slotStateDropdowns[index] = AddSlotDropdownNode($"SlotState{index}", _slotsMenu.DropSlots[index]);
+			_slotRaceDropdowns[index] = AddSlotDropdownNode($"SlotRace{index}", _slotsMenu.DropRaces[index]);
+			_slotColorDropdowns[index] = AddSlotDropdownNode($"SlotColor{index}", _slotsMenu.DropPlayers[index]);
+			_slotTeamDropdowns[index] = AddSlotDropdownNode($"SlotTeam{index}", _slotsMenu.DropTeams[index]);
+			_slotNameNodes[index] = AddSlotStaticNode($"SlotName{index}", _slotsMenu.StaticNames[index]);
+			_slotPingNodes[index] = AddSlotStaticNode($"SlotPing{index}", _slotsMenu.StaticPings[index]);
+
+			var capturedIndex = index;
+			_slotStateDropdowns[index]!.SelectionCommitted += _ => OnSlotStateChanged(capturedIndex);
+			_slotRaceDropdowns[index]!.SelectionCommitted += _ => OnSlotRaceChanged(capturedIndex);
+			_slotColorDropdowns[index]!.SelectionCommitted += _ => OnSlotColorChanged(capturedIndex);
+			_slotTeamDropdowns[index]!.SelectionCommitted += _ => OnSlotTeamChanged(capturedIndex);
+		}
+
+		InitializeSlotPreviewState();
+		SeedSlotDropdownOptions();
+		RefreshSlotPreview();
+	}
+
+	private void InitializeSlotPreviewState() {
+		for (var index = 0; index < _slotPreview.Length; index++) {
+			_slotPreview[index] = new SkirmishSlotPreview {
+				State = SkirmishSlotState.Closed,
+				Type = SkirmishSlotType.Human,
+				CompChallenge = SkirmishComputerChallenge.Easy,
+				Race = SkirmishRace.Terran,
+				Color = (SkirmishColor)Math.Min((int)SkirmishColor.Aqua, (int)SkirmishColor.Yellow + index),
+				Team = SkirmishTeam.None,
+				Name = string.Empty,
+				Ping = string.Empty,
+				IsLocal = false
+			};
+		}
+
+		_slotPreview[0] = new SkirmishSlotPreview {
+			State = _mode == SkirmishMode.Multiplayer ? SkirmishSlotState.Active : SkirmishSlotState.Ready,
+			Type = SkirmishSlotType.Human,
+			CompChallenge = SkirmishComputerChallenge.Easy,
+			Race = SkirmishRace.Terran,
+			Color = SkirmishColor.Yellow,
+			Team = SkirmishTeam.None,
+			Name = _mode == SkirmishMode.Multiplayer ? (_isHost ? "Host Commander" : "Local Commander") : "Quick Battle Commander",
+			Ping = _mode == SkirmishMode.Multiplayer ? "0" : string.Empty,
+			IsLocal = true
+		};
+
+		_slotPreview[1] = new SkirmishSlotPreview {
+			State = _mode == SkirmishMode.Multiplayer ? SkirmishSlotState.Open : SkirmishSlotState.Ready,
+			Type = _mode == SkirmishMode.Multiplayer ? SkirmishSlotType.Human : SkirmishSlotType.Computer,
+			CompChallenge = SkirmishComputerChallenge.Average,
+			Race = SkirmishRace.Mantis,
+			Color = SkirmishColor.Red,
+			Team = SkirmishTeam.Team2,
+			Name = _mode == SkirmishMode.Multiplayer ? string.Empty : ResolveComputerName(1, SkirmishRace.Mantis),
+			Ping = _mode == SkirmishMode.Multiplayer ? string.Empty : "AI",
+			IsLocal = false
+		};
+
+		_slotPreview[2] = new SkirmishSlotPreview {
+			State = _mode == SkirmishMode.Multiplayer ? SkirmishSlotState.Open : SkirmishSlotState.Ready,
+			Type = _mode == SkirmishMode.Multiplayer ? SkirmishSlotType.Human : SkirmishSlotType.Computer,
+			CompChallenge = SkirmishComputerChallenge.Hard,
+			Race = SkirmishRace.Solarian,
+			Color = SkirmishColor.Blue,
+			Team = SkirmishTeam.Team3,
+			Name = _mode == SkirmishMode.Multiplayer ? string.Empty : ResolveComputerName(2, SkirmishRace.Solarian),
+			Ping = _mode == SkirmishMode.Multiplayer ? string.Empty : "AI",
+			IsLocal = false
+		};
+	}
+
+	private void SeedSlotDropdownOptions() {
+		for (var index = 0; index < MaxPlayers; index++) {
+			SeedSlotStateDropdown(_slotStateDropdowns[index]);
+			SeedSlotRaceDropdown(_slotRaceDropdowns[index]);
+			SeedSlotColorDropdown(_slotColorDropdowns[index]);
+			SeedSlotTeamDropdown(_slotTeamDropdowns[index]);
+		}
+	}
+
+	private void SeedSlotStateDropdown(LegacyDropdownNode? dropdown) {
+		if (dropdown is null) {
+			return;
+		}
+
+		dropdown.ResetContent();
+		dropdown.AddString("Open");
+		dropdown.AddString("Closed");
+		dropdown.AddString("AI Easy");
+		dropdown.AddString("AI Average");
+		dropdown.AddString("AI Hard");
+		dropdown.AddString("AI Impossible");
+		dropdown.AddString("AI Nightmare");
+		dropdown.AddString("Human");
+		dropdown.SetCurrentSelection(0);
+	}
+
+	private void SeedSlotRaceDropdown(LegacyDropdownNode? dropdown) {
+		if (dropdown is null) {
+			return;
+		}
+
+		dropdown.ResetContent();
+		AddDropdownItem(dropdown, "Terran", (uint)SkirmishRace.Terran);
+		AddDropdownItem(dropdown, "Mantis", (uint)SkirmishRace.Mantis);
+		AddDropdownItem(dropdown, "Solarian", (uint)SkirmishRace.Solarian);
+		AddDropdownItem(dropdown, "Vyrium", (uint)SkirmishRace.Vyrium);
+		dropdown.SetCurrentSelection(0);
+	}
+
+	private void SeedSlotColorDropdown(LegacyDropdownNode? dropdown) {
+		if (dropdown is null) {
+			return;
+		}
+
+		dropdown.ResetContent();
+		AddDropdownItem(dropdown, "Yellow", (uint)SkirmishColor.Yellow, ResolveLegacyColor(SkirmishColor.Yellow));
+		AddDropdownItem(dropdown, "Red", (uint)SkirmishColor.Red, ResolveLegacyColor(SkirmishColor.Red));
+		AddDropdownItem(dropdown, "Blue", (uint)SkirmishColor.Blue, ResolveLegacyColor(SkirmishColor.Blue));
+		AddDropdownItem(dropdown, "Pink", (uint)SkirmishColor.Pink, ResolveLegacyColor(SkirmishColor.Pink));
+		AddDropdownItem(dropdown, "Green", (uint)SkirmishColor.Green, ResolveLegacyColor(SkirmishColor.Green));
+		AddDropdownItem(dropdown, "Orange", (uint)SkirmishColor.Orange, ResolveLegacyColor(SkirmishColor.Orange));
+		AddDropdownItem(dropdown, "Purple", (uint)SkirmishColor.Purple, ResolveLegacyColor(SkirmishColor.Purple));
+		AddDropdownItem(dropdown, "Aqua", (uint)SkirmishColor.Aqua, ResolveLegacyColor(SkirmishColor.Aqua));
+		dropdown.SetCurrentSelection(0);
+	}
+
+	private void SeedSlotTeamDropdown(LegacyDropdownNode? dropdown) {
+		if (dropdown is null) {
+			return;
+		}
+
+		dropdown.ResetContent();
+		AddDropdownItem(dropdown, "None", (uint)SkirmishTeam.None);
+		AddDropdownItem(dropdown, "Team 1", (uint)SkirmishTeam.Team1);
+		AddDropdownItem(dropdown, "Team 2", (uint)SkirmishTeam.Team2);
+		AddDropdownItem(dropdown, "Team 3", (uint)SkirmishTeam.Team3);
+		AddDropdownItem(dropdown, "Team 4", (uint)SkirmishTeam.Team4);
+		dropdown.SetCurrentSelection(0);
+	}
+
+	private static void AddDropdownItem(LegacyDropdownNode dropdown, string label, uint value, Color? color = null) {
+		var index = dropdown.AddString(label);
+		dropdown.SetDataValue(index, value);
+		if (color.HasValue) {
+			dropdown.SetColorValue(index, color.Value);
+		}
+	}
+
+	private void RefreshSlotPreview() {
+		for (var index = 0; index < _slotPreview.Length; index++) {
+			var slot = _slotPreview[index];
+			var stateDropdown = _slotStateDropdowns[index];
+			var raceDropdown = _slotRaceDropdowns[index];
+			var colorDropdown = _slotColorDropdowns[index];
+			var teamDropdown = _slotTeamDropdowns[index];
+			var nameNode = _slotNameNodes[index];
+			var pingNode = _slotPingNodes[index];
+			if (stateDropdown is null || raceDropdown is null || colorDropdown is null || teamDropdown is null ||
+			    nameNode is null || pingNode is null) {
+				continue;
+			}
+
+			stateDropdown.SetCurrentSelection(ResolveStateSelection(slot));
+			SelectDropdownValue(raceDropdown, (uint)slot.Race);
+			SelectDropdownValue(colorDropdown, (uint)slot.Color);
+			SelectDropdownValue(teamDropdown, (uint)slot.Team);
+			colorDropdown.SetSelectionColor(ResolveLegacyColor(slot.Color));
+
+			var slotVisible = slot.State is not SkirmishSlotState.Open and not SkirmishSlotState.Closed;
+			var canEditState = _isHost || _mode == SkirmishMode.QuickBattle;
+			var canEditIdentity = slotVisible && (slot.IsLocal || slot.Type == SkirmishSlotType.Computer || _mode == SkirmishMode.QuickBattle);
+
+			stateDropdown.EnableDropdown(canEditState && !slot.IsLocal);
+			raceDropdown.EnableDropdown(canEditIdentity);
+			raceDropdown.SetVisible(slotVisible);
+			colorDropdown.EnableDropdown(canEditIdentity);
+			colorDropdown.SetVisible(slotVisible);
+			teamDropdown.EnableDropdown(canEditIdentity);
+			teamDropdown.SetVisible(slotVisible);
+
+			nameNode.SetText(slot.Name);
+			nameNode.SetTextColor(ResolveLegacyColor(slot.Color));
+			nameNode.SetVisible(slotVisible);
+
+			pingNode.SetText(_mode == SkirmishMode.Multiplayer ? slot.Ping : string.Empty);
+			pingNode.SetTextColor(ResolveLegacyColor(slot.Color));
+			pingNode.SetVisible(_mode == SkirmishMode.Multiplayer && slotVisible);
+		}
+	}
+
+	private void OnSlotStateChanged(int index) {
+		var dropdown = _slotStateDropdowns[index];
+		if (dropdown is null) {
+			return;
+		}
+
+		var selection = dropdown.GetCurrentSelection();
+		var slot = _slotPreview[index];
+		switch (selection) {
+			case 0:
+				slot.State = SkirmishSlotState.Open;
+				slot.Type = SkirmishSlotType.Human;
+				slot.Name = string.Empty;
+				slot.Ping = string.Empty;
+				break;
+			case 1:
+				slot.State = SkirmishSlotState.Closed;
+				slot.Type = SkirmishSlotType.Human;
+				slot.Name = string.Empty;
+				slot.Ping = string.Empty;
+				break;
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				slot.State = SkirmishSlotState.Ready;
+				slot.Type = SkirmishSlotType.Computer;
+				slot.CompChallenge = selection switch {
+					2 => SkirmishComputerChallenge.Easy,
+					3 => SkirmishComputerChallenge.Average,
+					4 => SkirmishComputerChallenge.Hard,
+					5 => SkirmishComputerChallenge.Impossible,
+					_ => SkirmishComputerChallenge.Nightmare
+				};
+				slot.Name = ResolveComputerName(index, slot.Race);
+				slot.Ping = "AI";
+				slot.Team = index == 0 ? SkirmishTeam.None : (SkirmishTeam)Math.Min((int)SkirmishTeam.Team4, index);
+				break;
+			case 7:
+				slot.State = slot.IsLocal ? SkirmishSlotState.Active : SkirmishSlotState.Ready;
+				slot.Type = SkirmishSlotType.Human;
+				slot.Name = slot.IsLocal ? slot.Name : $"Player {index + 1}";
+				slot.Ping = _mode == SkirmishMode.Multiplayer ? $"{22 + (index * 7)}" : string.Empty;
+				break;
+		}
+
+		_slotPreview[index] = slot;
+		RefreshSlotPreview();
+		ShowStatus($"Slot {index + 1} set to {dropdown.SelectedLabel}.");
+	}
+
+	private void OnSlotRaceChanged(int index) {
+		var dropdown = _slotRaceDropdowns[index];
+		if (dropdown is null || dropdown.GetCurrentSelection() < 0) {
+			return;
+		}
+
+		var slot = _slotPreview[index];
+		slot.Race = (SkirmishRace)dropdown.GetDataValue(dropdown.GetCurrentSelection());
+		if (slot.Type == SkirmishSlotType.Computer && slot.State is SkirmishSlotState.Active or SkirmishSlotState.Ready) {
+			slot.Name = ResolveComputerName(index, slot.Race);
+		}
+
+		_slotPreview[index] = slot;
+		RefreshSlotPreview();
+		ShowStatus($"Slot {index + 1} race changed to {dropdown.SelectedLabel}.");
+	}
+
+	private void OnSlotColorChanged(int index) {
+		var dropdown = _slotColorDropdowns[index];
+		if (dropdown is null || dropdown.GetCurrentSelection() < 0) {
+			return;
+		}
+
+		var slot = _slotPreview[index];
+		slot.Color = (SkirmishColor)dropdown.GetDataValue(dropdown.GetCurrentSelection());
+		_slotPreview[index] = slot;
+		RefreshSlotPreview();
+		ShowStatus($"Slot {index + 1} color changed to {dropdown.SelectedLabel}.");
+	}
+
+	private void OnSlotTeamChanged(int index) {
+		var dropdown = _slotTeamDropdowns[index];
+		if (dropdown is null || dropdown.GetCurrentSelection() < 0) {
+			return;
+		}
+
+		var slot = _slotPreview[index];
+		slot.Team = (SkirmishTeam)dropdown.GetDataValue(dropdown.GetCurrentSelection());
+		_slotPreview[index] = slot;
+		RefreshSlotPreview();
+		ShowStatus($"Slot {index + 1} team changed to {dropdown.SelectedLabel}.");
+	}
+
+	private static void SelectDropdownValue(LegacyDropdownNode dropdown, uint value) {
+		for (var index = 0; index < dropdown.GetNumberOfItems(); index++) {
+			if (dropdown.GetDataValue(index) == value) {
+				dropdown.SetCurrentSelection(index);
+				return;
+			}
+		}
+	}
+
+	private static int ResolveStateSelection(SkirmishSlotPreview slot) {
+		return slot.State switch {
+			SkirmishSlotState.Open => 0,
+			SkirmishSlotState.Closed => 1,
+			_ when slot.Type == SkirmishSlotType.Computer => slot.CompChallenge switch {
+				SkirmishComputerChallenge.Easy => 2,
+				SkirmishComputerChallenge.Average => 3,
+				SkirmishComputerChallenge.Hard => 4,
+				SkirmishComputerChallenge.Impossible => 5,
+				_ => 6
+			},
+			_ => 7
+		};
+	}
+
+	private string ResolveComputerName(int index, SkirmishRace race) {
+		return race switch {
+			SkirmishRace.Mantis => _slotsMenu.MantisComputerNames.ElementAtOrDefault(index) ?? $"Mantis AI {index + 1}",
+			SkirmishRace.Solarian => _slotsMenu.SolarianComputerNames.ElementAtOrDefault(index) ?? $"Solarian AI {index + 1}",
+			_ => _slotsMenu.TerranComputerNames.ElementAtOrDefault(index) ?? $"Terran AI {index + 1}"
+		};
+	}
+
+	private static Color ResolveLegacyColor(SkirmishColor color) {
+		return color switch {
+			SkirmishColor.Yellow => new Color(255, 221, 79, 255),
+			SkirmishColor.Red => new Color(224, 84, 84, 255),
+			SkirmishColor.Blue => new Color(98, 149, 255, 255),
+			SkirmishColor.Pink => new Color(255, 136, 214, 255),
+			SkirmishColor.Green => new Color(88, 201, 116, 255),
+			SkirmishColor.Orange => new Color(244, 153, 64, 255),
+			SkirmishColor.Purple => new Color(171, 109, 239, 255),
+			SkirmishColor.Aqua => new Color(97, 224, 228, 255),
+			_ => new Color(180, 160, 120, 255)
+		};
+	}
+
 	private void ShowStatus(string message) {
 		if (_statusLabel is not null) {
 			_statusLabel.Text = message;
@@ -380,6 +774,12 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		return node;
 	}
 
+	private LegacyDropdownNode AddSlotDropdownNode(string label, DROPDOWN_DATA data) {
+		var node = AddDropdownNode(label, data);
+		node.Position += SlotOriginOffset;
+		return node;
+	}
+
 	private LegacyEditNode AddEditNode(string label, EDIT_DATA data) {
 		var archetype = ReadTypedEntry<GT_EDIT>("GT_EDIT", data.EditType);
 		var node = new LegacyEditNode(label);
@@ -418,6 +818,12 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		return node;
 	}
 
+	private LegacyStaticNode AddSlotStaticNode(string label, STATIC_DATA data) {
+		var node = AddStaticNode(label, data);
+		node.Position += SlotOriginOffset;
+		return node;
+	}
+
 	private T ReadTypedEntry<T>(string typeName, string fileName) where T : class {
 		var details = _xmlDbRepository.ReadEntryDetails("GenData.db", typeName, fileName);
 		return details.TypedValue as T
@@ -431,5 +837,17 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		return new Vector2(
 			(LegacyScreenWidth - width) * 0.5f,
 			(LegacyScreenHeight - height) * 0.5f);
+	}
+
+	private struct SkirmishSlotPreview {
+		public SkirmishSlotState State;
+		public SkirmishSlotType Type;
+		public SkirmishComputerChallenge CompChallenge;
+		public SkirmishRace Race;
+		public SkirmishColor Color;
+		public SkirmishTeam Team;
+		public string Name;
+		public string Ping;
+		public bool IsLocal;
 	}
 }

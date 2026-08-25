@@ -2795,7 +2795,7 @@
         <screenRect type="RECT">
           <left type="s32">255</left>
           <top type="s32">57</top>
-          <right type="s32">632</right>
+          <right type="s32">362</right>
           <bottom type="s32">119</bottom>
         </screenRect>
         <buttonData type="BUTTON_DATA">

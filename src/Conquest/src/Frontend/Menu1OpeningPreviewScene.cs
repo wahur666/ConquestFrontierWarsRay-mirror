@@ -55,6 +55,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
 	private readonly GT_MENU1_MSHELL _mshellMenu;
 	private readonly GT_MENU1_MAP _mapMenu;
+	private readonly GT_MENU1_SLOTS _slotsMenu;
 	private readonly GT_MENU1_FINAL _finalMenu;
 	private readonly GT_OPTIONS _options;
 	private readonly bool _showAboutOnInitialize;
@@ -75,6 +76,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacySinglePlayerModal? _singlePlayerModal;
 	private LegacySkirmishModal? _skirmishModal;
 	private AudioPlayer? _musicPlayer;
+	private float _musicVolume = 0.3f;
 
 	public Menu1OpeningPreviewSurface(bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
 		_showAboutOnInitialize = showAboutOnInitialize;
@@ -89,6 +91,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_selectCampaignMenu = menu1.SelectCampaign;
 		_mshellMenu = menu1.MShell;
 		_mapMenu = menu1.Map;
+		_slotsMenu = menu1.Slots;
 		_finalMenu = menu1.Final;
 		_helpMenuData = menu1.HelpMenu;
 		_quitMessageBox = ReadTypedEntry<GT_MESSAGEBOX>("GT_MESSAGEBOX", "CQMessageBox");
@@ -153,8 +156,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void FadeInMusic(float deltaTime) {
-		if (_musicPlayer is not null && _musicPlayer.Volume < 1f) {
-			_musicPlayer.Volume = MathF.Min(1f, _musicPlayer.Volume + (deltaTime / MusicFadeInDurationSeconds));
+		if (_musicPlayer is not null && _musicPlayer.Volume < _musicVolume) {
+			_musicPlayer.Volume = MathF.Min(_musicVolume, _musicPlayer.Volume + (deltaTime / MusicFadeInDurationSeconds));
 		}
 	}
 
@@ -425,6 +428,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_skirmishModal = AddChild(new LegacySkirmishModal(
 			_mshellMenu,
 			_mapMenu,
+			_slotsMenu,
 			_finalMenu,
 			_xmlDbRepository,
 			_vfxRepository,

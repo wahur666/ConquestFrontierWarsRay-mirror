@@ -168,6 +168,13 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		_scrollBar?.SetVisible(visible);
 	}
 
+	public void SetAuthoredSize(float width, float height) {
+		Size = new Vector2(Math.Max(0f, width), Math.Max(0f, height));
+		RecalculateTextMetrics();
+		ConfigureScrollBarLayout();
+		UpdateScrollBarState();
+	}
+
 	public bool SetKeyboardFocus(bool enabled) {
 		if (_isStatic || !_enabled) {
 			_hasKeyboardFocus = false;

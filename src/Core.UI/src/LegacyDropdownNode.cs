@@ -18,6 +18,8 @@ namespace ConquestFrontierWarsRay.Core.UI;
 public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegacyKeyboardFocusable {
 	private const float DefaultFontSize = 16f;
 	private const int ExpandedPopupZIndex = 100;
+	private const float PopupContentWidthPadding = 10f;
+	private const float PopupContentHeightPadding = 10f;
 	private readonly LegacyButtonNode _button;
 	private readonly LegacyListBoxNode _listBox;
 	private Vector2 _authoredPopupOffset = Vector2.Zero;
@@ -107,6 +109,9 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		_popupOffsetOverride = null;
 
 		_listBox.ApplyLegacyDefinition(listboxArchetype, data.ListboxData, repository, xmlDbRepository);
+		_listBox.SetAuthoredSize(
+			Math.Max(0f, data.ListboxData.TextArea.Right - data.ListboxData.TextArea.Left + 1f + PopupContentWidthPadding),
+			Math.Max(0f, data.ScreenRect.Bottom - data.ScreenRect.Top - height + PopupContentHeightPadding));
 		ApplyPopupOffset();
 		_listBox.SetVisible(false);
 		_listBox.SetKeyboardFocus(false);

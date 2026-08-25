@@ -459,6 +459,7 @@ public sealed class LegacyButtonNode : Control, IUiPointerEventHandler, ILegacyK
 		return fontName switch {
 			"Font!!Button" => 16f,
 			"Font!!Button3D" => 16f,
+			"Font!!DropCustom" => 14f,
 			"Font!!MessageFutureReserved" => 16f,
 			_ => DefaultFontSize
 		};
