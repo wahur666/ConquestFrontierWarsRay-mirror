@@ -160,6 +160,11 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		return true;
 	}
 
+	public bool RequestKeyboardFocus() {
+		LegacyKeyboardFocusScope.Acquire(this);
+		return SetKeyboardFocus(true);
+	}
+
 	public int AddStringToHead(string label) {
 		_items.Insert(0, CreateItem(label));
 		if (SelectedIndex >= 0) {
@@ -745,7 +750,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 			return;
 		}
 
-		_hasKeyboardFocus = true;
+		RequestKeyboardFocus();
 		if (SelectedIndex != index) {
 			SelectedIndex = index;
 			NotifyCaretMoved();

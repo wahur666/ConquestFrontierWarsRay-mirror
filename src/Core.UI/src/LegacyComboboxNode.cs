@@ -154,6 +154,11 @@ public sealed class LegacyComboboxNode : Control, IUiPointerEventHandler, ILegac
 		return _hasKeyboardFocus;
 	}
 
+	public bool RequestKeyboardFocus() {
+		LegacyKeyboardFocusScope.Acquire(this);
+		return SetKeyboardFocus(true);
+	}
+
 	public void SetText(string text, int firstHighlightChar = -1) {
 		_text = SanitizeText(text);
 		CaretIndex = _text.Length;
@@ -426,13 +431,13 @@ public sealed class LegacyComboboxNode : Control, IUiPointerEventHandler, ILegac
 
 		var localPointer = pointerEvent.Position;
 		if (_listBox.HitTest(localPointer)) {
-			_hasKeyboardFocus = true;
+			RequestKeyboardFocus();
 			UpdateChildFocus();
 			return;
 		}
 
 		if (ContainsPoint(localPointer)) {
-			_hasKeyboardFocus = true;
+			RequestKeyboardFocus();
 			_highlightStart = -1;
 			CaretIndex = ResolveCaretIndex(localPointer);
 			UpdateChildFocus();
@@ -504,7 +509,7 @@ public sealed class LegacyComboboxNode : Control, IUiPointerEventHandler, ILegac
 			return;
 		}
 
-		_hasKeyboardFocus = true;
+		RequestKeyboardFocus();
 		SetExpanded(!IsExpanded);
 	}
 

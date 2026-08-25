@@ -189,6 +189,11 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler, ILegacyK
 		return _hasKeyboardFocus;
 	}
 
+	public bool RequestKeyboardFocus() {
+		LegacyKeyboardFocusScope.Acquire(this);
+		return SetKeyboardFocus(true);
+	}
+
 	public bool HitTest(Vector2 screenPoint) {
 		return ContainsPoint(screenPoint) || Raylib.CheckCollisionPointRec(screenPoint, GetThumbBounds());
 	}
@@ -215,7 +220,7 @@ public sealed class LegacySliderNode : Control, IUiPointerEventHandler, ILegacyK
 				if (pointerEvent.Button == MouseButton.Left && HitTest(pointerEvent.Position) && _enabled) {
 					_hovered = true;
 					_dragging = true;
-					_hasKeyboardFocus = true;
+					RequestKeyboardFocus();
 					_positionOffset = 0f;
 					_pendingDeferredEmit = false;
 					SnapPointerToNearestStep(pointerEvent.Position, emitEvent: !DeferValueChangedUntilRelease);

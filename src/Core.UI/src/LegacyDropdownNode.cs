@@ -146,6 +146,11 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		return _hasKeyboardFocus;
 	}
 
+	public bool RequestKeyboardFocus() {
+		LegacyKeyboardFocusScope.Acquire(this);
+		return SetKeyboardFocus(true);
+	}
+
 	public void SetSelectionColor(Color color) {
 		NormalTextColor = color;
 	}
@@ -338,7 +343,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 			return;
 		}
 
-		_hasKeyboardFocus = true;
+		RequestKeyboardFocus();
 		var position = pointerEvent.Position;
 
 		if (IsExpanded) {
@@ -400,6 +405,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 			return;
 		}
 
+		RequestKeyboardFocus();
 		SetExpanded(!IsExpanded);
 	}
 
