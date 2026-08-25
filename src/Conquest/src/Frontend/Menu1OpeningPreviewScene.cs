@@ -121,7 +121,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnSingle.Activated += _ => OpenSinglePlayerModal();
-		btnMulti.Activated += _ => OpenSkirmishModal(SkirmishMode.Multiplayer, MultiplayerNetworkKind.LocalAreaNetwork);
+		btnMulti.Activated += _ => OpenSkirmishModal(SkirmishMode.Multiplayer, MultiplayerNetworkKind.LocalAreaNetwork, true);
 		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
@@ -403,10 +403,10 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void OpenQuickBattleModal() {
-		OpenSkirmishModal(SkirmishMode.QuickBattle, MultiplayerNetworkKind.LocalAreaNetwork);
+		OpenSkirmishModal(SkirmishMode.QuickBattle);
 	}
 
-	private void OpenSkirmishModal(SkirmishMode mode, MultiplayerNetworkKind networkKind) {
+	private void OpenSkirmishModal(SkirmishMode mode, MultiplayerNetworkKind networkKind = MultiplayerNetworkKind.LocalAreaNetwork, bool isHost = true) {
 		if (_skirmishModal is not null) {
 			return;
 		}
@@ -431,7 +431,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_strings,
 			mode,
 			networkKind,
-			isHost: true,
+			isHost,
 			CloseSkirmishModal));
 	}
 
