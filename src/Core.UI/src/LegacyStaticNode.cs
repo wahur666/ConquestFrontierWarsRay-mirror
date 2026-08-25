@@ -24,8 +24,12 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	private bool _backdraw;
 	private GT_DRAWTYPE _backgroundDraw;
 	private Color _backgroundFill = Color.Blank;
+	private LegacyButtonNode? _buddyControl;
+	private bool _enabled = true;
 	private float _fontSize = DefaultFontSize;
 	private string _fontName = string.Empty;
+	private bool _hovered;
+	private bool _pointerPressed;
 	private uint _rollupTarget;
 	private float _rollupTimerMilliseconds;
 	private string _text = string.Empty;
@@ -43,7 +47,9 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	public Color NormalTextColor { get; private set; } = new(255, 255, 255, 255);
 	public string Text => _text;
 	public UiTextStyle TextStyle { get; set; } = UiTextStyle.Body;
-	public bool IsPointerInputEnabled => false;
+	public bool IsPointerInputEnabled => Visible && _visible && _enabled && Size.X > 0f && Size.Y > 0f;
+
+	public event Action<LegacyStaticNode>? Activated;
 
 	public void ApplyLegacyDefinition(GT_STATIC archetype, STATIC_DATA? data = null, VfxAnimationDataRepository? repository = null) {
 		ArgumentNullException.ThrowIfNull(archetype);
@@ -97,9 +103,18 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 
 	public void SetVisible(bool visible) {
 		_visible = visible;
+		if (!visible) {
+			_hovered = false;
+			_pointerPressed = false;
+		}
 	}
 
 	public void EnableStatic(bool enabled) {
+		_enabled = enabled;
+		if (!enabled) {
+			_hovered = false;
+			_pointerPressed = false;
+		}
 	}
 
 	public void SetTextColor(Color color) {
@@ -121,6 +136,7 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	}
 
 	public void SetBuddyControl(LegacyButtonNode? buddyControl) {
+		_buddyControl = buddyControl;
 	}
 
 	public float GetStringWidth() {
@@ -132,6 +148,45 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	}
 
 	public void OnPointerEvent(UiPointerEvent pointerEvent) {
+		if (!_visible || !Visible) {
+			return;
+		}
+
+		switch (pointerEvent.Kind) {
+			case UiPointerEventKind.Enter:
+			case UiPointerEventKind.Move:
+				_hovered = HitTest(pointerEvent.Position);
+				break;
+			case UiPointerEventKind.Leave:
+				_hovered = false;
+				_pointerPressed = false;
+				break;
+			case UiPointerEventKind.Down:
+				if (pointerEvent.Button == MouseButton.Left && _enabled && HitTest(pointerEvent.Position)) {
+					_hovered = true;
+					_pointerPressed = true;
+					ForwardToBuddy(pointerEvent);
+					pointerEvent.RequestPointerCapture();
+					pointerEvent.MarkHandled();
+				}
+				break;
+			case UiPointerEventKind.Up:
+				if (pointerEvent.Button == MouseButton.Left && _pointerPressed) {
+					var releaseInside = HitTest(pointerEvent.Position);
+					_pointerPressed = false;
+					_hovered = releaseInside;
+					ForwardToBuddy(pointerEvent);
+					if (releaseInside) {
+						Activated?.Invoke(this);
+					}
+
+					pointerEvent.MarkHandled();
+				}
+				break;
+			case UiPointerEventKind.Click:
+				_hovered = HitTest(pointerEvent.Position);
+				break;
+		}
 	}
 
 	protected override void OnUpdate(float deltaTime) {
@@ -164,7 +219,6 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 		if (!string.IsNullOrEmpty(_text) && !string.IsNullOrWhiteSpace(_fontName)) {
 			DrawText(bounds);
 		}
-
 	}
 
 	protected override void OnDispose() {
@@ -306,6 +360,20 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 		}
 
 		return text.Length;
+	}
+
+	private void ForwardToBuddy(UiPointerEvent sourceEvent) {
+		if (_buddyControl is null || !_hovered) {
+			return;
+		}
+
+		var buddyEvent = new UiPointerEvent(
+			sourceEvent.Kind,
+			sourceEvent.Position,
+			sourceEvent.Button,
+			sourceEvent.WheelDelta,
+			_buddyControl);
+		_buddyControl.OnPointerEvent(buddyEvent);
 	}
 
 	private void DisposeArt() {
