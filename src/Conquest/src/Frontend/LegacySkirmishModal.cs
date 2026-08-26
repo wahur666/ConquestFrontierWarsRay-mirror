@@ -115,11 +115,6 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private LegacyStaticNode? _staticSpectatorNode;
 	private LegacyStaticNode? _staticDiplomacyNode;
 	private LegacyStaticNode? _staticLockSettingsNode;
-	private LegacyStaticNode? _staticStateNode;
-	private LegacyStaticNode? _staticNameNode;
-	private LegacyStaticNode? _staticColorNode;
-	private LegacyStaticNode? _staticRaceNode;
-	private LegacyStaticNode? _staticTeamNode;
 	private LegacyStaticNode? _staticPingNode;
 	private LegacyStaticNode? _staticAcceptNode;
 	private LegacyButtonNode? _startButton;
@@ -170,11 +165,11 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		BuildMapControls();
 		BuildSlotControls();
 
-		_staticStateNode = AddStaticNode("StaticState", _finalMenu.StaticState);
-		_staticNameNode = AddStaticNode("StaticName", _finalMenu.StaticName);
-		_staticColorNode = AddStaticNode("StaticColor", _finalMenu.StaticColor);
-		_staticRaceNode = AddStaticNode("StaticRace", _finalMenu.StaticRace);
-		_staticTeamNode = AddStaticNode("StaticTeam", _finalMenu.StaticTeam);
+		AddStaticNode("StaticState", _finalMenu.StaticState);
+		AddStaticNode("StaticName", _finalMenu.StaticName);
+		AddStaticNode("StaticColor", _finalMenu.StaticColor);
+		AddStaticNode("StaticRace", _finalMenu.StaticRace);
+		AddStaticNode("StaticTeam", _finalMenu.StaticTeam);
 		_staticPingNode = AddStaticNode("StaticPing", _finalMenu.StaticPing);
 		AddStaticNode("Description", _finalMenu.Description);
 		_staticAcceptNode = AddStaticNode("StaticAccept", _finalMenu.StaticAccept);
