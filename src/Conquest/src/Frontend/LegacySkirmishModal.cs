@@ -293,7 +293,6 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		var commandPointsLabel = AddStaticNode("StaticCmdPoints", _mapMenu.StaticCmdPoints);
 		commandPointsLabel.SetText("Command Points");
 		_commandPointsDisplay = AddStaticNode("StaticCmdPointsDisplay", _mapMenu.StaticCmdPointsDisplay);
-		_commandPointsDisplay.SetText("150");
 
 		_mapTypeButton = AddButtonNode("MapType", _mapMenu.MapType);
 		_mapTypeButton.Text = "Random";
@@ -318,6 +317,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		_speedSlider.ValueChanged += _ => ShowStatus($"Game speed {_speedSlider.SliderPosition:+0;-0;0} preview only.");
 		_commandPointsSlider = AddSliderNode("CommandPointsSlider", _mapMenu.SliderCmdPoints, -2, 1, 0);
 		_commandPointsSlider.ValueChanged += _ => UpdateCommandPointsDisplay();
+		UpdateCommandPointsDisplay();
 
 		_spectatorCheckbox = AddCheckboxNode("Spectator", _mapMenu.PushSpectator);
 		_diplomacyCheckbox = AddCheckboxNode("Diplomacy", _mapMenu.PushDiplomacy);
@@ -723,18 +723,22 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		dropdown.SelectionCommitted += _ => ShowStatus($"{dropdown.Name} changed to {dropdown.SelectedLabel}.");
 	}
 
-	private void UpdateCommandPointsDisplay() {
-		if (_commandPointsSlider is null || _commandPointsDisplay is null) {
-			return;
-		}
-
-		var value = _commandPointsSlider.SliderPosition switch {
+	private int GetCommandPointValue(LegacySliderNode commandPointsSlider) {
+		return commandPointsSlider.SliderPosition switch {
 			-2 => 100,
 			-1 => 150,
 			0 => 200,
 			1 => 300,
 			_ => 150
 		};
+	}
+	
+	private void UpdateCommandPointsDisplay() {
+		if (_commandPointsSlider is null || _commandPointsDisplay is null) {
+			return;
+		}
+
+		var value = GetCommandPointValue(_commandPointsSlider);
 		_commandPointsDisplay.SetText(value.ToString());
 		ShowStatus($"Command points set to {value} preview only.");
 	}
