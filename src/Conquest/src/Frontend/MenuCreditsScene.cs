@@ -86,19 +86,17 @@ internal sealed class MenuCreditsSurface : Node2D {
 	}
 
 	private void StartMusic() {
+		var soundSettings = _userProfilesRepository.Load().Sound;
+		if (!soundSettings.MusicEnabled || soundSettings.MusicVolume <= 0) {
+			return;
+		}
+
 		var music = Shared.ResourceManager.Audio.OpenMusic(
 			"Conquest Frontier Wars soundtrack - Mystery Music.mp3",
 			AudioPlaybackBackend.NAudio);
 		_musicPlayer.SetOwnedAudio(music);
-		ApplyMusicVolume();
+		_musicPlayer.Volume = Math.Clamp(soundSettings.MusicVolume / 10f, 0f, 1f);
 		_musicPlayer.Play();
-	}
-
-	private void ApplyMusicVolume() {
-		var soundSettings = _userProfilesRepository.Load().Sound;
-		_musicPlayer.Volume = soundSettings.MusicEnabled
-			? Math.Clamp(soundSettings.MusicVolume / 10f, 0f, 1f)
-			: 0f;
 	}
 
 	private static IReadOnlyList<CreditsEntry> LoadCreditsEntries() {

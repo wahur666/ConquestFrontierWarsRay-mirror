@@ -86,6 +86,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private MultiplayerNetworkKind _lastMultiplayerNetworkKind = MultiplayerNetworkKind.LocalAreaNetwork;
 	private bool _lastMultiplayerIsHost = true;
 	private string _lastMultiplayerSessionName = string.Empty;
+	private string _currentMusicTrack = MainMenuMusicTrack;
 	private AudioPlayer? _musicPlayer;
 	private float _musicVolume = 0.5f;
 
@@ -183,31 +184,30 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	}
 
 	private void FadeInMusic(float deltaTime) {
-		if (_musicPlayer is not null && _musicPlayer.Volume < _musicVolume) {
+		if (_musicPlayer is not null && _musicPlayer.HasAudio && _musicPlayer.Volume < _musicVolume) {
 			_musicPlayer.Volume = MathF.Min(_musicVolume, _musicPlayer.Volume + (deltaTime / MusicFadeInDurationSeconds));
 		}
 	}
 
 	private AudioPlayer AddMusicPlayer() {
-		var audioPlayer = AddChild(new AudioPlayer("AudioPlayer") {
+		return AddChild(new AudioPlayer("AudioPlayer") {
 			Looping = true,
 			Volume = 0f
 		});
-		var music = Shared.ResourceManager.Audio.OpenMusic(MainMenuMusicTrack, AudioPlaybackBackend.NAudio);
-		audioPlayer.SetOwnedAudio(music);
-		audioPlayer.Play();
-		return audioPlayer;
 	}
 
 	private void SetMusicTrack(string trackName) {
+		_currentMusicTrack = trackName;
 		if (_musicPlayer is null) {
 			return;
 		}
 
-		var music = Shared.ResourceManager.Audio.OpenMusic(trackName, AudioPlaybackBackend.NAudio);
-		_musicPlayer.SetOwnedAudio(music);
-		_musicPlayer.Volume = 0f;
-		_musicPlayer.Play();
+		if (_musicVolume <= 0f) {
+			ReleaseMusic();
+			return;
+		}
+
+		LoadAndPlayMusic(trackName, startAtTargetVolume: false);
 	}
 
 	private void RefreshMusicSettings() {
@@ -226,13 +226,39 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			return;
 		}
 
-		if (immediate || _musicVolume <= 0f) {
-			_musicPlayer.Volume = 0f;
+		if (_musicVolume <= 0f) {
+			ReleaseMusic();
+			return;
+		}
+
+		if (!_musicPlayer.HasAudio) {
+			LoadAndPlayMusic(_currentMusicTrack, startAtTargetVolume: immediate);
+			return;
 		}
 
 		if (immediate || _musicPlayer.Volume > _musicVolume) {
 			_musicPlayer.Volume = _musicVolume;
 		}
+	}
+
+	private void LoadAndPlayMusic(string trackName, bool startAtTargetVolume) {
+		if (_musicPlayer is null) {
+			return;
+		}
+
+		var music = Shared.ResourceManager.Audio.OpenMusic(trackName, AudioPlaybackBackend.NAudio);
+		_musicPlayer.SetOwnedAudio(music);
+		_musicPlayer.Volume = startAtTargetVolume ? _musicVolume : 0f;
+		_musicPlayer.Play();
+	}
+
+	private void ReleaseMusic() {
+		if (_musicPlayer is null || !_musicPlayer.HasAudio) {
+			return;
+		}
+
+		_musicPlayer.Stop();
+		_musicPlayer.DisposeAudio();
 	}
 
 	private static void ConnectButtonHover(LegacyButtonNode button, AnimatedSprite2D? animation) {
