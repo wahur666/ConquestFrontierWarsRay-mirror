@@ -118,6 +118,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private LegacyStaticNode? _staticPingNode;
 	private LegacyStaticNode? _staticAcceptNode;
 	private LegacyButtonNode? _startButton;
+	private LegacyNetLoadingModal? _netLoadingModal;
 	private Task<NetworkAddressInfo>? _networkInfoTask;
 	private TextNode? _statusLabel;
 
@@ -205,6 +206,10 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		if (_networkInfoTask is { IsCompletedSuccessfully: true }) {
 			ApplyNetworkAddress(_networkInfoTask.Result);
 			_networkInfoTask = null;
+		}
+
+		if (Raylib.IsKeyPressed(KeyboardKey.F1)) {
+			ToggleNetLoadingPreview();
 		}
 	}
 
@@ -739,7 +744,33 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	}
 
 	private void CloseModal() {
+		if (_netLoadingModal is not null && RemoveChild(_netLoadingModal)) {
+			_netLoadingModal.Dispose();
+		}
+
+		_netLoadingModal = null;
 		_closed();
+	}
+
+	private void ToggleNetLoadingPreview() {
+		if (_netLoadingModal is not null) {
+			CloseNetLoadingPreview();
+			return;
+		}
+
+		_netLoadingModal = AddChild(new LegacyNetLoadingModal(
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseNetLoadingPreview));
+	}
+
+	private void CloseNetLoadingPreview() {
+		if (_netLoadingModal is not null && RemoveChild(_netLoadingModal)) {
+			_netLoadingModal.Dispose();
+		}
+
+		_netLoadingModal = null;
 	}
 
 	private LegacyButtonNode AddButtonNode(string label, BUTTON_DATA data) {
