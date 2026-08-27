@@ -22,22 +22,29 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	private const float DefaultVerticalPadding = 1f;
 	private const float ScrollBarHorizontalScale = 0.55f;
 	private const float DoubleClickSeconds = 0.35f;
+	private const float ContentMeasureHeadroom = 4f;
 	private readonly List<ItemEntry> _items = [];
 	private AtlasFramesResource? _art;
+	private Vector2 _configuredSize;
 	private bool _enabled = true;
+	private bool _forceScrollBarWhenOverflow;
 	private bool _hasKeyboardFocus;
 	private int _hoveredVisibleRow = -1;
 	private bool _isHovered;
 	private bool _isStatic;
+	private int _maxVisibleItems;
 	private int _pageLines;
 	private LegacyScrollBarNode? _scrollBar;
+	private VfxAnimationDataRepository? _scrollBarArtRepository;
 	private bool _scrollBarRequested;
 	private RECT _textArea = new();
 	private int _topLine;
 	private bool _visible = true;
+	private XmlDbRepository? _xmlDbRepository;
 	private double _lastClickTime;
 	private int _lastClickedIndex = -1;
 	private Vector2 _lastClickPosition;
+	private float _fontSize = DefaultFontSize;
 
 	public LegacyListBoxNode(string? name = null) : base(name) {
 	}
@@ -77,7 +84,18 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	public bool CommitOnSingleClickPointerDown { get; set; }
 	public bool CommitOnDoubleClick { get; set; }
 
-	public float FontSize { get; set; } = DefaultFontSize;
+	public float FontSize {
+		get => _fontSize;
+		set {
+			var next = Math.Max(1f, value);
+			if (Math.Abs(_fontSize - next) <= float.Epsilon) {
+				return;
+			}
+
+			_fontSize = next;
+			ApplySizePolicy();
+		}
+	}
 	public Vector4 PointerHitInsets { get; private set; }
 
 	public Color DisabledTextColor { get; private set; } = new(100, 100, 100, 255);
@@ -131,18 +149,19 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		NoBorder = HasFlag(data.Flags, ListboxFlags.NoBorder);
 		DisableMouseSelect = HasFlag(data.Flags, ListboxFlags.DisableMouseSelect);
 		_scrollBarRequested = HasFlag(data.Flags, ListboxFlags.Scrollbar);
+		_scrollBarArtRepository = repository;
+		_xmlDbRepository = xmlDbRepository;
 
 		if (!string.IsNullOrWhiteSpace(archetype.ShapeFile) && repository is not null) {
 			LoadArt(repository, archetype.ShapeFile);
 		}
 
 		Position = new Vector2(data.XOrigin, data.YOrigin);
-		ConfigureScrollBar(xmlDbRepository, repository);
+		ConfigureScrollBar();
 		var width = ResolveConfiguredWidth();
 		var height = ResolveConfiguredHeight();
-		Size = new Vector2(width, height);
-		RecalculateTextMetrics();
-		ConfigureScrollBarLayout();
+		_configuredSize = new Vector2(width, height);
+		ApplySizePolicy();
 		EnsureVisible(SelectedIndex >= 0 ? SelectedIndex : 0);
 		UpdateScrollBarState();
 	}
@@ -169,9 +188,16 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	}
 
 	public void SetAuthoredSize(float width, float height) {
-		Size = new Vector2(Math.Max(0f, width), Math.Max(0f, height));
-		RecalculateTextMetrics();
-		ConfigureScrollBarLayout();
+		_configuredSize = new Vector2(Math.Max(0f, width), Math.Max(0f, height));
+		ApplySizePolicy();
+		UpdateScrollBarState();
+	}
+
+	public void EnableContentMeasuredHeight(int maxVisibleItems, bool forceScrollBarWhenOverflow = true) {
+		_maxVisibleItems = Math.Max(0, maxVisibleItems);
+		_forceScrollBarWhenOverflow = forceScrollBarWhenOverflow && _maxVisibleItems > 0;
+		ConfigureScrollBar();
+		ApplySizePolicy();
 		UpdateScrollBarState();
 	}
 
@@ -196,6 +222,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 			SelectedIndex++;
 		}
 
+		RefreshContentMeasuredLayout();
 		EnsureVisible(_topLine);
 		UpdateScrollBarState();
 		return 0;
@@ -203,6 +230,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 
 	public int AddString(string label) {
 		_items.Add(CreateItem(label));
+		RefreshContentMeasuredLayout();
 		UpdateScrollBarState();
 		return _items.Count - 1;
 	}
@@ -252,6 +280,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 			_topLine = Math.Max(0, _items.Count - TextLines);
 		}
 
+		RefreshContentMeasuredLayout();
 		UpdateScrollBarState();
 	}
 
@@ -347,6 +376,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		_topLine = 0;
 		_hoveredVisibleRow = -1;
 		NotifyCaretMoved();
+		RefreshContentMeasuredLayout();
 		UpdateScrollBarState();
 	}
 
@@ -646,8 +676,8 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		_art = null;
 	}
 
-	private void ConfigureScrollBar(XmlDbRepository? xmlDbRepository, VfxAnimationDataRepository? repository) {
-		if (!_scrollBarRequested || string.IsNullOrWhiteSpace(ScrollBarTypeId) || xmlDbRepository is null) {
+	private void ConfigureScrollBar() {
+		if (!CanCreateScrollBar()) {
 			if (_scrollBar is not null) {
 				_scrollBar.SetVisible(false);
 			}
@@ -655,9 +685,9 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 			return;
 		}
 
-		var scrollBarArchetype = ReadTypedEntry<GT_SCROLLBAR>(xmlDbRepository, "GT_SCROLLBAR", ScrollBarTypeId);
-		var upButtonArchetype = ReadTypedEntry<GT_BUTTON>(xmlDbRepository, "GT_BUTTON", scrollBarArchetype.UpButtonType);
-		var downButtonArchetype = ReadTypedEntry<GT_BUTTON>(xmlDbRepository, "GT_BUTTON", scrollBarArchetype.DownButtonType);
+		var scrollBarArchetype = ReadTypedEntry<GT_SCROLLBAR>(_xmlDbRepository!, "GT_SCROLLBAR", ScrollBarTypeId);
+		var upButtonArchetype = ReadTypedEntry<GT_BUTTON>(_xmlDbRepository!, "GT_BUTTON", scrollBarArchetype.UpButtonType);
+		var downButtonArchetype = ReadTypedEntry<GT_BUTTON>(_xmlDbRepository!, "GT_BUTTON", scrollBarArchetype.DownButtonType);
 
 		if (_scrollBar is null) {
 			_scrollBar = AddChild(new LegacyScrollBarNode($"{Name}ScrollBar"));
@@ -671,10 +701,10 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 			_scrollBar.PageDownRequested += _ => ScrollPageDown();
 		}
 
-		_scrollBar.ApplyLegacyDefinition(scrollBarArchetype, upButtonArchetype, downButtonArchetype, repository);
+		_scrollBar.ApplyLegacyDefinition(scrollBarArchetype, upButtonArchetype, downButtonArchetype, _scrollBarArtRepository);
 		_scrollBar.SetPointerHitInsets(PointerHitInsets.X, PointerHitInsets.Y, PointerHitInsets.Z, PointerHitInsets.W);
 		ConfigureScrollBarLayout();
-		_scrollBar.SetVisible(_visible && Visible);
+		_scrollBar.SetVisible(ShouldShowScrollBar());
 		_scrollBar.EnableScrollBar(_enabled);
 	}
 
@@ -705,13 +735,12 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	}
 
 	private Rectangle GetGlobalTextBounds(Rectangle bounds) {
-		var right = _textArea.Right > 0 ? _textArea.Right + 1f : bounds.Width;
-		var bottom = _textArea.Bottom > 0 ? _textArea.Bottom : (int)bounds.Height;
-		return new Rectangle(
-			bounds.X + _textArea.Left,
-			bounds.Y + _textArea.Top,
-			Math.Max(0f, right - _textArea.Left),
-			Math.Max(0f, bottom - _textArea.Top + 1));
+		var textBounds = ApplyInsets(bounds, GetTextAreaInsets());
+		if (ShouldShowScrollBar()) {
+			textBounds.Width = Math.Max(0f, textBounds.Width - GetScrollBarLaneWidth());
+		}
+
+		return textBounds;
 	}
 
 	private float GetScrollBarOffsetWidth() {
@@ -847,6 +876,26 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		_pageLines = TextLines < 4 ? TextLines : TextLines - 2;
 	}
 
+	private void ApplySizePolicy() {
+		var width = _configuredSize.X;
+		var height = _configuredSize.Y;
+		if (_maxVisibleItems > 0) {
+			height = ResolveContentMeasuredHeight(height);
+		}
+
+		Size = new Vector2(width, height);
+		RecalculateTextMetrics();
+		ConfigureScrollBarLayout();
+	}
+
+	private void RefreshContentMeasuredLayout() {
+		if (_maxVisibleItems <= 0) {
+			return;
+		}
+
+		ApplySizePolicy();
+	}
+
 	private float ResolveConfiguredHeight() {
 		return GetBaseConfiguredHeight();
 	}
@@ -865,6 +914,38 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		return _art is not null
 			? _art.Frames.GetFrameRegion(0).Width
 			: Math.Max(0f, (_textArea.Right > 0 ? _textArea.Right : _textArea.Left) + 1f);
+	}
+
+	private Vector4 GetTextAreaInsets() {
+		var baseWidth = Math.Max(1f, GetBaseConfiguredWidth());
+		var baseHeight = Math.Max(1f, GetBaseConfiguredHeight());
+		var left = Math.Max(0f, _textArea.Left);
+		var top = Math.Max(0f, _textArea.Top);
+		var right = Math.Max(0f, baseWidth - GetTextAreaRightEdge(baseWidth));
+		var bottom = Math.Max(0f, baseHeight - GetTextAreaBottomEdge(baseHeight));
+		return new Vector4(left, top, right, bottom);
+	}
+
+	private float GetTextAreaRightEdge(float baseWidth) {
+		return _textArea.Right > _textArea.Left
+			? _textArea.Right + 1f
+			: baseWidth;
+	}
+
+	private float GetTextAreaBottomEdge(float baseHeight) {
+		return _textArea.Bottom > _textArea.Top
+			? _textArea.Bottom + 1f
+			: baseHeight;
+	}
+
+	private float ResolveContentMeasuredHeight(float fallbackHeight) {
+		var visibleItems = Math.Clamp(_items.Count, 1, _maxVisibleItems);
+		var insets = GetTextAreaInsets();
+		var desiredTextHeight = Math.Max(GetLineHeight(), visibleItems * GetLineHeight());
+		var desiredHeight = desiredTextHeight + insets.Y + insets.W + ContentMeasureHeadroom;
+		return fallbackHeight > 0f
+			? Math.Min(fallbackHeight, desiredHeight)
+			: desiredHeight;
 	}
 
 	private Color ResolveItemTextColor(ItemEntry item, bool hovered) {
@@ -927,6 +1008,10 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	}
 
 	private void UpdateScrollBarState() {
+		if (_forceScrollBarWhenOverflow && _scrollBar is null) {
+			ConfigureScrollBar();
+		}
+
 		if (_scrollBar is null) {
 			return;
 		}
@@ -937,7 +1022,7 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 		_scrollBar.SetViewRange(TextLines);
 		_scrollBar.SetScrollPosition(_topLine);
 		ConfigureScrollBarLayout();
-		_scrollBar.SetVisible(_visible && Visible);
+		_scrollBar.SetVisible(ShouldShowScrollBar());
 	}
 
 	private void ConfigureScrollBarLayout() {
@@ -956,11 +1041,33 @@ public sealed class LegacyListBoxNode : Control, IUiPointerEventHandler, ILegacy
 	}
 
 	private float GetScrollBarLaneWidth() {
-		if (!_scrollBarRequested) {
+		if (!_scrollBarRequested && !_forceScrollBarWhenOverflow) {
 			return 0f;
 		}
 
 		return GetScrollBarOffsetWidth() + GetScrollBarRightPadding();
+	}
+
+	private bool CanCreateScrollBar() {
+		return (_scrollBarRequested || _forceScrollBarWhenOverflow)
+			&& !string.IsNullOrWhiteSpace(ScrollBarTypeId)
+			&& _xmlDbRepository is not null;
+	}
+
+	private bool ShouldShowScrollBar() {
+		if (_scrollBar is null) {
+			return false;
+		}
+
+		if (_forceScrollBarWhenOverflow) {
+			return _visible && Visible && HasScrollableOverflow();
+		}
+
+		return _visible && Visible && _scrollBarRequested && HasScrollableOverflow();
+	}
+
+	private bool HasScrollableOverflow() {
+		return TextLines > 0 && _items.Count > TextLines;
 	}
 
 	private static T ReadTypedEntry<T>(XmlDbRepository repository, string typeName, string fileName) where T : class {

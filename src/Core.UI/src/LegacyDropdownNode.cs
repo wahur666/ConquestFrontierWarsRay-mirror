@@ -112,6 +112,7 @@ public sealed class LegacyDropdownNode : Control, IUiPointerEventHandler, ILegac
 		_listBox.SetAuthoredSize(
 			Math.Max(0f, data.ListboxData.TextArea.Right - data.ListboxData.TextArea.Left + 1f + PopupContentWidthPadding),
 			Math.Max(0f, data.ScreenRect.Bottom - data.ScreenRect.Top - height + PopupContentHeightPadding));
+		_listBox.EnableContentMeasuredHeight(Math.Max(4, _listBox.TextLines));
 		ApplyPopupOffset();
 		_listBox.SetVisible(false);
 		_listBox.SetKeyboardFocus(false);

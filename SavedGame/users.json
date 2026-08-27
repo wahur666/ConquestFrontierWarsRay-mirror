@@ -21,7 +21,7 @@
   },
   "graphics": {
     "use3DHardware": true,
-    "resolution": "1920x1080",
+    "resolution": "1024x768",
     "device": "Primary Display Driver",
     "gamma": 6,
     "drawDistance": 7,

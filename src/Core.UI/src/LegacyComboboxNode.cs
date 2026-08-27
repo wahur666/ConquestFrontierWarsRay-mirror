@@ -105,6 +105,7 @@ public sealed class LegacyComboboxNode : Control, IUiPointerEventHandler, ILegac
 		_listBox.Position = new Vector2(data.ListboxData.XOrigin, data.ListboxData.YOrigin);
 		_listBox.ControlId = 2;
 		_listBox.CommitOnSingleClickPointerDown = true;
+		_listBox.EnableContentMeasuredHeight(Math.Max(4, _listBox.TextLines));
 		_listBox.SetVisible(false);
 		_listBox.EnableListbox(_enabled);
 
