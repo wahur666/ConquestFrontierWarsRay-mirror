@@ -58,7 +58,10 @@ public sealed class UserProfilesRepository {
 		users.Add(new UserProfileData { Name = normalizedName });
 		savedData = new UserProfilesData {
 			CurrentUser = normalizedName,
-			Users = users
+			Users = users,
+			Player = current.Player,
+			Graphics = current.Graphics,
+			Sound = current.Sound
 		};
 		Save(savedData);
 		errorMessage = string.Empty;
@@ -102,7 +105,10 @@ public sealed class UserProfilesRepository {
 			CurrentUser = string.Equals(current.CurrentUser, normalizedExisting, StringComparison.OrdinalIgnoreCase)
 				? normalizedNew
 				: current.CurrentUser,
-			Users = users
+			Users = users,
+			Player = current.Player,
+			Graphics = current.Graphics,
+			Sound = current.Sound
 		};
 		Save(savedData);
 		errorMessage = string.Empty;
@@ -132,7 +138,10 @@ public sealed class UserProfilesRepository {
 			: current.CurrentUser;
 		savedData = new UserProfilesData {
 			CurrentUser = currentUser,
-			Users = users
+			Users = users,
+			Player = current.Player,
+			Graphics = current.Graphics,
+			Sound = current.Sound
 		};
 		Save(savedData);
 		errorMessage = string.Empty;
@@ -148,7 +157,10 @@ public sealed class UserProfilesRepository {
 
 		Save(new UserProfilesData {
 			CurrentUser = normalizedName,
-			Users = current.Users
+			Users = current.Users,
+			Player = current.Player,
+			Graphics = current.Graphics,
+			Sound = current.Sound
 		});
 	}
 
@@ -185,11 +197,66 @@ public sealed class UserProfilesRepository {
 		var currentUser = NormalizeName(data.CurrentUser);
 		return new UserProfilesData {
 			CurrentUser = currentUser,
-			Users = users
+			Users = users,
+			Player = NormalizePlayer(data.Player),
+			Graphics = NormalizeGraphics(data.Graphics),
+			Sound = NormalizeSound(data.Sound)
 		};
+	}
+
+	private static PlayerOptionsData NormalizePlayer(PlayerOptionsData? data) {
+		data ??= new PlayerOptionsData();
+		return new PlayerOptionsData {
+			DirectInput = data.DirectInput,
+			MouseSensitivity = ClampSlider(data.MouseSensitivity),
+			GameSpeed = ClampSlider(data.GameSpeed),
+			ScrollSpeed = ClampSlider(data.ScrollSpeed),
+			ShowStatusInfo = data.ShowStatusInfo,
+			EnableRolloverHelp = data.EnableRolloverHelp,
+			UseSectorMapTexture = data.UseSectorMapTexture,
+			EnableRightClickMenu = data.EnableRightClickMenu,
+			ShowSubtitles = data.ShowSubtitles
+		};
+	}
+
+	private static GraphicsOptionsData NormalizeGraphics(GraphicsOptionsData? data) {
+		data ??= new GraphicsOptionsData();
+		return new GraphicsOptionsData {
+			Use3DHardware = data.Use3DHardware,
+			Resolution = NormalizeOptionValue(data.Resolution, new GraphicsOptionsData().Resolution),
+			Device = NormalizeOptionValue(data.Device, new GraphicsOptionsData().Device),
+			Gamma = ClampSlider(data.Gamma),
+			DrawDistance = ClampSlider(data.DrawDistance),
+			Ships3DDetail = ClampSlider(data.Ships3DDetail),
+			EnableTrails = data.EnableTrails,
+			EnableEmissiveLighting = data.EnableEmissiveLighting,
+			EnableDetailTextures = data.EnableDetailTextures
+		};
+	}
+
+	private static SoundOptionsData NormalizeSound(SoundOptionsData? data) {
+		data ??= new SoundOptionsData();
+		return new SoundOptionsData {
+			SoundEnabled = data.SoundEnabled,
+			SoundVolume = ClampSlider(data.SoundVolume),
+			MusicEnabled = data.MusicEnabled,
+			MusicVolume = ClampSlider(data.MusicVolume),
+			CommEnabled = data.CommEnabled,
+			CommVolume = ClampSlider(data.CommVolume),
+			ChatVolume = ClampSlider(data.ChatVolume)
+		};
+	}
+
+	private static int ClampSlider(int value) {
+		return Math.Clamp(value, 0, 10);
 	}
 
 	private static string NormalizeName(string? name) {
 		return string.IsNullOrWhiteSpace(name) ? string.Empty : name.Trim();
+	}
+
+	private static string NormalizeOptionValue(string? value, string fallback) {
+		var normalized = NormalizeName(value);
+		return normalized.Length > 0 ? normalized : fallback;
 	}
 }

@@ -6,6 +6,7 @@ using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data;
 using ConquestFrontierWarsRay.Data.Models.GT;
 using ConquestFrontierWarsRay.Data.UtfDb;
+using ConquestFrontierWarsRay.Data.UserProfiles;
 using ConquestFrontierWarsRay.Data.VfxAnimation;
 using ConquestFrontierWarsRay.Framework;
 using Raylib_cs;
@@ -40,12 +41,14 @@ internal sealed class MenuCreditsSurface : Node2D {
 	private readonly AudioPlayer _musicPlayer = new("CreditsAudioPlayer") {
 		Looping = true
 	};
+	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly XmlDbRepository _xmlDbRepository;
 	private CompressedTexture2D? _backgroundTexture;
 
 	public MenuCreditsSurface(Func<Node> returnSceneFactory) : base("MenuCreditsSurface") {
 		_returnSceneFactory = returnSceneFactory;
 		_xmlDbRepository = new XmlDbRepository(RepoPaths.LocateUtfDbPaths());
+		_userProfilesRepository = UserProfilesRepository.LocateFromRepo();
 		AddChild(_musicPlayer);
 	}
 
@@ -87,7 +90,15 @@ internal sealed class MenuCreditsSurface : Node2D {
 			"Conquest Frontier Wars soundtrack - Mystery Music.mp3",
 			AudioPlaybackBackend.NAudio);
 		_musicPlayer.SetOwnedAudio(music);
+		ApplyMusicVolume();
 		_musicPlayer.Play();
+	}
+
+	private void ApplyMusicVolume() {
+		var soundSettings = _userProfilesRepository.Load().Sound;
+		_musicPlayer.Volume = soundSettings.MusicEnabled
+			? Math.Clamp(soundSettings.MusicVolume / 10f, 0f, 1f)
+			: 0f;
 	}
 
 	private static IReadOnlyList<CreditsEntry> LoadCreditsEntries() {

@@ -87,7 +87,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private bool _lastMultiplayerIsHost = true;
 	private string _lastMultiplayerSessionName = string.Empty;
 	private AudioPlayer? _musicPlayer;
-	private float _musicVolume = 0.3f;
+	private float _musicVolume = 0.5f;
 
 	public Menu1OpeningPreviewSurface(bool showAboutOnInitialize) : base("Menu1OpeningPreviewSurface") {
 		_showAboutOnInitialize = showAboutOnInitialize;
@@ -145,6 +145,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		btnQuit.Activated += _ => RequestQuit();
 		AddStaticNode("StaticLegal", _opening.StaticLegal);
 		_musicPlayer = AddMusicPlayer();
+		RefreshMusicSettings();
 		if (_showAboutOnInitialize) {
 			OpenAboutModal();
 		} else if (_requiresInitialUser) {
@@ -205,7 +206,33 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 		var music = Shared.ResourceManager.Audio.OpenMusic(trackName, AudioPlaybackBackend.NAudio);
 		_musicPlayer.SetOwnedAudio(music);
+		_musicPlayer.Volume = 0f;
 		_musicPlayer.Play();
+	}
+
+	private void RefreshMusicSettings() {
+		ApplyMusicSettings(_userProfilesRepository.Load().Sound, immediate: false);
+	}
+
+	private void PreviewMusicSettings(SoundOptionsData soundSettings) {
+		ApplyMusicSettings(soundSettings, immediate: true);
+	}
+
+	private void ApplyMusicSettings(SoundOptionsData soundSettings, bool immediate) {
+		_musicVolume = soundSettings.MusicEnabled
+			? Math.Clamp(soundSettings.MusicVolume / 10f, 0f, 1f)
+			: 0f;
+		if (_musicPlayer is null) {
+			return;
+		}
+
+		if (immediate || _musicVolume <= 0f) {
+			_musicPlayer.Volume = 0f;
+		}
+
+		if (immediate || _musicPlayer.Volume > _musicVolume) {
+			_musicPlayer.Volume = _musicVolume;
+		}
 	}
 
 	private static void ConnectButtonHover(LegacyButtonNode button, AnimatedSprite2D? animation) {
@@ -413,6 +440,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
+			PreviewMusicSettings,
 			CloseOptionsModal));
 	}
 
@@ -422,6 +450,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		}
 
 		_optionsModal = null;
+		RefreshMusicSettings();
 		SetOpeningButtonsEnabled(true);
 	}
 

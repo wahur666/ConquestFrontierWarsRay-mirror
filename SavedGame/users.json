@@ -7,5 +7,36 @@
     {
       "name": "Imre2"
     }
-  ]
+  ],
+  "player": {
+    "directInput": false,
+    "mouseSensitivity": 5,
+    "gameSpeed": 5,
+    "scrollSpeed": 5,
+    "showStatusInfo": true,
+    "enableRolloverHelp": true,
+    "useSectorMapTexture": true,
+    "enableRightClickMenu": true,
+    "showSubtitles": true
+  },
+  "graphics": {
+    "use3DHardware": true,
+    "resolution": "1920x1080",
+    "device": "Primary Display Driver",
+    "gamma": 6,
+    "drawDistance": 7,
+    "ships3DDetail": 8,
+    "enableTrails": true,
+    "enableEmissiveLighting": true,
+    "enableDetailTextures": true
+  },
+  "sound": {
+    "soundEnabled": true,
+    "soundVolume": 4,
+    "musicEnabled": true,
+    "musicVolume": 4,
+    "commEnabled": true,
+    "commVolume": 4,
+    "chatVolume": 4
+  }
 }
