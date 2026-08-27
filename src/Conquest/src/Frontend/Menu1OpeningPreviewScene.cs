@@ -53,6 +53,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_OPENING _opening;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
+	private readonly GT_MENU1_NET_CONNECTIONS _networkConnectionMenu;
 	private readonly GT_MENU1_IP_ADDRESS _onlineNetworkSessionMenu;
 	private readonly GT_MENU1_NET_SESSIONS2 _localNetworkSessionMenu;
 	private readonly GT_MENU1_MSHELL _mshellMenu;
@@ -76,6 +77,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacyNewUserModal? _newUserModal;
 	private LegacyOptionsModal? _optionsModal;
 	private LegacySinglePlayerModal? _singlePlayerModal;
+	private LegacyNetworkConnectionModal? _networkConnectionModal;
 	private LegacyOnlineNetworkSessionModal? _onlineNetworkSessionModal;
 	private LegacyLocalNetworkSessionModal? _localNetworkSessionModal;
 	private LegacySkirmishModal? _skirmishModal;
@@ -97,6 +99,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_opening = menu1.Opening;
 		_singlePlayerMenu = menu1.SinglePlayerMenu;
 		_selectCampaignMenu = menu1.SelectCampaign;
+		_networkConnectionMenu = menu1.NetConnections;
 		_onlineNetworkSessionMenu = menu1.IpAddress;
 		_localNetworkSessionMenu = menu1.NetSessions2;
 		_mshellMenu = menu1.MShell;
@@ -134,7 +137,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnSingle.Activated += _ => OpenSinglePlayerModal();
-		btnMulti.Activated += _ => OpenLocalNetworkSessionModal(MultiplayerNetworkKind.LocalAreaNetwork, preferCreate: false);
+		btnMulti.Activated += _ => OpenNetworkConnectionModal();
 		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
@@ -393,7 +396,6 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
 		SetOpeningButtonsEnabled(false);
-		SetMusicTrack(SinglePlayerMusicTrack);
 		_singlePlayerModal = AddChild(new LegacySinglePlayerModal(
 			_singlePlayerMenu,
 			_selectCampaignMenu,
@@ -412,7 +414,49 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 		_singlePlayerModal = null;
 		SetOpeningButtonsEnabled(true);
-		SetMusicTrack(MainMenuMusicTrack);
+	}
+
+	private void OpenNetworkConnectionModal() {
+		if (HasBlockingModal()) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_networkConnectionModal = AddChild(new LegacyNetworkConnectionModal(
+			_networkConnectionMenu,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			OpenNetworkConnectionSelection,
+			CloseNetworkConnectionModal));
+	}
+
+	private void OpenNetworkConnectionSelection(NetworkConnectionKind kind) {
+		CloseNetworkConnectionModalInternal(restoreOpeningButtons: false, restoreMusic: false);
+		switch (kind) {
+			case NetworkConnectionKind.Online:
+				OpenOnlineNetworkSessionModal(MultiplayerNetworkKind.Internet);
+				break;
+			case NetworkConnectionKind.Local:
+				OpenLocalNetworkSessionModal(MultiplayerNetworkKind.LocalAreaNetwork, preferCreate: false);
+				break;
+		}
+	}
+
+	private void CloseNetworkConnectionModal() {
+		CloseNetworkConnectionModalInternal(restoreOpeningButtons: true, restoreMusic: true);
+	}
+
+	private void CloseNetworkConnectionModalInternal(bool restoreOpeningButtons, bool restoreMusic) {
+		if (_networkConnectionModal is not null && RemoveChild(_networkConnectionModal)) {
+			_networkConnectionModal.Dispose();
+		}
+
+		_networkConnectionModal = null;
+		if (restoreOpeningButtons) {
+			SetOpeningButtonsEnabled(true);
+		}
 	}
 
 	private void OpenOnlineNetworkSessionModal(MultiplayerNetworkKind networkKind) {
@@ -423,7 +467,6 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_lastMultiplayerNetworkKind = networkKind;
 		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
 		SetOpeningButtonsEnabled(false);
-		SetMusicTrack(MultiplayerMenuMusicTrack);
 		_onlineNetworkSessionModal = AddChild(new LegacyOnlineNetworkSessionModal(
 			_onlineNetworkSessionMenu,
 			networkKind,
@@ -431,7 +474,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_xmlDbRepository,
 			_vfxRepository,
 			_strings,
-			OpenNetworkSessions2Modal,
+			StartOnlineMultiplayerSkirmish,
 			CloseOnlineNetworkSessionModal));
 	}
 
@@ -454,41 +497,32 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			_vfxRepository,
 			_strings,
 			StartMultiplayerSkirmish,
-			CloseLocalNetworkSessionModalToOpening));
-	}
-
-	private void OpenNetworkSessions2Modal(MultiplayerNetworkKind networkKind, bool isHost) {
-		_lastMultiplayerNetworkKind = networkKind;
-		_lastMultiplayerIsHost = isHost;
-		CloseOnlineNetworkSessionModalInternal(restoreOpeningButtons: false, restoreMusic: false);
-		_localNetworkSessionModal = AddChild(new LegacyLocalNetworkSessionModal(
-			_localNetworkSessionMenu,
-			networkKind,
-			_userProfilesRepository.Load().CurrentUser,
-			isHost,
-			_xmlDbRepository,
-			_vfxRepository,
-			_strings,
-			StartMultiplayerSkirmish,
 			CloseLocalNetworkSessionModal));
 	}
 
-	private void CloseOnlineNetworkSessionModal() {
-		CloseOnlineNetworkSessionModalInternal(restoreOpeningButtons: true, restoreMusic: true);
+	private void StartOnlineMultiplayerSkirmish(MultiplayerNetworkKind networkKind, bool isHost) {
+		_lastMultiplayerNetworkKind = networkKind;
+		_lastMultiplayerIsHost = isHost;
+		CloseOnlineNetworkSessionModalInternal(restoreConnections: false, restoreOpeningButtons: false, restoreMusic: false);
+		StartMultiplayerSkirmish(networkKind, isHost, _userProfilesRepository.Load().CurrentUser);
 	}
 
-	private void CloseOnlineNetworkSessionModalInternal(bool restoreOpeningButtons, bool restoreMusic) {
+	private void CloseOnlineNetworkSessionModal() {
+		CloseOnlineNetworkSessionModalInternal(restoreConnections: true, restoreOpeningButtons: false, restoreMusic: false);
+	}
+
+	private void CloseOnlineNetworkSessionModalInternal(bool restoreConnections, bool restoreOpeningButtons, bool restoreMusic) {
 		if (_onlineNetworkSessionModal is not null && RemoveChild(_onlineNetworkSessionModal)) {
 			_onlineNetworkSessionModal.Dispose();
 		}
 
 		_onlineNetworkSessionModal = null;
-		if (restoreOpeningButtons) {
-			SetOpeningButtonsEnabled(true);
+		if (restoreConnections) {
+			OpenNetworkConnectionModal();
 		}
 
-		if (restoreMusic) {
-			SetMusicTrack(MainMenuMusicTrack);
+		if (restoreOpeningButtons) {
+			SetOpeningButtonsEnabled(true);
 		}
 	}
 
@@ -496,34 +530,32 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_lastMultiplayerNetworkKind = networkKind;
 		_lastMultiplayerIsHost = isHost;
 		_lastMultiplayerSessionName = sessionName;
-		CloseLocalNetworkSessionModalInternal(restoreFirstStage: false, restoreOpeningButtons: false, restoreMusic: false);
-		OpenSkirmishModal(SkirmishMode.Multiplayer, networkKind, isHost, SkirmishReturnTarget.NetworkSessionBrowser);
+		CloseLocalNetworkSessionModalInternal(restoreConnections: false, restoreOpeningButtons: false, restoreMusic: false);
+		OpenSkirmishModal(
+			SkirmishMode.Multiplayer,
+			networkKind,
+			isHost,
+			networkKind == MultiplayerNetworkKind.Internet
+				? SkirmishReturnTarget.OnlineNetworkSession
+				: SkirmishReturnTarget.LocalNetworkSession);
 	}
 
 	private void CloseLocalNetworkSessionModal() {
-		CloseLocalNetworkSessionModalInternal(restoreFirstStage: true, restoreOpeningButtons: false, restoreMusic: false);
+		CloseLocalNetworkSessionModalInternal(restoreConnections: true, restoreOpeningButtons: false, restoreMusic: false);
 	}
 
-	private void CloseLocalNetworkSessionModalToOpening() {
-		CloseLocalNetworkSessionModalInternal(restoreFirstStage: false, restoreOpeningButtons: true, restoreMusic: true);
-	}
-
-	private void CloseLocalNetworkSessionModalInternal(bool restoreFirstStage, bool restoreOpeningButtons, bool restoreMusic) {
+	private void CloseLocalNetworkSessionModalInternal(bool restoreConnections, bool restoreOpeningButtons, bool restoreMusic) {
 		if (_localNetworkSessionModal is not null && RemoveChild(_localNetworkSessionModal)) {
 			_localNetworkSessionModal.Dispose();
 		}
 
 		_localNetworkSessionModal = null;
-		if (restoreFirstStage) {
-			OpenOnlineNetworkSessionModal(_lastMultiplayerNetworkKind);
+		if (restoreConnections) {
+			OpenNetworkConnectionModal();
 		}
 
 		if (restoreOpeningButtons) {
 			SetOpeningButtonsEnabled(true);
-		}
-
-		if (restoreMusic) {
-			SetMusicTrack(MainMenuMusicTrack);
 		}
 	}
 
@@ -576,10 +608,10 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			case SkirmishReturnTarget.SinglePlayer:
 				OpenSinglePlayerModal();
 				break;
-			case SkirmishReturnTarget.NetworkSessionSetup:
+			case SkirmishReturnTarget.OnlineNetworkSession:
 				OpenOnlineNetworkSessionModal(_lastMultiplayerNetworkKind);
 				break;
-			case SkirmishReturnTarget.NetworkSessionBrowser:
+			case SkirmishReturnTarget.LocalNetworkSession:
 				OpenLocalNetworkSessionModal(_lastMultiplayerNetworkKind, preferCreate: false);
 				break;
 			default:
@@ -595,6 +627,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		       _newUserModal is not null ||
 		       _optionsModal is not null ||
 		       _singlePlayerModal is not null ||
+		       _networkConnectionModal is not null ||
 		       _onlineNetworkSessionModal is not null ||
 		       _localNetworkSessionModal is not null ||
 		       _skirmishModal is not null;
@@ -653,8 +686,8 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private enum SkirmishReturnTarget {
 		Opening,
 		SinglePlayer,
-		NetworkSessionSetup,
-		NetworkSessionBrowser
+		OnlineNetworkSession,
+		LocalNetworkSession
 	}
 }
 
