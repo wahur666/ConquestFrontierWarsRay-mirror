@@ -20,7 +20,7 @@ internal sealed class LegacyNetLoadingModal : LegacyModalNode {
 	private PanelNode? _backgroundBackdrop;
 	private LegacyStaticNode? _backgroundNode;
 	private LegacyStaticNode? _progressFrame;
-	private PanelNode? _progressFill;
+	private LegacyProgressStaticNode? _progressBar;
 	private TextNode? _statusLabel;
 	private TextNode? _percentLabel;
 	private float _elapsedSeconds;
@@ -90,13 +90,19 @@ internal sealed class LegacyNetLoadingModal : LegacyModalNode {
 		});
 		_progressFrame.SetText(string.Empty);
 
-		_progressFill = AddChild(new PanelNode("ProgressFill") {
-			Position = new Vector2(184f, 422f),
-			Size = new Vector2(0f, 20f),
-			Fill = new Color(66, 133, 224, 255),
-			Outline = Color.Blank,
-			OutlineThickness = 0f
-		});
+		_progressBar = AddChild(new LegacyProgressStaticNode("ProgressBar"));
+		_progressBar.ApplyLegacyDefinition(new GT_PROGRESS_STATIC {
+			FontName = string.Empty,
+			NormalText = new GT_COLOR { Red = 232, Green = 236, Blue = 240 },
+			OverText = new GT_COLOR { Red = 232, Green = 236, Blue = 240 },
+			Background = new GT_COLOR { Red = 66, Green = 133, Blue = 224 },
+			Background2 = new GT_COLOR { Red = 16, Green = 26, Blue = 44 },
+			ShapeFile = "progress.shp",
+			BackgroundDraw = GT_DRAWTYPE.NODRAW,
+			Backdraw = false
+		}, new Vector2(184f, 422f), new Vector2(432f, 20f), LegacyStaticNode.StaticAlignment.Left, _vfxRepository);
+		_progressBar.SetText(string.Empty);
+		_progressBar.SetProgress(0, 1000);
 
 		_statusLabel = AddChild(new TextNode("StatusLabel") {
 			Position = new Vector2(184f, 378f),
@@ -164,8 +170,8 @@ internal sealed class LegacyNetLoadingModal : LegacyModalNode {
 	}
 
 	private void ApplyProgressVisuals() {
-		if (_progressFill is not null) {
-			_progressFill.Size = new Vector2(432f * Math.Clamp(_progress, 0f, 1f), 20f);
+		if (_progressBar is not null) {
+			_progressBar.SetProgress((uint)Math.Clamp((int)MathF.Round(_progress * 1000f), 0, 1000), 1000);
 		}
 
 		if (_statusLabel is not null) {
