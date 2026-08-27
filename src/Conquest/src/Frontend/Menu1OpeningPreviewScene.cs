@@ -81,6 +81,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacyOnlineNetworkSessionModal? _onlineNetworkSessionModal;
 	private LegacyLocalNetworkSessionModal? _localNetworkSessionModal;
 	private LegacySkirmishModal? _skirmishModal;
+	private SinglePlayerLoadingPreviewModal? _inProgressAnimModal;
 	private SkirmishReturnTarget _skirmishReturnTarget;
 	private MultiplayerNetworkKind _lastMultiplayerNetworkKind = MultiplayerNetworkKind.LocalAreaNetwork;
 	private bool _lastMultiplayerIsHost = true;
@@ -163,6 +164,18 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	protected override void OnUpdate(float deltaTime) {
 		FadeInMusic(deltaTime);
+		if (Raylib.IsKeyPressed(KeyboardKey.F2)) {
+			if (_inProgressAnimModal is not null) {
+				CloseInProgressAnimModal();
+				return;
+			}
+
+			if (!HasBlockingModal()) {
+				OpenInProgressAnimModal();
+				return;
+			}
+		}
+
 		if (!HasBlockingModal() && Input.UiEsc) {
 			OpenExitModal();
 		}
@@ -314,6 +327,29 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			ResolveString(ConfirmQuitMessageTextId, "Do you really want to quit?"),
 			LegacyMessageBoxButtons.OkCancel,
 			OnExitModalCompleted));
+	}
+
+	private void OpenInProgressAnimModal() {
+		if (HasBlockingModal()) {
+			return;
+		}
+
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		_inProgressAnimModal = AddChild(new SinglePlayerLoadingPreviewModal(
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseInProgressAnimModal));
+	}
+
+	private void CloseInProgressAnimModal() {
+		if (_inProgressAnimModal is not null && RemoveChild(_inProgressAnimModal)) {
+			_inProgressAnimModal.Dispose();
+		}
+
+		_inProgressAnimModal = null;
+		SetOpeningButtonsEnabled(true);
 	}
 
 	private void OnExitModalCompleted(bool confirmed) {
@@ -623,6 +659,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 	private bool HasBlockingModal() {
 		return _aboutModal is not null ||
+		       _inProgressAnimModal is not null ||
 		       _exitModal is not null ||
 		       _newUserModal is not null ||
 		       _optionsModal is not null ||
