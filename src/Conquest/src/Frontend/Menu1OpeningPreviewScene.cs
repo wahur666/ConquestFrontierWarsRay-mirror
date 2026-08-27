@@ -53,6 +53,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_OPENING _opening;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
+	private readonly GT_MENU1_IP_ADDRESS _networkSessionMenu;
 	private readonly GT_MENU1_MSHELL _mshellMenu;
 	private readonly GT_MENU1_MAP _mapMenu;
 	private readonly GT_MENU1_SLOTS _slotsMenu;
@@ -74,7 +75,10 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private LegacyNewUserModal? _newUserModal;
 	private LegacyOptionsModal? _optionsModal;
 	private LegacySinglePlayerModal? _singlePlayerModal;
+	private LegacyNetworkSessionModal? _networkSessionModal;
 	private LegacySkirmishModal? _skirmishModal;
+	private SkirmishReturnTarget _skirmishReturnTarget;
+	private MultiplayerNetworkKind _lastMultiplayerNetworkKind = MultiplayerNetworkKind.LocalAreaNetwork;
 	private AudioPlayer? _musicPlayer;
 	private float _musicVolume = 0.3f;
 
@@ -89,6 +93,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_opening = menu1.Opening;
 		_singlePlayerMenu = menu1.SinglePlayerMenu;
 		_selectCampaignMenu = menu1.SelectCampaign;
+		_networkSessionMenu = menu1.IpAddress;
 		_mshellMenu = menu1.MShell;
 		_mapMenu = menu1.Map;
 		_slotsMenu = menu1.Slots;
@@ -124,7 +129,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		ConnectButtonHover(btnOptions, animOptions);
 		ConnectButtonHover(btnHelp, animQuestion);
 		btnSingle.Activated += _ => OpenSinglePlayerModal();
-		btnMulti.Activated += _ => OpenSkirmishModal(SkirmishMode.Multiplayer, MultiplayerNetworkKind.LocalAreaNetwork, true);
+		btnMulti.Activated += _ => OpenNetworkSessionModal(MultiplayerNetworkKind.LocalAreaNetwork);
 		btnIntro.Activated += _ => OpenMovie(@"Assets\Movies\cq_intro.mp4");
 		btnOptions.Activated += _ => OpenOptionsModal();
 		btnHelp.Activated += _ => OpenAboutModal();
@@ -405,15 +410,64 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		SetMusicTrack(MainMenuMusicTrack);
 	}
 
-	private void OpenQuickBattleModal() {
-		OpenSkirmishModal(SkirmishMode.QuickBattle);
+	private void OpenNetworkSessionModal(MultiplayerNetworkKind networkKind) {
+		if (HasBlockingModal()) {
+			return;
+		}
+
+		_lastMultiplayerNetworkKind = networkKind;
+		_animatedSprite2Ds.ForEach(x => x?.Visible = false);
+		SetOpeningButtonsEnabled(false);
+		SetMusicTrack(MultiplayerMenuMusicTrack);
+		_networkSessionModal = AddChild(new LegacyNetworkSessionModal(
+			_networkSessionMenu,
+			networkKind,
+			_userProfilesRepository,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			StartMultiplayerSkirmish,
+			CloseNetworkSessionModal));
 	}
 
-	private void OpenSkirmishModal(SkirmishMode mode, MultiplayerNetworkKind networkKind = MultiplayerNetworkKind.LocalAreaNetwork, bool isHost = true) {
+	private void StartMultiplayerSkirmish(MultiplayerNetworkKind networkKind, bool isHost) {
+		CloseNetworkSessionModalInternal(restoreOpeningButtons: false, restoreMusic: false);
+		OpenSkirmishModal(SkirmishMode.Multiplayer, networkKind, isHost, SkirmishReturnTarget.NetworkSessionSetup);
+	}
+
+	private void CloseNetworkSessionModal() {
+		CloseNetworkSessionModalInternal(restoreOpeningButtons: true, restoreMusic: true);
+	}
+
+	private void CloseNetworkSessionModalInternal(bool restoreOpeningButtons, bool restoreMusic) {
+		if (_networkSessionModal is not null && RemoveChild(_networkSessionModal)) {
+			_networkSessionModal.Dispose();
+		}
+
+		_networkSessionModal = null;
+		if (restoreOpeningButtons) {
+			SetOpeningButtonsEnabled(true);
+		}
+
+		if (restoreMusic) {
+			SetMusicTrack(MainMenuMusicTrack);
+		}
+	}
+
+	private void OpenQuickBattleModal() {
+		OpenSkirmishModal(SkirmishMode.QuickBattle, returnTarget: SkirmishReturnTarget.SinglePlayer);
+	}
+
+	private void OpenSkirmishModal(
+		SkirmishMode mode,
+		MultiplayerNetworkKind networkKind = MultiplayerNetworkKind.LocalAreaNetwork,
+		bool isHost = true,
+		SkirmishReturnTarget returnTarget = SkirmishReturnTarget.Opening) {
 		if (_skirmishModal is not null) {
 			return;
 		}
 
+		_skirmishReturnTarget = returnTarget;
 		if (_singlePlayerModal is not null) {
 			if (RemoveChild(_singlePlayerModal)) {
 				_singlePlayerModal.Dispose();
@@ -445,7 +499,18 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		}
 
 		_skirmishModal = null;
-		OpenSinglePlayerModal();
+		switch (_skirmishReturnTarget) {
+			case SkirmishReturnTarget.SinglePlayer:
+				OpenSinglePlayerModal();
+				break;
+			case SkirmishReturnTarget.NetworkSessionSetup:
+				OpenNetworkSessionModal(_lastMultiplayerNetworkKind);
+				break;
+			default:
+				SetOpeningButtonsEnabled(true);
+				SetMusicTrack(MainMenuMusicTrack);
+				break;
+		}
 	}
 
 	private bool HasBlockingModal() {
@@ -454,6 +519,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		       _newUserModal is not null ||
 		       _optionsModal is not null ||
 		       _singlePlayerModal is not null ||
+		       _networkSessionModal is not null ||
 		       _skirmishModal is not null;
 	}
 
@@ -505,6 +571,12 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 
 		_atlasResources.Clear();
 		base.OnDispose();
+	}
+
+	private enum SkirmishReturnTarget {
+		Opening,
+		SinglePlayer,
+		NetworkSessionSetup
 	}
 }
 
