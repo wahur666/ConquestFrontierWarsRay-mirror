@@ -12,7 +12,7 @@ using Raylib_cs;
 
 namespace ConquestFrontierWarsRay.Frontend;
 
-internal sealed class LegacyNetworkSessionModal : LegacyModalNode {
+internal sealed class LegacyOnlineNetworkSessionModal : LegacyModalNode {
 	private const float LegacyScreenWidth = 800f;
 	private const float LegacyScreenHeight = 600f;
 	private readonly Action _closed;
@@ -33,7 +33,7 @@ internal sealed class LegacyNetworkSessionModal : LegacyModalNode {
 	private string _defaultIpAddress = "0.0.0.0";
 	private bool _joinSelected;
 
-	public LegacyNetworkSessionModal(
+	public LegacyOnlineNetworkSessionModal(
 		GT_MENU1_IP_ADDRESS menuData,
 		MultiplayerNetworkKind networkKind,
 		UserProfilesRepository userProfilesRepository,
@@ -41,7 +41,7 @@ internal sealed class LegacyNetworkSessionModal : LegacyModalNode {
 		VfxAnimationDataRepository vfxRepository,
 		LegacyRcStringResolver strings,
 		Action<MultiplayerNetworkKind, bool> proceed,
-		Action closed) : base("LegacyNetworkSessionModal", closed) {
+		Action closed) : base("LegacyOnlineNetworkSessionModal", closed) {
 		_menuData = menuData;
 		_networkKind = networkKind;
 		_userProfilesRepository = userProfilesRepository;
