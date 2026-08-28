@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using System.Threading.Tasks;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data.Models;
 using ConquestFrontierWarsRay.Data.Models.GT;
@@ -29,9 +30,10 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 	private LegacyListBoxNode? _sessionList;
 	private LegacyButtonNode? _nextButton;
 	private TextNode? _descriptionLabel;
+	private Task<PendingActivationResult>? _pendingActivationTask;
 	private float _refreshCountdown = 0.6f;
+	private bool _activationInProgress;
 	private bool _listUpdated;
-	private int _refreshCycle;
 
 	public LegacyLocalNetworkSessionModal(
 		GT_MENU1_NET_SESSIONS2 menuData,
@@ -90,15 +92,23 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 			Text = ResolveSearchingText()
 		});
 
+		if (_networkKind == MultiplayerNetworkKind.LocalAreaNetwork && !_preferCreate) {
+			NetworkService.StartLanSessionDiscovery();
+		}
+
 		PopulateSessionList();
 		_sessionList.SetKeyboardFocus(true);
 		if (_preferCreate) {
-			ProceedToCreateSession();
+			StartPreferredCreateActivation();
 		}
 	}
 
 	protected override void OnUpdate(float deltaTime) {
 		base.OnUpdate(deltaTime);
+		if (_pendingActivationTask is { IsCompleted: true }) {
+			CompletePendingActivation();
+		}
+
 		if (_sessionList is null) {
 			return;
 		}
@@ -109,8 +119,15 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 		}
 
 		_refreshCountdown = _networkKind == MultiplayerNetworkKind.LocalAreaNetwork ? 0.5f : 2f;
-		_refreshCycle++;
 		PopulateSessionList();
+	}
+
+	protected override void OnDispose() {
+		if (_networkKind == MultiplayerNetworkKind.LocalAreaNetwork && !NetworkService.IsHostingLanSession) {
+			NetworkService.StopLanSessionDiscovery();
+		}
+
+		base.OnDispose();
 	}
 
 	private void PopulateSessionList() {
@@ -132,7 +149,7 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 			});
 		}
 
-		_sessions.AddRange(BuildDiscoveredSessions(_refreshCycle));
+		_sessions.AddRange(BuildDiscoveredSessions());
 		_sessionList.ResetContent();
 		for (var index = 0; index < _sessions.Count; index++) {
 			var preview = _sessions[index];
@@ -156,46 +173,22 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 		UpdateSelectionState();
 	}
 
-	private List<SessionPreview> BuildDiscoveredSessions(int refreshCycle) {
-		var sessions = new List<SessionPreview> {
-			new() {
-				Key = "host-alpha",
-				SessionName = "Host Commander",
-				PlayerCount = 3,
-				GameSpeed = "0",
-				MapType = "Random",
-				Resources = "Medium"
-			},
-			new() {
-				Key = "mantis-war",
-				SessionName = "Mantis War",
-				PlayerCount = 5,
-				GameSpeed = "+1",
-				MapType = "File",
-				Resources = "Heavy"
-			},
-			new() {
-				Key = "duel-ring",
-				SessionName = "Duel Ring",
-				PlayerCount = 2,
-				GameSpeed = "-1",
-				MapType = "Random",
-				Resources = "Light"
-			}
-		};
-
-		if (refreshCycle % 3 == 1) {
-			sessions.Add(new SessionPreview {
-				Key = "late-scan",
-				SessionName = "Outer Rim",
-				PlayerCount = 4,
-				GameSpeed = "0",
-				MapType = "User",
-				Resources = "Medium"
-			});
+	private List<SessionPreview> BuildDiscoveredSessions() {
+		if (_networkKind != MultiplayerNetworkKind.LocalAreaNetwork) {
+			return [];
 		}
 
-		return sessions;
+		return NetworkService.GetLanSessionAnnouncements()
+			.Select(announcement => new SessionPreview {
+				Key = announcement.Key,
+				SessionName = announcement.SessionName,
+				PlayerCount = 0,
+				GameSpeed = announcement.IsLocalHost ? "Host" : "Join",
+				MapType = announcement.HostIp,
+				Resources = announcement.Port.ToString(),
+				Announcement = announcement
+			})
+			.ToList();
 	}
 
 	private void UpdateSelectionState() {
@@ -204,7 +197,7 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 		}
 
 		var selection = _sessionList.GetCurrentSelection();
-		_nextButton.EnableButton(selection >= 0);
+		_nextButton.EnableButton(selection >= 0 && !_activationInProgress);
 		if (selection < 0) {
 			_descriptionLabel.Text = _listUpdated
 				? _sessions.Count == 0
@@ -222,25 +215,82 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 
 		_descriptionLabel.Text = preview.Value.IsCreateEntry
 			? ResolveCreateGameText()
-			: $"Join {preview.Value.SessionName} ({preview.Value.PlayerCount} players, speed {preview.Value.GameSpeed}, {preview.Value.MapType}, {preview.Value.Resources}).";
+			: $"Join {preview.Value.SessionName} at {preview.Value.MapType}:{preview.Value.Resources}.";
 	}
 
 	private void ActivateCurrentSelection() {
 		var preview = GetSelectedPreview();
-		if (preview is null) {
+		if (preview is null || _activationInProgress) {
 			return;
 		}
 
-		if (preview.Value.IsCreateEntry) {
-			ProceedToCreateSession();
-			return;
-		}
-
-		_proceed(_networkKind, false, preview.Value.SessionName);
+		_activationInProgress = true;
+		UpdateSelectionState();
+		_pendingActivationTask = BeginActivationAsync(preview.Value);
 	}
 
-	private void ProceedToCreateSession() {
-		_proceed(_networkKind, true, DetermineCreatedSessionName());
+	private void StartPreferredCreateActivation() {
+		if (_activationInProgress) {
+			return;
+		}
+
+		_activationInProgress = true;
+		UpdateSelectionState();
+		_pendingActivationTask = BeginPreferredCreateActivationAsync();
+	}
+
+	private async Task<PendingActivationResult> BeginPreferredCreateActivationAsync() {
+		if (_networkKind != MultiplayerNetworkKind.LocalAreaNetwork) {
+			return new PendingActivationResult(_playerName, true);
+		}
+
+		return await BeginCreateActivationAsync();
+	}
+
+	private async Task<PendingActivationResult> BeginActivationAsync(SessionPreview preview) {
+		if (preview.IsCreateEntry) {
+			return await BeginCreateActivationAsync();
+		}
+
+		if (preview.Announcement is null) {
+			throw new InvalidOperationException("Selected session is missing its LAN announcement.");
+		}
+
+		await NetworkService.JoinLanSessionAsync(preview.Announcement);
+		return new PendingActivationResult(preview.SessionName, false);
+	}
+
+	private async Task<PendingActivationResult> BeginCreateActivationAsync() {
+		if (_networkKind != MultiplayerNetworkKind.LocalAreaNetwork) {
+			return new PendingActivationResult(DetermineCreatedSessionName(), true);
+		}
+
+		NetworkService.StopLanSessionDiscovery();
+		var sessionName = DetermineCreatedSessionName();
+		await NetworkService.HostLanSessionAsync(sessionName);
+		return new PendingActivationResult(sessionName, true);
+	}
+
+	private void CompletePendingActivation() {
+		var task = _pendingActivationTask;
+		if (task is null || !task.IsCompleted) {
+			return;
+		}
+
+		_pendingActivationTask = null;
+		try {
+			var result = task.GetAwaiter().GetResult();
+			_activationInProgress = false;
+			UpdateSelectionState();
+			_proceed(_networkKind, result.IsHost, result.SessionName);
+		} catch (Exception ex) {
+			_activationInProgress = false;
+			AppLog.Error("LegacyLocalNetworkSessionModal", "Failed to activate LAN session.", ex);
+			if (_descriptionLabel is not null) {
+				_descriptionLabel.Text = $"Network error: {ex.Message}";
+			}
+			UpdateSelectionState();
+		}
 	}
 
 	private SessionPreview? GetSelectedPreview() {
@@ -387,5 +437,8 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 		public string MapType;
 		public string Resources;
 		public bool IsCreateEntry;
+		public LanSessionAnnouncement? Announcement;
 	}
+
+	private readonly record struct PendingActivationResult(string SessionName, bool IsHost);
 }

@@ -33,7 +33,7 @@
   "sound": {
     "soundEnabled": true,
     "soundVolume": 4,
-    "musicEnabled": true,
+    "musicEnabled": false,
     "musicVolume": 1,
     "commEnabled": true,
     "commVolume": 4,
