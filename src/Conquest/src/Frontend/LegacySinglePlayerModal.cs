@@ -21,6 +21,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 	private readonly Action _openQuickBattle;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
+	private readonly GT_MENU1_SELECT_MISSION _selectMissionMenu;
 	private readonly LegacyRcStringResolver _strings;
 	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
@@ -36,6 +37,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 	public LegacySinglePlayerModal(
 		GT_MENU1_SINGLEPLAYER_MENU singlePlayerMenu,
 		GT_MENU1_SELECT_CAMPAIGN selectCampaignMenu,
+		GT_MENU1_SELECT_MISSION selectMissionMenu,
 		UserProfilesRepository userProfilesRepository,
 		XmlDbRepository xmlDbRepository,
 		VfxAnimationDataRepository vfxRepository,
@@ -44,6 +46,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		Action closed) : base("LegacySinglePlayerModal", closed) {
 		_singlePlayerMenu = singlePlayerMenu;
 		_selectCampaignMenu = selectCampaignMenu;
+		_selectMissionMenu = selectMissionMenu;
 		_userProfilesRepository = userProfilesRepository;
 		_xmlDbRepository = xmlDbRepository;
 		_vfxRepository = vfxRepository;
@@ -133,6 +136,7 @@ internal sealed class LegacySinglePlayerModal : LegacyModalNode {
 		ShowStatus(string.Empty);
 		_campaignModal = AddChild(new LegacyCampaignModal(
 			_selectCampaignMenu,
+			_selectMissionMenu,
 			_userProfilesRepository,
 			_xmlDbRepository,
 			_vfxRepository,

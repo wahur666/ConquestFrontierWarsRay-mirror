@@ -53,6 +53,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 	private readonly GT_MENU1_OPENING _opening;
 	private readonly GT_MENU1_SINGLEPLAYER_MENU _singlePlayerMenu;
 	private readonly GT_MENU1_SELECT_CAMPAIGN _selectCampaignMenu;
+	private readonly GT_MENU1_SELECT_MISSION _selectMissionMenu;
 	private readonly GT_MENU1_NET_CONNECTIONS _networkConnectionMenu;
 	private readonly GT_MENU1_IP_ADDRESS _onlineNetworkSessionMenu;
 	private readonly GT_MENU1_NET_SESSIONS2 _localNetworkSessionMenu;
@@ -101,6 +102,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_opening = menu1.Opening;
 		_singlePlayerMenu = menu1.SinglePlayerMenu;
 		_selectCampaignMenu = menu1.SelectCampaign;
+		_selectMissionMenu = menu1.SelectMission;
 		_networkConnectionMenu = menu1.NetConnections;
 		_onlineNetworkSessionMenu = menu1.IpAddress;
 		_localNetworkSessionMenu = menu1.NetSessions2;
@@ -490,6 +492,7 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 		_singlePlayerModal = AddChild(new LegacySinglePlayerModal(
 			_singlePlayerMenu,
 			_selectCampaignMenu,
+			_selectMissionMenu,
 			_userProfilesRepository,
 			_xmlDbRepository,
 			_vfxRepository,
