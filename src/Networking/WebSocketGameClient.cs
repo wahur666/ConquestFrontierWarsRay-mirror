@@ -14,7 +14,9 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
     private readonly ClientWebSocket _socket = new();
     private readonly CancellationTokenSource _shutdown = new();
     private readonly SemaphoreSlim _sendLock = new(1, 1);
+    private readonly Lock _receiveLoopSync = new();
     private CancellationTokenSource? _udpDiscoveryTimeout;
+    private Task? _receiveLoopTask;
     private string? _pollCommandId;
     private string? _moveCommandId;
     private string? _moveCommandJson;
@@ -25,6 +27,8 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
     private bool _disposeStarted;
 
     public bool IsConnected => _socket.State == WebSocketState.Open;
+
+    public event EventHandler<WebSocketClientTextMessageReceivedEventArgs>? TextMessageReceived;
 
     public async Task<string> ConnectAsync(CancellationToken cancellationToken = default)
     {
@@ -54,7 +58,7 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
 
         try
         {
-            await ReceiveLoopAsync(linkedShutdown.Token);
+            await EnsureReceiveLoopAsync(linkedShutdown.Token);
         }
         catch (OperationCanceledException) when (_shutdown.IsCancellationRequested)
         {
@@ -66,6 +70,11 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
         }
 
         return new WebSocketGameClientResult(_socket.CloseStatus ?? WebSocketCloseStatus.Empty, _socket.CloseStatusDescription ?? string.Empty);
+    }
+
+    public Task StartBackgroundReceiveLoopAsync(CancellationToken cancellationToken = default)
+    {
+        return EnsureReceiveLoopAsync(cancellationToken);
     }
 
     private async Task<string> ResolveAddressAsync(CancellationToken cancellationToken)
@@ -206,8 +215,14 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
             string message = Encoding.UTF8.GetString(messageStream.ToArray());
             LogCommand("client-received", message);
             Log("message", $"recv {message}");
+            TextMessageReceived?.Invoke(this, new WebSocketClientTextMessageReceivedEventArgs(message));
             await HandleMessageAsync(message, cancellationToken);
         }
+    }
+
+    public Task SendTextAsync(string text, CancellationToken cancellationToken = default)
+    {
+        return SendJsonTextAsync(text, cancellationToken);
     }
 
     private async Task HandleMessageAsync(string text, CancellationToken cancellationToken)
@@ -573,6 +588,11 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
         _disposeStarted = true;
         _shutdown.Cancel();
 
+        Task? receiveLoopTask;
+        lock (_receiveLoopSync) {
+            receiveLoopTask = _receiveLoopTask;
+        }
+
         if (_socket.State is WebSocketState.Open or WebSocketState.CloseReceived)
         {
             await NotifyClosingAsync("Client shutting down", CancellationToken.None);
@@ -586,9 +606,34 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
             }
         }
 
+        if (receiveLoopTask is not null)
+        {
+            try
+            {
+                await receiveLoopTask;
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            catch (WebSocketException) when (_shutdown.IsCancellationRequested || _disposeStarted)
+            {
+            }
+        }
+
         _socket.Dispose();
         _sendLock.Dispose();
         _shutdown.Dispose();
+    }
+
+    private Task EnsureReceiveLoopAsync(CancellationToken cancellationToken)
+    {
+        lock (_receiveLoopSync) {
+            if (_receiveLoopTask is null || _receiveLoopTask.IsCompleted) {
+                _receiveLoopTask = ReceiveLoopAsync(cancellationToken);
+            }
+
+            return _receiveLoopTask;
+        }
     }
 }
 
@@ -611,3 +656,8 @@ public sealed class WebSocketGameClientOptions
 }
 
 public sealed record WebSocketGameClientResult(WebSocketCloseStatus CloseStatus, string CloseStatusDescription);
+
+public sealed class WebSocketClientTextMessageReceivedEventArgs(string message) : EventArgs
+{
+    public string Message { get; } = message;
+}

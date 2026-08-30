@@ -56,6 +56,18 @@ public sealed class WebSocketGameServer : IAsyncDisposable
         return Task.WhenAll(_clients.Values.Select(client => SendTextAsync(client, message, cancellationToken)));
     }
 
+    public async Task<bool> SendTextAsync(Guid clientId, string message, CancellationToken cancellationToken = default)
+    {
+        if (!_clients.TryGetValue(clientId, out WebSocketClientConnection? client))
+        {
+            return false;
+        }
+
+        Log("message", $"server send {client.RemoteEndpoint}: {message}");
+        await SendTextAsync(client, message, cancellationToken);
+        return true;
+    }
+
     public async Task ShutdownClientsAsync(string reason, CancellationToken cancellationToken = default)
     {
         if (_clientShutdownStarted)

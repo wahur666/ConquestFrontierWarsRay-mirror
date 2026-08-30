@@ -43,6 +43,9 @@ public sealed class UdpWebSocketAnnouncer : IAsyncDisposable
                 {
                     type = "webSocketGameServer",
                     name = Options.Name,
+                    lobbyCode = Options.LobbyCode,
+                    playerCount = Options.PlayerCount,
+                    maxPlayers = Options.MaxPlayers,
                     ip = Options.WebSocketIp,
                     port = Options.WebSocketPort,
                     path = Options.WebSocketPath,
@@ -100,10 +103,13 @@ public sealed class UdpWebSocketAnnouncer : IAsyncDisposable
 
 public sealed class UdpWebSocketAnnouncerOptions
 {
-    public string Name { get; init; } = "WebView2Test";
-    public int UdpPort { get; init; } = 7778;
-    public TimeSpan Interval { get; init; } = TimeSpan.FromSeconds(2);
-    public string WebSocketIp { get; init; } = "127.0.0.1";
-    public int WebSocketPort { get; init; } = 7777;
-    public string WebSocketPath { get; init; } = "/game";
+    public string Name { get; set; } = "WebView2Test";
+    public string? LobbyCode { get; set; }
+    public int PlayerCount { get; set; }
+    public int MaxPlayers { get; set; }
+    public int UdpPort { get; set; } = 7778;
+    public TimeSpan Interval { get; set; } = TimeSpan.FromSeconds(2);
+    public string WebSocketIp { get; set; } = "127.0.0.1";
+    public int WebSocketPort { get; set; } = 7777;
+    public string WebSocketPath { get; set; } = "/game";
 }

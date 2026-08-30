@@ -256,7 +256,7 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 			throw new InvalidOperationException("Selected session is missing its LAN announcement.");
 		}
 
-		await NetworkService.JoinLanSessionAsync(preview.Announcement);
+		await NetworkService.JoinLanSessionAsync(preview.Announcement, _playerName);
 		return new PendingActivationResult(preview.SessionName, false);
 	}
 
@@ -267,7 +267,7 @@ internal sealed class LegacyLocalNetworkSessionModal : LegacyModalNode {
 
 		NetworkService.StopLanSessionDiscovery();
 		var sessionName = DetermineCreatedSessionName();
-		await NetworkService.HostLanSessionAsync(sessionName);
+		await NetworkService.HostLanSessionAsync(sessionName, _playerName);
 		return new PendingActivationResult(sessionName, true);
 	}
 

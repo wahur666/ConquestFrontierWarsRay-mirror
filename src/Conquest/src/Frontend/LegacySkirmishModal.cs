@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 using ConquestFrontierWarsRay.Core.UI;
 using ConquestFrontierWarsRay.Data.Models;
@@ -84,6 +86,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private readonly SkirmishMode _mode;
 	private readonly MultiplayerNetworkKind _networkKind;
 	private readonly bool _isHost;
+	private readonly Lock _networkSync = new();
 	private LegacyCheckboxNode? _acceptCheckbox;
 	private LegacyEditNode? _chatEdit;
 	private LegacyListBoxNode? _chatList;
@@ -121,6 +124,8 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private LegacyNetLoadingModal? _netLoadingModal;
 	private Task<NetworkAddressInfo>? _networkInfoTask;
 	private TextNode? _statusLabel;
+	private LanLobbyState? _pendingLobbyState;
+	private readonly List<LanLobbyChannelMessage> _pendingChannelMessages = [];
 
 	public LegacySkirmishModal(
 		GT_MENU1_MSHELL mshellMenu,
@@ -158,7 +163,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		_chatEdit = AddEditNode("EditChat", _mshellMenu.EditChat);
 		_chatEdit.SetMaxChars(128);
 		_chatEdit.EnableLockedTextBehavior();
-		_chatEdit.SetText("Chat preview");
+		_chatEdit.SetText(string.Empty);
 		_chatEdit.Activated += _ => AppendChatPreview();
 		_chatList = AddListBoxNode("ListChat", _mshellMenu.ListChat);
 		SeedChatPreview();
@@ -199,10 +204,12 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		});
 
 		ApplyModeVisibility();
+		AttachNetworkBindings();
 	}
 
 	protected override void OnUpdate(float deltaTime) {
 		base.OnUpdate(deltaTime);
+		ApplyPendingNetworkUpdates();
 		if (_networkInfoTask is { IsCompletedSuccessfully: true }) {
 			ApplyNetworkAddress(_networkInfoTask.Result);
 			_networkInfoTask = null;
@@ -211,6 +218,11 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		if (Raylib.IsKeyPressed(KeyboardKey.F1)) {
 			ToggleNetLoadingPreview();
 		}
+	}
+
+	protected override void OnDispose() {
+		DetachNetworkBindings();
+		base.OnDispose();
 	}
 
 	private void ApplyModeHeader() {
@@ -275,6 +287,66 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		_acceptCheckbox?.EnableButton(isMultiplayer && !_isHost);
 		_startButton?.SetVisible(!isMultiplayer || _isHost);
 		_startButton?.EnableButton(!isMultiplayer || _isHost);
+	}
+
+	private void AttachNetworkBindings() {
+		if (_mode != SkirmishMode.Multiplayer || _networkKind != MultiplayerNetworkKind.LocalAreaNetwork) {
+			return;
+		}
+
+		NetworkService.LanLobbyStateChanged += HandleLanLobbyStateChanged;
+		NetworkService.LanLobbyChannelMessageReceived += HandleLanLobbyChannelMessageReceived;
+		var currentState = NetworkService.GetCurrentLanLobbyState();
+		if (currentState is not null) {
+			ApplyLobbyState(currentState);
+		}
+	}
+
+	private void DetachNetworkBindings() {
+		if (_mode != SkirmishMode.Multiplayer || _networkKind != MultiplayerNetworkKind.LocalAreaNetwork) {
+			return;
+		}
+
+		NetworkService.LanLobbyStateChanged -= HandleLanLobbyStateChanged;
+		NetworkService.LanLobbyChannelMessageReceived -= HandleLanLobbyChannelMessageReceived;
+	}
+
+	private void HandleLanLobbyStateChanged(LanLobbyState state) {
+		lock (_networkSync) {
+			_pendingLobbyState = state;
+		}
+	}
+
+	private void HandleLanLobbyChannelMessageReceived(LanLobbyChannelMessage message) {
+		lock (_networkSync) {
+			_pendingChannelMessages.Add(message);
+		}
+	}
+
+	private void ApplyPendingNetworkUpdates() {
+		LanLobbyState? lobbyState = null;
+		List<LanLobbyChannelMessage>? channelMessages = null;
+		lock (_networkSync) {
+			if (_pendingLobbyState is not null) {
+				lobbyState = _pendingLobbyState;
+				_pendingLobbyState = null;
+			}
+
+			if (_pendingChannelMessages.Count > 0) {
+				channelMessages = [.. _pendingChannelMessages];
+				_pendingChannelMessages.Clear();
+			}
+		}
+
+		if (lobbyState is not null) {
+			ApplyLobbyState(lobbyState);
+		}
+
+		if (channelMessages is not null) {
+			foreach (var message in channelMessages) {
+				AppendNetworkChatMessage(message);
+			}
+		}
 	}
 
 	private void BuildMapControls() {
@@ -363,8 +435,8 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private void InitializeSlotPreviewState() {
 		for (var index = 0; index < _slotPreview.Length; index++) {
 			_slotPreview[index] = new SkirmishSlotPreview {
-				State = SkirmishSlotState.Closed,
-				Type = SkirmishSlotType.Human,
+				State = _mode == SkirmishMode.Multiplayer ? SkirmishSlotState.Open : SkirmishSlotState.Closed,
+				Type = _mode == SkirmishMode.Multiplayer ? SkirmishSlotType.Human : SkirmishSlotType.Human,
 				CompChallenge = SkirmishComputerChallenge.Easy,
 				Race = SkirmishRace.Terran,
 				Color = (SkirmishColor)Math.Min((int)SkirmishColor.Aqua, (int)SkirmishColor.Yellow + index),
@@ -685,6 +757,15 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		}
 
 		_chatList.ResetContent();
+		if (_mode == SkirmishMode.Multiplayer && _networkKind == MultiplayerNetworkKind.LocalAreaNetwork) {
+			var lobbyState = NetworkService.GetCurrentLanLobbyState();
+			if (lobbyState is not null) {
+				var index = _chatList.AddString($"[Lobby] {lobbyState.SessionName} [{lobbyState.LobbyCode}]");
+				_chatList.EnsureVisible(index);
+			}
+			return;
+		}
+
 		_chatList.AddString("[Host] Welcome to skirmish staging.");
 		_chatList.AddString("[Local] Chat preview is not networked yet.");
 		_chatList.EnsureVisible(0);
@@ -700,10 +781,68 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 			return;
 		}
 
+		if (_mode == SkirmishMode.Multiplayer && _networkKind == MultiplayerNetworkKind.LocalAreaNetwork) {
+			_ = SendNetworkChatAsync(text);
+			return;
+		}
+
 		var prefix = _mode == SkirmishMode.Multiplayer ? "[Local]" : "[Quick Battle]";
 		var index = _chatList.AddString($"{prefix} {text}");
 		_chatList.EnsureVisible(index > 0 ? index - 1 : 0);
 		_chatEdit.SetText(string.Empty);
+	}
+
+	private async Task SendNetworkChatAsync(string text) {
+		try {
+			await NetworkService.SendLobbyChatMessageAsync(text);
+			_chatEdit?.SetText(string.Empty);
+		} catch (Exception ex) {
+			ShowStatus($"Chat send failed: {ex.Message}");
+		}
+	}
+
+	private void ApplyLobbyState(LanLobbyState state) {
+		if (_mode != SkirmishMode.Multiplayer) {
+			return;
+		}
+
+		for (var index = 0; index < _slotPreview.Length; index++) {
+			var current = _slotPreview[index];
+			current.Type = SkirmishSlotType.Human;
+			current.CompChallenge = SkirmishComputerChallenge.Easy;
+			current.Name = string.Empty;
+			current.Ping = string.Empty;
+			current.IsLocal = false;
+			current.State = SkirmishSlotState.Open;
+			_slotPreview[index] = current;
+		}
+
+		foreach (var player in state.Slots.Where(static player => player.IsConnected)) {
+			if (player.SlotIndex < 0 || player.SlotIndex >= MaxPlayers) {
+				continue;
+			}
+
+			var slot = _slotPreview[player.SlotIndex];
+			slot.Type = SkirmishSlotType.Human;
+			slot.State = player.IsLocal ? SkirmishSlotState.Active : SkirmishSlotState.Ready;
+			slot.Name = player.Name;
+			slot.Ping = player.IsLocal ? "0" : "--";
+			slot.IsLocal = player.IsLocal;
+			_slotPreview[player.SlotIndex] = slot;
+		}
+
+		RefreshSlotPreview();
+		ShowStatus($"Lobby {state.LobbyCode}: {state.Slots.Count(static slot => slot.IsConnected)}/{state.MaxPlayers} players");
+	}
+
+	private void AppendNetworkChatMessage(LanLobbyChannelMessage message) {
+		if (_chatList is null || !string.Equals(message.Channel, "chat", StringComparison.OrdinalIgnoreCase)) {
+			return;
+		}
+
+		var prefix = $"[{message.FromPlayerName}]";
+		var index = _chatList.AddString(string.IsNullOrWhiteSpace(message.Text) ? prefix : $"{prefix} {message.Text}");
+		_chatList.EnsureVisible(index > 0 ? index - 1 : 0);
 	}
 
 	private void SeedDropdown(LegacyDropdownNode? dropdown, params string[] labels) {
