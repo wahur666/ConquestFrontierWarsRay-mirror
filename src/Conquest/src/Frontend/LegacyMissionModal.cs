@@ -502,7 +502,7 @@ internal sealed class LegacyMissionModal : LegacyModalNode {
 			Position = new Vector2(data.XOrigin, data.YOrigin),
 			Pivot = Vector2.Zero,
 			Loop = true,
-			SpeedFps = data.Timer > 0 ? 1000f / data.Timer : 15f
+			SpeedFps = 5f
 		};
 		ContentRoot.AddChild(node);
 		return node;

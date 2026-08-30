@@ -775,7 +775,7 @@ public class MapGen(BT_MAP_GEN mapgen, List<BASE_FIELD_DATA> baseFieldData) {
 							if ((data.objClass & ObjClass.CF_PLAYERALIGNED) > 0)
 								playerID = system.playerID;
 							InsertObject(terrainInfo.terrainArchType,
-								new Vector2(xPos + halfWidth, yPos * halfWidth), playerID,
+								new Vector2(xPos + halfWidth, yPos + halfWidth), playerID,
 								system.systemID, system);
 						} else {
 							system.omUsed += terrainInfo.size * terrainInfo.size;
