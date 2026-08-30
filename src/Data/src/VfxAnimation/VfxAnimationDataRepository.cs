@@ -66,6 +66,30 @@ public sealed class VfxAnimationDataRepository {
 		return false;
 	}
 
+	public bool TryGetImageByShapeId(string shapeId, out KeyValuePair<string, ImageData> match) {
+		ArgumentException.ThrowIfNullOrWhiteSpace(shapeId);
+
+		if (string.IsNullOrWhiteSpace(shapeId)) {
+			match = default;
+			return false;
+		}
+
+		var normalizedShapeId = NormalizeShapeId(shapeId);
+		var data = Load();
+
+		foreach (var entry in data.Image) {
+			if (string.Equals(entry.Key, normalizedShapeId, StringComparison.OrdinalIgnoreCase) ||
+				string.Equals(entry.Value.VfxShapeId, normalizedShapeId, StringComparison.OrdinalIgnoreCase) ||
+				string.Equals(entry.Value.Filename, normalizedShapeId, StringComparison.OrdinalIgnoreCase)) {
+				match = entry;
+				return true;
+			}
+		}
+
+		match = default;
+		return false;
+	}
+
 	public string GetInterfaceAssetPath(ImageData imageData) {
 		ArgumentNullException.ThrowIfNull(imageData);
 		return Path.Combine(_interfaceAssetsPath, imageData.Filename);

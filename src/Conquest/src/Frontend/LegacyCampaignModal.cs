@@ -20,6 +20,12 @@ internal sealed class LegacyCampaignModal : LegacyModalNode {
 	private readonly UserProfilesRepository _userProfilesRepository;
 	private readonly VfxAnimationDataRepository _vfxRepository;
 	private readonly XmlDbRepository _xmlDbRepository;
+	private LegacyButtonNode? _terranButton;
+	private LegacyButtonNode? _mantisButton;
+	private LegacyButtonNode? _solarianButton;
+	private LegacyButtonNode? _backButton;
+	private LegacyBriefingModal? _briefingModal;
+	private LegacyButtonNode? _briefingReturnFocusButton;
 	private TextNode? _statusLabel;
 
 	public LegacyCampaignModal(
@@ -45,16 +51,16 @@ internal sealed class LegacyCampaignModal : LegacyModalNode {
 		AddStaticNode("Title", _campaignMenu.Title);
 		AddPlayerNameNode();
 
-		var terran = AddButtonNode("TerranCampaign", GetButton(0));
-		var mantis = AddButtonNode("MantisTraining", GetButton(1));
-		var solarian = AddButtonNode("SolarianTraining", GetButton(2));
-		var back = AddButtonNode("Back", GetButton(3));
+		_terranButton = AddButtonNode("TerranCampaign", GetButton(0));
+		_mantisButton = AddButtonNode("MantisTraining", GetButton(1));
+		_solarianButton = AddButtonNode("SolarianTraining", GetButton(2));
+		_backButton = AddButtonNode("Back", GetButton(3));
 
-		terran.Activated += _ => ShowStatus("Terran campaign mission flow is not ported yet.");
-		mantis.Activated += _ => ShowStatus("Mantis training briefing flow is not ported yet.");
-		solarian.Activated += _ => ShowStatus("Solarian training briefing flow is not ported yet.");
-		back.Activated += _ => CloseModal();
-		terran.SetKeyboardFocus(true);
+		_terranButton.Activated += _ => ShowStatus("Terran campaign mission flow is not ported yet.");
+		_mantisButton.Activated += _ => OpenTrainingBriefing("Mantis_Train.dmission", _mantisButton);
+		_solarianButton.Activated += _ => OpenTrainingBriefing("Sol_Train.dmission", _solarianButton);
+		_backButton.Activated += _ => CloseModal();
+		_terranButton.SetKeyboardFocus(true);
 
 		_statusLabel = AddChild(new TextNode("StatusLabel") {
 			Position = new Vector2(144f, 274f),
@@ -77,7 +83,45 @@ internal sealed class LegacyCampaignModal : LegacyModalNode {
 		}
 	}
 
+	private void OpenTrainingBriefing(string missionFileName, LegacyButtonNode? returnFocusButton) {
+		if (_briefingModal is not null) {
+			return;
+		}
+
+		_briefingReturnFocusButton = returnFocusButton;
+		SetInteractiveState(false);
+		ShowStatus(string.Empty);
+		_briefingModal = AddChild(new LegacyBriefingModal(
+			missionFileName,
+			_xmlDbRepository,
+			_vfxRepository,
+			_strings,
+			CloseTrainingBriefing));
+	}
+
+	private void CloseTrainingBriefing() {
+		if (_briefingModal is not null && RemoveChild(_briefingModal)) {
+			_briefingModal.Dispose();
+		}
+
+		_briefingModal = null;
+		SetInteractiveState(true);
+		(_briefingReturnFocusButton ?? _terranButton)?.SetKeyboardFocus(true);
+		_briefingReturnFocusButton = null;
+	}
+
+	private void SetInteractiveState(bool enabled) {
+		_terranButton?.EnableButton(enabled);
+		_mantisButton?.EnableButton(enabled);
+		_solarianButton?.EnableButton(enabled);
+		_backButton?.EnableButton(enabled);
+	}
+
 	private void CloseModal() {
+		if (_briefingModal is not null) {
+			CloseTrainingBriefing();
+		}
+
 		_closed();
 	}
 

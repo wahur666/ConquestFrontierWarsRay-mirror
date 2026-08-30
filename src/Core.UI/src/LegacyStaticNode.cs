@@ -21,6 +21,7 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	private const float HashSpacing = 6f;
 
 	private AtlasFramesResource? _art;
+	private Framework.Texture2D? _imageArt;
 	private bool _backdraw;
 	private GT_DRAWTYPE _backgroundDraw;
 	private Color _backgroundFill = Color.Blank;
@@ -64,12 +65,14 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 		_backdraw = archetype.Backdraw;
 
 		if (!string.IsNullOrWhiteSpace(archetype.ShapeFile) && repository is not null) {
-			_art = LoadArt(repository, archetype.ShapeFile);
+			LoadArt(repository, archetype.ShapeFile);
 		}
 
 		if (_art is not null) {
 			var frame = _art.Frames.GetFrameRegion(0);
 			Size = new Vector2(frame.Width, frame.Height);
+		} else if (_imageArt is not null) {
+			Size = _imageArt.Size;
 		}
 
 		if (data is null) {
@@ -234,6 +237,12 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 			return;
 		}
 
+		if (_imageArt is not null) {
+			var slice = _imageArt.GetSlice();
+			Raylib.DrawTexturePro(slice.Texture, slice.Source, bounds, Vector2.Zero, 0f, Color.White);
+			return;
+		}
+
 		switch (_backgroundDraw) {
 			case GT_DRAWTYPE.FILL:
 				Raylib.DrawRectangleRec(bounds, _backgroundFill);
@@ -379,17 +388,24 @@ public sealed class LegacyStaticNode : Control, IUiPointerEventHandler {
 	private void DisposeArt() {
 		_art?.Dispose();
 		_art = null;
+		_imageArt?.Dispose();
+		_imageArt = null;
 	}
 
-	private static AtlasFramesResource? LoadArt(VfxAnimationDataRepository repository, string shapeId) {
-		if (!repository.TryGetAtlasByShapeId(shapeId, out var atlasEntry)) {
-			return null;
+	private void LoadArt(VfxAnimationDataRepository repository, string shapeId) {
+		if (repository.TryGetAtlasByShapeId(shapeId, out var atlasEntry)) {
+			_art = new AtlasFramesResource(
+				repository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: false),
+				repository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: true),
+				TextureFilter.Point);
+			return;
 		}
 
-		return new AtlasFramesResource(
-			repository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: false),
-			repository.GetInterfaceAssetPath(atlasEntry.Value, metaJson: true),
-			TextureFilter.Point);
+		if (repository.TryGetImageByShapeId(shapeId, out var imageEntry)) {
+			_imageArt = new CompressedTexture2D(repository.GetInterfaceAssetPath(imageEntry.Value)) {
+				Filter = TextureFilter.Point
+			};
+		}
 	}
 
 	private static float ResolveFontSize(string fontName) {
