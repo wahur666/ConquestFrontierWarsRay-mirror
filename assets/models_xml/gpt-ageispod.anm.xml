@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unit name="ageispod.anm">
+	<dir name="Animation">
+		<file name="Frequency">AAAAQQ==</file>
+		<dir name="Texture library">
+			<dir name="ageisBall_tga.16.tga0">
+				<file name="Image X size">AAEAAA==</file>
+				<file name="Image Y size">AAEAAA==</file>
+				<dir name="True RGB 565">
+					<dir name="MIP0">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP1">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP2">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP3">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP4">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP5">
+						<file name="Alpha 8 bit">
+						</file>
+						<file name="Image colors">
+						</file>
+					</dir>
+					<dir name="MIP6">
+						<file name="Alpha 8 bit"></file>
+						<file name="Image colors"></file>
+					</dir>
+					<dir name="MIP7">
+						<file name="Alpha 8 bit"></file>
+						<file name="Image colors"></file>
+					</dir>
+					<dir name="MIP8">
+						<file name="Alpha 8 bit"></file>
+						<file name="Image colors"></file>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+		<file name="Texture names"></file>
+		<file name="UV Rects">
+		</file>
+	</dir>
+</unit>

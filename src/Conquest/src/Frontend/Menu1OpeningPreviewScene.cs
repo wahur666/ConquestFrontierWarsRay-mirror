@@ -686,7 +686,12 @@ internal sealed class Menu1OpeningPreviewSurface : Node2D {
 			mode,
 			networkKind,
 			isHost,
+			StartSkirmishScene,
 			CloseSkirmishModal));
+	}
+
+	private void StartSkirmishScene() {
+		Tree.ChangeRoot(new LegacySkirmishBattleScene(() => new Menu1OpeningPreviewScene()));
 	}
 
 	private void CloseSkirmishModal() {

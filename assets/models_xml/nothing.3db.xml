@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unit name="nothing.3db">
+	<dir name="Rigid body">
+		<dir name="Extent tree">
+			<dir name="Sphere 1">
+				<dir name="Children">
+					<dir name="Box 1">
+						<file name="Name">Qm94MDEgQm94IDEA</file>
+						<file name="Transform">AACAP9a/JrOc37g0078mMwAAgD804yQznN+4tDHjJLMAAIA/GybvtgkDMDgwIbg0</file>
+						<file name="half x">L4T3QA==</file>
+						<file name="half y">3rrrQA==</file>
+						<file name="half z">Y96WPQ==</file>
+					</dir>
+				</dir>
+				<file name="Name">Qm94MDEgU3BoZXJlIDEA</file>
+				<file name="Radius">gugqQQ==</file>
+				<file name="Transform">AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/PHoDt5xQMDhQSI01</file>
+			</dir>
+		</dir>
+		<dir name="Mass properties">
+			<file name="Center of mass">PlsvN0NKMLgwXCY1</file>
+			<file name="Inertia tensor">f9K9RV7olDudqxU7XuiUO+dG0UVTRC86nasVO1NELzrXh0dG</file>
+			<file name="Mass">y+OnQw==</file>
+		</dir>
+	</dir>
+	<dir name="openFLAME 3D N-mesh">
+		<dir name="Edges">
+			<file name="Edge angle">2w9JQNsPSUDbD0lA2w9JQAAAAAA=</file>
+			<file name="Edge count">BQAAAA==</file>
+			<file name="Vertex list">AQAAAAMAAAAAAAAAAgAAAAIAAAADAAAAAAAAAAEAAAABAAAAAgAAAA==</file>
+		</dir>
+		<dir name="Face groups">
+			<file name="Count">AQAAAA==</file>
+			<dir name="Group0">
+				<file name="Face D-coefficient">AAAAgAAAAIA=</file>
+				<file name="Face count">AgAAAA==</file>
+				<file name="Face normal">AAAAAAAAAAA=</file>
+				<file name="Face property">BAAAAAQAAAA=</file>
+				<file name="Face vertex chain">AAAAAAEAAAACAAAAAwAAAAIAAAABAAAA</file>
+				<file name="Material">AAAAAA==</file>
+			</dir>
+		</dir>
+		<dir name="Material library">
+			<dir name="Material #1">
+				<dir name="Ambient">
+					<file name="Constant">AACAPwAAgD8AAIA/</file>
+				</dir>
+				<dir name="Diffuse">
+					<file name="Constant">AACAPwAAgD8AAIA/</file>
+				</dir>
+				<file name="Material identifier">AAAAAA==</file>
+				<dir name="Specular">
+					<file name="Constant">AACAPwAAgD8AAIA/</file>
+				</dir>
+				<dir name="Transparency">
+					<file name="Constant">AAAAAA==</file>
+				</dir>
+			</dir>
+			<file name="Material count">AQAAAA==</file>
+		</dir>
+		<dir name="Normals">
+			<file name="Surface normal count">AQAAAA==</file>
+			<file name="Surface normal list">AAAAgAAAAAAAAIA/</file>
+		</dir>
+		<dir name="Sphere">
+			<file name="Center">CIQvNgAgyzFoduA1</file>
+			<file name="Radius">gugqQQ==</file>
+		</dir>
+		<dir name="Vertices">
+			<file name="Object vertex count">BAAAAA==</file>
+			<file name="Object vertex list">iYP3wDq660AAAAAAiYP3wDq668AAAAAAiYP3QDq660AAAAAAiYP3QDq668AAAAAA</file>
+			<file name="Texture batch list">AAAAAAAAAAAAAAAAAAAAAA==</file>
+			<file name="Texture vertex count">AQAAAA==</file>
+			<file name="Texture vertex list">AAAAAAAAAAA=</file>
+			<file name="Vertex D-coefficient">AAAAgAAAAIAAAACAAAAAgA==</file>
+			<file name="Vertex batch count">BAAAAA==</file>
+			<file name="Vertex batch list">AAAAAAEAAAACAAAAAwAAAA==</file>
+			<file name="Vertex normal">AAAAAAAAAAAAAAAAAAAAAA==</file>
+		</dir>
+	</dir>
+</unit>

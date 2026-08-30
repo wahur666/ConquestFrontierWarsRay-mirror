@@ -86,6 +86,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 	private readonly SkirmishMode _mode;
 	private readonly MultiplayerNetworkKind _networkKind;
 	private readonly bool _isHost;
+	private readonly Action _started;
 	private readonly Lock _networkSync = new();
 	private LegacyCheckboxNode? _acceptCheckbox;
 	private LegacyEditNode? _chatEdit;
@@ -138,6 +139,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		SkirmishMode mode,
 		MultiplayerNetworkKind networkKind,
 		bool isHost,
+		Action started,
 		Action closed) : base("LegacySkirmishModal", closed) {
 		_mshellMenu = mshellMenu;
 		_mapMenu = mapMenu;
@@ -149,6 +151,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 		_mode = mode;
 		_networkKind = networkKind;
 		_isHost = isHost;
+		_started = started;
 		_closed = closed;
 	}
 
@@ -189,9 +192,7 @@ internal sealed class LegacySkirmishModal : LegacyModalNode {
 
 		_startButton = AddButtonNode("Start", _finalMenu.Start);
 		var cancel = AddButtonNode("Cancel", _finalMenu.Cancel);
-		_startButton.Activated += _ => ShowStatus(_mode == SkirmishMode.Multiplayer
-			? "Multiplayer start flow is not ported yet."
-			: "Quick Battle start flow is not ported yet.");
+		_startButton.Activated += _ => _started();
 		cancel.Activated += _ => CloseModal();
 		_startButton.SetKeyboardFocus(true);
 

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unit name="bomb1.3db">
+	<file name="Exporter Version">U2VwIDI5IDIwMDAgMTQ6MjQ6MTQA</file>
+	<dir name="Rigid body">
+		<dir name="Extent tree">
+			<dir name="Sphere 1">
+				<dir name="Children">
+					<dir name="Box 1">
+						<dir name="Children">
+							<dir name="Convex mesh 1">
+								<file name="Centroid">AAAAAMkgpUHoHjbA</file>
+								<file name="Edge count">DAAAAA==</file>
+								<file name="Edge list">
+								</file>
+								<file name="Face count">CAAAAA==</file>
+								<file name="Face list">
+								</file>
+								<file name="Name">Qm94MDMgQ29udmV4IG1lc2ggMQA=</file>
+								<file name="Normal count">CwAAAA==</file>
+								<file name="Normal list">
+								</file>
+								<file name="Transform">
+								</file>
+								<file name="Triangle D">2brGwcVq+UAizJlBIsyZQWLTscHFavlA2brGwWLTscE=</file>
+								<file name="Vertex count">BgAAAA==</file>
+								<file name="Vertex list">
+								</file>
+							</dir>
+						</dir>
+						<file name="Name">Qm94MDMgQm94IDEA</file>
+						<file name="Transform">z6F/v2iGWz0ctpEywBxIOhYIaTxa+X+/tIBbvSybf7/yXWm80orOP+wCGj/7xes/</file>
+						<file name="half x">DhyYQQ==</file>
+						<file name="half y">zgb5QQ==</file>
+						<file name="half z">n+ADQA==</file>
+					</dir>
+				</dir>
+				<file name="Name">Qm94MDMgU3BoZXJlIDEA</file>
+				<file name="Radius">4agJQg==</file>
+				<file name="Transform">AACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/IFC7v9wjv787l4dA</file>
+			</dir>
+		</dir>
+		<dir name="Mass properties">
+			<file name="Center of mass">pjYRJjBhpUHs82e/</file>
+			<file name="Inertia tensor">mi+uSny5zi90+JCtfLnOL5To/0opKE9IdPiQrSkoT0hYVChK</file>
+			<file name="Mass">pAgNRw==</file>
+		</dir>
+	</dir>
+	<dir name="openFLAME 3D N-mesh">
+		<dir name="Edges">
+			<file name="Edge angle">2w9JQNsPSUDbD0lA2w9JQNsPSUDbD0lA2w9JQNsPSUDDEsc+vWw1PgAAALQAAAC0AAAAtA==</file>
+			<file name="Edge count">DQAAAA==</file>
+			<file name="Vertex list">
+				BAAAAAYAAAABAAAAAgAAAAAAAAACAAAABQAAAAcAAAAGAAAABwAAAAEAAAADAAAAAwAAAAUAAAAAAAAABAAAAAQAAAAFAAAAAAAAAAMAAAAFAAAABgAAAAAAAAABAAAAAwAAAAQAAAA=
+			</file>
+		</dir>
+		<dir name="Face groups">
+			<file name="Count">AQAAAA==</file>
+			<dir name="Group0">
+				<file name="Face D-coefficient">trecwdm6xsE3lajB2brGwTeVqMG2t5zB</file>
+				<file name="Face count">BgAAAA==</file>
+				<file name="Face normal">AAAAAAIAAAABAAAAAgAAAAEAAAAAAAAA</file>
+				<file name="Face property">BAAAAAQAAAAEAAAABAAAAAQAAAAEAAAA</file>
+				<file name="Face vertex chain">
+					AAAAAAEAAAACAAAABgAAAAUAAAAEAAAAAwAAAAQAAAAFAAAABwAAAAUAAAAGAAAAAAAAAAQAAAADAAAAAwAAAAEAAAAAAAAA
+				</file>
+				<file name="Material">AAAAAA==</file>
+			</dir>
+		</dir>
+		<dir name="Material library">
+			<dir name="MantisTex_1">
+				<dir name="Ambient">
+					<file name="Constant">AACAPwAAgD8AAIA/</file>
+				</dir>
+				<dir name="Diffuse">
+					<file name="Constant">AACAPwAAgD8AAIA/</file>
+					<dir name="Map">
+						<file name="Blend">AACAPw==</file>
+						<file name="Flags">QAAAAA==</file>
+						<file name="Name">c21vb3RoU2hpdDguYm1wAA==</file>
+					</dir>
+				</dir>
+				<dir name="Emission">
+					<file name="Constant">hoUFP/v5eT+Ligo/</file>
+				</dir>
+				<file name="Material identifier">AAAAAA==</file>
+				<dir name="Shininess">
+					<file name="Constant">AACAPs3MTD0=</file>
+				</dir>
+				<dir name="Specular">
+					<file name="Constant">ZmZmP2ZmZj9mZmY/</file>
+				</dir>
+			</dir>
+			<file name="Material count">AQAAAA==</file>
+		</dir>
+		<dir name="Normals">
+			<file name="Surface normal count">BAAAAA==</file>
+			<file name="Surface normal list">AAAAAIvpfz9pcdY8AAAAAKG5ej8PzU4+AAAAACGcez+W0zy+AAAAAAtdfj87NOc9</file>
+		</dir>
+		<dir name="Sphere">
+			<file name="Center">IFC7v/JumUF7MVVA</file>
+			<file name="Radius">4agJQg==</file>
+		</dir>
+		<dir name="Texture library">
+			<dir name="smoothShit8.bmp">
+				<file name="Image X size">AAEAAA==</file>
+				<file name="Image Y size">AAEAAA==</file>
+				<dir name="Palette 8 bit">
+					<dir name="MIP0">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP1">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP2">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP3">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP4">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP5">
+						<file name="Image indices">
+						</file>
+					</dir>
+					<dir name="MIP6">
+						<file name="Image indices">b50cLU6Gx33v1E7kPr128Q==</file>
+					</dir>
+					<dir name="MIP7">
+						<file name="Image indices">TRxzLQ==</file>
+					</dir>
+					<dir name="MIP8">
+						<file name="Image indices">TQ==</file>
+					</dir>
+					<file name="Palette RGB 888">
+					</file>
+				</dir>
+			</dir>
+		</dir>
+		<dir name="Vertices">
+			<file name="Object vertex count">CAAAAA==</file>
+			<file name="Object vertex list">
+				wId1QImJmkGtoSpBtlOYwbBIlkH4vfdBtlOYQbBIlkH4vfdBwId1wImJmkGtoSpBe82GQXjfu0GDshjBe82GwXjfu0GDshjBF7bnQDM6nUFNsO/BF7bnwDM6nUFNsO/B
+			</file>
+			<file name="Texture batch list">AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAABgAAAAcAAAA=</file>
+			<file name="Texture vertex count">CAAAAA==</file>
+			<file name="Texture vertex list">
+				AAA+PgBAAT8AAIY9AAD+PgAAhj4AAP4+AAAVPgBAAT8AAII+AEAePwAApD0AQB4/AABXPgCAMj8AAAo+AIAyPw==
+			</file>
+			<file name="Vertex D-coefficient">TC6jwbW3nMG1t5zBTC6jwZcYvMGXGLzB2brGwdm6xsE=</file>
+			<file name="Vertex batch count">CAAAAA==</file>
+			<file name="Vertex batch list">AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAABgAAAAcAAAA=</file>
+			<file name="Vertex normal">AwAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAgAAAAIAAAA=</file>
+		</dir>
+	</dir>
+</unit>

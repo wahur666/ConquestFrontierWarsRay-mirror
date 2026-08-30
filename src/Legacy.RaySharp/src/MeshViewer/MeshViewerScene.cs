@@ -125,7 +125,7 @@ internal sealed class MeshViewerScene : IScene {
 	private void LoadSamples() {
 		string? samplesDirectory = MeshSampleResolver.ResolveSamplesDirectory();
 		if (samplesDirectory is null) {
-			status = "Could not find assets/xml_dump.";
+			status = "Could not find assets/models_xml or assets/xml_dump.";
 			context.Ui.Status = status;
 			return;
 		}

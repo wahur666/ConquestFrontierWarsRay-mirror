@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unit name="bolt2.3db">
+	<dir name="Hardpoints">
+		<file name="Fixed">
+			aHBfYm9sdDIAAbXoAAAJdH//KUheMoLgXWtXjF5/m7BeLVR4Xn+bsF4tWOhef5uwEACeaAAAADldbCDAEACzcAAAAACMrsrARm03QwAAAAAAAIA/AAAAAAAAAAAAAAAAAACAvwAAgL8AAAAAAAAAAA==
+		</file>
+	</dir>
+	<dir name="Rigid body">
+		<dir name="Extent data">
+			<dir name="Bounding volume">
+				<dir name="Box">
+					<file name="Center">AAAAALxrjz/gWCBB</file>
+					<file name="half x">j9ovQg==</file>
+					<file name="half y">QrtIQQ==</file>
+					<file name="half z">uGctQw==</file>
+				</dir>
+				<dir name="Sphere">
+					<file name="Center">VhKUwe1v6z7SsxZB</file>
+					<file name="Radius">okM5Qw==</file>
+				</dir>
+			</dir>
+		</dir>
+		<dir name="Mass properties">
+			<file name="Center of mass">AAAAALxrjz/gWCBB</file>
+			<file name="Inertia tensor">HUTrSgAAAAAAAAAAAAAAAKcV+UoAAAAAAAAAAAAAAAAvJgJJ</file>
+			<file name="Mass">w0g/RA==</file>
+		</dir>
+	</dir>
+	<dir name="openFLAME 3D N-mesh">
+		<dir name="Face groups">
+			<file name="Count">AQAAAA==</file>
+			<dir name="Group0">
+				<file name="Face D-coefficient">8uc9wfLnPcHy5z3B8ec9wQ==</file>
+				<file name="Face count">BAAAAA==</file>
+				<file name="Face normal">AAAAAAAAAAABAAAAAQAAAA==</file>
+				<file name="Face property">BAAAAAQAAAAEAAAABAAAAA==</file>
+				<file name="Face vertex chain">AAAAAAEAAAACAAAAAAAAAAIAAAADAAAABAAAAAEAAAAAAAAABAAAAAAAAAAFAAAA</file>
+				<file name="Material">AAAAAA==</file>
+			</dir>
+		</dir>
+		<dir name="Material library">
+			<dir name="Defaultlbolt_2_merge">
+				<file name="Ambient">AACAPwAAgD8AAIA/</file>
+				<file name="Diffuse">AACAPwAAgD8AAIA/</file>
+				<file name="Emission">AACAPwAAgD8AAIA/</file>
+				<file name="Material identifier">AAAAAA==</file>
+				<file name="Shininess">AAAAAA==</file>
+				<file name="Specular">AAAAAAAAAAAAAAAA</file>
+				<file name="Texture name">bGJvbHRfMl9tZXJnZQA=</file>
+				<file name="Transparency">AACAPw==</file>
+			</dir>
+			<file name="Material count">AQAAAA==</file>
+		</dir>
+		<dir name="Normals">
+			<file name="Surface normal count">AwAAAA==</file>
+			<file name="Surface normal list">U8r9vjNWXj8AAAAAU8r9PjNWXj8AAACAxl9psgAAgD8AAAAA</file>
+		</dir>
+		<dir name="Texture library">
+			<dir name="lbolt_2_merge">
+				<dir name="MIP0">
+					<file name="Image X size">EAAAAA==</file>
+					<file name="Image Y size">EAAAAA==</file>
+					<dir name="Palette 8 bit">
+						<file name="Alpha 8 bit">
+							CQUDAgMDBRMbDwwNCgwJCwkGAwQFBhEnLhwUGBINDhIMBQUFDBcxV1pDJiAbEg0SBgQGFztfm8jBj00wIxEJCwgGEDBRmOL9992YVTIUCAoLDipRdK7a///asXxPHQoMFBYsRGaUx/7/0JtnRyIPDSohHyxPY6z//61kNicZEBYuKS40Q1mK//+kUzAgIBwdKisvOkRVgOTollo3KCAgHyQlKS47TGXLzoFHLyIlHBseHyQqMTdct69mLiQgHx4fIB0dIiYiQp2TSiYiIhERERERERISECt2ZiwTEREREREREREPEREWRUAXERERERERAAAAAAAAAhQZAwAAAAAAAA==
+						</file>
+						<file name="Image indices">
+							JiYWMyciKRAQKSInMxYmJhUmJTIwKRATNjgpMDIlJhUfQBYyJykCPwU+KScyFkAfLR8dMycILAUMKwgnDh0fLQkfHQ4nCCsMGC4IJw4dHwk9LSYOIxAuDBg/ECcOJi09AzkfJSMQLgwYGxAnJR85AzQSCR0yJBMFKisIHB0JEjQZNDkfASMQCy4kJwEfOTQZBhkDLxolNyEQBCgNLwMZBjw8GQ8JNSg3EQEHBw8ZPDwUCjwZDwMHKCgHAwMZPAoUFBQUPDoxAwcHAxk6PBQUFBQUFBQ8BhkPDxkGPBQUFBQUFBQUFBQUPDwUFBQUFBQUFBQAFAAAFBQUFAAAFAAUFA==
+						</file>
+						<file name="Palette RGB 888">
+							OUh/fYm1srjXWWaakpu/29vrSVeMbHimo6vOZXOmQE6Gxsjf6uv0dICvhpK+VGGVrbLTmJ/DXWufvsHcOkmBb3yyfYq7lJ7I8vP3TVqQc3+uz9DkjJa/eIW0aXWkbHmtRFKJsrbSnaXNlqDGqK7NgYy7dIG0k5zFgoy2o6zR3+DuwcTdt73ZZnOoys3hYGyflqDLUF2RiZTChJHAVGKYbHeow8bhmqHGsLbYYG6hS1iN8vL4QVCGXmyiur/b0NLlcH6xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+						</file>
+						<file name="Palette color count">AAEAAA==</file>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+		<dir name="Vertices">
+			<file name="Material batch list">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</file>
+			<file name="Object vertex count">BgAAAA==</file>
+			<file name="Object vertex list">
+				AAAAALqoWkFGbTdDAAAAALqoWkEqYiPDj9ovwsvNNsHwYSPDj9ovwsvNNsFGbTdDj9ovQsvNNsHwYSPDj9ovQsvNNsFGbTdD
+			</file>
+			<file name="Texture batch list">AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAA</file>
+			<file name="Texture vertex count">BgAAAA==</file>
+			<file name="Texture vertex list">AIDzPgAAeT8AAPQ+AACoPAAAdj8AAKg8AEB2PwAAeT8AALg8AACoPAAAwDwAQHk/</file>
+			<file name="Vertex D-coefficient">uqhawbqoWsHy5z3B8uc9wfLnPcHy5z3B</file>
+			<file name="Vertex batch count">BgAAAA==</file>
+			<file name="Vertex batch list">AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAA</file>
+			<file name="Vertex normal">AgAAAAIAAAAAAAAAAAAAAAEAAAABAAAA</file>
+		</dir>
+	</dir>
+</unit>

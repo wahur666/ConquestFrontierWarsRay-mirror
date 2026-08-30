@@ -171,7 +171,7 @@ internal sealed class ParticleEditorScene : IScene {
 
 		string? path = ParticleSampleResolver.Resolve("blast.pte.unified.xml");
 		if (path is null) {
-			status = "Could not find assets/xml_unified/blast.pte.unified.xml.";
+			status = "Could not find blast.pte.unified.xml in assets/particles_xml or assets/xml_unified.";
 			log.Error(status);
 			return;
 		}

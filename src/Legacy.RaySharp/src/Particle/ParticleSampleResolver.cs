@@ -2,26 +2,51 @@ namespace RaySharp.Particle;
 
 internal static class ParticleSampleResolver {
 	public static string? Resolve(string fileName) {
-		string[] candidates =
-		[
-			Path.Combine(Environment.CurrentDirectory, "assets", "xml_unified", fileName),
-			Path.Combine(Environment.CurrentDirectory, "RaySharp", "assets", "xml_unified", fileName),
-			Path.Combine(AppContext.BaseDirectory, "assets", "xml_unified", fileName),
-			Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "assets", "xml_unified", fileName)
-		];
+		string[] candidates = BuildDirectoryCandidates()
+			.Select(directory => Path.Combine(directory, fileName))
+			.ToArray();
 
 		return candidates.Select(Path.GetFullPath).FirstOrDefault(File.Exists);
 	}
 
 	public static string? ResolveSamplesDirectory() {
-		string[] candidates =
-		[
-			Path.Combine(Environment.CurrentDirectory, "assets", "xml_unified"),
-			Path.Combine(Environment.CurrentDirectory, "RaySharp", "assets", "xml_unified"),
-			Path.Combine(AppContext.BaseDirectory, "assets", "xml_unified"),
-			Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "assets", "xml_unified")
-		];
+		string[] candidates = BuildDirectoryCandidates();
 
 		return candidates.Select(Path.GetFullPath).FirstOrDefault(Directory.Exists);
+	}
+
+	private static string[] BuildDirectoryCandidates() {
+		HashSet<string> candidates = new(StringComparer.OrdinalIgnoreCase);
+		void Add(string path) {
+			if (!string.IsNullOrWhiteSpace(path)) {
+				candidates.Add(Path.GetFullPath(path));
+			}
+		}
+
+		foreach (string root in EnumerateSearchRoots()) {
+			Add(Path.Combine(root, "assets", "particles_xml"));
+			Add(Path.Combine(root, "assets", "xml_unified"));
+			Add(Path.Combine(root, "particles_xml"));
+			Add(Path.Combine(root, "xml_unified"));
+			Add(Path.Combine(root, "RaySharp", "assets", "particles_xml"));
+			Add(Path.Combine(root, "RaySharp", "assets", "xml_unified"));
+		}
+
+		return candidates.ToArray();
+	}
+
+	private static IEnumerable<string> EnumerateSearchRoots() {
+		HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+		foreach (string start in new[] { Environment.CurrentDirectory, AppContext.BaseDirectory }) {
+			if (string.IsNullOrWhiteSpace(start)) {
+				continue;
+			}
+
+			for (DirectoryInfo? current = new DirectoryInfo(start); current is not null; current = current.Parent) {
+				if (seen.Add(current.FullName)) {
+					yield return current.FullName;
+				}
+			}
+		}
 	}
 }
