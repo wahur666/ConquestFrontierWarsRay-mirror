@@ -68,7 +68,7 @@ public static class NetworkService {
 	private static readonly char[] LobbyCodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789".ToCharArray();
 	private static CancellationTokenSource? _lanDiscoveryCts;
 	private static Task? _lanDiscoveryTask;
-	private static WebSocketGameServer? _lanServer;
+	private static LanGameServerComponent? _lanServer;
 	private static UdpWebSocketAnnouncer? _lanAnnouncer;
 	private static WebSocketGameClient? _lanClient;
 	private static Task? _lanClientReceiveLoopTask;
@@ -195,7 +195,7 @@ public static class NetworkService {
 		var normalizedPlayerName = NormalizePlayerName(playerName);
 		var lobbyCode = GenerateLobbyCode();
 
-		var server = new WebSocketGameServer(new WebSocketGameServerOptions {
+		var server = new LanGameServerComponent(new WebSocketGameServerOptions {
 			Host = hostIp,
 			Port = DefaultLanWebSocketPort,
 			Path = normalizedPath
@@ -369,7 +369,7 @@ public static class NetworkService {
 
 		WebSocketGameClient? client;
 		HostLobbyState? hostLobby;
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 		string? senderName;
 		int? senderSlot;
 		lock (Sync) {
@@ -401,7 +401,7 @@ public static class NetworkService {
 		WebSocketGameClient? client;
 		Task? receiveLoop;
 		UdpWebSocketAnnouncer? announcer;
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 
 		lock (Sync) {
 			client = _lanClient;
@@ -441,6 +441,7 @@ public static class NetworkService {
 		if (server is not null) {
 			server.ClientDisconnected -= HandleLanServerClientDisconnected;
 			server.TextMessageReceived -= HandleLanServerTextMessageReceived;
+			await server.ShutdownAsync("LAN session shutting down").ConfigureAwait(false);
 			await server.DisposeAsync().ConfigureAwait(false);
 		}
 	}
@@ -651,7 +652,7 @@ public static class NetworkService {
 	}
 
 	private static async Task HandleLanServerClientDisconnectedAsync(Guid clientId) {
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 		LanLobbyState? publishedState;
 		lock (Sync) {
 			server = _lanServer;
@@ -680,7 +681,7 @@ public static class NetworkService {
 	}
 
 	private static async Task HandleLobbyHelloAsync(Guid clientId, JsonElement payload) {
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 		string? rejectionReason = null;
 		LanLobbyState? publishedState = null;
 		string? welcomeMessage = null;
@@ -794,7 +795,7 @@ public static class NetworkService {
 	}
 
 	private static async Task HandleRemoteLobbyChannelAsync(Guid clientId, JsonElement payload) {
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 		HostLobbyState? hostLobby;
 		string? senderName;
 		int senderSlotIndex;
@@ -822,7 +823,7 @@ public static class NetworkService {
 	}
 
 	private static async Task HandleLobbyStateRequestAsync(Guid clientId, JsonElement payload) {
-		WebSocketGameServer? server;
+		LanGameServerComponent? server;
 		string? message = null;
 		lock (Sync) {
 			server = _lanServer;
@@ -842,7 +843,7 @@ public static class NetworkService {
 		await server!.SendTextAsync(clientId, message!).ConfigureAwait(false);
 	}
 
-	private static async Task BroadcastLobbyStateAsync(WebSocketGameServer server) {
+	private static async Task BroadcastLobbyStateAsync(LanGameServerComponent server) {
 		string message;
 		lock (Sync) {
 			if (_hostLobbyState is null) {
@@ -856,7 +857,7 @@ public static class NetworkService {
 	}
 
 	private static async Task BroadcastChannelMessageAsync(
-		WebSocketGameServer server,
+		LanGameServerComponent server,
 		HostLobbyState hostLobby,
 		int fromSlotIndex,
 		string fromPlayerName,

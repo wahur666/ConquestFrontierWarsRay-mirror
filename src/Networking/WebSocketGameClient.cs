@@ -271,25 +271,10 @@ public sealed class WebSocketGameClient(WebSocketGameClientOptions options) : IA
                     break;
 
                 case "gameShutdown":
-                    await HandleGameShutdownAsync(payload, cancellationToken);
+                    Console.WriteLine("Received gameShutdown. Game shutdown message handling needs an implementation in the Conquest component.");
                     break;
             }
         }
-    }
-
-    private async Task HandleGameShutdownAsync(JsonElement payload, CancellationToken cancellationToken)
-    {
-        string reason = payload.TryGetProperty("reason", out JsonElement reasonElement)
-            ? reasonElement.GetString() ?? "Game session ended."
-            : "Game session ended.";
-        ReportStatus(reason);
-
-        if (options.OnSessionEndedAsync is not null)
-        {
-            await options.OnSessionEndedAsync(reason);
-        }
-
-        await CloseAsync(WebSocketCloseStatus.NormalClosure, reason, cancellationToken);
     }
 
     private async Task HandleLoadGameAsync(CancellationToken cancellationToken)
@@ -650,7 +635,6 @@ public sealed class WebSocketGameClientOptions
     public Task? ReadySignal { get; init; }
     public Func<Task>? OnLoadGameAsync { get; init; }
     public Func<JsonElement, Task>? OnAcceptedGameCommandAsync { get; init; }
-    public Func<string, Task>? OnSessionEndedAsync { get; init; }
     public Action<string>? StatusChanged { get; init; }
     public string CommandLogPath { get; init; } = Path.Combine(AppContext.BaseDirectory, "client-commands.log");
 }

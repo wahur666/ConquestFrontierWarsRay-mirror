@@ -4,7 +4,6 @@ using System.Net.Sockets;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 
 namespace Networking;
 
@@ -17,7 +16,6 @@ public sealed class WebSocketGameServer : IAsyncDisposable
     private readonly CancellationTokenSource _shutdown = new();
     private readonly TcpListener _listener;
     private Task? _acceptLoopTask;
-    private bool _clientShutdownStarted;
 
     public WebSocketGameServer(WebSocketGameServerOptions options)
     {
@@ -68,41 +66,9 @@ public sealed class WebSocketGameServer : IAsyncDisposable
         return true;
     }
 
-    public async Task ShutdownClientsAsync(string reason, CancellationToken cancellationToken = default)
+    public Task CloseAllClientsAsync(string reason, CancellationToken cancellationToken = default)
     {
-        if (_clientShutdownStarted)
-        {
-            return;
-        }
-
-        _clientShutdownStarted = true;
-        string message = JsonSerializer.Serialize(new
-        {
-            type = "gameShutdown",
-            payload = new
-            {
-                reason,
-                requestedAt = DateTimeOffset.UtcNow
-            }
-        });
-
-        try
-        {
-            try
-            {
-                await BroadcastTextAsync(message, cancellationToken);
-            }
-            catch (Exception ex) when (ex is WebSocketException or IOException or OperationCanceledException)
-            {
-                Log("warn", $"Shutdown broadcast did not reach every client: {ex.Message}");
-            }
-
-            await Task.WhenAll(_clients.Values.Select(client => CloseClientAsync(client, WebSocketCloseStatus.NormalClosure, reason, cancellationToken)));
-        }
-        finally
-        {
-            _clientShutdownStarted = false;
-        }
+        return Task.WhenAll(_clients.Values.Select(client => CloseClientAsync(client, WebSocketCloseStatus.NormalClosure, reason, cancellationToken)));
     }
 
     private async Task AcceptLoopAsync(CancellationToken cancellationToken)
@@ -415,7 +381,7 @@ public sealed class WebSocketGameServer : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        await ShutdownClientsAsync("Server shutting down", CancellationToken.None);
+        await CloseAllClientsAsync("Server shutting down", CancellationToken.None);
         _shutdown.Cancel();
         _listener.Stop();
 
