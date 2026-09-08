@@ -70,7 +70,7 @@ public static class NetworkService {
 	private static Task? _lanDiscoveryTask;
 	private static LanGameServerComponent? _lanServer;
 	private static UdpWebSocketAnnouncer? _lanAnnouncer;
-	private static WebSocketGameClient? _lanClient;
+	private static LanGameClientComponent? _lanClient;
 	private static Task? _lanClientReceiveLoopTask;
 	private static TaskCompletionSource<LobbyJoinHandshake>? _pendingLobbyJoin;
 	private static TaskCompletionSource<bool>? _pendingLobbyStateSync;
@@ -274,7 +274,7 @@ public static class NetworkService {
 			throw new InvalidOperationException("Cannot join a LAN session while this process is hosting one.");
 		}
 
-		WebSocketGameClient? existingClient;
+		LanGameClientComponent? existingClient;
 		Task? existingReceiveLoop;
 		lock (Sync) {
 			existingClient = _lanClient;
@@ -301,9 +301,8 @@ public static class NetworkService {
 		}
 
 		var normalizedPlayerName = NormalizePlayerName(playerName);
-		var client = new WebSocketGameClient(new WebSocketGameClientOptions {
-			Address = announcement.Address,
-			UdpDiscover = false
+		var client = new LanGameClientComponent(new WebSocketGameClientOptions {
+			Address = announcement.Address
 		});
 		client.TextMessageReceived += HandleLanClientTextMessageReceived;
 		await client.ConnectAsync(cancellationToken).ConfigureAwait(false);
@@ -367,7 +366,7 @@ public static class NetworkService {
 		var normalizedChannel = channel.Trim();
 		var dataElement = data is null ? (JsonElement?)null : JsonSerializer.SerializeToElement(data, JsonOptions);
 
-		WebSocketGameClient? client;
+		LanGameClientComponent? client;
 		HostLobbyState? hostLobby;
 		LanGameServerComponent? server;
 		string? senderName;
@@ -398,7 +397,7 @@ public static class NetworkService {
 	}
 
 	public static async Task ShutdownLanSessionAsync() {
-		WebSocketGameClient? client;
+		LanGameClientComponent? client;
 		Task? receiveLoop;
 		UdpWebSocketAnnouncer? announcer;
 		LanGameServerComponent? server;
